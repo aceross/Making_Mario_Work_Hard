@@ -1,0 +1,34 @@
+% This file was created with JabRef 2.10.
+% Encoding: UTF-8
+
+
+@Book{Burgun:2012,
+  Title                    = {Game Design Theory: A New Philosophy for Understanding Games},
+  Author                   = {Burgun, K.},
+  Publisher                = {Taylor \& Francis},
+  Year                     = {2012},
+
+  ISBN                     = {9781466554207},
+  Lccn                     = {2012019337}
+}
+
+@Book{Goldreich:2008,
+  Title                    = {Computational Complexity: A Conceptual Perspective},
+  Author                   = {Goldreich, Oded},
+  Publisher                = {Cambridge University Press},
+  Year                     = {2008},
+
+  Address                  = {New York, NY, USA},
+  Edition                  = {1},
+
+  ISBN                     = {052188473X}
+}
+
+@Book{Gregory:2009,
+  Title                    = {Game Engine Architecture},
+  Author                   = {Gregory, Jason},
+  Publisher                = {Taylor \& Francis Ltd.},
+  Year                     = {2009},
+  Edition                  = {1}
+}
+

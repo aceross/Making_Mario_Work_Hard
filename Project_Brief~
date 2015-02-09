@@ -1,0 +1,5 @@
+There has been an increasing amount of work on the topic of the computational complexity of computer games (see for example the survey of http://arxiv.org/abs/cs/0106019). In particular, many single player computer games have been proven to be computationally hard in general. In particular, many single player games have been proven to be NP-Complete including Minesweeper, Tetris, Mario (and many other platform games), Flood-it, Candy Crush Saga and many others. 
+
+This project concerns the complexity of Mario which is known to be NP-Complete. To prove this it was shown that Mario could be forced to solve an (arbitrary) instance of the satisfying assignment problem (called SAT) - this is called a reduction. The aim of this project is to implement a simple platform game and a level generator. The level generator should take an input to the SAT problem and convert it into a Mario level. The project should also include an AI player which can play these levels by choosing a suitable path using an existing SAT solver. 
+
+The goal is to demonstrate basic concepts from computational complexity such as NP-completeness and reductions using a visual medium.
