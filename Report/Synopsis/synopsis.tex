@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+%\usepackage[T1]{fontenc}
+\usepackage{titling}
+\setlength{\droptitle}{-8em} 
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+\usepackage[margin= .75in]{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\title{Synopsis of: \textit{Making Mario Work Hard}} 
+\author{Aaron Ceross (ac14580)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Aims and Objectives}
+
+Computational complexity is a fundamental subject in understanding. Certain video games, such as \textit{Super Mario Bros}, have been shown to be NP-Complete, when it is both in NP and NP-hard.\par  
+\noindent Broadly, the aim of this thesis is to demonstrate basic concepts from computational complexity such as NP-completeness and reductions using a visual medium. This will be achieved through the creation of a simple platform game and a level generator. The level generator should take an input to a boolean satisfiability problem ('SAT problem') and convert it into a playable level. The project should also include an artificially intelligent (AI) player which can play these levels by choosing a suitable path using an existing SAT solver.
+
+\section{Deliverables}
+
+The deliverables of the project are as follows. These deliverables are ordered chronologically. This list represents a minimum set of deliverables:
+
+\begin{description}
+\item[Playable Platform Game]: The platform game will be written in C++ and displayed in SDL.\@ The game will be modelled after platform games like the \textit{Super Mario Bros} and \textit{Donkey Kong Country} series of games. The user should be able to play pre-defined levels, as with any video game. The game will also identify and teach concepts in computational complexity as the user plays.
+\item[Level Generator]: The level generator will create a playable level, using the input to the SAT problem solver. It is important that this level generation is also aesthetically acceptable to the human user so that the game remains approachable and understandable. The level generator needs to be scalable to take into account complex levels that are beyond what a human player would play. This would necessitate adapting the display engine to zoom out and display the graphics more simply. 
+\item[AI player/mechanism]: The game will include an AI element that if selected, plays through the generated level. The extended version of this would allow a user to pause a play-through and select to have the AI take over. This may include a speed-up/down option in order to reasonably watch a large complex level. 
+\end{description}
+
+\section{Added Value}
+
+The added value of this project is derived primarily from the visualisation of computational complexity in an approachable and more readily understandable format. One of the outcomes to this thesis is that creation of a powerful learning tool for students of computer science (and others interested in computational complexity). 
+
+\end{document}
