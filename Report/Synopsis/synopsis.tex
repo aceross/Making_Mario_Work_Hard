@@ -1,40 +1,55 @@
 \documentclass[a4paper]{article}
-%\usepackage[T1]{fontenc}
 \usepackage{titling}
-\setlength{\droptitle}{-8em} 
-
+\setlength{\droptitle}{-7em} 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\setlength{\parindent}{4em}
-\setlength{\parskip}{1em}
-\usepackage[margin= .75in]{geometry}
+\setlength{\parskip}{0.7em}
+\usepackage[margin= .5in]{geometry}
 \usepackage[colorinlistoftodos]{todonotes}
-
-\title{Synopsis of: \textit{Making Mario Work Hard}} 
-\author{Aaron Ceross (ac14580)}
-\date{\today}
-
+\linespread{1}
 \begin{document}
-\maketitle
+
+\begin{center}\Huge Synopsis of: \textit{Making Mario Work Hard}
+\par \Large Aaron Ceross (ac14580)
+\end{center}
 
 \section{Aims and Objectives}
 
-Computational complexity is a fundamental subject in understanding. Certain video games, such as \textit{Super Mario Bros}, have been shown to be NP-Complete, when it is both in NP and NP-hard.\par  
-\noindent Broadly, the aim of this thesis is to demonstrate basic concepts from computational complexity such as NP-completeness and reductions using a visual medium. This will be achieved through the creation of a simple platform game and a level generator. The level generator should take an input to a boolean satisfiability problem ('SAT problem') and convert it into a playable level. The project should also include an artificially intelligent (AI) player which can play these levels by choosing a suitable path using an existing SAT solver.
+The aim of this research is to visualise computational complexity such as NP-completeness and reductions using an approachable medium. A solution to an NP-complete problem can be verified quickly, though an existing solution is not known in the first place. The time to solve a problem with a known algorithm will increase with the size of the problem, necessitating the need for revised algorithm. 
+\par \noindent Certain video games, such as \textit{Super Mario Bros}, have been shown to be NP-complete, constituting an approachable medium to visualise concepts in computational complexity. The game should have (a) a level generator to take an input to a boolean satisfiability problem ('SAT problem') and convert it into a playable level and (b) an artificially intelligent (AI) player which can play these levels by choosing a suitable path using an existing SAT solver. This research is divided between 66\% Type I (Implementation) and 33\% Type II (Investigation). 
+\par \noindent The objectives of this research are therefore to:
+\begin{enumerate}
+  \item Develop a playable platform game which is NP-complete [Week 17 --- SE2, 23 February --- 24 May 2015];
+  \item Develop a level-generator algorithm for scaling complex problems [EV1 --- SV4];
+  \item Develop AI that successfully plays the generated level [EV1 --- SV4];
+  \item Evaluate level-generation  and AI algorithms [Week X --- Week X];
+\end{enumerate}
 
 \section{Deliverables}
+\begin{itemize}
+  \item \textbf{D.1 Foundational Work}, Weeks 17 --- 21 (23 February --- 29 March 2015):
 
-The deliverables of the project are as follows. These deliverables are ordered chronologically. This list represents a minimum set of deliverables:
-
-\begin{description}
-\item[Playable Platform Game]: The platform game will be written in C++ and displayed in SDL.\@ The game will be modelled after platform games like the \textit{Super Mario Bros} and \textit{Donkey Kong Country} series of games. The user should be able to play pre-defined levels, as with any video game. The game will also identify and teach concepts in computational complexity as the user plays.
-\item[Level Generator]: The level generator will create a playable level, using the input to the SAT problem solver. It is important that this level generation is also aesthetically acceptable to the human user so that the game remains approachable and understandable. The level generator needs to be scalable to take into account complex levels that are beyond what a human player would play. This would necessitate adapting the display engine to zoom out and display the graphics more simply. 
-\item[AI player/mechanism]: The game will include an AI element that if selected, plays through the generated level. The extended version of this would allow a user to pause a play-through and select to have the AI take over. This may include a speed-up/down option in order to reasonably watch a large complex level. 
-\end{description}
+    \begin{itemize} 
+      \item This includes items such as: D.1.1 Research Plan, D.1.2 Literature Review, D.1.3 Identification of relevant algorithms and methodologies and D.1.4 Creation of success criteria for level-generator and AI.
+    \end{itemize}
+  \item \textbf{D.2 Platform Game Development}, EV1 --- SE2 (30 March --- 24 May 2015): 
+    \begin{itemize} 
+      \item D.2.1 The platform game written in C++, using the Simple DirectMedia Layer (SDL) development library to manage audio, movement input, and graphics.
+      \item D.2.2 Level Generator: creates a playable level, using the input to the SAT problem solver. It is important that this level generation is also aesthetically acceptable to the human user so that the game remains approachable and understandable. The level generator needs to be scalable to take into account complex levels that are beyond what a human player would play. This would necessitate adapting the display engine to zoom out and display the graphics more simply. 
+      \item D.2.3 AI mechanism: plays through the generated level. The extended version of this would allow a user to pause a play-through and select to have the AI take over. This may include a speed-up/down option in order to reasonably watch a large complex level. 
+    \end{itemize}
+  \item \textbf{D.3 Testing}, SE4 --- SV4 (1 June --- 5 July 2015):
+      \begin{itemize} 
+      \item The tests will include (a) scalability testing of level-generation algorithm(s) (b) Testing of AI algorithm(s) and (c) User-acceptance testing (Qualitative feedback from students and lecturers);
+    \end{itemize}
+  \item \textbf{D.4 Evaluation and Data Analysis}
+      \begin{itemize} 
+      \item Data analysis of testing outcomes across the game, level generator, and AI.
+    \end{itemize}
+\end{itemize}
 
 \section{Added Value}
 
-The added value of this project is derived primarily from the visualisation of computational complexity in an approachable and more readily understandable format. One of the outcomes to this thesis is that creation of a powerful learning tool for students of computer science (and others interested in computational complexity). 
+The added value of this project is derived primarily from the visualisation of computational complexity in an approachable and more readily understandable format. One of the outcomes to this thesis is that creation of a powerful learning tool for students of computer science (and others interested in computational complexity). Furthermore, this could have impact on concepts of game design and content generation. 
 
 \end{document}
