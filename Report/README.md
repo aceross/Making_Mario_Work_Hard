@@ -7,4 +7,4 @@ Thesis Report Journal
 
 9 Feb 2015
 ----------
-Created repo for MSc Thesis
+* Created repo for MSc Thesis
