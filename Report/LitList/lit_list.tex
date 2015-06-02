@@ -1,0 +1,101 @@
+\documentclass[a4paper]{article}
+% \usepackage{natbib}
+\usepackage{bibentry}
+\nobibliography*
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\setlength{\parskip}{0.7em}
+\usepackage[margin= .5in]{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+\linespread{1}
+% \pagenumbering{gobble}
+
+\begin{document}
+
+\begin{center}\huge Literature List for \textit{Making Mario Work Hard}
+\par \Large Aaron Ceross (ac14580)
+\end{center}
+\vspace{-10mm}
+\par \noindent
+
+\section{Scope}
+
+\vspace{-5mm}
+\par \noindent This literature list describes the preliminary investigations into the fundamental research areas of the proposed project. Each of these areas is represented in the \textit{\textbf{Key Publications}} section, which will evolve with the proposed project’s development. The research areas are identified as:
+\vspace{-5mm}
+
+\begin{itemize}
+  \item Boolean satisfiability problems (SAT)/ computational complexity (with particular interest to applicability to 2D platform video games): The proposed project aims to visualise computational complexity using a video game platform. It is therefore important for the research to understand the mechanisms and elements of a 2D platform video game which make it NP-Complete. This area is linked to the design of the level generator and ensures that the SAT solver is solving an NP-Complete problem.
+
+  \item Level-generation algorithms for video games: NP-Complete level-generation is a core functionality of the game being developed for the proposed project. The research in this area is concerned with evaluating and selecting an appropriate method for the level-generation in the game, as there exists a diversity of methods and considerations. Importantly, these levels need to be designed and generated efficiently as well as contain a design scheme which is familiar to the user.
+
+  \item Artificial Intelligence (AI) in games: The objectives of the research seek to implement an AI agent to solve a randomly generated level. There are several methods available for developing and teaching an AI agent to play a game. The research in this area focuses on identifying the most expedient and effective implementation for the purposes of the proposed project.
+\end{itemize}
+
+\vspace{-5mm}
+\section{Key Publications}
+\vspace{-5mm}
+\par \noindent The following list represents the currently identified key publications for the proposed research.
+\begin{enumerate}
+
+  \item \bibentry{Aloupis2012}
+  \par \noindent This paper establishes that a 2D platform game like \textit{Super Mario Bros} is NP-Complete, and can be used to visualise computational complexity. This paper does this by specifically identifying and deconstructing the game elements that make 2D platform games are NP-Complete. In the paper, these game elements were then constructed to solve a 3-SAT problem.
+
+  \item \bibentry{mourato2011automatic}
+  \par \noindent This study explores the usage of genetic algorithms for level generation in a 2D platform game. The authors approached this as ``a search problem'', in that the algorithm solves a problem (in this case level generation) using a solution from a (possibly infinite) solution set. The paper distinguishes this method from the ``rhythm based approach'', which repeats a pattern at certain time intervals and the ``chunk based approach'', which relies on content created beforehand as pre-authored chunks which is then replicated and pieced together. The results of the paper highlight the speed and diversity using genetic algorithms. It is found that the genetic algorithm is preferable to the other approaches in this regard. The proposed project will expand upon this to work by evaluating the efficiency and feasibility of a genetic algorithm to create NP-Complete levels at a large scale.
+
+  \item \bibentry{dixon2004generalizingt}
+  \par \noindent This work is a comprehensive overview of existing research into SAT solvers. It provides a clear and concise description of Boolean satisfiability theory and the solver engines that have been created since the founding of the field in 1962 with the Davis-Putnam-Logemann-Loveland algorithm. The paper highlights the impact of these major research milestones and explains how SAT solvers work in detail. The paper does, however, acknowledge that it ignores heuristic search, creating a bias in the literature presented. This type of search will be investigated later in the proposed project in order to evaluate its applicability.
+
+  \item \bibentry{karakovskiy2012mario}
+  \par \noindent The authors of this paper have created a benchmark for 2D platform video game AI (in this case, playing an open-source clone of \textit{Super Mario Bros}), which has spawned competitions (see \textit{Other Publications} below for further references related to these competitions). The work contains an overview of the AI learning algorithms and techniques employed to solve levels in a \textit{Super Mario Bros} game. This is work may be distinguished from the proposed project as the authors are not puposefully trying to develop AI to solve scaled computational complexity but rather the game in and of itself. Nonetheless, the work is highly informative for the proposed project's AI development.
+
+\end{enumerate}
+\vspace{-5mm}
+\section{Other Publications}
+\vspace{-5mm}
+\par \noindent This section contains a selection of further works that have been reviewed and identified as useful resources which is directly applicable to the research objectives of the proposed project. These works either provide references to the fundamental concepts outlined in the previous section or extend upon them. They are grouped according to subject matter and brief notes are included where needed.
+
+\subsection{Computational Complexity and Video Games, Boolean Satisfiability}
+\begin{itemize}
+  \item \bibentry{DBLP:journals/corr/GualaLN14} \vspace{-2.5mm}
+  \item \bibentry{balyo2010solving} \vspace{-2.5mm}
+  \item \bibentry{5756645} \vspace{-2.5mm}
+  \item \bibentry{dixon2004generalizing} \vspace{-2.5mm}
+  \item \bibentry{dixon2005generalizing}
+  \par \noindent The latter two items are read in conjunction with \textbf{\textit{Key Publication}} No. 3
+\end{itemize}
+
+\subsection{Level Generation}
+\begin{itemize}
+  \item \bibentry{5756645} \vspace{-2.5mm}
+  \item \bibentry{mcguinness2011decomposing} \vspace{-2.5mm}
+  \item \bibentry{togelius2011procedural} \vspace{-2.5mm}
+  \item \bibentry{6017222} \vspace{-2.5mm}
+  \item \bibentry{Shaker2011} \vspace{-2.5mm}
+\end{itemize}
+
+\subsection{Video Game AI}
+\begin{itemize}
+  \item \bibentry{togelius2013mario} \vspace{-2.5mm}
+  \item \bibentry{perez2011evolving} \vspace{-2.5mm}
+  \item \bibentry{bojarski2010realm} \vspace{-2.5mm}
+\end{itemize}
+
+\subsection{Game Development}
+\begin{itemize}
+  \item \bibentry{Gregory:2009}
+    \par \noindent The proposed project is 66\% Type I (software/hardware development) and therefore has a strong focus on the implementation and demonstration of the research. This work will act as a primary reference guide for the development of the 2D game itself. This book explains the core concepts of game engine design and unit testing in the C++ programming language, which is used extensively for video game development.
+\end{itemize}
+\vspace{-5mm}
+\subsection{Video games as a teaching platform}
+\vspace{-5mm}
+\par \noindent These references can aid understanding how technology can be used as a teaching tool (an objective identified in the synopsis of this research). This can help inform the user-acceptance tests of the game.
+\begin{itemize}
+  \item \bibentry{elmaghraby2010technological} \vspace{-2.5mm}
+  \item \bibentry{rebolledo2006can}
+\end{itemize}
+
+\bibliographystyle{abbrv}
+\bibliography{references.bib}
+\end{document}

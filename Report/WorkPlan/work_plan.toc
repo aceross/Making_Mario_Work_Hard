@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}Executive Summary}{2}
+\contentsline {subsection}{\numberline {1.1}Overview}{2}
+\contentsline {subsection}{\numberline {1.2}Project goals}{2}
+\contentsline {subsection}{\numberline {1.3}Methodology}{2}
+\contentsline {subsection}{\numberline {1.4}Expected project outcomes and added value}{2}
+\contentsline {section}{\numberline {2}Expected Timeline}{3}
+\contentsline {subsection}{\numberline {2.1}Overview}{3}
+\contentsline {subsubsection}{\numberline {2.1.1}The dynamic nature of projects}{3}
+\contentsline {subsubsection}{\numberline {2.1.2}Project management structure}{3}
+\contentsline {subsection}{\numberline {2.2}Work Packages and Deliverables}{4}
+\contentsline {subsubsection}{\numberline {2.2.1}Work Package 1 --- Foundational Work}{4}
+\contentsline {subsubsection}{\numberline {2.2.2}Work Package 2 --- Core Game Engine Development}{5}
+\contentsline {subsubsection}{\numberline {2.2.3}Work Package 3 --- Engine Integration with SAT Solving Software}{5}
+\contentsline {subsubsection}{\numberline {2.2.4}Work Package 4 --- Level Generation}{6}
+\contentsline {subsubsection}{\numberline {2.2.5}Work Package 5 --- Experiments with Complexity Classes}{6}
+\contentsline {subsubsection}{\numberline {2.2.6}Work Package 6 --- Project Evaluation and Thesis Write-up}{7}
+\contentsline {subsubsection}{\numberline {2.2.7}List and schedule of Deliverables}{8}
+\contentsline {subsection}{\numberline {2.3}Milestones}{9}
+\contentsline {subsection}{\numberline {2.4}Gantt Chart}{10}
+\contentsline {section}{\numberline {3}Risk analysis and contingency plan}{11}
+\contentsline {subsection}{\numberline {3.1}Risk assessment methodology}{11}
+\contentsline {subsection}{\numberline {3.2}Table of Risks and Contingencies}{11}
+\contentsline {subsubsection}{\numberline {3.2.1}Managing high impact risks}{12}
+\contentsline {section}{\numberline {4}Significant progress made towards the project}{13}
+\contentsline {subsection}{\numberline {4.1}Preliminary prototype}{13}
+\contentsline {subsection}{\numberline {4.2}Future Work}{13}
+\contentsline {section}{References}{14}

@@ -1,0 +1,117 @@
+\begin{thebibliography}{10}
+
+\bibitem{Aloupis2012}
+G.~Aloupis, E.~D. Demaine, and A.~Guo.
+\newblock Classic {N}intendo games are ({NP}-){H}ard.
+\newblock {\em CoRR}, abs/1203.1895, 2012.
+
+\bibitem{balyo2010solving}
+T.~Balyo.
+\newblock {\em Solving Boolean satisfiability problems}.
+\newblock PhD thesis, Charles University, Prague, 2010.
+
+\bibitem{bojarski2010realm}
+S.~Bojarski and C.~B. Congdon.
+\newblock Realm: A rule-based evolutionary computation agent that learns to
+  play {M}ario.
+\newblock In {\em Computational Intelligence and Games, 2010 IEEE Symposium
+  on}, pages 83--90. IEEE, 2010.
+
+\bibitem{dixon2005generalizing}
+H.~E. Dixon, M.~L. Ginsberg, D.~Hofer, E.~M. Luks, and A.~J. Parkes.
+\newblock Generalizing {B}oolean satisfiability {III}: Implementation.
+\newblock {\em Journal of Artificial Intelligence Research}, pages 441--531,
+  2005.
+
+\bibitem{dixon2004generalizingt}
+H.~E. Dixon, M.~L. Ginsberg, E.~M. Luks, and A.~J. Parkes.
+\newblock Generalizing {B}oolean satisfiability {II}: Theory.
+\newblock {\em Journal of Artificial Intelligence Research}, pages 481--534,
+  2004.
+
+\bibitem{dixon2004generalizing}
+H.~E. Dixon, M.~L. Ginsberg, and A.~J. Parkes.
+\newblock Generalizing {B}oolean satisfiability {I}: {B}ackground and survey of
+  existing work.
+\newblock {\em Journal of Artificial Intelligence Research}, 21:193--243, 2004.
+
+\bibitem{elmaghraby2010technological}
+A.~S. Elmaghraby, B.~G. Zapirainc, and R.~V. Yampolskiy.
+\newblock Technological games as a tool for teaching engineering.
+\newblock {\em Proceedings of International Conference on Engineering and
+  Technology Education}, 11, 2010.
+
+\bibitem{Gregory:2009}
+J.~Gregory.
+\newblock {\em Game Engine Architecture}.
+\newblock Taylor \& Francis Ltd., {F}irst edition, 2009.
+
+\bibitem{DBLP:journals/corr/GualaLN14}
+L.~Gual{\`{a}}, S.~Leucci, and E.~Natale.
+\newblock Bejeweled, candy crush and other match-three games are (np-)hard.
+\newblock {\em CoRR}, abs/1403.5830, 2014.
+
+\bibitem{karakovskiy2012mario}
+S.~Karakovskiy and J.~Togelius.
+\newblock The {M}ario {AI} benchmark and competitions.
+\newblock {\em Computational Intelligence and AI in Games, IEEE Transactions
+  on}, 4(1):55--67, 2012.
+
+\bibitem{mcguinness2011decomposing}
+C.~McGuinness and D.~Ashlock.
+\newblock Decomposing the level generation problem with tiles.
+\newblock In {\em Evolutionary Computation (CEC), 2011 IEEE Congress on}, pages
+  849--856. IEEE, 2011.
+
+\bibitem{mourato2011automatic}
+F.~Mourato, M.~P. dos Santos, and F.~Birra.
+\newblock Automatic level generation for platform videogames using genetic
+  algorithms.
+\newblock In {\em Proceedings of the 8th International Conference on Advances
+  in Computer Entertainment Technology}, page~8. ACM, 2011.
+
+\bibitem{perez2011evolving}
+D.~Perez, M.~Nicolau, M.~O’Neill, and A.~Brabazon.
+\newblock Evolving behaviour trees for the {M}ario {AI} competition using
+  grammatical evolution.
+\newblock In {\em Applications of Evolutionary Computation}, pages 123--132.
+  Springer, 2011.
+
+\bibitem{rebolledo2006can}
+G.~Rebolledo-Mendez.
+\newblock How can video-games deliver educational content in an intelligent
+  fashion.
+\newblock In {\em Proceedings of the 9th HCT postgraduate workshop University
+  of Sussex, UK}. Citeseer, 2006.
+
+\bibitem{Shaker2011}
+N.~Shaker, J.~Togelius, G.~N. Yannakakis, B.~Weber, T.~Shimizu, T.~Hashiyama,
+  N.~Sorenson, P.~Pasquier, P.~Mawhorter, G.~Takahashi, et~al.
+\newblock The 2010 {M}ario {AI} {C}hampionship: Level generation track.
+\newblock {\em Computational Intelligence and AI in Games, IEEE Transactions
+  on}, 3(4):332--347, 2011.
+
+\bibitem{togelius2011procedural}
+J.~Togelius, E.~Kastbjerg, D.~Schedl, and G.~N. Yannakakis.
+\newblock What is procedural content generation?: Mario on the borderline.
+\newblock In {\em Proceedings of the 2nd International Workshop on Procedural
+  Content Generation in Games}, page~3. ACM, 2011.
+
+\bibitem{togelius2013mario}
+J.~Togelius, N.~Shaker, S.~Karakovskiy, and G.~N. Yannakakis.
+\newblock The {M}ario {AI} {C}hampionship 2009-2012.
+\newblock {\em AI Magazine}, 34(3):89--92, 2013.
+
+\bibitem{6017222}
+J.~Togelius, J.~Whitehead, and R.~Bidarra.
+\newblock Guest editorial: Procedural content generation in games.
+\newblock {\em Computational Intelligence and AI in Games, IEEE Transactions
+  on}, 3(3):169--171, Sept 2011.
+
+\bibitem{5756645}
+J.~Togelius, G.~Yannakakis, K.~Stanley, and C.~Browne.
+\newblock Search-based procedural content generation: A taxonomy and survey.
+\newblock {\em Computational Intelligence and AI in Games, IEEE Transactions
+  on}, 3(3):172--186, Sept 2011.
+
+\end{thebibliography}

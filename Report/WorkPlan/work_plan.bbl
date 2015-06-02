@@ -1,0 +1,63 @@
+\begin{thebibliography}{10}
+
+\bibitem{Aloupis2012}
+G.~Aloupis, E.~D. Demaine, and A.~Guo.
+\newblock Classic {N}intendo games are ({NP}-){H}ard.
+\newblock {\em CoRR}, abs/1203.1895, 2012.
+
+\bibitem{cook1971complexity}
+S.~A. Cook.
+\newblock The complexity of theorem-proving procedures.
+\newblock In {\em Proceedings of the third annual ACM symposium on Theory of
+  computing}, pages 151--158. ACM, 1971.
+
+\bibitem{cook1984can}
+S.~A. Cook.
+\newblock Can computers routinely discover mathematical proofs?
+\newblock {\em Proceedings of the American Philosophical Society}, pages
+  40--43, 1984.
+
+\bibitem{DBLP:conf/fun/Forisek10}
+M.~Fori{\v{s}}ek.
+\newblock Computational complexity of two-dimensional platform games.
+\newblock In {\em Fun with Algorithms, 5th International Conference, {FUN}
+  2010, Ischia, Italy, June 2-4, 2010. Proceedings}, pages 214--227, 2010.
+
+\bibitem{fu2004zchaff}
+Z.~Fu, Y.~Marhajan, and S.~Malik.
+\newblock z{c}haff {SAT} solver, 2004.
+
+\bibitem{gomes2008satisfiability}
+C.~P. Gomes, H.~Kautz, A.~Sabharwal, and B.~Selman.
+\newblock Satisfiability solvers.
+\newblock {\em Foundations of Artificial Intelligence}, 3:89--134, 2008.
+
+\bibitem{Hendrikx:2013:PCG:2422956.2422957}
+M.~Hendrikx, S.~Meijer, J.~Van Der~Velden, and A.~Iosup.
+\newblock Procedural content generation for games: A survey.
+\newblock {\em ACM Trans. Multimedia Comput. Commun. Appl.}, 9(1):1:1--1:22,
+  Feb. 2013.
+
+\bibitem{mawhorter2010procedural}
+P.~Mawhorter and M.~Mateas.
+\newblock Procedural level generation using occupancy-regulated extension.
+\newblock In {\em Computational Intelligence and Games (CIG), 2010 IEEE
+  Symposium on}, pages 351--358. IEEE, 2010.
+
+\bibitem{sorensson2005minisat}
+N.~Sorensson and N.~Een, N.n.
+\newblock Minisat v1. 13-a sat solver with conflict-clause minimization.
+\newblock {\em SAT}, 2005:53, 2005.
+
+\bibitem{zhang1997sato}
+H.~Zhang.
+\newblock Sato: An efficient prepositional prover.
+\newblock In {\em Automated Deduction—CADE-14}, pages 272--275. Springer,
+  1997.
+
+\bibitem{zhang2002quest}
+L.~Zhang and S.~Malik.
+\newblock The quest for efficient {B}oolean satisfiability solvers.
+\newblock In {\em Computer Aided Verification}, pages 17--36. Springer, 2002.
+
+\end{thebibliography}

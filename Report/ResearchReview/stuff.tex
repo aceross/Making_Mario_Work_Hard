@@ -1,0 +1,374 @@
+%%%%%%%%GOMES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% A propositional or Boolean formula is a logic expressions defined over variables (or atoms) that
+% take value in the set { FALSE , TRUE }, which we will identify with {0, 1}. A truth assignment (or
+% assignment for short) to a set V of Boolean variables is a map $\sigma$ : V $\leftrightarrow$ {0,
+% 1}. A satisfying assignment for F is a truth assignment $\sigma$ such that F evaluates to 1 under
+% $\sigma$ . 
+
+
+% We will be interested in propositional formulas in a certain special form: F is in
+% conjunctive normal form (CNF) if it is a conjunction (AND, $\wedge$) of clauses, where each clause
+% is a disjunction (OR, $\vee$) of literals, and each literal is either a variable or its negation
+% (NOT, $\neg$). For example, F = (a $\vee$ $\neg$b) $\wedge$ ($\neg$a $\vee$ c $\vee$ d) $\wedge$ (b
+% $\vee$ d) is a CNF formula with four variables and three clauses. 
+
+
+% The Boolean Satisfiability Problem
+% (SAT) is the following: Given a CNF formula F, does F have a satisfying assignment? This is the
+% canonical NP-complete problem [51, 147]. In practice, one is not only interested in this decision
+% (“yes/no”) problem, but also in finding an actual satisfying assignment if there exists one. All
+% practical satisfiability algorithms, known as SAT solvers, do produce such an assignment if it
+% exists. It is natural to think of a CNF formula as a set of clauses and each clause as a set of
+% literals. We use the symbol $\wedge$ to denote the empty clause, i.e., the clause that contains no
+% literals and is therefore unsatisfiable. A clause with only one literal is referred to as a unit
+% clause. $\wedge$(but different) clause with two literals is referred to as a binary clause. When
+% every clause of F has k literals, we refer to F as a k-CNF formula. The SAT problem restricted to
+% 2-CNF formulas is solvable in polynomial time, while for 3-CNF formulas, it is already NP-complete.
+% A partial assignment for a formula F is a truth assignment to a subset of the variables of F. For a
+% partial assignment p for a CNF formula F, F line p denotes the simplified formula obtained by
+% replacing the variables appearing in P with their specified values, removing all clauses with at
+% least one TRUE literal, and deleting all occurrences of FALSE literals from the remaining clauses.
+% CNF is the generally accepted norm for SAT solvers because of its simplicity and usefulness; indeed,
+% many problems are naturally expressed as a conjunction of relatively simple constraints.
+
+
+
+% - http://www.cs.rochester.edu/u/kautz/walksat/
+% - http://vlsicad.eecs.umich.edu/BK/Slots/cache/sat.inesc.pt/~jpms/grasp/
+
+
+
+%%%%%GOMES%%%%%
+
+% An incomplete method for solving the SAT problem is one that does not provide
+% the guarantee that it will eventually either report a satisfying assignment or prove
+% the given formula unsatisfiable. Such a method is typically run with a pre-set limit,
+% after which it may or may not produce a solution. Unlike the systematic solvers
+% based on an exhaustive branching and backtracking search, incomplete methods are
+% generally based on stochastic local search. On problems from a variety of domains,
+% such incomplete methods for SAT can significantly outperform DPLL -based methods.
+
+% %%%%GOMES%%%%%%%
+
+
+
+% SAT problems are used in a variety of applications, including automated reasoning as well as
+% software and hardware verification \cite{velev2003effective}
+
+%%%%%%%Baylo%%%%%%%%
+
+
+% Each NP problem can be converted to the problem in polynomial time. If any NPC problem can be solved
+% in polynomial time then P=NP, where P is the complexity class of problems solvable in polynomial
+% time. It is unknown whether P=NP, but many believe the answer is negative
+% \cite{Gasarch:2012:GCS:2261417.2261434}. In that case it is impossible to construct a polynomial
+% algoriithm for SAT solving in the current computational model. 
+
+
+
+
+% \subsubsection{Definitions in Boolean}
+
+
+% % Every sentence constructed by Boolean connectives must be enclosed in parenthesis. We can use order
+% % of presendence. The order of precedence in propositional logic is (from highest to lowest): $\neg$,
+% % $\wedge$, $\vee$, $\leftarrow$, $\leftrightarrow$
+
+% \section{What are SATs?}
+
+
+
+
+% % Ex: a AND NOT b is satisfiable because one can find the values a = TRUE and b = FALSE which make the
+% % formula TRUE. In contrast, a AND NOT a is unsatisfiable.
+
+% % SAT is one of the first problems that was proven to be NP-complete.  
+
+% This means that all problems in the complexity class NP, which includes a wide range of natural
+% decision and optimisation problems, are in a technical sense equally difficult to solve as SAT\@.
+% There is no known algorithm that efficiently solves SAT, and it is generally believed that no such
+% algorithm exists.
+
+% SAT algorithms may be based on any number of principles, from search as well as be complete or
+% stochastic.
+
+
+
+% \section{Theory and concepts}
+
+% \section{SAT solvers in consideration for the project}
+
+
+
+% %%%%%%%%%%
+
+
+% Search-based algorithms are based on DPLL \cite{zhang2002quest}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Generalising Boolean Satisfiability I
+
+% - paper does not discuss heuristic search because the authors feel that heuristics can obscure the
+% - natural structure in a search problem.
+
+% Satisfiability starts with the introduction of the Davis-Putnam-Logemann-Loveland algorithm (1962)
+
+% There are many easy problems with which Boolean satisfiability engines struggle. These include
+% problems involving parity, the well known 'pigeonhole problem' (stating that you cannot put n + 1
+% pigeons into n holes if each pigeon needs its own hole), and problems that are described most
+% naturally using a first-order as opposed to a ground representation.
+
+% Boolean satisfiability definitions:  a variable is simply a letter that can be either TRUE or FALSE
+% A literal is either a variable or the negation of a variables A clause is a disjunction of literals
+% A Boolean satisfiability problem (in conjunctive normal form), or a SAT problem is a junction of
+% clauses A solution to a SAT problem C is an assignment of values to each of the letters so that
+% every clause in C is satisfied Satisfiability of SAT instances are well-known to be NP-Complete
+% (Cook, 1971)
+
+
+% \textbf{Randomized restarts}, introduced by Gomes , allow
+% clause learning algorithms to arbitrarily stop the search and restart their branching process from
+% de- cision level zero. All clauses learned so far are retained and now treated as additional initial
+% clauses. Most of the current SAT solvers, starting with . This has been shown to
+% help immensely in reducing the solution time. Theoretically, unlimited restarts, performed at the
+% correct step, can provably make clause learning very powerful. We will discuss randomized restarts
+% in more detail later in the chapter. %%%%%%%%%%%%%%%%%%%%%%
+
+
+% The key idea behind the watched
+% literals scheme, as the name suggests, is to maintain and “watch” two special literals for each
+% active (i.e., not yet satisfied) clause that are not FALSE under the current partial assignment;
+% these literals could either be set to TRUE or be as yet unassigned. Recall that empty clauses halt
+% the DPLL process and unit clauses are immediately satisfied. Hence, one can always find such watched
+% literals in all active clauses. Further, as long as a clause has two such literals, it cannot be
+% involved in unit propagation. These literals are maintained as follows. Suppose a literal $\ell$ is
+% set to FALSE . We perform two maintenance operations. First, for every clause C that had $\ell$ as a
+% watched literal, we examine C and find, if possible, another literal to watch (one which is TRUE or
+% still unassigned). Second, for every previously active clause C 0 that has now become satisfied
+% because of this assignment of ` to FALSE , we make $\neg$ $\ell$ a watched literal for C 0 . By
+% performing this second step, positive literals are given priority over unassigned literals for being
+% the watched literals. With this setup, one can test a clause for satisfiability by simply checking
+% whether at least one of its two watched literals is TRUE . Moreover, the relatively small amount of
+% extra book- keeping involved in maintaining watched literals is well paid off when one unassigns a
+% literal ` by backtracking—in fact, one needs to do absolutely nothing! The invariant about watched
+% literals is maintained as such, saving a substantial amount of computation that would have been done
+% otherwise. This technique has played a critical role in the success of SAT solvers, in particular
+% those involving clause learn- ing. Even when large numbers of very long learned clauses are
+% constantly added to the clause database, this technique allows propagation to be very efficient—the
+% long added clauses are not even looked at unless one assigns a value to one of the literals being
+% watched and potentially causes unit propagation
+
+% \textbf{Conflict clause minimization} was introduced by Een and Srensson [71] in their solver
+% MiniSat . The idea is to try to reduce the size of a learned conflict clause C by repeatedly
+% identifying and removing any literals of C that are implied to be FALSE when the rest of the
+% literals in C are set to FALSE . This is achieved using the subsumption resolution rule, which lets
+% one derive a clause A from (x $\vee$ A) and ($\neg$x $\vee$ B) where B  $\subseteq$ A (the derived
+% clause A subsumes the antecedent (x $\vee$ A)). This rule can be generalized, at the expense of
+% extra computational cost that usually pays off, to a sequence of subsumption resolution derivations
+% such that the final derived clause subsumes the first antecedent clause.
+
+
+% The consider
+
+% \subsection{Random seeds vs parameter vectors}
+
+% Typically, PCG algorithms create a specific content instance from a short description
+% (parameterisation or seed), which is in some way smaller than the 'expanded' content instnace. The
+% generation process is often, but not always, partly random.
+
+% Random seeds vs parameter vectors
+
+% - distinction concerning the generation algorithm itself – what extent can it be parameterised.
+
+% Patterns apparent in the survey -  more represent the content as expression trees and all use
+% simulation-based evaluation functions. This could be due to the inherent similarity of rules to
+% program code, which is often represented in tree form in genetic programming, and the apparent
+% hardness of devising direct evaluation functions for rules.
+
+
+%%%%%%%%%%%%
+
+
+% this model estimates the entertainment value of game levels according to the presence of rhythm
+% groups - these are defined as alternating periods of low and high challenge. The generative system
+% represents a novel combination of genetic algorithms and constraint satisfaction methods and uses
+% the model as a fitness function for the generation of fun level for two different games. This top-
+% down approach improves upon typical bottom-up techniques in providing semantically meaningful
+% parameters such as difficulty and player skill; in giving human designers considerable control over
+% the output of the generative system and in offering to create levels for different types of games.
+
+
+% There is interest in using generative computational algorithms to mitigate the cost of authoring
+% game content .  – J. Togelius, G. Yannakakis, K. Stanley, and C. Browne, “Search- based procedural
+% content generation,” in Applications of Evolutionary Computation, ser. Lecture Notes in Computer
+% Science, vol. 6024. Berlin, Heidelberg: Springer Berlin / Heidelberg, 2010, pp. 141–150. [Online].
+% Available: http://dx.doi.org/10.1007/978-3-642-12239-2 15
+
+% Procedural content generation seen in games like Rogue  - M. Toy, G. Wichman, K. Arnold, and J.
+% Lane, Rogue. Artificial Intelligence Design, 1983.
+
+% This study adheres to a top-down approach as opposed to a bottom-up, rule-based approach. The bottom
+% up system create levels through an iterative execution of a number of production rules or through an
+% ad-hoc assortment deeply nested conditional branches and lengthing switch statements with no
+% overaching design. This design is difficult to debug due to its lack of modularity.
+
+% Procedural content creation or generation is an area of active research with many different
+% approaches existing. Cameron Browne [7] employs genetic algorithms to construct combinatorial
+% abstract games similar to chess and go.
+
+
+
+% Smith et al [10] introduce a mixed-initiative design tool for the creation of 2D platform games.
+% Their tool allows certain portions to be specified by hand, with the rest constructed according to a
+% rule-based system. This systems produces levels that conform to a rhythm-group structure, with
+% contiguous periods of challenge interspersed with moments of rest. Although our work shares the goal
+% of permitting human designers a great deal of influence over the system's output, we express
+
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+
+
+
+% Focus of work was to produce reliability in PCG for platform games. Used Mario.
+
+% In previous work has identified catastrophic failures in offline level generation for Mario.
+
+% Over the last decade most of the research is on building intelligent opponents/controllers for
+% games that will provide users with a more challenging environment – REALM for Mario Bros [4]
+
+% The main objective of PCG is to produce gaming content (e.g. levels, maps) automatically through
+% some pseudo-random process that enhances the entertainment value of the game.
+
+% PCG is successfully used to produce smaller elements of games such as trees and rocks [6].
+
+% A game that has practically infinite levels can generate replay value. [7]
+
+% This paper presents the MOTE (Marius on the edge) technique. The level generation process used in
+% MOTE is adaptive i.e. depending on the previous performance of player and will enhance the
+% quality of level generation process.
+
+% Failures include making a level unplayable or producing a very simple level. Catastrophic failures
+% damage the reliability of games and hence PCG cannot be introduced into the commercial market where
+% reliability and accuracy are significant. [7]
+
+
+
+
+
+
+
+
+
+
+
+
+% Identification of catastrophic failures
+
+% Catastrophic failures are reliability issues. These failures can make the game unplayable or
+% aesthetically unattractive.
+
+% For experimentation we selected the PCG game explained in [10] and identified some catastrophic
+% failures in offline level generation for Mario.
+
+
+
+% Optional content can be out of play or unreachable. This is bad. 
+
+% In offline level generation, when the player dies too early, the algorithm does not know what to do next as there is very limited data to work with. It therefore generates very simple levels. This is unreliable. 
+
+% The purpose in level generation is to create ones that are 
+% random
+% adaptive
+% catastrophic failures free
+
+% The logic algorithm of MOTE 
+% generate a random level
+% if key recorded have some values, then perform the following action on given key
+% if key pressed is jump 
+% generate block and select type from random seed
+% if key pressed is jump released
+% increase height
+% fulfill constraints
+% if key pressed is fire
+% create enemies randomly
+% else
+% generate random level-generation
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Research has been published on \textit{how} to specifically design levels using PGC techniques, such
+% the proposed by Linden\textit{et al.} \@\cite{linden2013designing}. This game is distinguished from
+% the research project in that the authors focused on a 3D ``dungeon crawler'' game (rather than the
+% project's 2D platformer). Nevertheless, the insights are useful.
+
+% The method outlined proposes the use of graph grammars, which are derived from constraints from the
+% designer. This in turn generates the sequence of desired player action. These action graphs are used
+% as the basis for the spatial structure and content of game levels; they guide the layout process and
+% indicate the required content related to such actions.
+
+% Procedural content generation (PCG) is the research field that concerns itself with the algorithmic
+% creation of virtual content. It has found commercial application in: Battlefield 3, which uses
+% SpeedTree to generate and place vegetation Borderlands series, which uses PCG to produce in-game
+% weapons Left 4 Dead series, which generates enemies Diablo series, which has static locations but
+% generates parts of the route and challenges between them Minecraft which generates entire virtual
+% worlds for the player to explore.
+
+% Overall PCG has very limited commercial applications, being limited to minor features and optional
+% content elements rather than the generation of entire levels. Minecraft is an exception, but this
+% is more due to the nature of the game itself, which is highly random.
+
+% An important mechanism of any PCG technique is the control a user has over the results. Control
+% determines what a generation algorithm can and cannot design, and it is required to be intuitive and
+% reliable, providing results the user envisioned. Control over procedural level generation could be
+% improved, because as we observe (I) procedural level generation has hardly been used commercially,
+% which we argue is due to incomplete control, and (ii) procedurally generated levels rarely seem as
+% interesting as their manually designed counterpart.
+
+% – study is concerned with improving the design of procedurally generated levels, i.e. improving the
+% – control over generators. Argues that generation procedures can be steered by gameplay
+% – requirements, due to the tight relationship between gameplay and required game level content.
+% – Therefore, the research aim of this thesis is to improve on gameplay-based control over
+% – procedurally generated levels. Aim to do this by providing similar vocabularies and concepts game
+% – designers regularly apply in manual game design.
+
+% Focus on generating entire game-levels, i.e. both the spaces in which the player can manoeuvre, and
+% the content with which he can interact. The set of game levels is incredibly large and diverse,
+% typically presenting distinct PCG challenges.
+
+% – PCG techniques in game industry are restricted to very specific contexts, like SpeedTree, for only
+% – a small part of a game.
+
+% The lack of commercial use of PCG techniques has most likely to with control: designers, by giving
+% away part of their control to an algorithm, are often suspicious of the unpredictable nature of the
+% results of a generator.  However both game studios and researchers are increasingly convinced of the
+% benefits of establishing PCG as a mainstream method.
+
+% These benefits include  the rapid generation of content that fulfils a designers requirements smith
+% 11b the possible diversity of generated content (even when using similar requirements), which may
+% increase game replayability Hastings 09, smith 11a the amount of time and money devoted to game
+% development could decrease substantially  Tutenel 08 PCG can provide a basis for games to
+% automatically adapt to their players Lopes 11, Yannakakis 11
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%  way to generate adaptive levels for
+% adventure games using a generative grammar by which to generate syntactically correct levels.
+% Basically level of platform games have double structure – mission and spaces. Therefore, it is easy
+% to break them and generate them independently. First, missions were generated using non-linear
+% graphs. Intelligence usage of non- linear graph along with recursion will generate exciting and
+% varied levels. Afterwards spaces were built from shape grammar that will help improve the appearance
+% of levels. At the end, different player models were also used to adjust dynamic difficulty, hence
+% levels became more adaptive. Basically our focus of work is also on adjusting dynamic difficulty for
+% platform games.
+
+
+% Togelius et al \cite{5756645} have proposed naming the field search-
+% based procedural content generation. “SBPCG in which evolutionary and other stochastic and meta-
+% heuristic search techniques generate content for games”

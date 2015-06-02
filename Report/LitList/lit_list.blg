@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2014/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: lit_list.aux
+The style file: abbrv.bst
+Database file #1: references.bib.bib
+I was expecting a `,' or a `}'---line 261 of file references.bib.bib
+ :   Title                    = {Pathfinding of 2D } # x00026; 
+ :                                                             3D game real-time strategy with depth direction A  # {x2217; algorithm for multi-layer},
+I'm skipping whatever remains of this entry
+You've used 19 entries,
+            2118 wiz_defined-function locations,
+            603 strings with 7293 characters,
+and the built_in function-call counts, 7094 in all, are:
+= -- 704
+> -- 369
+< -- 7
++ -- 148
+- -- 126
+* -- 498
+:= -- 1178
+add.period$ -- 63
+call.type$ -- 19
+change.case$ -- 118
+chr.to.int$ -- 0
+cite$ -- 19
+duplicate$ -- 273
+empty$ -- 517
+format.name$ -- 126
+if$ -- 1499
+int.to.chr$ -- 0
+int.to.str$ -- 19
+missing$ -- 19
+newline$ -- 98
+num.names$ -- 38
+pop$ -- 124
+preamble$ -- 1
+purify$ -- 100
+quote$ -- 0
+skip$ -- 191
+stack$ -- 0
+substring$ -- 384
+swap$ -- 73
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 74
+warning$ -- 0
+while$ -- 65
+width$ -- 21
+write$ -- 216
+(There was 1 error message)
