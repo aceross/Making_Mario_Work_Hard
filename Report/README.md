@@ -1,5 +1,10 @@
+Thesis Report Journal
+=====================
 
+2 June 2015
+-----------
+* Updated the Research Methods assignments.
 
 9 Feb 2015
 ----------
-This is the github repo for the project. I will be making updates on this document from time to time. 
+Created repo for MSc Thesis
