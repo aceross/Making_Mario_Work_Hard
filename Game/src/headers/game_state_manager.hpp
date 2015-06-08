@@ -2,18 +2,27 @@
 
 #include <string>
 #include <iostream>
+#include "game_state.hpp"
+
+// Set the values for the game window
+#define SCREEN_WIDTH  800
+#define SCREEN_HEIGHT 600
 
 class GameStateManager {
  public:
     ~GameStateManager();
     static GameStateManager &GetInstance();
-    void SetText(std::string text);
-    void DrawText();
+
+    void Initialise();
+    void LoadContent();
+    void UnloadContent();
+    void Update();
+    void Draw(sf::RenderWindow &Window);
+
  protected:
  private:
+    // GameState *current_state, *new_state;
     GameStateManager();
     GameStateManager(GameStateManager const&);
     void operator = (GameStateManager const&);
-
-    std::string text;
 };

@@ -1,20 +1,30 @@
 // Copyright 2015, Aaron Ceross
 
 #include <string>
-#include "../include/game_state_manager.hpp"
+#include "headers/game_state_manager.hpp"
 
-GameStateManager &GameStateManager::get_instance() {
+GameState *current_state, *new_state;
+
+GameStateManager &GameStateManager::GetInstance() {
   static GameStateManager instance;
   return instance;
 }
 
-GameStateManager::GameStateManager() {}
+GameStateManager::GameStateManager()  {}
 GameStateManager::~GameStateManager() {}
 
-void GameStateManager::set_text(std::string text) {
-  this->text = text;
+void GameStateManager::Initialise() {
+  current_state = new SplashScreen();
 }
 
-void GameStateManager::draw_text() {
-  std::cout << text << std::endl;
+void GameStateManager::LoadContent() {
+  current_state->LoadContent();
+}
+
+void GameStateManager::Update() {
+  current_state->Update();
+}
+
+void GameStateManager::Draw(sf::RenderWindow &Window) {
+  current_state->Draw(Window);
 }

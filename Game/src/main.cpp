@@ -7,11 +7,23 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "../include/game_state_manager.hpp"
+#include "headers/game_state_manager.hpp"
 
 int main() {
-  GameStateManager::get_instance().set_text("some test");
-  GameStateManager::get_instance().draw_text();
-  std::cin.get();
+  sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32),
+                          "Making Mario Work Hard");
+
+  // game loop
+  while (Window.isOpen()) {
+    sf::Event event;
+    if (Window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed ||
+          event.key.code == sf::Keyboard::Escape) {
+        Window.close();
+      }
+    }
+    Window.display();
+  }
+
   return 0;
 }
