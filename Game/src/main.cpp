@@ -7,11 +7,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "../include/state_manager.hpp"
+#include "../include/game_state_manager.hpp"
 
 int main() {
-  state_manager::get_instance().set_text("some test");
-  state_manager::get_instance().draw_text();
+  GameStateManager::get_instance().set_text("some test");
+  GameStateManager::get_instance().draw_text();
   std::cin.get();
   return 0;
 }
