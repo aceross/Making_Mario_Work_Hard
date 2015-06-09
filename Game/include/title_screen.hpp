@@ -4,10 +4,10 @@
 #include <iostream>
 #include "game_state_manager.hpp"
 
-class SplashScreen : public GameState {
+class TitleScreen : public GameState {
  public:
-  SplashScreen();
-  ~SplashScreen();
+  TitleScreen();
+  ~TitleScreen();
   virtual void LoadContent();
   virtual void UnloadContent();
   virtual void Update();

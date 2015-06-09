@@ -19,6 +19,8 @@ class GameStateManager {
     void Update();
     void Draw(sf::RenderWindow &Window);
 
+    void AddState(GameState *state);
+
  protected:
  private:
     // GameState *current_state, *new_state;

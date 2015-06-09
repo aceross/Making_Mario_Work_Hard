@@ -5,6 +5,7 @@
 class GameState {
  public:
   GameState();
+  virtual ~GameState();
   virtual void LoadContent();
   virtual void UnloadContent();
   virtual void Update();

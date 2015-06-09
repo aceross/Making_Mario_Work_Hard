@@ -28,3 +28,10 @@ void GameStateManager::Update() {
 void GameStateManager::Draw(sf::RenderWindow &Window) {
   current_state->Draw(Window);
 }
+
+void GameStateManager::AddState(GameState *state) {
+  current_state->UnloadContent();
+  delete current_state;
+  current_state = state;
+  current_state ->LoadContent();
+}

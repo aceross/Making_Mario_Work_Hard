@@ -2,7 +2,8 @@
 
 #include "../include/game_state.hpp"
 
-GameState::GameState() {}
+GameState::GameState()  {}
+GameState::~GameState() {}
 
 void GameState::LoadContent() {}
 

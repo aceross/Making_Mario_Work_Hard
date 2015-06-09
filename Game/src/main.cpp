@@ -12,6 +12,8 @@
 int main() {
   sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32),
                           "Making Mario Work Hard");
+  GameStateManager::GetInstance().Initialise();
+  GameStateManager::GetInstance().LoadContent();
 
   // game loop
   while (Window.isOpen()) {
@@ -22,6 +24,8 @@ int main() {
         Window.close();
       }
     }
+    GameStateManager::GetInstance().Update();
+    GameStateManager::GetInstance().Draw(Window);
     Window.display();
   }
 
