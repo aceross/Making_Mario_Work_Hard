@@ -1,6 +1,6 @@
 // Copyright 2015, Aaron Ceross
 
-#include "headers/game_state.hpp"
+#include "../include/game_state.hpp"
 
 GameState::GameState() {}
 

@@ -1,7 +1,7 @@
 // Copyright 2015, Aaron Ceross
 
 #include <string>
-#include "headers/game_state_manager.hpp"
+#include "../include/splash_screen.hpp"
 
 GameState *current_state, *new_state;
 

@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "headers/game_state_manager.hpp"
+#include "../include/game_state_manager.hpp"
 
 int main() {
   sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32),
