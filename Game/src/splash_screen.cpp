@@ -5,7 +5,7 @@ SplashScreen::SplashScreen()  {}
 SplashScreen::~SplashScreen() {}
 
 void SplashScreen::LoadContent() {
-  if (!font.loadFromFile("Font1.ttf")) {
+  if (!font.loadFromFile("asset/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
   text.setString("Splash Screen");

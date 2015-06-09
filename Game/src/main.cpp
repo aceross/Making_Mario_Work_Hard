@@ -23,6 +23,12 @@ int main() {
           event.key.code == sf::Keyboard::Escape) {
         Window.close();
       }
+      if (event.key.code ==sf::Keyboard::S) {
+        GameStateManager::GetInstance().AddState(new SplashScreen());
+      }
+      if (event.key.code ==sf::Keyboard::T) {
+        GameStateManager::GetInstance().AddState(new TitleScreen());
+      }
     }
     GameStateManager::GetInstance().Update();
     GameStateManager::GetInstance().Draw(Window);
