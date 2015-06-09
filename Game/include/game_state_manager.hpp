@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include "game_state.hpp"
+#include "splash_screen.hpp"
+#include "title_screen.hpp"
 
 // Set the values for the game window
 #define SCREEN_WIDTH  800

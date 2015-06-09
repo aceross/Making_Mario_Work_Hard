@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "game_state_manager.hpp"
+#include "game_state.hpp"
 
 class SplashScreen : public GameState {
  public:

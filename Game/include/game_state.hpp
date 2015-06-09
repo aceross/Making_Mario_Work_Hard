@@ -1,5 +1,8 @@
 // Copyright 2015, Aaron Ceross
 
+#ifndef GAMESTATE_HPP
+#define GAMESTATE_HPP
+
 #include <SFML/Graphics.hpp>
 
 class GameState {
@@ -11,3 +14,5 @@ class GameState {
   virtual void Update();
   virtual void Draw(sf::RenderWindow &Window);
 };
+
+#endif  // GAMESTATE_HPP

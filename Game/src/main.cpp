@@ -24,10 +24,10 @@ int main() {
         Window.close();
       }
       if (event.key.code ==sf::Keyboard::S) {
-        GameStateManager::GetInstance().AddState(new SplashScreen());
+        GameStateManager::GetInstance().AddState(new SplashScreen);
       }
       if (event.key.code ==sf::Keyboard::T) {
-        GameStateManager::GetInstance().AddState(new TitleScreen());
+        GameStateManager::GetInstance().AddState(new TitleScreen);
       }
     }
     GameStateManager::GetInstance().Update();
