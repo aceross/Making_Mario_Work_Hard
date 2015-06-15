@@ -1,18 +1,18 @@
 // Copyright 2015, Aaron Ceross
 
-#ifndef GAMESTATE_HPP
-#define GAMESTATE_HPP
+#ifndef GAME_STATE_HPP
+#define GAME_STATE_HPP
 
-#include <SFML/Graphics.hpp>
+#include "game_state_manager.hpp"
 
 class GameState {
  public:
-  GameState();
-  virtual ~GameState();
-  virtual void LoadContent();
-  virtual void UnloadContent();
-  virtual void Update();
-  virtual void Draw(sf::RenderWindow &Window);
+  GameStateManager* gsm;
+  virtual ~GameState() {}
+
+  virtual void draw(const sf::RenderWindow &window) = 0;
+  virtual void update(const float dt)               = 0;
+  virtual void handleInput()                        = 0;
 };
 
-#endif  // GAMESTATE_HPP
+#endif  // GAME_STATE_HPP

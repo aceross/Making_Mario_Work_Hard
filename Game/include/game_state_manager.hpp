@@ -1,32 +1,49 @@
 // Copyright 2015, Aaron Ceross
 
+#ifndef GAME_STATE_MANAGER_HPP
+#define GAME_STATE_MANAGER_HPP
+
+#include <SFML/Graphics.hpp>
+#include <stack>
+#include <map>
 #include <string>
-#include <iostream>
-#include "game_state.hpp"
-#include "splash_screen.hpp"
-#include "title_screen.hpp"
+
+#include "texture_manager.hpp"
+#include "tile.hpp"
 
 // Set the values for the game window
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600
 
+class GameState;
+
 class GameStateManager {
- public:
-    ~GameStateManager();
-    static GameStateManager &GetInstance();
-
-    void Initialise();
-    void LoadContent();
-    void UnloadContent();
-    void Update();
-    void Draw(sf::RenderWindow &Window);
-
-    void AddState(GameState *state);
-
- protected:
  private:
-    // GameState *current_state, *new_state;
-    GameStateManager();
-    GameStateManager(GameStateManager const&);
-    void operator = (GameStateManager const&);
+  void loadTextures();
+  void loadTiles();
+
+ public:
+  static const int tileSize = 32;
+
+  std::stack<GameState*> states;
+
+  sf::RenderWindow window;
+  sf::ContextSettings settings;
+
+  TextureManager texmgr;
+  sf::Sprite background;
+
+  std::map<std::string, Tile> tileAtlas;
+
+  void pushState(GameState* state);
+  void popState();
+  void changeState(GameState* state);
+  GameState* peekState();
+
+  void gameLoop();
+
+  GameStateManager();
+  ~GameStateManager();
 };
+
+#endif  // GAME_STATE_MANAGER_HPP
