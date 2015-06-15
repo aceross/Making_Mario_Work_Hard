@@ -18,6 +18,7 @@ void MenuState::moveUp() {
   if (this->selection - 1 >= 0) {
     options[this->selection].setColor(sf::Color::White);
     --this->selection;
+    // if (this->selection < 0) this->selection = 0;
     options[this->selection].setColor(sf::Color::Yellow);
   }
 }
@@ -27,6 +28,7 @@ void MenuState::moveDown() {
     options[this->selection].setColor(sf::Color::White);
     ++this->selection;
     options[this->selection].setColor(sf::Color::Yellow);
+    // if (this->selection >= NUM_OPTIONS) this->selection = 0;
   }
 }
 
@@ -44,6 +46,13 @@ void MenuState::handleInput() {
       case sf::Event::KeyPressed:
         if (event.key.code == sf::Keyboard::Up) moveUp();
         if (event.key.code == sf::Keyboard::Down) moveDown();
+        if (event.key.code == sf::Keyboard::Return) {
+          if (this->selection == 0) printf("Play selected\n");
+          if (this->selection == 1) printf("Help selected\n");
+          if (this->selection == 2) {
+            printf("Quit selected\n");
+          }
+        }
         break;
       default: break;
     }
