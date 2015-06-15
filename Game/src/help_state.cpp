@@ -1,5 +1,5 @@
 // Copyright 2015, Aaron Ceross
-#include <SFML/Graphics.hpp>
+
 #include "../include/help_state.hpp"
 
 HelpState::HelpState(GameStateManager* gsm) {
@@ -13,13 +13,15 @@ HelpState::HelpState(GameStateManager* gsm) {
   if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
-  help_text.setColor(sf::Color::White);
   help_text.setString("Press ESC to return to menu.");
+  help_text.setColor(sf::Color::White);
+  help_text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 void HelpState::draw(const sf::RenderWindow &window) {
-  this->gsm->window.setView(this->view);
+  // this->gsm->window.setView(this->view);
   this->gsm->window.clear(sf::Color::Black);
+
   this->gsm->window.draw(help_text);
 }
 
@@ -32,6 +34,7 @@ void HelpState::handleInput() {
       case sf::Event::Closed:
         this->gsm->window.close();
         break;
+
       // Return to Main Menu
       case sf::Event::KeyPressed:
         if (event.key.code == sf::Keyboard::Escape) this->gsm->popState();

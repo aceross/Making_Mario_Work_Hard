@@ -3,6 +3,7 @@
 #ifndef HELP_STATE_HPP
 #define HELP_STATE_HPP
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 #include "game_state.hpp"

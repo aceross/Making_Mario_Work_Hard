@@ -2,6 +2,7 @@
 
 #include "../include/menu_state.hpp"
 #include "../include/help_state.hpp"
+#include "../include/level_state.hpp"
 
 void MenuState::draw(const sf::RenderWindow &window) {
   this->gsm->window.setView(this->view);
@@ -45,10 +46,13 @@ void MenuState::handleInput() {
         if (event.key.code == sf::Keyboard::Up)   moveUp();
         if (event.key.code == sf::Keyboard::Down) moveDown();
         if (event.key.code == sf::Keyboard::Return) {
-          if (this->selection == 0) printf("Play selected\n");
+          if (this->selection == 0) {
+            printf("Play selected\n");
+            this->gsm->pushState(new LevelState(this->gsm));
+          }
           if (this->selection == 1) {
             printf("Help selected\n");
-            gsm->pushState(new HelpState(this->gsm));
+            this->gsm->pushState(new HelpState(this->gsm));
           }
           if (this->selection == 2) {
             printf("Quit selected\n");
