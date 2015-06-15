@@ -11,8 +11,23 @@ void MenuState::draw(const sf::RenderWindow &window) {
   for (size_t i = 0; i < NUM_OPTIONS; ++i) {
     this->gsm->window.draw(options[i]);
   }
-
   return;
+}
+
+void MenuState::moveUp() {
+  if (this->selection - 1 >= 0) {
+    options[this->selection].setColor(sf::Color::White);
+    --this->selection;
+    options[this->selection].setColor(sf::Color::Yellow);
+  }
+}
+
+void MenuState::moveDown() {
+  if (this->selection + 1 < NUM_OPTIONS) {
+    options[this->selection].setColor(sf::Color::White);
+    ++this->selection;
+    options[this->selection].setColor(sf::Color::Yellow);
+  }
 }
 
 void MenuState::update(const float dt) {}
@@ -23,10 +38,13 @@ void MenuState::handleInput() {
   while (this->gsm->window.pollEvent(event)) {
     switch (event.type) {
       // Close window.
-      case sf::Event::Closed: {
+      case sf::Event::Closed:
         gsm->window.close();
         break;
-      }
+      case sf::Event::KeyPressed:
+        if (event.key.code == sf::Keyboard::Up) moveUp();
+        if (event.key.code == sf::Keyboard::Down) moveDown();
+        break;
       default: break;
     }
   }
@@ -44,7 +62,10 @@ MenuState::MenuState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
-  // draw text
+  // Initialise the selection highlight
+  this->selection = 0;
+
+  // Load menu font
   if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
