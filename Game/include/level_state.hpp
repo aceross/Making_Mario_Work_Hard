@@ -11,7 +11,7 @@
 class LevelState : public GameState {
  private:
   sf::View view;
-  sf::Text text;
+  sf::Text level_text;
   sf::Font font;
 
  public:

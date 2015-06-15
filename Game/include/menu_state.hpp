@@ -10,6 +10,7 @@
 #include "game_state.hpp"
 
 #define NUM_OPTIONS 3
+
 // Set the values for the game window
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600

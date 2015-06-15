@@ -13,14 +13,15 @@ HelpState::HelpState(GameStateManager* gsm) {
   if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
+  help_text.setFont(font);
   help_text.setString("Press ESC to return to menu.");
   help_text.setColor(sf::Color::White);
-  help_text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+  // help_text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 void HelpState::draw(const sf::RenderWindow &window) {
-  // this->gsm->window.setView(this->view);
-  this->gsm->window.clear(sf::Color::Black);
+  this->gsm->window.setView(this->view);
+  this->gsm->window.clear(sf::Color::Green);
 
   this->gsm->window.draw(help_text);
 }
