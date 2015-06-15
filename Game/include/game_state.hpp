@@ -11,7 +11,7 @@ class GameState {
   virtual ~GameState() {}
 
   virtual void draw(const sf::RenderWindow &window) = 0;
-  virtual void update(const float dt)               = 0;
+  virtual void update()                             = 0;
   virtual void handleInput()                        = 0;
 };
 

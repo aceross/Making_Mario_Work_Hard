@@ -70,7 +70,7 @@ void GameStateManager::pushState(GameState* state) {
 }
 
 void GameStateManager::popState() {
-  delete this->states.top();
+  // delete this->states.top();
   this->states.pop();
   return;
 }
@@ -87,19 +87,15 @@ GameState* GameStateManager::peekState() {
 }
 
 void GameStateManager::gameLoop() {
-  sf::Clock clock;
-
-  while (this->window.isOpen()) {
-    sf::Time elapsed = clock.restart();
-    float dt = elapsed.asSeconds();
-
+  while (this->window.isOpen() && !this->game_over) {
     if (peekState() == nullptr) continue;
     peekState()->handleInput();
-    peekState()->update(dt);
+    peekState()->update();
     this->window.clear(sf::Color::Black);
     peekState()->draw(this->window);
     this->window.display();
   }
+  printf("Quitting game loop...\n");
 }
 
 GameStateManager::GameStateManager() {

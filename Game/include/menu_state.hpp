@@ -28,7 +28,7 @@ class MenuState : public GameState {
 
  public:
   virtual void draw(const sf::RenderWindow &window);
-  virtual void update(const float dt);
+  virtual void update();
   virtual void handleInput();
 
   void moveUp();

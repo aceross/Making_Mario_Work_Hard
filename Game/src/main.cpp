@@ -8,6 +8,7 @@ int main() {
 
   gsm.pushState(new MenuState(&gsm));
   gsm.gameLoop();
+  printf("Exiting program.\n");
 
   return 0;
 }

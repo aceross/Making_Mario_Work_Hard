@@ -4,6 +4,7 @@
 #define GAME_STATE_MANAGER_HPP
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include <stack>
 #include <map>
 #include <string>
@@ -24,6 +25,7 @@ class GameStateManager {
 
  public:
   static const int tileSize = 32;
+  bool game_over = false;
 
   std::stack<GameState*> states;
 
