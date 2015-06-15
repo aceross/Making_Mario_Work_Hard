@@ -9,13 +9,20 @@
 #include <vector>
 #include "game_state.hpp"
 
+#define NUM_OPTIONS 3
+// Set the values for the game window
+#define SCREEN_WIDTH  800
+#define SCREEN_HEIGHT 600
+
 class MenuState : public GameState {
  private:
   sf::View view;
-  sf::Text text;
+  sf::Text options[NUM_OPTIONS];
   sf::Font font;
 
-  std::vector<std::string> options = { "Start Game", "Help", "Quit"};
+  int selection;
+
+  // std::vector<std::string> options = { "Start Game", "Help", "Quit"};
 
   void loadGame();
 
@@ -23,6 +30,9 @@ class MenuState : public GameState {
   virtual void draw(const sf::RenderWindow &window);
   virtual void update(const float dt);
   virtual void handleInput();
+
+  void moveUp();
+  void moveDown();
 
   explicit MenuState(GameStateManager* gsm);
   virtual ~MenuState();

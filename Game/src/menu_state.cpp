@@ -7,7 +7,11 @@
 void MenuState::draw(const sf::RenderWindow &window) {
   this->gsm->window.setView(this->view);
   this->gsm->window.clear(sf::Color::Black);
-  this->gsm->window.draw(text);
+
+  for (size_t i = 0; i < NUM_OPTIONS; ++i) {
+    this->gsm->window.draw(options[i]);
+  }
+
   return;
 }
 
@@ -44,8 +48,27 @@ MenuState::MenuState(GameStateManager* gsm) {
   if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
-  text.setString("Splash Screen");
-  text.setFont(font);
+
+  // Play Game Option
+  options[0].setFont(font);
+  options[0].setColor(sf::Color::White);
+  options[0].setString("Play Game");
+  options[0].setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT /
+                        (NUM_OPTIONS + 1) * 1);
+
+  // Help Option
+  options[1].setFont(font);
+  options[1].setColor(sf::Color::White);
+  options[1].setString("Help");
+  options[1].setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT /
+                        (NUM_OPTIONS + 1) * 2);
+
+// Quit Option
+  options[2].setFont(font);
+  options[2].setColor(sf::Color::White);
+  options[2].setString("Quit");
+  options[2].setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT /
+                        (NUM_OPTIONS + 1) * 3);
 }
 
 MenuState::~MenuState() {}
