@@ -29,7 +29,7 @@ class GameStateManager {
 
   std::stack<GameState*> states;
 
-  sf::RenderWindow window;
+  sf::RenderWindow    window;
   sf::ContextSettings settings;
 
   TextureManager texmgr;

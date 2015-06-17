@@ -7,6 +7,7 @@ void LevelState::draw(const sf::RenderWindow &window) {
   this->gsm->window.clear(sf::Color::Black);
 
   this->gsm->window.draw(level_text);
+  this->gsm->window.draw(player.sprite);
 }
 
 void LevelState::handleInput() {
@@ -21,7 +22,9 @@ void LevelState::handleInput() {
 
       // Return to Main Menu
       case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::Escape) this->gsm->popState();
+        if (event.key.code == sf::Keyboard::Escape) {
+          this->gsm->popState();
+        }
         break;
       default: break;
     }
@@ -33,6 +36,8 @@ void LevelState::update() {}
 
 LevelState::LevelState(GameStateManager* gsm) {
   printf("Welcome to level state.\n");
+
+  this->player = Player();
   this->gsm = gsm;
   sf::Vector2f pos = sf::Vector2f(this->gsm->window.getSize());
   this->view.setSize(pos);
@@ -45,7 +50,7 @@ LevelState::LevelState(GameStateManager* gsm) {
   level_text.setFont(font);
   level_text.setString("Press ESC to return to menu.");
   level_text.setColor(sf::Color::White);
-  // text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+  level_text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 LevelState::~LevelState() {}

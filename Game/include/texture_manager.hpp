@@ -23,4 +23,4 @@ class TextureManager {
   TextureManager() {}
 };
 
-#endif /* TEXTURE_MANAGER_HPP */
+#endif  // TEXTURE_MANAGER_HPP

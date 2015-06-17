@@ -38,10 +38,12 @@ void MenuState::handleInput() {
 
   while (this->gsm->window.pollEvent(event)) {
     switch (event.type) {
-      // Close window.
+      // Close window
       case sf::Event::Closed:
         gsm->window.close();
         break;
+
+      // Select an option
       case sf::Event::KeyPressed:
         if (event.key.code == sf::Keyboard::Up)   moveUp();
         if (event.key.code == sf::Keyboard::Down) moveDown();

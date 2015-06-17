@@ -7,12 +7,15 @@
 
 class GameState {
  public:
-  GameStateManager* gsm;
   virtual ~GameState() {}
 
   virtual void draw(const sf::RenderWindow &window) = 0;
   virtual void update()                             = 0;
   virtual void handleInput()                        = 0;
+
+ protected:
+  GameStateManager* gsm;
+  sf::RenderWindow* window;
 };
 
 #endif  // GAME_STATE_HPP

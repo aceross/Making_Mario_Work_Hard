@@ -7,9 +7,11 @@
 #include <iostream>
 #include <string>
 #include "game_state.hpp"
+#include "player.hpp"
 
 class LevelState : public GameState {
  private:
+  Player player;
   sf::View view;
   sf::Text level_text;
   sf::Font font;
