@@ -6,15 +6,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+
 #include "game_state.hpp"
 #include "player.hpp"
+#include "tile_map.hpp"
 
 class LevelState : public GameState {
  private:
-  Player player;
   sf::View view;
   sf::Text level_text;
   sf::Font font;
+  sf::Sprite  tiles;
+
+  Player player;
+  TileMap tilemap;
 
  public:
   virtual void draw(const sf::RenderWindow &window);

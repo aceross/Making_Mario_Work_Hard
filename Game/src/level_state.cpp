@@ -5,8 +5,10 @@
 LevelState::LevelState(GameStateManager* gsm) {
   printf("Welcome to level state.\n");
 
-  this->player     = Player();
   this->gsm        = gsm;
+  this->player     = Player();
+  this->tilemap    = TileMap();
+
   sf::Vector2f pos = sf::Vector2f(this->gsm->window.getSize());
 
   // Setting the view
@@ -14,26 +16,24 @@ LevelState::LevelState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
+  // Drawing the Player
   if (!this->player.texture.loadFromFile("assets/gfx/sprite.png")) {
     std::cout << "Error loading image." << std::endl;
   }
-
   this->player.sprite.setTexture(this->player.texture);
 
-  if (!font.loadFromFile("assets/font/OpenSans-Regular.ttf")) {
-    std::cout << "Error loading font." << std::endl;
-  }
-  level_text.setFont(font);
-  level_text.setString("Press ESC to return to menu.");
-  level_text.setColor(sf::Color::White);
-  level_text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+  // Loading the map
+  this->tilemap.loadMap();
+  this->tilemap.setTiles();
+  this->tilemap.tiles.setTexture(this->tilemap.tile_Texture);
+  this->tiles = this->tilemap.tiles;
 }
 
 void LevelState::draw(const sf::RenderWindow &window) {
   this->gsm->window.setView(this->view);
   this->gsm->window.clear(sf::Color::Black);
 
-  this->gsm->window.draw(level_text);
+  this->gsm->window.draw(tiles);
   this->gsm->window.draw(player.sprite);
 }
 
