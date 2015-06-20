@@ -84,13 +84,13 @@ MenuState::MenuState(GameStateManager* gsm) {
   this->selection = 0;
 
   // Load menu font
-  if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
+  if (!font.loadFromFile("assets/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
 
   // Play Game Option
   options[0].setFont(font);
-  options[0].setColor(sf::Color::White);
+  options[0].setColor(sf::Color::Yellow);
   options[0].setString("Play Game");
   options[0].setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT /
                         (NUM_OPTIONS + 1) * 1);

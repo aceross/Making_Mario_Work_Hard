@@ -10,9 +10,10 @@ HelpState::HelpState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
-  if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
-    std::cout << "Could not find the requested font." << std::endl;
+  if (!font.loadFromFile("assets/font/OpenSans-Regular.ttf")) {
+    std::cout << "Error loading font." << std::endl;
   }
+
   help_text.setFont(font);
   help_text.setString("Press ESC to return to menu.");
   help_text.setColor(sf::Color::White);

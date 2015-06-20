@@ -22,9 +22,7 @@ void LevelState::handleInput() {
 
       // Return to Main Menu
       case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::Escape) {
-          this->gsm->popState();
-        }
+        if (event.key.code == sf::Keyboard::Escape) this->gsm->popState();
         break;
       default: break;
     }
@@ -44,8 +42,8 @@ LevelState::LevelState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
-  if (!font.loadFromFile("media/font/OpenSans-Regular.ttf")) {
-    std::cout << "Could not find the requested font." << std::endl;
+  if (!font.loadFromFile("assets/font/OpenSans-Regular.ttf")) {
+    std::cout << "Error loading font." << std::endl;
   }
   level_text.setFont(font);
   level_text.setString("Press ESC to return to menu.");
