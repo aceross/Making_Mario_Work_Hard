@@ -13,9 +13,9 @@ class Player {
   void draw(const sf::RenderWindow &window);
 
   sf::Sprite  sprite;
+  sf::Texture texture;
 
  private:
-  sf::Texture texture;
 };
 
 #endif  // PLAYER_HPP

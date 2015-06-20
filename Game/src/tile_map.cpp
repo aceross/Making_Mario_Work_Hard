@@ -13,13 +13,13 @@ void TileMap::loadMap() {
   sf::Vector2i map[100][100];
   sf::Vector2i loadCounter = sf::Vector2i(0, 0);
 
-  if ( openfile.is_open() ) {
+  if (openfile.is_open()) {
     std::string tile_location;
     openfile >> tile_location;
     this->tile_Texture.loadFromFile(tile_location);
     this->tiles.setTexture(this->tile_Texture);
 
-    while ( !openfile.eof() ) {
+    while (!openfile.eof()) {
       std::string str;
       openfile >> str;
       char x = str[0], y = str[2];
