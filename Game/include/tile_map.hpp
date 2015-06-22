@@ -5,21 +5,34 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
 #include <fstream>
 #include <cctype>
+
+#include "level.hpp"
 
 class TileMap {
  public:
   TileMap();
   ~TileMap();
-  void loadMap();
+  bool loadMap(const std::string& tileset, sf::Vector2u tileSize,
+               const int* tiles, unsigned int width, unsigned int height);
   void setTiles();
-
-  sf::Texture tile_Texture;
-  sf::Sprite  tiles;
+  void initialiseMap();
+  // void draw();
+  // Level level;
+  sf::VertexArray vertices;
+  sf::Texture     tileset;
+  sf::Sprite      tiles;
  private:
-  sf::Vector2i map[100][100];
-  sf::Vector2i loadCounter = sf::Vector2i(0, 0);
+  void setParameters(std::string filepath);
+  void resizeMap(int width, int height);
+  void printMap();
+  unsigned int height;
+  unsigned int width;
+  std::vector<std::vector<int>> map;
 };
 
 #endif  // TILE_MAP_HPP

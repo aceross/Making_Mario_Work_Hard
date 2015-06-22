@@ -23,9 +23,11 @@ LevelState::LevelState(GameStateManager* gsm) {
   this->player.sprite.setTexture(this->player.texture);
 
   // Loading the map
-  this->tilemap.loadMap();
-  this->tilemap.setTiles();
-  this->tilemap.tiles.setTexture(this->tilemap.tile_Texture);
+  // this->tilemap.initialiseMap();
+  // this->tilemap.loadMap("assets/gfx/level1.png", sf::Vector2u(32, 32), level,
+  //                       16, 8);
+  // this->tilemap.setTiles();
+  this->tilemap.tiles.setTexture(this->tilemap.tileset);
   this->tiles = this->tilemap.tiles;
 }
 
