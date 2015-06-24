@@ -13,26 +13,26 @@
 
 #include "level.hpp"
 
-class TileMap {
+class TileMap : public sf::Drawable, public sf::Transformable {
  public:
+  using sf::Drawable::draw;
   TileMap();
   ~TileMap();
-  bool loadMap(const std::string& tileset, sf::Vector2u tileSize,
-               const int* tiles, unsigned int width, unsigned int height);
+  bool loadMap(const std::string& tileset, sf::Vector2u tileSize);
   void setTiles();
   void initialiseMap();
-  // void draw();
-  // Level level;
+  void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
   sf::VertexArray vertices;
   sf::Texture     tileset;
   sf::Sprite      tiles;
+  std::vector<std::vector<int>> map;
  private:
   void setParameters(std::string filepath);
   void resizeMap(int width, int height);
   void printMap();
   unsigned int height;
   unsigned int width;
-  std::vector<std::vector<int>> map;
 };
 
 #endif  // TILE_MAP_HPP

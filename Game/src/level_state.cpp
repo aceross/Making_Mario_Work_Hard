@@ -5,9 +5,7 @@
 LevelState::LevelState(GameStateManager* gsm) {
   printf("Welcome to level state.\n");
 
-  this->gsm        = gsm;
-  this->player     = Player();
-  this->tilemap    = TileMap();
+  this->gsm = gsm;
 
   sf::Vector2f pos = sf::Vector2f(this->gsm->window.getSize());
 
@@ -22,11 +20,7 @@ LevelState::LevelState(GameStateManager* gsm) {
   }
   this->player.sprite.setTexture(this->player.texture);
 
-  // Loading the map
-  // this->tilemap.initialiseMap();
-  // this->tilemap.loadMap("assets/gfx/level1.png", sf::Vector2u(32, 32), level,
-  //                       16, 8);
-  // this->tilemap.setTiles();
+  // Drawing the map
   this->tilemap.tiles.setTexture(this->tilemap.tileset);
   this->tiles = this->tilemap.tiles;
 }
@@ -35,8 +29,8 @@ void LevelState::draw(const sf::RenderWindow &window) {
   this->gsm->window.setView(this->view);
   this->gsm->window.clear(sf::Color::Black);
 
-  this->gsm->window.draw(tiles);
-  this->gsm->window.draw(player.sprite);
+  this->gsm->window.draw(this->tilemap);
+  // this->gsm->window.draw(player.sprite);
 }
 
 void LevelState::update() {}
