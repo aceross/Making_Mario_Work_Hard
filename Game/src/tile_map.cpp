@@ -15,29 +15,31 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
 
   // Resize the vertex array to fit the level size
   this->vertices.setPrimitiveType(sf::Quads);
-  this->vertices.resize(width * height * 4);
+  this->vertices.resize(width * height * 8);
 
-  for (unsigned int i = 0; i < width; ++i) {
-    for (unsigned int j = 0; j < height; ++j) {
-      // get the current tile number
+  int mapsize = map.size();
+  printf("Map size is %d\n", mapsize);
+
+  for (std::vector<std::vector<int>>::size_type i = 0; i < map.size(); ++i) {
+    for (std::vector<int>::size_type j = 0; j < map[i].size(); ++j) {
       int tileNumber = i + j * width;
+      int tileValue = map[i][j];
+      int mapsize_2 = map[i].size();
+
       printf("\n");
       printf("Tile Number = %d\n", tileNumber);
+      printf("Tile Value = %d\n", tileValue);
+      printf("Map size 2 is %d\n", mapsize_2);
 
-      // find its position in the tileset texture
+      // Find the tileValue's position in the tileset texture
+      // 'tu' is the column value on the tileset
+      // 'tv' is the row value on the tileset
+      int tu = tileValue % (this->tileset.getSize().x / tileSize.x);
+      int tv = tileValue / (this->tileset.getSize().x / tileSize.x);
 
-      // tu is the column value on the tileset
-      // tv is the row value on the tileset
-      int tu = tileNumber % (this->tileset.getSize().x / tileSize.x);
-      int tv = tileNumber / (this->tileset.getSize().x / tileSize.x);
-
-
-      printf("Coordinates map [%d][%d]\n", j, i);
+      printf("Coordinates map [%lu][%lu]\n", i, j);
       printf("TU = %d\n", tu);
       printf("TV = %d\n", tv);
-
-      printf("Value of tileset.getSize.x = %d\n", this->tileset.getSize().x);
-      printf("Value of tileSize = %d\n", tileSize.x);
 
       // Get a pointer to the current tile's quad
       sf::Vertex* quad = &vertices[(i + j * width) * 4];
@@ -55,9 +57,6 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
       quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x,
                                        (tv + 1) * tileSize.y);
       quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
-
-      // for (int k = 0; k < 4; ++k)
-      //   vertices.append(quad[k]);
     }
   }
   return true;
@@ -103,6 +102,8 @@ void TileMap::initialiseMap() {
 
 void TileMap::resizeMap(int width, int height) {
   map.resize(height);
+  int check = map.size();
+  printf("Map resize is %d\n", check);
   for (unsigned int i = 0; i < height; ++i) {
     map.resize(width);
   }
@@ -111,22 +112,18 @@ void TileMap::resizeMap(int width, int height) {
 void TileMap::setParameters(std::string filepath) {
   std::ifstream mapfile(filepath);
 
-  // Get height and width from file
   mapfile >> width >> height;
-  printf("Width = %d\n", width);
-  printf("Height = %d\n", height);
 
   int value;
-
-  resizeMap(width, height);
-    for (unsigned int i = 0; i < height; ++i) {
-      std::vector<int> tmp_value;
-      for (unsigned int j = 0; j < width; ++j) {
-        mapfile >> value;
-        tmp_value.push_back(value);
-      }
-      map.push_back(tmp_value);
+  // resizeMap(width, height);
+  for (unsigned int i = 0; i < height; ++i) {
+    std::vector<int> tmp_value;
+    for (unsigned int j = 0; j < width; ++j) {
+      mapfile >> value;
+      tmp_value.push_back(value);
     }
-    printf("Map values successfully inserted!\n");
+    map.push_back(tmp_value);
+  }
+  printf("Map values successfully inserted!\n");
   mapfile.close();
 }

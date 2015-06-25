@@ -22,20 +22,7 @@ void Tile::draw(sf::RenderWindow& window, float dt) {
   return;
 }
 
-void Tile::update() {
-  /* If the population is at the maximum value for the tile,
-   * there is a small chance that the tile will increase its
-   * building stage */
-  if ((this->tileType == TileType::RESIDENTIAL ||
-    this->tileType == TileType::COMMERCIAL ||
-    this->tileType == TileType::INDUSTRIAL) &&
-    this->population == this->maxPopPerLevel * (this->tileVariant+1) &&
-    this->tileVariant < this->maxLevels) {
-    if (rand() % static_cast<int>(1e4) < 1e2 / (this->tileVariant+1))
-      ++this->tileVariant;
-  }
-  return;
-}
+void Tile::update() {}
 
 std::string tileTypeToStr(TileType type) {
   switch (type) {

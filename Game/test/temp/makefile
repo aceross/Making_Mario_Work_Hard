@@ -7,10 +7,10 @@ ifneq (,)
 This makefile requires GNU Make.
 endif
 
-# This makefile uses LLVM/Clang but can be changed easily to GCC :
-# * change CC to gcc
+# This makefile uses LLVM/Clang but can be changed easily to g++ :
+# * to change to g++, change CC to g++
 # * remove -lstdc++ as this is clang specific
-CC       := gcc
+CC       := clang++
 SRCDIR   := src
 BUILDDIR := build
 TARGET   := bin/game
@@ -18,7 +18,7 @@ TARGET   := bin/game
 SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS   := -std=c++11 -Wall -pedantic -g
+CFLAGS   := -std=c++11 -stdlib=libstdc++ -Wall -pedantic -Werror
 LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system
 INC      := -I include
 
