@@ -7,9 +7,8 @@ ifneq (,)
 This makefile requires GNU Make.
 endif
 
-# This makefile uses LLVM/Clang but can be changed easily to GCC :
-# * change CC to gcc
-# * remove -lstdc++ as this is clang specific
+# This makefile uses GCC :
+
 CC       := gcc
 SRCDIR   := src
 BUILDDIR := build
