@@ -1,37 +1,32 @@
 // Copyright 2015, Aaron Ceross
 
+#include <string>
+#include <vector>
 #include "../include/maze.hpp"
 
 Maze::Maze() {}
 void Maze::ReadFile() {
-  std::cout << "Starting Read file." << std::endl;
+  std::cout << "Starting read file." << std::endl;
   std::ifstream maze_file;
+  std::string line;
 
-  maze_file.open("assets/maze.txt");
-
+  maze_file.open("assets/maze1.txt");
   maze_file >> height >> width;
   printf("Height = %d\n", height);
   printf("Width = %d\n", width);
-
-  for (int i = 0; i <= height; ++i) {
-    int j = 0;
-    while (j < width) {
-      maze_file >> std::noskipws >> layout[i][j];
-      j++;
-    }
-  }
+  while (std::getline(maze_file, line)) { grid.push_back(line); }
 
   std::cout << "Input complete." << std::endl;
   return;
 }
 
 void Maze::Print() {
-  for (int i = 0; i < height; ++i) {
-    for (int j = 0; j < width; ++j) {
-      std::cout << layout[i][j];
+  for (std::vector<std::string>::size_type i = 0; i < grid.size(); ++i) {
+    for (std::vector<std::string>::size_type j = 0; j < grid[i].size(); ++j) {
+      std::cout << grid[i][j];
     }
+    std::cout << std::endl;
   }
-  std::cout << std::endl;
 }
 
 void Maze::Run() {
