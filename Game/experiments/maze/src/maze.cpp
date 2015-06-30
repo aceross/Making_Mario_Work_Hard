@@ -13,22 +13,14 @@ void Maze::ReadFile() {
   printf("Height = %d\n", height);
   printf("Width = %d\n", width);
 
-  for (int i = 0; i < height; ++i) {
-    char ch = maze_file.get();
+  for (int i = 0; i <= height; ++i) {
     int j = 0;
-    while (ch != EOF && j < width) {
-      layout[i][j] = ch;
-      ++j;
-      ch = maze_file.get();
+    while (j < width) {
+      maze_file >> std::noskipws >> layout[i][j];
+      j++;
     }
   }
 
-
-  // for (int i = 0; i < height; ++i) {
-  //   for (int j = 0; j < width; ++j) {
-  //     maze_file >> layout[i][j];
-  //   }
-  // }
   std::cout << "Input complete." << std::endl;
   return;
 }
