@@ -9,10 +9,11 @@
 #include "entity_manager.hpp"
 #include "map.hpp"
 
-class Player : public Entity {
+class Player {
  public:
-  Player(sf::RenderWindow* window, EntityManager* e_mgr, Map* map,
-                                                              float x, float y);
+  Player();
+  // Player(sf::RenderWindow* window, EntityManager* e_mgr, Map* map,
+  //                                                         float x, float y);
   ~Player();
   void draw(const sf::RenderWindow &window);
   void Collision(Entity* entity);

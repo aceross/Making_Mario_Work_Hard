@@ -11,7 +11,6 @@ TileMap::~TileMap() {}
 // Loads in the map layout and graphical assets
 // this function is addapted from the SFL tutorial on tilemaps
 bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
-  // Load the tileset texture
   if (!this->tileset.loadFromFile(tileset)) return false;
 
   // Resize the vertex array to fit the level size
@@ -21,16 +20,14 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
   int mapsize = map.size();
   printf("Map size is %d\n", mapsize);
 
-  for (std::vector<std::vector<int>>::size_type i = 0; i < map.size(); ++i) {
-    for (std::vector<int>::size_type j = 0; j < map[i].size(); ++j) {
+  for (std::vector<std::vector<int>>::size_type i = 0; i < width; ++i) {
+    for (std::vector<int>::size_type j = 0; j < height; ++j) {
       int tileNumber = i + j * width;
-      int tileValue = map[i][j];
-      int mapsize_2 = map[i].size();
+      int tileValue = map[j][i];
 
       printf("\n");
       printf("Tile Number = %d\n", tileNumber);
       printf("Tile Value = %d\n", tileValue);
-      printf("Map size 2 is %d\n", mapsize_2);
 
       // Find the tileValue's position in the tileset texture
       // 'tu' is the column value on the tileset
