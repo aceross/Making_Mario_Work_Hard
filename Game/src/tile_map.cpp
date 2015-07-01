@@ -25,12 +25,12 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
     for (std::vector<int>::size_type j = 0; j < map[i].size(); ++j) {
       int tileNumber = i + j * width;
       int tileValue = map[i][j];
-      // int mapsize_2 = map[i].size();
+      int mapsize_2 = map[i].size();
 
       printf("\n");
       printf("Tile Number = %d\n", tileNumber);
       printf("Tile Value = %d\n", tileValue);
-      // printf("Map size 2 is %d\n", mapsize_2);
+      printf("Map size 2 is %d\n", mapsize_2);
 
       // Find the tileValue's position in the tileset texture
       // 'tu' is the column value on the tileset
@@ -74,6 +74,7 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(vertices, states);
 }
 
+// Prints the tilemap in the terminal
 void TileMap::printMap() {
   for (std::vector<std::vector<int>>::size_type i = 0; i < map.size(); ++i) {
     for (std::vector<int>::size_type j = 0; j < map[i].size(); ++j) {
@@ -104,7 +105,6 @@ void TileMap::setParameters(std::string filepath) {
   mapfile >> width >> height;
 
   int value;
-  // resizeMap(width, height);
   for (unsigned int i = 0; i < height; ++i) {
     std::vector<int> tmp_value;
     for (unsigned int j = 0; j < width; ++j) {
