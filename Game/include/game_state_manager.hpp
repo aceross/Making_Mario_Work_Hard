@@ -12,7 +12,7 @@
 #include "texture_manager.hpp"
 #include "tile.hpp"
 
-// Set the values for the game window
+// Values for the game window
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600
 

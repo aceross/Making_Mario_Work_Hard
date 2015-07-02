@@ -21,7 +21,6 @@ class TileMap : public sf::Drawable, public sf::Transformable {
   bool loadMap(const std::string& tileset, sf::Vector2u tileSize);
   void initialiseMap();
   void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-  // void draw(const sf::RenderWindow &window);
 
   sf::VertexArray vertices;
   sf::Texture     tileset;

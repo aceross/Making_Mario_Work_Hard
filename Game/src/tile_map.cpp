@@ -17,9 +17,6 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
   this->vertices.setPrimitiveType(sf::Quads);
   this->vertices.resize(width * height * 8);
 
-  int mapsize = map.size();
-  printf("Map size is %d\n", mapsize);
-
   for (std::vector<std::vector<int>>::size_type i = 0; i < width; ++i) {
     for (std::vector<int>::size_type j = 0; j < height; ++j) {
       int tileNumber = i + j * width;
