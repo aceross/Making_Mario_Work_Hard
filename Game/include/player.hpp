@@ -27,6 +27,10 @@ class Player : public sf::Sprite {
   sf::Sprite  sprite;
   sf::Texture texture;
 
+  int rect_width  = 32;
+  int rect_height = 32;
+  int orgin_y     = 0;
+
  private:
   sf::Clock sprite_clock;
   sf::Time  sprite_clock_delimiter;
