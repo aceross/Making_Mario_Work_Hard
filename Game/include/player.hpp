@@ -33,6 +33,11 @@ class Player : public sf::Drawable, public sf::Transformable {
   sf::Time getFrameTime() const;
   void setFrame(std::size_t newFrame, bool resetTime = true);
 
+  Animation player_move_left;
+  Animation player_move_right;
+
+  void handleInput();
+
   sf::Texture texture;
   // AnimationHandler animation_handler_;
 

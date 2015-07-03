@@ -20,6 +20,7 @@ class LevelState : public GameState {
 
   Player player;
   TileMap tilemap;
+  const Animation* current_animation_;
 
  public:
   virtual void draw(const sf::RenderWindow &window);
