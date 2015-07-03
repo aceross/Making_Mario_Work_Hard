@@ -14,23 +14,23 @@ LevelState::LevelState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
-  // Drawing the Player
-  if (!this->player.texture.loadFromFile("assets/gfx/sprite.png")) {
+  // Initialising the Player
+  if (!player.texture.loadFromFile("assets/gfx/sprite.png")) {
     std::cout << "Error loading image." << std::endl;
   }
-  this->player.sprite.setTexture(this->player.texture);
+  player.sprite.setTexture(player.texture);
 
-  // Drawing the map
-  this->tilemap.tiles.setTexture(this->tilemap.tileset);
-  this->tiles = this->tilemap.tiles;
+  // Initialising the map
+  tilemap.tiles.setTexture(tilemap.tileset);
+  tiles = tilemap.tiles;
 }
 
 void LevelState::draw(const sf::RenderWindow &window) {
-  this->gsm->window.setView(this->view);
-  this->gsm->window.clear(sf::Color::Black);
+  gsm->window.setView(this->view);
+  gsm->window.clear(sf::Color::Black);
 
-  this->gsm->window.draw(this->tilemap);
-  // this->gsm->window.draw(player.sprite);
+  gsm->window.draw(tilemap);
+  gsm->window.draw(player.sprite);
 }
 
 void LevelState::update() {}
@@ -38,16 +38,16 @@ void LevelState::update() {}
 void LevelState::handleInput() {
   sf::Event event;
 
-  while (this->gsm->window.pollEvent(event)) {
+  while (gsm->window.pollEvent(event)) {
     switch (event.type) {
       // Close window
       case sf::Event::Closed:
-        this->gsm->window.close();
+        gsm->window.close();
         break;
 
       // Return to Main Menu
       case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::Escape) this->gsm->popState();
+        if (event.key.code == sf::Keyboard::Escape) gsm->popState();
         break;
       default: break;
     }

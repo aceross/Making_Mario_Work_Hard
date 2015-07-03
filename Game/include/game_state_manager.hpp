@@ -22,6 +22,8 @@ class GameStateManager {
  private:
   void loadTextures();
   void loadTiles();
+  sf::Time updateTime;
+  sf::Clock updateClock;
 
  public:
   static const int tileSize = 32;
