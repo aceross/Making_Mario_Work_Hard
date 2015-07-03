@@ -33,6 +33,9 @@ class Player : public sf::Drawable, public sf::Transformable {
   sf::Time getFrameTime() const;
   void setFrame(std::size_t newFrame, bool resetTime = true);
 
+  sf::Texture texture;
+  // AnimationHandler animation_handler_;
+
  private:
   const Animation* animation_;
   sf::Time frame_time_;

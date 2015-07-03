@@ -10,7 +10,6 @@
 #include <string>
 
 #include "texture_manager.hpp"
-#include "tile.hpp"
 
 // Values for the game window
 #define SCREEN_WIDTH  800
@@ -37,7 +36,7 @@ class GameStateManager {
   TextureManager texmgr;
   sf::Sprite background;
 
-  std::map<std::string, Tile> tileAtlas;
+  // std::map<std::string, Tile> tileAtlas;
 
   void pushState(GameState* state);
   void popState();

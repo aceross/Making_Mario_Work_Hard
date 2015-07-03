@@ -10,7 +10,6 @@
 #include "../include/game_state.hpp"
 #include "../include/texture_manager.hpp"
 #include "../include/animation_handler.hpp"
-#include "../include/tile.hpp"
 
 void GameStateManager::loadTiles() {}
 

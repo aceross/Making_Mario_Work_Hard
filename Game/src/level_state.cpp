@@ -19,20 +19,20 @@ LevelState::LevelState(GameStateManager* gsm) {
     std::cout << "Error loading image." << std::endl;
     exit(-1);
   }
-  // Add the texture
-  player.sprite.setTexture(player.texture);
-
-  // Initial player sprite
-  player.addSpriteFrame(sf::IntRect(0, player.orgin_y,  player.rect_width,
-                                    player.rect_height));
-  // Player sprite going right
-  player.addSpriteFrame(sf::IntRect(196, player.orgin_y,  player.rect_width,
-                                    player.rect_height));
-  // Player sprite going left
-  player.addSpriteFrame(sf::IntRect(224, player.orgin_y,  player.rect_width,
-                                    player.rect_height));
-  // Set position
-  player.sprite.setPosition(100, 100);
+  // // Add the texture
+  // player.sprite.setTexture(player.texture);
+  //
+  // // Initial player sprite
+  // player.addSpriteFrame(sf::IntRect(0, player.orgin_y,  player.rect_width,
+  //                                   player.rect_height));
+  // // Player sprite going right
+  // player.addSpriteFrame(sf::IntRect(196, player.orgin_y,  player.rect_width,
+  //                                   player.rect_height));
+  // // Player sprite going left
+  // player.addSpriteFrame(sf::IntRect(224, player.orgin_y,  player.rect_width,
+  //                                   player.rect_height));
+  // // Set position
+  // player.sprite.setPosition(100, 100);
 
   // Initialising the map
   tilemap.tiles.setTexture(tilemap.tileset);
@@ -44,12 +44,12 @@ void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.clear(sf::Color::Black);
 
   gsm->window.draw(tilemap);
-  gsm->window.draw(player.sprite);
+  // gsm->window.draw(player.sprite);
 }
 
 void LevelState::update() {
-  player.update();
-  gsm->window.draw(player.sprite);
+  // player.update();
+  // gsm->window.draw(player.sprite);
 }
 
 void LevelState::handleInput() {

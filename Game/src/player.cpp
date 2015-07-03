@@ -21,9 +21,9 @@ void Player::play() {
   is_paused_ = false;
 }
 
-void Player::play(const Animation& animation_) {
-  if (getAnimation() != &animation_) {
-    setAnimation(animation_);
+void Player::play(const Animation& animation) {
+  if (getAnimation() != &animation) {
+    setAnimation(animation);
   }
   play();
 }
