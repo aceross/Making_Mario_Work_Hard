@@ -17,9 +17,10 @@ LevelState::LevelState(GameStateManager* gsm) {
   // Initialising the Player
   this->player = Player(sf::seconds(0.2), true, false);
   if (!player.texture.loadFromFile("assets/gfx/sprite.png")) {
-    std::cout << "Error loading image." << std::endl;
+    std::cout << "Error loading image. Exiting..." << std::endl;
     exit(-1);
   }
+
   // set up the animations for all four directions
   // (set spritesheet and push frames)
   Animation move_right;
@@ -62,7 +63,7 @@ void LevelState::update() {
 void LevelState::handleInput() {
   sf::Clock frame_clock;
 
-  float speed          = 150.f;
+  float speed          = 2.5f;
   bool noKeyWasPressed = true;
 
   sf::Event event;
@@ -87,25 +88,17 @@ void LevelState::handleInput() {
           current_animation_ = &player.player_move_left;
           movement.x        -= speed;
           noKeyWasPressed    = false;
+          player.move(movement);
         }
         if (event.key.code == sf::Keyboard::Right) {
           current_animation_ = &player.player_move_right;
           movement.x        += speed;
           noKeyWasPressed    = false;
+          player.move(movement);
         }
         break;
       default: break;
     }
-    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-    //   current_animation_ = &player.player_move_left;
-    //   movement.x        -= speed;
-    //   noKeyWasPressed    = false;
-    // }
-    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-    //   current_animation_ = &player.player_move_right;
-    //   movement.x        += speed;
-    //   noKeyWasPressed    = false;
-    // }
 
     player.play(*current_animation_);
     player.move(movement * frame_time.asSeconds());
@@ -117,7 +110,7 @@ void LevelState::handleInput() {
     noKeyWasPressed = true;
 
     // update AnimatedSprite
-    player.update(frame_time);
+    player.UpdateAnimation(frame_time);
 
     // // draw
     gsm->window.clear();

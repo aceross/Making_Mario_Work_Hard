@@ -16,7 +16,11 @@ class Player : public sf::Drawable, public sf::Transformable {
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
-  void update(sf::Time deltaTime);
+
+  void update();
+
+  // methods for animation
+  void UpdateAnimation(sf::Time deltaTime);
   void setAnimation(const Animation& animation);
   void setFrameTime(sf::Time time);
   void play();
@@ -50,6 +54,8 @@ class Player : public sf::Drawable, public sf::Transformable {
   bool is_looped_;
   const sf::Texture* texture_;
   sf::Vertex vertices_[4];
+
+  std::vector<std::vector<int>> postion_;
 
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

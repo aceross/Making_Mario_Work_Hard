@@ -106,11 +106,11 @@ void Player::setFrame(std::size_t newFrame, bool resetTime) {
   }
 }
 
-void Player::update(sf::Time deltaTime) {
+void Player::UpdateAnimation(sf::Time delta_time) {
   // if not paused and we have a valid animation
   if (!is_paused_ && animation_) {
     // add delta time
-    current_time_ += deltaTime;
+    current_time_ += delta_time;
 
     // if current time is bigger then the frame time advance one frame
     if (current_time_ >= frame_time_) {
@@ -133,6 +133,13 @@ void Player::update(sf::Time deltaTime) {
       setFrame(current_frame_, false);
     }
   }
+}
+
+void Player::update() {
+  // loop through map position
+  // determine collision
+  // set new position
+  // this is drawn
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
