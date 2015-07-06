@@ -6,7 +6,6 @@ LevelState::LevelState(GameStateManager* gsm) {
   printf("Welcome to level state.\n");
 
   this->gsm = gsm;
-
   sf::Vector2f pos = sf::Vector2f(this->gsm->window.getSize());
 
   // Setting the view
@@ -15,25 +14,25 @@ LevelState::LevelState(GameStateManager* gsm) {
   this->view.setCenter(pos);
 
   // Initialising the Player
-  this->player = Player(sf::seconds(0.2), true, false);
+  this->player = Player(sf::seconds(1.0), true, false);
   if (!player.texture.loadFromFile("assets/gfx/sprite.png")) {
-    std::cout << "Error loading image. Exiting..." << std::endl;
+    std::cout << "  Error loading image. Exiting..." << std::endl;
     exit(-1);
   }
 
-  // set up the animations for all four directions
+  // set up the animations
   // (set spritesheet and push frames)
   Animation move_right;
   move_right.setSpriteSheet(player.texture);
   move_right.addFrame(sf::IntRect(192, 0, 32, 32));
   move_right.addFrame(sf::IntRect(288, 0, 32, 32));
-  player.player_move_left = move_right;
+  player.player_move_right = move_right;
 
   Animation move_left;
   move_left.setSpriteSheet(player.texture);
   move_left.addFrame(sf::IntRect(320, 0, 32, 32));
   move_left.addFrame(sf::IntRect(352, 0, 32, 32));
-  player.player_move_right = move_left;
+  player.player_move_left = move_left;
 
   current_animation_ = &player.player_move_right;
 
@@ -54,7 +53,7 @@ void LevelState::draw(const sf::RenderWindow &window) {
 }
 
 void LevelState::update() {
-  gsm->window.clear();
+  // gsm->window.clear();
   // gsm->window.draw(player);
   // gsm->window.display();
   // gsm->window.draw(player);
@@ -63,7 +62,9 @@ void LevelState::update() {
 void LevelState::handleInput() {
   sf::Clock frame_clock;
 
-  float speed          = 2.5f;
+  float speed          = 1.5f;
+  float jump_speed     = 4.0f;
+  // float fall_speed     = 5.2f;
   bool noKeyWasPressed = true;
 
   sf::Event event;
@@ -80,28 +81,40 @@ void LevelState::handleInput() {
         gsm->window.close();
         break;
 
-      // Return to Main Menu
       case sf::Event::KeyPressed:
+        // Return to Main Menu
         if (event.key.code == sf::Keyboard::Escape) gsm->popState();
-        // break;
+
+        // Manual movement
         if (event.key.code == sf::Keyboard::Left) {
           current_animation_ = &player.player_move_left;
           movement.x        -= speed;
           noKeyWasPressed    = false;
+          player.left_       = true;
+          player.play(*current_animation_);
           player.move(movement);
         }
         if (event.key.code == sf::Keyboard::Right) {
           current_animation_ = &player.player_move_right;
           movement.x        += speed;
           noKeyWasPressed    = false;
+          player.right_      = true;
+          player.play(*current_animation_);
+          player.move(movement);
+        }
+        if (event.key.code == sf::Keyboard::Space) {
+          current_animation_ = &player.player_move_right;
+          movement.y        -= jump_speed;
+          noKeyWasPressed    = false;
+          player.jumping_    = true;
           player.move(movement);
         }
         break;
       default: break;
     }
 
-    player.play(*current_animation_);
-    player.move(movement * frame_time.asSeconds());
+    // player.play(*current_animation_);
+    // player.move(movement * frame_time.asSeconds());
 
     // if no key was pressed stop the animation
     if (noKeyWasPressed) {
@@ -113,8 +126,8 @@ void LevelState::handleInput() {
     player.UpdateAnimation(frame_time);
 
     // // draw
-    gsm->window.clear();
-    gsm->window.draw(player);
+    // gsm->window.clear();
+    // gsm->window.draw(player);
     // gsm->window.display();
   }
   return;

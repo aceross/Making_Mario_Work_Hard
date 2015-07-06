@@ -45,6 +45,13 @@ class Player : public sf::Drawable, public sf::Transformable {
   sf::Texture texture;
   // AnimationHandler animation_handler_;
 
+  // movement boolean values
+  bool right_         = false;
+  bool left_          = false;
+  bool jumping_       = false;
+  bool falling_       = false;
+  bool top_collision_ = false;
+
  private:
   const Animation* animation_;
   sf::Time frame_time_;

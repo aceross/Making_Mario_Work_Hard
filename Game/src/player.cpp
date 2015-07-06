@@ -119,7 +119,7 @@ void Player::UpdateAnimation(sf::Time delta_time) {
                                        frame_time_.asMicroseconds());
 
       // get next Frame index
-      if (current_frame_ + 1 < animation_->getSize()) {
+      if (current_frame_ + 1 <= animation_->getSize()) {
         current_frame_++;
       } else {
         // animation has ended
@@ -136,10 +136,17 @@ void Player::UpdateAnimation(sf::Time delta_time) {
 }
 
 void Player::update() {
-  // loop through map position
-  // determine collision
-  // set new position
-  // this is drawn
+  // get map height
+  // get map width
+  // 
+  // for (int i = 0; i < height; ++i) {
+  //   for (int j = 0; j < width; ++j) {
+  //     // if map[i][j] value != 0
+  //     // set collision rules;
+  //   }
+  // }
+
+
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
