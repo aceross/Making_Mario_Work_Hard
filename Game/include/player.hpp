@@ -37,6 +37,8 @@ class Player : public sf::Drawable, public sf::Transformable {
   sf::Time getFrameTime() const;
   void setFrame(std::size_t newFrame, bool resetTime = true);
 
+  void UpdatePosition(sf::Vector2f movement);
+
   Animation player_move_left;
   Animation player_move_right;
 
@@ -54,7 +56,7 @@ class Player : public sf::Drawable, public sf::Transformable {
 
   // rect values
   float bottom, left, right, top;
-  sf::Vector2f position_;
+
 
  private:
   const Animation* animation_;
@@ -65,6 +67,8 @@ class Player : public sf::Drawable, public sf::Transformable {
   bool is_looped_;
   const sf::Texture* texture_;
   sf::Vertex vertices_[4];
+
+  sf::Vector2f position_;
 
   // std::vector<std::vector<int>> postion_;
 

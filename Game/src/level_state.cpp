@@ -72,7 +72,7 @@ void LevelState::handleInput() {
   sf::Event event;
 
   // if a key was pressed set the correct animation and move correctly
-  // sf::Vector2f movement(0.f, 0.f);
+  sf::Vector2f movement(0.f, 0.f);
 
   sf::Time frame_time = frame_clock.restart();
 
@@ -90,30 +90,28 @@ void LevelState::handleInput() {
         // Manual movement
         if (event.key.code == sf::Keyboard::Left) {
           current_animation_  = &player.player_move_left;
-          player.position_.x -= speed;
+          movement.x         -= speed;
           noKeyWasPressed     = false;
           player.moving_left_ = true;
           player.play(*current_animation_);
-          player.move(player.position_);
+
           printf("Player postion x = %f , y = %f\n", player.getPosition().x,
                                                      player.getPosition().y);
         }
         if (event.key.code == sf::Keyboard::Right) {
           current_animation_   = &player.player_move_right;
-          player.position_.x  += speed;
+          movement.x          += speed;
           noKeyWasPressed      = false;
           player.moving_right_ = true;
           player.play(*current_animation_);
-          player.move(player.position_);
           printf("Player postion x = %f , y = %f\n", player.getPosition().x,
                                                      player.getPosition().y);
         }
         if (event.key.code == sf::Keyboard::Space) {
           current_animation_   = &player.player_move_right;
-          player.position_.y  -= jump_speed;
+          movement.y          -= jump_speed;
           noKeyWasPressed      = false;
           player.jumping_      = true;
-          player.move(player.position_);
           printf("Player postion x = %f , y = %f\n", player.getPosition().x,
                                                      player.getPosition().y);
         }
@@ -121,8 +119,9 @@ void LevelState::handleInput() {
       default: break;
     }
 
-    // player.play(*current_animation_);
-    // player.move(movement * frame_time.asSeconds());
+    player.play(*current_animation_);
+    player.UpdatePosition(movement);
+    player.move(movement);
 
     // if no key was pressed stop the animation
     if (noKeyWasPressed) {

@@ -140,6 +140,10 @@ void Player::UpdateAnimation(sf::Time delta_time) {
   }
 }
 
+void Player::UpdatePosition(sf::Vector2f movement) {
+  position_ += movement;
+}
+
 void Player::update(std::vector<std::vector<Tile>> t_map) {
   // int p_x = position_.x;
   // int p_y = position_.y;
