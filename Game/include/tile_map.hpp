@@ -11,7 +11,6 @@
 #include <fstream>
 #include <cctype>
 
-#include "level.hpp"
 #include "tile.hpp"
 
 class TileMap : public sf::Sprite {

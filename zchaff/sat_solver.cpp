@@ -1,36 +1,36 @@
 /* =========FOR INTERNAL USE ONLY. NO DISTRIBUTION PLEASE ========== */
 
 /*********************************************************************
- Copyright 2000-2004, Princeton University.  All rights reserved. 
- By using this software the USER indicates that he or she has read, 
+ Copyright 2000-2004, Princeton University.  All rights reserved.
+ By using this software the USER indicates that he or she has read,
  understood and will comply with the following:
 
- --- Princeton University hereby grants USER nonexclusive permission 
+ --- Princeton University hereby grants USER nonexclusive permission
  to use, copy and/or modify this software for internal, noncommercial,
- research purposes only. Any distribution, including commercial sale 
- or license, of this software, copies of the software, its associated 
- documentation and/or modifications of either is strictly prohibited 
+ research purposes only. Any distribution, including commercial sale
+ or license, of this software, copies of the software, its associated
+ documentation and/or modifications of either is strictly prohibited
  without the prior consent of Princeton University.  Title to copyright
- to this software and its associated documentation shall at all times 
- remain with Princeton University.  Appropriate copyright notice shall 
- be placed on all software copies, and a complete copy of this notice 
- shall be included in all copies of the associated documentation.  
- No right is  granted to use in advertising, publicity or otherwise 
- any trademark,  service mark, or the name of Princeton University. 
+ to this software and its associated documentation shall at all times
+ remain with Princeton University.  Appropriate copyright notice shall
+ be placed on all software copies, and a complete copy of this notice
+ shall be included in all copies of the associated documentation.
+ No right is  granted to use in advertising, publicity or otherwise
+ any trademark,  service mark, or the name of Princeton University.
 
 
- --- This software and any associated documentation is provided "as is" 
+ --- This software and any associated documentation is provided "as is"
 
- PRINCETON UNIVERSITY MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS 
- OR IMPLIED, INCLUDING THOSE OF MERCHANTABILITY OR FITNESS FOR A 
- PARTICULAR PURPOSE, OR THAT  USE OF THE SOFTWARE, MODIFICATIONS, OR 
- ASSOCIATED DOCUMENTATION WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS, 
- TRADEMARKS OR OTHER INTELLECTUAL PROPERTY RIGHTS OF A THIRD PARTY.  
+ PRINCETON UNIVERSITY MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS
+ OR IMPLIED, INCLUDING THOSE OF MERCHANTABILITY OR FITNESS FOR A
+ PARTICULAR PURPOSE, OR THAT  USE OF THE SOFTWARE, MODIFICATIONS, OR
+ ASSOCIATED DOCUMENTATION WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS,
+ TRADEMARKS OR OTHER INTELLECTUAL PROPERTY RIGHTS OF A THIRD PARTY.
 
- Princeton University shall not be liable under any circumstances for 
- any direct, indirect, special, incidental, or consequential damages 
- with respect to any claim by USER or any third party on account of 
- or arising from the use, or inability to use, this software or its 
+ Princeton University shall not be liable under any circumstances for
+ any direct, indirect, special, incidental, or consequential damages
+ with respect to any claim by USER or any third party on account of
+ or arising from the use, or inability to use, this software or its
  associated documentation, even if Princeton University has been advised
  of the possibility of those damages.
 *********************************************************************/
@@ -59,12 +59,12 @@ void read_cnf(SAT_Manager mng, char * filename )
     set<int> clause_vars;
     set<int> clause_lits;
     int line_num = 0;
-    
+
     if(opendir(filename)){
         cerr << "Can't open input file, it's a directory" << endl;
         exit(1);
     }
-    
+
     ifstream inp (filename, ios::in);
     if (!inp) {
         cerr << "Can't open input file" << endl;
@@ -72,8 +72,8 @@ void read_cnf(SAT_Manager mng, char * filename )
     }
     while (inp.getline(line_buffer, MAX_LINE_LENGTH)) {
         ++ line_num;
-        if (line_buffer[0] == 'c') { 
-            continue; 
+        if (line_buffer[0] == 'c') {
+            continue;
         }
         else if (line_buffer[0] == 'p') {
             int var_num;
@@ -107,7 +107,7 @@ void read_cnf(SAT_Manager mng, char * filename )
                         if( var_idx < 0)  { var_idx = -var_idx; sign = 1; }
                         clause_vars.insert(var_idx);
                         clause_lits.insert( (var_idx << 1) + sign);
-                    }         
+                    }
                     else {
                         //add this clause
                         if (clause_vars.size() != 0 && (clause_vars.size() == clause_lits.size())) { //yeah, can add this clause
@@ -153,7 +153,7 @@ void handle_result(SAT_Manager mng, int outcome, char * filename )
 //following lines will print out a solution if a solution exist
         for (int i=1, sz = SAT_NumVariables(mng); i<= sz; ++i) {
             switch(SAT_GetVarAsgnment(mng, i)) {
-            case -1:        
+            case -1:
                 cout <<"("<< i<<")"; break;
             case 0:
                 cout << "-" << i; break;
@@ -170,13 +170,13 @@ void handle_result(SAT_Manager mng, int outcome, char * filename )
     case UNSATISFIABLE:
         result  = "UNSAT";
         cout << "Instance Unsatisfiable" << endl;
-        break; 
+        break;
     case TIME_OUT:
-        result  = "ABORT : TIME OUT"; 
+        result  = "ABORT : TIME OUT";
         cout << "Time out, unable to determine the satisfiability of the instance"<<endl;
         break;
     case MEM_OUT:
-        result  = "ABORT : MEM OUT"; 
+        result  = "ABORT : MEM OUT";
         cout << "Memory out, unable to determine the satisfiability of the instance"<<endl;
         break;
     default:
@@ -221,7 +221,7 @@ void output_status(SAT_Manager mng)
 void verify_solution(SAT_Manager mng)
 {
     int num_verified = 0;
-    for ( int cl_idx = SAT_GetFirstClause (mng); cl_idx >= 0; 
+    for ( int cl_idx = SAT_GetFirstClause (mng); cl_idx >= 0;
           cl_idx = SAT_GetNextClause(mng, cl_idx)) {
         int len = SAT_GetClauseNumLits(mng, cl_idx);
         int * lits = new int[len+1];
@@ -264,9 +264,9 @@ int main(int argc, char ** argv)
     }
 
 /* if you want some statistics during the solving, uncomment following line */
-//    SAT_AddHookFun(mng,output_status, 5000);
+   SAT_AddHookFun(mng,output_status, 5000);
 
-/* you can set all your parameters here, following values are the defaults*/ 
+/* you can set all your parameters here, following values are the defaults*/
 //    SAT_SetMaxUnrelevance(mng, 20);
 //    SAT_SetMinClsLenForDelete(mng, 100);
 //    SAT_SetMaxConfClsLenAllowed(mng, 5000);
@@ -275,7 +275,7 @@ int main(int argc, char ** argv)
 //    SAT_SetRandomness (mng, 10);
 //    SAT_SetRandSeed (mng, -1);
     int result = SAT_Solve(mng);
-    if (result == SATISFIABLE) 
+    if (result == SATISFIABLE)
         verify_solution(mng);
     handle_result (mng, result,  argv[1]);
     return 0;

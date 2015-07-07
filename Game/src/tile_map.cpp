@@ -5,7 +5,7 @@
 #include "../include/tile_map.hpp"
 
 // Constructor and Destructor
-TileMap::TileMap()  { initialiseMap(); }
+TileMap::TileMap()  {}
 TileMap::~TileMap() {}
 
 // Loads in the map layout and graphical assets
@@ -24,19 +24,11 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
 
       t_map_[j][i].SetTileID(tileNumber);
 
-      printf("\n");
-      printf("Tile Number = %d\n", tileNumber);
-      printf("Tile Value = %d\n", tileValue);
-
       // Find the tileValue's position in the tileset texture
       // 'tu' is the column value on the tileset
       // 'tv' is the row value on the tileset
       int tu = tileValue % (this->tileset.getSize().x / tileSize.x);
       int tv = tileValue / (this->tileset.getSize().x / tileSize.x);
-
-      printf("Coordinates map [%lu][%lu]\n", i, j);
-      printf("TU = %d\n", tu);
-      printf("TV = %d\n", tv);
 
       // Get a pointer to the current tile's quad
       sf::Vertex* quad = &vertices[(i + j * width) * 4];
@@ -47,6 +39,8 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
       quad[2].position = sf::Vector2f((i + 1) * tileSize.x,
                                       (j + 1) * tileSize.y);
       quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
+
+      this->t_map_[j][i].SetTilePosition(quad[0].position);
 
       // define the current tile's four texture coordinates
       quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);

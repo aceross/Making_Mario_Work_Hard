@@ -14,6 +14,8 @@ LevelState::LevelState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
+  this->tilemap.initialiseMap();
+
   // Initialising the Player
   this->player = Player(sf::seconds(1.0), true, false);
   if (!player.texture.loadFromFile("assets/gfx/sprite.png")) {
@@ -38,7 +40,8 @@ LevelState::LevelState(GameStateManager* gsm) {
   current_animation_ = &player.player_move_right;
 
   // set position
-  player.setPosition(sf::Vector2f(0, 0));
+  player.setPosition(sf::Vector2f(64, 195));
+  player.position_ = sf::Vector2f(64, 195);
 
   // Initialising the map
   tilemap.tiles.setTexture(tilemap.tileset);
@@ -50,16 +53,20 @@ void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.clear(sf::Color::Black);
 
   gsm->window.draw(tilemap);
-  // for (int i = 0; i < tilemap.height; ++i) {
-  //   for (int j = 0; j < tilemap.width; ++j) {
-  //     gsm->window.draw(tilemap.t_map_[i][j]);
-  //   }
-  // }
+
   gsm->window.draw(player);
 }
 
 bool LevelState::HasCollision(Player p, Tile t) {
-  return Collision::Collide(p, t);
+  sf::FloatRect player = p.getGlobalBounds();
+  // sf::FloatRect tile = t.getGlobalBounds();
+
+  // if (player.intersects(tile)) {
+  if (player.contains(t.GetTilePosition())) {
+    printf("Intersection!!!!!!!!!\n");
+    return true;
+  }
+  return false;
 }
 
 void LevelState::update() {}
@@ -68,8 +75,8 @@ void LevelState::handleInput() {
   sf::Clock frame_clock;
 
   float speed          = 32.0f;
-  float jump_speed     = 4.0f;
-  // float fall_speed     = 5.2f;
+  // float jump_speed     = 4.0f;
+  float fall_speed     = 5.2f;
   bool noKeyWasPressed = true;
 
   sf::Event event;
@@ -93,54 +100,84 @@ void LevelState::handleInput() {
         // Manual movement
         if (event.key.code == sf::Keyboard::Left) {
           current_animation_  = &player.player_move_left;
-          movement.x         -= speed;
           noKeyWasPressed     = false;
           player.moving_left_ = true;
           player.play(*current_animation_);
-
-          printf("Player postion x = %f , y = %f\n", player.getPosition().x,
-                                                     player.getPosition().y);
         }
         if (event.key.code == sf::Keyboard::Right) {
           current_animation_   = &player.player_move_right;
-          movement.x          += speed;
           noKeyWasPressed      = false;
           player.moving_right_ = true;
           player.play(*current_animation_);
-          printf("Player postion x = %f , y = %f\n", player.getPosition().x,
-                                                     player.getPosition().y);
         }
         if (event.key.code == sf::Keyboard::Space) {
           current_animation_   = &player.player_move_right;
-          movement.y          -= jump_speed;
           noKeyWasPressed      = false;
           player.jumping_      = true;
-          printf("Player postion x = %f , y = %f\n", player.getPosition().x,
-                                                     player.getPosition().y);
         }
         break;
       default: break;
     }
 
     player.play(*current_animation_);
+    // player.UpdatePosition(movement);
 
-    player.UpdatePosition(movement);
+    printf("Player postion before collision loop : x = %f , y = %f\n",
+            player.getPosition().x, player.getPosition().y);
 
+    // Collision rules
     for (int i = 0; i < tilemap.height; ++i) {
       for (int j = 0; j < tilemap.width; ++j) {
         if (tilemap.t_map_[i][j].GetTileValue() != 0) {
-          // sf::FloatRect tile   = tilemap.t_map_[i][j].getGlobalBounds();
-          printf("Tile values\n");
-          printf("Tile ID = %d\n", tilemap.t_map_[i][j].GetTileID());
-          printf("Tile Value = %d\n", tilemap.t_map_[i][j].GetTileValue());
-          printf("Tile Position x = %f , y = %f\n",
-                                          tilemap.t_map_[i][j].getPosition().x,
-                                          tilemap.t_map_[i][j].getPosition().y);
+          // printf("tile position x = %d\n", tile );
+          if (HasCollision(player, tilemap.t_map_[i][j])) {
+            printf("Collision!\n");
+          //   if (player.moving_left_) {
+          //     printf("Left Collision!\n");
+          //     player.moving_left_ = false;
+          //   }
+          }
+          // if (player.moving_left_ && HasCollision(player,
+          //                                         tilemap.t_map_[i][j])) {
+          //   printf("Left Collision!\n");
+          //   player.moving_left_ = false;
+          // }
+          // if (player.moving_right_ && HasCollision(player,
+          //                                          tilemap.t_map_[i][j])) {
+          //   printf("Right Collision!\n");
+          //   player.moving_right_ = false;
+          // }
+          // if (player.falling_ && HasCollision(player, tilemap.t_map_[i][j])) {
+          //   printf("Bottom Collision!\n");
+          //   player.falling_ = false;
+          // }
+          // if (player.top_collision_ && HasCollision(player,
+          //                                           tilemap.t_map_[i][j])) {
+          //   printf("Top Collision!\n");
+          //   player.falling_ = true;
+          // }
         }
-      }
-    }
+        if (player.moving_left_) {
+          movement.x -= speed;
+          player.moving_left_ = false;
+        }
+        if (player.moving_right_) {
+          movement.x += speed;
+          player.moving_right_ = false;
+        }
+        if (player.falling_) {
+          movement.y += fall_speed;
+        }
+        // if (player.jumping_) {
+        //   movement.y -= jump_speed;
+        // }
+      }  // End of innter for loop
+    }  // End of outer for loop
 
     player.move(movement);
+
+    printf("Player postion AFTER loop x = %f , y = %f\n",
+            player.getPosition().x, player.getPosition().y);
 
     // if no key was pressed stop the animation
     if (noKeyWasPressed) {
