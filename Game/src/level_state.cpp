@@ -1,5 +1,6 @@
 // Copyright 2015, Aaron Ceross
 
+#include <vector>
 #include "../include/level_state.hpp"
 
 LevelState::LevelState(GameStateManager* gsm) {
@@ -37,7 +38,7 @@ LevelState::LevelState(GameStateManager* gsm) {
   current_animation_ = &player.player_move_right;
 
   // set position
-  player.setPosition(sf::Vector2f(170, 180));
+  player.setPosition(sf::Vector2f(0, 0));
 
   // Initialising the map
   tilemap.tiles.setTexture(tilemap.tileset);
@@ -49,17 +50,19 @@ void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.clear(sf::Color::Black);
 
   gsm->window.draw(tilemap);
+  // for (int i = 0; i < tilemap.height; ++i) {
+  //   for (int j = 0; j < tilemap.width; ++j) {
+  //     gsm->window.draw(tilemap.t_map_[i][j]);
+  //   }
+  // }
   gsm->window.draw(player);
 }
 
-void LevelState::update() {
-  // update player's position
-  // player.bottom = player.getPosition().y + player.getSize().height;
-  // player.left   = player.getPosition().x;
-  // player.right  = player.getPosition().x + player.getSize().width;
-  // player.top    = player.getPosition().y;
-  player.update(tilemap.t_map_);
+bool LevelState::HasCollision(Player p, Tile t) {
+  return Collision::Collide(p, t);
 }
+
+void LevelState::update() {}
 
 void LevelState::handleInput() {
   sf::Clock frame_clock;
@@ -120,7 +123,23 @@ void LevelState::handleInput() {
     }
 
     player.play(*current_animation_);
+
     player.UpdatePosition(movement);
+
+    for (int i = 0; i < tilemap.height; ++i) {
+      for (int j = 0; j < tilemap.width; ++j) {
+        if (tilemap.t_map_[i][j].GetTileValue() != 0) {
+          // sf::FloatRect tile   = tilemap.t_map_[i][j].getGlobalBounds();
+          printf("Tile values\n");
+          printf("Tile ID = %d\n", tilemap.t_map_[i][j].GetTileID());
+          printf("Tile Value = %d\n", tilemap.t_map_[i][j].GetTileValue());
+          printf("Tile Position x = %f , y = %f\n",
+                                          tilemap.t_map_[i][j].getPosition().x,
+                                          tilemap.t_map_[i][j].getPosition().y);
+        }
+      }
+    }
+
     player.move(movement);
 
     // if no key was pressed stop the animation

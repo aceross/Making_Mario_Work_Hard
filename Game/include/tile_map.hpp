@@ -14,7 +14,7 @@
 #include "level.hpp"
 #include "tile.hpp"
 
-class TileMap : public sf::Drawable, public sf::Transformable {
+class TileMap : public sf::Sprite {
  public:
   using sf::Drawable::draw;
   TileMap();
@@ -28,6 +28,9 @@ class TileMap : public sf::Drawable, public sf::Transformable {
   sf::Sprite      tiles;
   std::vector<std::vector<Tile>> t_map_;
 
+  unsigned int height;
+  unsigned int width;
+
  private:
   // For collision
   sf::FloatRect getLocalBounds() const;
@@ -37,9 +40,6 @@ class TileMap : public sf::Drawable, public sf::Transformable {
   void setParameters(std::string filepath);
   void resizeMap(int width, int height);
   void PrintMap();
-
-  unsigned int height;
-  unsigned int width;
 };
 
 #endif  // TILE_MAP_HPP

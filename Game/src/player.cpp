@@ -144,20 +144,7 @@ void Player::UpdatePosition(sf::Vector2f movement) {
   position_ += movement;
 }
 
-void Player::update(std::vector<std::vector<Tile>> t_map) {
-  // int p_x = position_.x;
-  // int p_y = position_.y;
-
-  for (std::vector<std::vector<int>>::size_type i = 0; i < t_map.size(); ++i) {
-    for (std::vector<int>::size_type j = 0; j < t_map[i].size(); ++j) {
-      if (t_map[i][j].GetTileValue() != 0) {
-        if (Collision::Collide(position_, t_map[i][j])) {
-          printf("Collision!\n");
-        }
-      }
-    }
-  }
-}
+void Player::update() {}
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   if (animation_ && texture_) {

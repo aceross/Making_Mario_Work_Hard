@@ -8,7 +8,7 @@
 
 class Collision {
  public:
-  static bool Collide(sf::Vector2f p, Tile t);
+  static bool Collide(Player p, Tile t);
 };
 
 #endif  // COLLISION_HPP

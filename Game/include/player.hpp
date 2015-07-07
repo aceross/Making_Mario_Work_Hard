@@ -9,14 +9,13 @@
 #include <iostream>
 #include <vector>
 #include "animation.hpp"
-#include "collision.hpp"
 
-class Player : public sf::Drawable, public sf::Transformable {
+class Player : public sf::Sprite {
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
 
-  void update(std::vector<std::vector<Tile>> t_map);
+  void update();
 
   // methods for animation
   void UpdateAnimation(sf::Time deltaTime);
@@ -57,6 +56,7 @@ class Player : public sf::Drawable, public sf::Transformable {
   // rect values
   float bottom, left, right, top;
 
+  sf::Vector2f position_;
 
  private:
   const Animation* animation_;
@@ -68,7 +68,7 @@ class Player : public sf::Drawable, public sf::Transformable {
   const sf::Texture* texture_;
   sf::Vertex vertices_[4];
 
-  sf::Vector2f position_;
+
 
   // std::vector<std::vector<int>> postion_;
 

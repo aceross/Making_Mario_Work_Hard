@@ -24,6 +24,8 @@ class LevelState : public GameState {
   TileMap tilemap;
   const Animation* current_animation_;
 
+  bool HasCollision(Player p, Tile t);
+
  public:
   virtual void draw(const sf::RenderWindow &window);
   virtual void update();
