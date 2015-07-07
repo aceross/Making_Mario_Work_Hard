@@ -10,6 +10,7 @@
 #include "game_state.hpp"
 #include "player.hpp"
 #include "tile_map.hpp"
+#include "collision.hpp"
 
 class LevelState : public GameState {
  private:
@@ -17,6 +18,7 @@ class LevelState : public GameState {
   sf::Text level_text;
   sf::Font font;
   sf::Sprite  tiles;
+  sf::FloatRect block;
 
   Player player;
   TileMap tilemap;

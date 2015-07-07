@@ -3,21 +3,20 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
 #include "animation.hpp"
+#include "collision.hpp"
 
 class Player : public sf::Drawable, public sf::Transformable {
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
 
-  void update();
+  void update(std::vector<std::vector<Tile>> t_map);
 
   // methods for animation
   void UpdateAnimation(sf::Time deltaTime);
@@ -32,6 +31,7 @@ class Player : public sf::Drawable, public sf::Transformable {
   const Animation* getAnimation() const;
   sf::FloatRect getLocalBounds() const;
   sf::FloatRect getGlobalBounds() const;
+  sf::FloatRect getSize() const;
   bool isLooped() const;
   bool isPlaying() const;
   sf::Time getFrameTime() const;
@@ -46,11 +46,15 @@ class Player : public sf::Drawable, public sf::Transformable {
   // AnimationHandler animation_handler_;
 
   // movement boolean values
-  bool right_         = false;
-  bool left_          = false;
+  bool moving_right_  = false;
+  bool moving_left_   = false;
   bool jumping_       = false;
   bool falling_       = false;
   bool top_collision_ = false;
+
+  // rect values
+  float bottom, left, right, top;
+  sf::Vector2f position_;
 
  private:
   const Animation* animation_;
@@ -62,7 +66,7 @@ class Player : public sf::Drawable, public sf::Transformable {
   const sf::Texture* texture_;
   sf::Vertex vertices_[4];
 
-  std::vector<std::vector<int>> postion_;
+  // std::vector<std::vector<int>> postion_;
 
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

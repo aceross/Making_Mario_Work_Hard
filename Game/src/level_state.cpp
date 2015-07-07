@@ -37,7 +37,7 @@ LevelState::LevelState(GameStateManager* gsm) {
   current_animation_ = &player.player_move_right;
 
   // set position
-  player.setPosition(sf::Vector2f(100, 100));
+  player.setPosition(sf::Vector2f(170, 180));
 
   // Initialising the map
   tilemap.tiles.setTexture(tilemap.tileset);
@@ -53,16 +53,18 @@ void LevelState::draw(const sf::RenderWindow &window) {
 }
 
 void LevelState::update() {
-  // gsm->window.clear();
-  // gsm->window.draw(player);
-  // gsm->window.display();
-  // gsm->window.draw(player);
+  // update player's position
+  // player.bottom = player.getPosition().y + player.getSize().height;
+  // player.left   = player.getPosition().x;
+  // player.right  = player.getPosition().x + player.getSize().width;
+  // player.top    = player.getPosition().y;
+  player.update(tilemap.t_map_);
 }
 
 void LevelState::handleInput() {
   sf::Clock frame_clock;
 
-  float speed          = 1.5f;
+  float speed          = 32.0f;
   float jump_speed     = 4.0f;
   // float fall_speed     = 5.2f;
   bool noKeyWasPressed = true;
@@ -70,7 +72,7 @@ void LevelState::handleInput() {
   sf::Event event;
 
   // if a key was pressed set the correct animation and move correctly
-  sf::Vector2f movement(0.f, 0.f);
+  // sf::Vector2f movement(0.f, 0.f);
 
   sf::Time frame_time = frame_clock.restart();
 
@@ -87,27 +89,33 @@ void LevelState::handleInput() {
 
         // Manual movement
         if (event.key.code == sf::Keyboard::Left) {
-          current_animation_ = &player.player_move_left;
-          movement.x        -= speed;
-          noKeyWasPressed    = false;
-          player.left_       = true;
+          current_animation_  = &player.player_move_left;
+          player.position_.x -= speed;
+          noKeyWasPressed     = false;
+          player.moving_left_ = true;
           player.play(*current_animation_);
-          player.move(movement);
+          player.move(player.position_);
+          printf("Player postion x = %f , y = %f\n", player.getPosition().x,
+                                                     player.getPosition().y);
         }
         if (event.key.code == sf::Keyboard::Right) {
-          current_animation_ = &player.player_move_right;
-          movement.x        += speed;
-          noKeyWasPressed    = false;
-          player.right_      = true;
+          current_animation_   = &player.player_move_right;
+          player.position_.x  += speed;
+          noKeyWasPressed      = false;
+          player.moving_right_ = true;
           player.play(*current_animation_);
-          player.move(movement);
+          player.move(player.position_);
+          printf("Player postion x = %f , y = %f\n", player.getPosition().x,
+                                                     player.getPosition().y);
         }
         if (event.key.code == sf::Keyboard::Space) {
-          current_animation_ = &player.player_move_right;
-          movement.y        -= jump_speed;
-          noKeyWasPressed    = false;
-          player.jumping_    = true;
-          player.move(movement);
+          current_animation_   = &player.player_move_right;
+          player.position_.y  -= jump_speed;
+          noKeyWasPressed      = false;
+          player.jumping_      = true;
+          player.move(player.position_);
+          printf("Player postion x = %f , y = %f\n", player.getPosition().x,
+                                                     player.getPosition().y);
         }
         break;
       default: break;

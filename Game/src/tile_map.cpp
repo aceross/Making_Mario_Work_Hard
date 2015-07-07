@@ -22,6 +22,8 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
       int tileNumber = i + j * width;
       int tileValue = t_map_[j][i].GetTileValue();
 
+      t_map_[j][i].SetTileID(tileNumber);
+
       printf("\n");
       printf("Tile Number = %d\n", tileNumber);
       printf("Tile Value = %d\n", tileValue);
@@ -112,18 +114,10 @@ void TileMap::setParameters(std::string filepath) {
 
   int value;
   for (unsigned int i = 0; i < height; ++i) {
-    std::vector<Tile> tmp_value;
     for (unsigned int j = 0; j < width; ++j) {
       mapfile >> value;
-      printf("\n");
-      printf("tilemap[%d][%d]", i, j);
-      printf("Value = %d\n", value);
       t_map_[i][j].SetTileValue(value);
-      // tmp_value.push_back(value);
-      int p = t_map_[i][j].GetTileValue();
-      printf("Value inserted: %d\n", p);
     }
-    // t_map_.push_back(tmp_value);
   }
   printf("Map values successfully inserted!\n");
   mapfile.close();

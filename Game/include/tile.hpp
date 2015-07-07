@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Tile : public sf::Drawable, public sf::Transformable {
+class Tile : public sf::Drawable, public sf::Transformable, public sf::Sprite {
  public:
   Tile();
   ~Tile();

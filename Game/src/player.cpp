@@ -1,6 +1,7 @@
 // Copyright 2015, Aaron Ceross
 
 #include "../include/player.hpp"
+#include <vector>
 
 Player::Player(sf::Time frameTime, bool paused, bool looped) :
   animation_(NULL), frame_time_(frameTime), current_frame_(0),
@@ -65,6 +66,10 @@ sf::FloatRect Player::getLocalBounds() const {
 
 sf::FloatRect Player::getGlobalBounds() const {
   return getTransform().transformRect(getLocalBounds());
+}
+
+sf::FloatRect Player::getSize() const {
+  return getTransform().transformRect(getSize());
 }
 
 bool Player::isLooped() const {
@@ -135,18 +140,19 @@ void Player::UpdateAnimation(sf::Time delta_time) {
   }
 }
 
-void Player::update() {
-  // get map height
-  // get map width
-  // 
-  // for (int i = 0; i < height; ++i) {
-  //   for (int j = 0; j < width; ++j) {
-  //     // if map[i][j] value != 0
-  //     // set collision rules;
-  //   }
-  // }
+void Player::update(std::vector<std::vector<Tile>> t_map) {
+  // int p_x = position_.x;
+  // int p_y = position_.y;
 
-
+  for (std::vector<std::vector<int>>::size_type i = 0; i < t_map.size(); ++i) {
+    for (std::vector<int>::size_type j = 0; j < t_map[i].size(); ++j) {
+      if (t_map[i][j].GetTileValue() != 0) {
+        if (Collision::Collide(position_, t_map[i][j])) {
+          printf("Collision!\n");
+        }
+      }
+    }
+  }
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
