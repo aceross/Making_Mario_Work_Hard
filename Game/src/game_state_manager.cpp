@@ -8,74 +8,100 @@
 
 #include "../include/game_state_manager.hpp"
 #include "../include/game_state.hpp"
-#include "../include/texture_manager.hpp"
-#include "../include/animation_handler.hpp"
+#include "../include/menu_state.hpp"
+#include "../include/state_identifiers.hpp"
 
-void GameStateManager::loadTiles() {}
-
-void GameStateManager::loadTextures() {}
-
-void GameStateManager::pushState(GameState* state) {
-  states.push(state);
-  return;
-}
-
-void GameStateManager::popState() {
-  // delete this->states.top();
-  states.pop();
-  return;
-}
-
-void GameStateManager::changeState(GameState* state) {
-  if (!states.empty()) popState();
-  pushState(state);
-  return;
-}
-
-GameState* GameStateManager::peekState() {
-  if (states.empty()) return nullptr;
-  return states.top();
-}
+const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
 
 void GameStateManager::gameLoop() {
-  while (window.isOpen() && !game_over) {
-    if (peekState() == nullptr) continue;
+  sf::Clock update_clock;
+  sf::Time time_since_last_update = sf::Time::Zero;
 
+  while (window_.isOpen() && !game_over_) {
     // Determine the time that passed
-    sf::Time delta = updateClock.restart();
-    updateTime += delta;  // add up previous leftover time
+    // add up previous leftover time
+    sf::Time delta_time     = update_clock.restart();
+    time_since_last_update += delta_time;
 
-    // determine the number of iterations to do (100 fps; capped at 10)
-    // int loops = std::min<int>(static_cast<int>(updateTime /
-    //                                            sf::milliseconds(10)), 10);
-    // while (loops--)
-    //   // updateSingleStep();                 // update by one fixed timestep
-    //   updateTime %= sf::milliseconds(10);    // drop leftover frames
-    //   // updateDeltaTime(delta);              // update based on time passed
+    while (time_since_last_update > TimePerFrame) {
+      time_since_last_update -= TimePerFrame;
+      ProcessInput();
+      Update(TimePerFrame);
 
-    peekState()->handleInput();
-    peekState()->update();
+      if (states.IsEmpty()) { window_.close(); }
+    }
 
-    window.clear();
-    peekState()->draw(window);
+    UpdateStatistics(delta_time);
+    Render();
 
-    window.display();
     sf::sleep(sf::microseconds(1));
   }
   printf("Quitting game loop...\n");
 }
 
-GameStateManager::GameStateManager() {
-  loadTextures();
-  loadTiles();
+void Game::Render() {
+  window_.clear();
 
-  settings.antialiasingLevel = 8;
-  window.create(sf::VideoMode(800, 600), "Making Mario Work Hard",
-                                          sf::Style::Default, settings);
-  window.setFramerateLimit(60);
-  // this->background.setTexture(this->texmgr.getRef("background"));
+  states_.draw();
+
+  window_.setView(window_.getDefaultView());
+
+  window_.draw(stats_text_)
+  window_.display();
+}
+
+void GameStateManager::UpdateStatistics(sf::Time delta_time) {
+  stats_update_time_ += delta_time;
+  stats_num_frames_  += 1;
+
+  if (stats_update_time_ >= sf::seconds(1.0f)) {
+    stats_text_.setString(
+      "Frames / Second = " + toString(stats_num_frames_) + "\n" +
+      "Time / Update = "   + toString(stats_update_time_.asMicroseconds() /
+                                      stats_num_frames_) + "us");
+  }
+}
+
+void GameStateManager::ProcessInput() {
+  sf::Event event;
+  while (window_.pollEvent(event)) {
+    states_.HandleEvent(event);
+
+    if (event.type == sf::Event::Closed)
+      window_.close();
+  }
+}
+
+void GameStateManager::Update(sf::Time delta_time) {
+  states_.update(delta_time);
+}
+
+GameStateManager::GameStateManager()
+: settings_.antialiasingLevel(8)
+, window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
+                                    sf::Style::Default, settings_)
+, font_();
+, player_();
+, states_(State::Context(window_, font_, player_))
+, stats_text_()
+, stats_update_time_()
+, stats_num_frames_(0)
+{
+  window_.setKeyRepeatEnabled(false);
+
+  font_.load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
+  stats_text_.setFont(font_.get(Fonts::Main));
+  stats_text_.setPosition(5.f, 5.f);
+  stats_text_.setCharacterSize(10u);
+}
+
+void GameStateManager::RegisterStates() {
+  states_.RegisterState<TitleScreenState>(States::Title);
+  states_.RegisterState<MenuState>(States::Menu);
+  states_.RegisterState<LevelState>(States::Level);
+  states_.RegisterState<PauseState>(States::Pause);
 }
 
 GameStateManager::~GameStateManager() {
-  while (!states.empty()) popState();
+  // while (!states_.empty()) popState();
 }
