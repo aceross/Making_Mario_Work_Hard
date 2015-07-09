@@ -8,33 +8,12 @@
 
 class Entity : public sf::Sprite {
  public:
-  sf::Vector2f velocity;
-  static sf::Vector2f scroll;
-
-  Entity();
-
-  void Load(std::string filename);
-
-  virtual bool Update(sf::RenderWindow* window);
-
-  bool CheckCollision(Entity* entity);
-
-  virtual void Collision(Entity* entity);
-
-  int GroupID();
-
-  int Active();
-
-  void Destroy();
-
-  ~Entity();
-
- protected:
-  int active;
-  int groupId;
+  sf::Vector2f GetVelocity_() const;
+  void SetVelocity(float vx, float vy);
+  void SetVeloctity(sf::Vector2f velocity);
 
  private:
-  sf::Texture* texture;
+  sf::Vector2f velocity_;
 };
 
 #endif  // ENTITY_HPP

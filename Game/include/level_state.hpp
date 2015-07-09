@@ -4,8 +4,10 @@
 #define LEVEL_STATE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <Box2D/Box2D.h>
 #include <iostream>
 #include <string>
+
 
 #include "game_state.hpp"
 #include "player.hpp"
@@ -24,7 +26,16 @@ class LevelState : public GameState {
   TileMap tilemap;
   const Animation* current_animation_;
 
+  // float speed_          = 32.0f;
+  // float jump_speed_     = 4.0f;
+  // float fall_speed_     = 5.2f;
+  bool noKeyWasPressed_ = true;
+
+  sf::Vector2f movement_;
+
+
   bool HasCollision(Player p, Tile t);
+  void ManageCollision();
 
  public:
   virtual void draw(const sf::RenderWindow &window);

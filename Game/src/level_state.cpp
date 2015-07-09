@@ -8,6 +8,8 @@ LevelState::LevelState(GameStateManager* gsm) {
 
   this->gsm = gsm;
   sf::Vector2f pos = sf::Vector2f(this->gsm->window.getSize());
+  movement_.x = 0.f;
+  movement_.y = 0.f;
 
   // Setting the view
   this->view.setSize(pos);
@@ -40,8 +42,8 @@ LevelState::LevelState(GameStateManager* gsm) {
   current_animation_ = &player.player_move_right;
 
   // set position
-  player.setPosition(sf::Vector2f(64, 195));
-  player.position_ = sf::Vector2f(64, 195);
+  player.setPosition(sf::Vector2f(64, 192));
+  player.position_ = sf::Vector2f(64, 192);
 
   // Initialising the map
   tilemap.tiles.setTexture(tilemap.tileset);
@@ -59,9 +61,7 @@ void LevelState::draw(const sf::RenderWindow &window) {
 
 bool LevelState::HasCollision(Player p, Tile t) {
   sf::FloatRect player = p.getGlobalBounds();
-  // sf::FloatRect tile = t.getGlobalBounds();
 
-  // if (player.intersects(tile)) {
   if (player.contains(t.GetTilePosition())) {
     printf("Intersection!!!!!!!!!\n");
     return true;
@@ -69,17 +69,17 @@ bool LevelState::HasCollision(Player p, Tile t) {
   return false;
 }
 
+void LevelState::ManageCollision() {}
+
 void LevelState::update() {}
 
 void LevelState::handleInput() {
   sf::Clock frame_clock;
 
-  float speed          = 32.0f;
-  // float jump_speed     = 4.0f;
-  float fall_speed     = 5.2f;
-  bool noKeyWasPressed = true;
-
   sf::Event event;
+
+  float speed         = 32.0f;
+  float fall_speed    = 5.2f;
 
   // if a key was pressed set the correct animation and move correctly
   sf::Vector2f movement(0.f, 0.f);
@@ -100,27 +100,28 @@ void LevelState::handleInput() {
         // Manual movement
         if (event.key.code == sf::Keyboard::Left) {
           current_animation_  = &player.player_move_left;
-          noKeyWasPressed     = false;
+          noKeyWasPressed_    = false;
           player.moving_left_ = true;
           player.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Right) {
           current_animation_   = &player.player_move_right;
-          noKeyWasPressed      = false;
+          noKeyWasPressed_     = false;
           player.moving_right_ = true;
           player.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Space) {
           current_animation_   = &player.player_move_right;
-          noKeyWasPressed      = false;
+          noKeyWasPressed_     = false;
           player.jumping_      = true;
+          player.falling_      = false;
         }
         break;
       default: break;
     }
 
     player.play(*current_animation_);
-    // player.UpdatePosition(movement);
+    player.UpdatePosition(movement);
 
     printf("Player postion before collision loop : x = %f , y = %f\n",
             player.getPosition().x, player.getPosition().y);
@@ -130,47 +131,26 @@ void LevelState::handleInput() {
       for (int j = 0; j < tilemap.width; ++j) {
         if (tilemap.t_map_[i][j].GetTileValue() != 0) {
           // printf("tile position x = %d\n", tile );
+
           if (HasCollision(player, tilemap.t_map_[i][j])) {
             printf("Collision!\n");
-          //   if (player.moving_left_) {
-          //     printf("Left Collision!\n");
-          //     player.moving_left_ = false;
-          //   }
+            if (player.moving_left_) {
+              printf("Left Collision!\n");
+              player.moving_left_ = false;
+            }
           }
-          // if (player.moving_left_ && HasCollision(player,
-          //                                         tilemap.t_map_[i][j])) {
-          //   printf("Left Collision!\n");
-          //   player.moving_left_ = false;
-          // }
-          // if (player.moving_right_ && HasCollision(player,
-          //                                          tilemap.t_map_[i][j])) {
-          //   printf("Right Collision!\n");
-          //   player.moving_right_ = false;
-          // }
-          // if (player.falling_ && HasCollision(player, tilemap.t_map_[i][j])) {
-          //   printf("Bottom Collision!\n");
-          //   player.falling_ = false;
-          // }
-          // if (player.top_collision_ && HasCollision(player,
-          //                                           tilemap.t_map_[i][j])) {
-          //   printf("Top Collision!\n");
-          //   player.falling_ = true;
-          // }
+          if (player.moving_left_) {
+            movement.x -= speed;
+            player.moving_left_ = false;
+          }
+          if (player.moving_right_) {
+            movement.x += speed;
+            player.moving_right_ = false;
+          }
+          if (player.falling_) {
+            movement.y += fall_speed;
+          }
         }
-        if (player.moving_left_) {
-          movement.x -= speed;
-          player.moving_left_ = false;
-        }
-        if (player.moving_right_) {
-          movement.x += speed;
-          player.moving_right_ = false;
-        }
-        if (player.falling_) {
-          movement.y += fall_speed;
-        }
-        // if (player.jumping_) {
-        //   movement.y -= jump_speed;
-        // }
       }  // End of innter for loop
     }  // End of outer for loop
 
@@ -180,10 +160,10 @@ void LevelState::handleInput() {
             player.getPosition().x, player.getPosition().y);
 
     // if no key was pressed stop the animation
-    if (noKeyWasPressed) {
+    if (noKeyWasPressed_) {
       player.stop();
     }
-    noKeyWasPressed = true;
+    noKeyWasPressed_ = true;
 
     // update AnimatedSprite
     player.UpdateAnimation(frame_time);

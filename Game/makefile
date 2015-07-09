@@ -39,7 +39,7 @@ SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS   := -std=c++11 -stdlib=libstdc++ -Wall -pedantic -Werror
-LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system
+LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
 INC      := -I include
 
 # links the *.o objects together along with the necessary libraries

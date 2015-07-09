@@ -9,13 +9,15 @@
 #include <iostream>
 #include <vector>
 #include "animation.hpp"
+#include "tile_map.hpp"
+
 
 class Player : public sf::Sprite {
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
 
-  void update();
+  void update(TileMap tm);
 
   // methods for animation
   void UpdateAnimation(sf::Time deltaTime);
@@ -52,6 +54,7 @@ class Player : public sf::Sprite {
   bool jumping_       = false;
   bool falling_       = false;
   bool top_collision_ = false;
+  bool can_move_      = false;
 
   // rect values
   float bottom, left, right, top;
@@ -68,7 +71,14 @@ class Player : public sf::Sprite {
   const sf::Texture* texture_;
   sf::Vertex vertices_[4];
 
+  bool HasCollision(Player* p, Tile t);
 
+  float speed_          = 32.0f;
+  // float jump_speed_     = 4.0f;
+  float fall_speed_     = 5.2f;
+  bool noKeyWasPressed_ = true;
+
+  // sf::Vector2f movement_;
 
   // std::vector<std::vector<int>> postion_;
 

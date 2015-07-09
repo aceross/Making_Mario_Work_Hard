@@ -144,7 +144,17 @@ void Player::UpdatePosition(sf::Vector2f movement) {
   position_ += movement;
 }
 
-void Player::update() {}
+bool Player::HasCollision(Player* p, Tile t) {
+  sf::FloatRect player = p->getGlobalBounds();
+
+  if (player.contains(t.GetTilePosition())) {
+    printf("Intersection!!!!!!!!!\n");
+    return true;
+  }
+  return false;
+}
+
+void Player::update(TileMap tm) {}
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   if (animation_ && texture_) {
