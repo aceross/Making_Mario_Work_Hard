@@ -28,7 +28,7 @@ void GameStateManager::gameLoop() {
       ProcessInput();
       Update(TimePerFrame);
 
-      if (states.IsEmpty()) { window_.close(); }
+      if (states_.IsEmpty()) { window_.close(); }
     }
 
     UpdateStatistics(delta_time);
