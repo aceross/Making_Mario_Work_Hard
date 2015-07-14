@@ -3,47 +3,71 @@
 #ifndef LEVEL_STATE_HPP
 #define LEVEL_STATE_HPP
 
-#include <SFML/Graphics.hpp>
-#include <Box2D/Box2D.h>
-#include <iostream>
-#include <string>
+#include <SFML/System/NonCopyable.hpp>
+#include <SFML/Graphics/View.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
+#include <array>
+#include <queue>
 
-#include "game_state.hpp"
-#include "player.hpp"
-#include "tile_map.hpp"
-#include "collision.hpp"
+#include "resource_manager.hpp"
+#include "resource_identifiers.hpp"
+#include "sprite_node.hpp"
+#include "scene_node.hpp"
+#include "command.hpp"
+#include "command_queue.hpp"
 
-class LevelState : public GameState {
- private:
-  sf::View view;
-  sf::Text level_text;
-  sf::Font font;
-  sf::Sprite  tiles;
-  sf::FloatRect block;
+// #include <Book/Aircraft.hpp>
 
-  Player player;
-  TileMap tilemap;
-  const Animation* current_animation_;
+// Forward declaration
+namespace sf {
+class RenderWindow;
+}
 
-  // float speed_          = 32.0f;
-  // float jump_speed_     = 4.0f;
-  // float fall_speed_     = 5.2f;
-  bool noKeyWasPressed_ = true;
-
-  sf::Vector2f movement_;
-
-
-  bool HasCollision(Player p, Tile t);
-  void ManageCollision();
-
+class Level : private sf::NonCopyable {
  public:
-  virtual void draw(const sf::RenderWindow &window);
-  virtual void update();
-  virtual void handleInput();
+  explicit Level(sf::RenderWindow& window);
+  void     Update(sf::Time delta_time);
+  void     Draw();
 
-  explicit LevelState(GameStateManager* gsm);
-  virtual ~LevelState();
+  CommandQueue& GetCommandQueue();
+
+  bool HasActivePlayer() const;
+  bool HasReachedEnd() const;
+
+ private:
+  void LoadTextures();
+  void BuildScene();
+  void AdaptPlayerPosition();
+  void AdaptPlayerVelocity();
+  void HandleCollisions();
+
+  void AddEnemies();
+  void AddSingleEnemy();
+  void SpawnEnemies();
+
+  void DestroyEntitiesOutsideView();
+
+  sf::FloatRect GetViewBounds() const;
+  sf::FloatRect GetPlayBounds() const;
+
+ private:
+  enum Layer { Background, Air, LayerCount };
+
+ private:
+  sf::RenderWindow& window_;
+  sf::View          level_view_;
+  TextureManager    textures_;
+  FontManager&      fonts_;
+
+  SceneNode                          scene_graph_;
+  std::array<SceneNode*, LayerCount> scene_layers_;
+  CommandQueue                       command_queue_;
+
+  sf ::FloatRect level_bounds_;
+  sf ::Vector2f  start_position_;
+  float          scroll_speed_;
+  // Aircraft* mPlayerAircraft;
 };
 
-#endif  // LEVEL_STATE_HPP
+#endif  // LEVEL_HPP

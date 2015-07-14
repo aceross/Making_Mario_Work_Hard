@@ -11,12 +11,13 @@
 #include "../include/game_state.hpp"
 #include "../include/menu_state.hpp"
 #include "../include/pause_state.hpp"
-#include "../include/level.hpp"
+#include "../include/level_state.hpp"
+#include "../include/title_screen_state.hpp"
 #include "../include/state_identifiers.hpp"
 
 const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
 
-void GameStateManager::gameLoop() {
+void GameStateManager::Run() {
   sf::Clock update_clock;
   sf::Time time_since_last_update = sf::Time::Zero;
 
@@ -35,7 +36,6 @@ void GameStateManager::gameLoop() {
 
     UpdateStatistics(delta_time);
     Render();
-
     sf::sleep(sf::microseconds(1));
   }
   std::cout << "Quitting the game..." << std::endl;

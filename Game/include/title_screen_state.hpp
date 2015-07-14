@@ -9,9 +9,9 @@
 #include "state.hpp"
 
 
-class TitleState : public State {
+class TitleScreenState : public State {
  public:
-  TitleState(StateStack& stack, Context context);
+  TitleScreenState(StateStack& stack, Context context);
 
   virtual void Draw();
   virtual bool Update(sf::Time delta_time);

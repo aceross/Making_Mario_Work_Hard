@@ -4,12 +4,17 @@
 #define PLAYER_HPP
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+
 #include <map>
+
 #include "command.hpp"
+#include "resource_identifiers.hpp"
+#include "text_node.hpp"
 
 class CommandQueue;
 
-class Player {
+class Player : public Entity {
  public:
   enum Action {
     MoveLeft,
@@ -38,9 +43,17 @@ class Player {
   void SetMissionStatus(MissionStatus status);
   MissionStatus GetMissionStatus() const;
 
+ public:
+  virtual sf::FloatRect GetBoundingRect() const;
+
  private:
   void InitialiseActions();
   static bool IsRealtimeAction(Action action);
+
+ private:
+  virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+  virtual void UpdateCurrent(sf::Time delta_time_, CommandQueue& commands);
+  void UpdateText();
 
  private:
   std::map<sf::Keyboard::Key, Action> key_binding_;

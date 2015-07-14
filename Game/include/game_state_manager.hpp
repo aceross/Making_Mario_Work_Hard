@@ -36,9 +36,6 @@ class GameStateManager : private sf::NonCopyable {
 
   void RegisterStates();
 
-  sf::Time updateTime;
-  sf::Clock updateClock;
-
 // member variables
  private:
   sf::RenderWindow    window_;
@@ -64,8 +61,6 @@ class GameStateManager : private sf::NonCopyable {
   ~GameStateManager();
 
   void Run();
-
-  void gameLoop();
 };
 
 #endif  // GAME_STATE_MANAGER_HPP
