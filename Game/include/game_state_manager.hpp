@@ -17,6 +17,8 @@
 #include "state_stack.hpp"
 #include "player.hpp"
 
+#include "../lib/zchaff/SAT.h"
+
 // Values for the game window
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600
@@ -48,20 +50,20 @@ class GameStateManager : private sf::NonCopyable {
   std::size_t stats_num_frames_;
 
   Player player_;
-
   StateStack states_;
 
   static const sf::Time TimePerFrame;
   static const int tileSize = 32;
   bool game_over_           = false;
 
+ private:
+  SAT_Manager sat_manager_;
+
  public:
   GameStateManager();
   ~GameStateManager();
 
   void Run();
-
-  sf::Sprite background_;
 
   void gameLoop();
 };

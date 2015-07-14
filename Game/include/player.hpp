@@ -3,86 +3,49 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <SFML/System/Time.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
-#include "animation.hpp"
-#include "tile_map.hpp"
+#include <SFML/Window/Event.hpp>
+#include <map>
+#include "command.hpp"
 
+class CommandQueue;
 
-class Player : public sf::Sprite {
+class Player {
  public:
-  explicit Player(sf::Time frameTime = sf::seconds(0.2f),
-                  bool paused = false, bool looped = true);
+  enum Action {
+    MoveLeft,
+    MoveRight,
+    MoveUp,
+    MoveDown,
+    Fire,
+    LaunchMissile,
+    ActionCount
+  };
 
-  void update(TileMap tm);
+  enum MissionStatus {
+    MissionRunning,
+    MissionSuccess,
+    MissionFailure
+  };
 
-  // methods for animation
-  void UpdateAnimation(sf::Time deltaTime);
-  void setAnimation(const Animation& animation);
-  void setFrameTime(sf::Time time);
-  void play();
-  void play(const Animation& animation);
-  void pause();
-  void stop();
-  void setLooped(bool looped);
-  void setColor(const sf::Color& color);
-  const Animation* getAnimation() const;
-  sf::FloatRect getLocalBounds() const;
-  sf::FloatRect getGlobalBounds() const;
-  sf::FloatRect getSize() const;
-  bool isLooped() const;
-  bool isPlaying() const;
-  sf::Time getFrameTime() const;
-  void setFrame(std::size_t newFrame, bool resetTime = true);
+ public:
+  Player();
+  void HandleEvent(const sf::Event& event, CommandQueue& commands);
+  void HandleRealtimeInput(CommandQueue& commands);
 
-  void UpdatePosition(sf::Vector2f movement);
+  void AssignKey(Action action, sf::Keyboard::Key key);
+  sf::Keyboard::Key GetAssignedKey(Action action) const;
 
-  Animation player_move_left;
-  Animation player_move_right;
-
-  void handleInput();
-
-  sf::Texture texture;
-  // AnimationHandler animation_handler_;
-
-  // movement boolean values
-  bool moving_right_  = false;
-  bool moving_left_   = false;
-  bool jumping_       = false;
-  bool falling_       = false;
-  bool top_collision_ = false;
-  bool can_move_      = false;
-
-  // rect values
-  float bottom, left, right, top;
-
-  sf::Vector2f position_;
+  void SetMissionStatus(MissionStatus status);
+  MissionStatus GetMissionStatus() const;
 
  private:
-  const Animation* animation_;
-  sf::Time frame_time_;
-  sf::Time current_time_;
-  std::size_t current_frame_;
-  bool is_paused_;
-  bool is_looped_;
-  const sf::Texture* texture_;
-  sf::Vertex vertices_[4];
+  void InitialiseActions();
+  static bool IsRealtimeAction(Action action);
 
-  bool HasCollision(Player* p, Tile t);
-
-  float speed_          = 32.0f;
-  // float jump_speed_     = 4.0f;
-  float fall_speed_     = 5.2f;
-  bool noKeyWasPressed_ = true;
-
-  // sf::Vector2f movement_;
-
-  // std::vector<std::vector<int>> postion_;
-
-  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+ private:
+  std::map<sf::Keyboard::Key, Action> key_binding_;
+  std::map<Action, Command>           action_binding_;
+  MissionStatus                       current_mission_status_;
 };
 
-#endif  // PLAYER_HPP
+#endif // BOOK_PLAYER_HPP

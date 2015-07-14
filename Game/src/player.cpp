@@ -1,165 +1,112 @@
 // Copyright 2015, Aaron Ceross
 
+#include <map>
+#include <string>
+#include <algorithm>
+
 #include "../include/player.hpp"
-#include <vector>
+#include "../include/command_queue.hpp"
 
-Player::Player(sf::Time frameTime, bool paused, bool looped) :
-  animation_(NULL), frame_time_(frameTime), current_frame_(0),
-  is_paused_(paused), is_looped_(looped), texture_(NULL) {}
+using namespace std::placeholders;
 
-void Player::setAnimation(const Animation& animation) {
-  animation_     = &animation;
-  texture_       = animation_->getSpriteSheet();
-  current_frame_ = 0;
-  setFrame(current_frame_);
-}
+struct AircraftMover {
+  AircraftMover(float vx, float vy)
+  : velocity(vx, vy)
+  {}
 
-void Player::setFrameTime(sf::Time time) {
-  frame_time_ = time;
-}
-
-void Player::play() {
-  is_paused_ = false;
-}
-
-void Player::play(const Animation& animation) {
-  if (getAnimation() != &animation) {
-    setAnimation(animation);
-  }
-  play();
-}
-
-void Player::pause() {
-  is_paused_ = true;
-}
-
-void Player::stop() {
-  is_paused_     = true;
-  current_frame_ = 0;
-  setFrame(current_frame_);
-}
-
-void Player::setLooped(bool looped) {
-  is_looped_ = looped;
-}
-
-void Player::setColor(const sf::Color& color) {
-  // Update the vertices' color
-  vertices_[0].color = color;
-  vertices_[1].color = color;
-  vertices_[2].color = color;
-  vertices_[3].color = color;
-}
-
-const Animation* Player::getAnimation() const {
-  return animation_;
-}
-
-sf::FloatRect Player::getLocalBounds() const {
-  sf::IntRect rect = animation_->getFrame(current_frame_);
-
-  float width  = static_cast<float>(std::abs(rect.width));
-  float height = static_cast<float>(std::abs(rect.height));
-
-  return sf::FloatRect(0.f, 0.f, width, height);
-}
-
-sf::FloatRect Player::getGlobalBounds() const {
-  return getTransform().transformRect(getLocalBounds());
-}
-
-sf::FloatRect Player::getSize() const {
-  return getTransform().transformRect(getSize());
-}
-
-bool Player::isLooped() const {
-  return is_looped_;
-}
-
-bool Player::isPlaying() const {
-  return !is_paused_;
-}
-
-sf::Time Player::getFrameTime() const {
-  return frame_time_;
-}
-
-void Player::setFrame(std::size_t newFrame, bool resetTime) {
-  if (animation_) {
-    // calculate new vertex positions and texture coordiantes
-    sf::IntRect rect = animation_->getFrame(newFrame);
-
-    vertices_[0].position = sf::Vector2f(0.f, 0.f);
-    vertices_[1].position = sf::Vector2f(0.f, static_cast<float>(rect.height));
-    vertices_[2].position = sf::Vector2f(static_cast<float>(rect.width),
-                                         static_cast<float>(rect.height));
-    vertices_[3].position = sf::Vector2f(static_cast<float>(rect.width), 0.f);
-
-    float left   = static_cast<float>(rect.left) + 0.0001f;
-    float right  = left + static_cast<float>(rect.width);
-    float top    = static_cast<float>(rect.top);
-    float bottom = top + static_cast<float>(rect.height);
-
-    vertices_[0].texCoords = sf::Vector2f(left, top);
-    vertices_[1].texCoords = sf::Vector2f(left, bottom);
-    vertices_[2].texCoords = sf::Vector2f(right, bottom);
-    vertices_[3].texCoords = sf::Vector2f(right, top);
+  void operator() (Aircraft& aircraft, sf::Time) const {
+    aircraft.accelerate(velocity * aircraft.getMaxSpeed());
   }
 
-  if (resetTime) {
-    current_time_ = sf::Time::Zero;
+  sf::Vector2f velocity;
+};
+
+Player::Player()
+: current_mission_status_(MissionRunning)
+{
+  // Set initial key bindings
+  key_binding_[sf::Keyboard::Left]  = MoveLeft;
+  key_binding_[sf::Keyboard::Right] = MoveRight;
+  key_binding_[sf::Keyboard::Up]    = MoveUp;
+  key_binding_[sf::Keyboard::Down]  = MoveDown;
+  key_binding_[sf::Keyboard::Space] = Fire;
+  key_binding_[sf::Keyboard::M]     = LaunchMissile;
+
+  // Set initial action bindings
+  InitialiseActions();
+
+  // Assign all categories to player's aircraft
+  for (auto& pair : action_binding_)
+    pair.second.category_ = Category::PlayerAircraft;
+}
+
+void Player::HandleEvent(const sf::Event& event, CommandQueue& commands) {
+  if (event.type == sf::Event::KeyPressed) {
+    // Check if pressed key appears in key binding, trigger command if so
+    auto found = key_binding_.find(event.key.code);
+    if (found != key_binding_.end() && !IsRealtimeAction(found->second))
+      commands.Push(action_binding_[found->second]);
   }
 }
 
-void Player::UpdateAnimation(sf::Time delta_time) {
-  // if not paused and we have a valid animation
-  if (!is_paused_ && animation_) {
-    // add delta time
-    current_time_ += delta_time;
+void Player::HandleRealtimeInput(CommandQueue& commands) {
+  // Traverse all assigned keys and check if they are pressed
+  for (auto pair : key_binding_) {
+    // If key is pressed, lookup action and trigger corresponding command
+    if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second))
+      commands.Push(action_binding_[pair.second]);
+  }
+}
 
-    // if current time is bigger then the frame time advance one frame
-    if (current_time_ >= frame_time_) {
-      // reset time, but keep the remainder
-      current_time_ = sf::microseconds(current_time_.asMicroseconds() %
-                                       frame_time_.asMicroseconds());
+void Player::AssignKey(Action action, sf::Keyboard::Key key) {
+  // Remove all keys that already map to action
+  for (auto itr = key_binding_.begin(); itr != key_binding_.end(); ) {
+    if (itr->second == action)
+      key_binding_.erase(itr++);
+    else
+      ++itr;
+  }
+  // Insert new binding
+  key_binding_[key] = action;
+}
 
-      // get next Frame index
-      if (current_frame_ + 1 <= animation_->getSize()) {
-        current_frame_++;
-      } else {
-        // animation has ended
-        // reset to start
-        current_frame_ = 0;
-        if (is_looped_) {
-          is_paused_ = true;
-        }
-      }
-      // set the current frame, not reseting the time
-      setFrame(current_frame_, false);
+sf::Keyboard::Key Player::GetAssignedKey(Action action) const {
+  for (auto pair : key_binding_) {
+    if (pair.second == action) {
+      return pair.first;
     }
   }
+  return sf::Keyboard::Unknown;
 }
 
-void Player::UpdatePosition(sf::Vector2f movement) {
-  position_ += movement;
+void Player::SetMissionStatus(MissionStatus status) {
+  current_mission_status_ = status;
 }
 
-bool Player::HasCollision(Player* p, Tile t) {
-  sf::FloatRect player = p->getGlobalBounds();
-
-  if (player.contains(t.GetTilePosition())) {
-    printf("Intersection!!!!!!!!!\n");
-    return true;
-  }
-  return false;
+Player::MissionStatus Player::GetMissionStatus() const {
+  return current_mission_status_;
 }
 
-void Player::update(TileMap tm) {}
+void Player::InitialiseActions() {
+  key_binding_[MoveLeft].action  = derivedAction<Aircraft>(AircraftMover(-1, 0));
+  key_binding_[MoveRight].action = derivedAction<Aircraft>(AircraftMover(+1, 0));
+  key_binding_[MoveUp].action    = derivedAction<Aircraft>(AircraftMover(0, -1));
+  key_binding_[MoveDown].action  = derivedAction<Aircraft>(AircraftMover(0, +1));
+  key_binding_[Fire].action      = derivedAction<Aircraft>([] (Aircraft& a, sf::Time){ a.fire(); });
+  key_binding_[LaunchMissile].action =
+      derivedAction<Aircraft>([] (Aircraft& a, sf::Time){ a.launchMissile(); });
+}
 
-void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  if (animation_ && texture_) {
-    states.transform  *= getTransform();
-    states.texture     = texture_;
-    target.draw(vertices_, 4, sf::Quads, states);
+bool Player::IsRealtimeAction(Action action) {
+  switch (action) {
+    case MoveLeft:
+    case MoveRight:
+    case MoveDown:
+    case MoveUp:
+    case Fire:
+      return true;
+
+    default:
+      return false;
   }
 }

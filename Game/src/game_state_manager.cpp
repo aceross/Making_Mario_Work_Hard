@@ -2,13 +2,16 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include <algorithm>
 
+#include <algorithm>
 #include <stack>
+#include <iostream>
 
 #include "../include/game_state_manager.hpp"
 #include "../include/game_state.hpp"
 #include "../include/menu_state.hpp"
+#include "../include/pause_state.hpp"
+#include "../include/level.hpp"
 #include "../include/state_identifiers.hpp"
 
 const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
@@ -25,9 +28,8 @@ void GameStateManager::gameLoop() {
 
     while (time_since_last_update > TimePerFrame) {
       time_since_last_update -= TimePerFrame;
-      ProcessInput();
+      ProcessInputs();
       Update(TimePerFrame);
-
       if (states_.IsEmpty()) { window_.close(); }
     }
 
@@ -36,17 +38,16 @@ void GameStateManager::gameLoop() {
 
     sf::sleep(sf::microseconds(1));
   }
-  printf("Quitting game loop...\n");
+  std::cout << "Quitting the game..." << std::endl;
 }
 
-void Game::Render() {
+void GameStateManager::Render() {
   window_.clear();
 
-  states_.draw();
+  states_.Draw();
 
   window_.setView(window_.getDefaultView());
-
-  window_.draw(stats_text_)
+  window_.draw(stats_text_);
   window_.display();
 }
 
@@ -62,7 +63,7 @@ void GameStateManager::UpdateStatistics(sf::Time delta_time) {
   }
 }
 
-void GameStateManager::ProcessInput() {
+void GameStateManager::ProcessInputs() {
   sf::Event event;
   while (window_.pollEvent(event)) {
     states_.HandleEvent(event);
@@ -73,7 +74,7 @@ void GameStateManager::ProcessInput() {
 }
 
 void GameStateManager::Update(sf::Time delta_time) {
-  states_.update(delta_time);
+  states_.Update(delta_time);
 }
 
 GameStateManager::GameStateManager()

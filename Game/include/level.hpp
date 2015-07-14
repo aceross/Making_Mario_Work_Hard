@@ -21,7 +21,7 @@
 
 // Forward declaration
 namespace sf {
-  class RenderWindow;
+class RenderWindow;
 }
 
 class Level : private sf::NonCopyable {
