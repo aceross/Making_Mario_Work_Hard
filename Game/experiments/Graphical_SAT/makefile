@@ -39,13 +39,14 @@ SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS   := -std=c++11 -stdlib=libstdc++ -Wall -pedantic -Werror
-LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
+LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system -lsat
+LDFLAGS  := -L./lib/zchaff
 INC      := -I include
 
 # links the *.o objects together along with the necessary libraries
 $(TARGET): $(OBJECTS)
 	@echo " ${TASK_COLOUR}Linking...${NO_COLOUR}"
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
+	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB) $(LDFLAGS)
 
 # makes the build directory with the *.o objects
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)

@@ -1,10 +1,12 @@
 // Copyright 2015, Aaron Ceross
 
 #include "../include/game.hpp"
+#include "../lib/zchaff/SAT.h"
 
 Game::Game() {
   InitialiseWindow();
   LoadAssets();
+  SAT_manager_ = SAT_InitManager();
 }
 
 void Game::InitialiseWindow() {

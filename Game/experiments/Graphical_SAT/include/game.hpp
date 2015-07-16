@@ -26,7 +26,7 @@ class Game {
   void HandleEvents();
 
  private:
-  // SAT_Manager sat_mng_;
+  SAT_Manager SAT_manager_;
 
   sf::RenderWindow window_;
   sf::Font font_;
