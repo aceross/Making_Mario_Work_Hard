@@ -11,9 +11,10 @@
 #include "../include/game_state.hpp"
 #include "../include/menu_state.hpp"
 #include "../include/pause_state.hpp"
-#include "../include/level_state.hpp"
+#include "../include/level.hpp"
 #include "../include/title_screen_state.hpp"
 #include "../include/state_identifiers.hpp"
+#include "../include/text_centring.hpp"
 
 const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
 
@@ -78,20 +79,19 @@ void GameStateManager::Update(sf::Time delta_time) {
 }
 
 GameStateManager::GameStateManager()
-: settings_.antialiasingLevel(8)
-, window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
-                                    sf::Style::Default, settings_)
-, font_();
-, player_();
-, states_(State::Context(window_, font_, player_))
+: window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
+                                    sf::Style::Default)
+, font_()
+, player_()
+, states_(State::Context(window_, textures_, font_, player_))
 , stats_text_()
 , stats_update_time_()
 , stats_num_frames_(0)
 {
   window_.setKeyRepeatEnabled(false);
 
-  font_.load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
-  stats_text_.setFont(font_.get(Fonts::Main));
+  font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
+  stats_text_.setFont(font_.Get(Fonts::Main));
   stats_text_.setPosition(5.f, 5.f);
   stats_text_.setCharacterSize(10u);
 }
@@ -99,7 +99,6 @@ GameStateManager::GameStateManager()
 void GameStateManager::RegisterStates() {
   states_.RegisterState<TitleScreenState>(States::Title);
   states_.RegisterState<MenuState>(States::Menu);
-  states_.RegisterState<LevelState>(States::Level);
   states_.RegisterState<PauseState>(States::Pause);
 }
 

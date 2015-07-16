@@ -12,9 +12,8 @@ class Font;
 
 namespace Textures {
   enum ID {
-    Eagle,
-    Raptor,
-    Desert,
+    Entities,
+    Level,
     TitleScreen,
     ButtonNormal,
     ButtonSelected,

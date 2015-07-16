@@ -15,7 +15,7 @@
 #include "resource_manager.hpp"
 #include "resource_identifiers.hpp"
 #include "state_stack.hpp"
-#include "player.hpp"
+#include "player_manager.hpp"
 
 #include "../lib/zchaff/SAT.h"
 
@@ -23,9 +23,7 @@
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600
 
-class GameState;
-
-class GameStateManager : private sf::NonCopyable {
+class GameStateManager {
 // Methods
  private:
   void Update(sf::Time delta_time);
@@ -41,12 +39,14 @@ class GameStateManager : private sf::NonCopyable {
   sf::RenderWindow    window_;
   sf::ContextSettings settings_;
 
-  sf::Font    font_;
+  FontHolder    font_;
+  TextureHolder textures_;
+
   sf::Text    stats_text_;
   sf::Time    stats_update_time_;
   std::size_t stats_num_frames_;
 
-  Player player_;
+  PlayerManager player_mng;
   StateStack states_;
 
   static const sf::Time TimePerFrame;

@@ -4,6 +4,7 @@
 #define ENTITY_HPP
 
 #include "scene_node.hpp"
+#include "command_queue.hpp"
 
 class Entity : public SceneNode {
  public:
@@ -16,6 +17,7 @@ class Entity : public SceneNode {
   sf::Vector2f velocity_;
 
  protected:
+  using SceneNode::UpdateCurrent;
   virtual void UpdateCurrent(sf::Time delta_time, CommandQueue& commands);
 };
 

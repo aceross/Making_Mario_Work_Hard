@@ -1,6 +1,6 @@
 // Copyright 2015, Aaron Ceross
 
-#include "parallel_task.cpp"
+#include "../include/parallel_task.hpp"
 
 ParallelTask::ParallelTask()
 : thread_(&ParallelTask::RunTask, this), finished_(false)
@@ -17,7 +17,7 @@ bool ParallelTask::IsFinished() {
   return finished_;
 }
 
-float ParallelTask::getCompletion() {
+float ParallelTask::GetCompletion() {
   sf::Lock lock(mutex_);
 
   // 100% at 10 seconds of elapsed time

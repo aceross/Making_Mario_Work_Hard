@@ -18,7 +18,8 @@ class TextNode : public SceneNode {
   void SetString(const std::string& text);
 
  private:
-  virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+  virtual void DrawCurrent(sf::RenderTarget& target,
+                           sf::RenderStates states) const;
 
  private:
   sf::Text text_;
