@@ -4,13 +4,22 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+
 #include <iostream>
-#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+
 #include "../lib/zchaff/SAT.h"
 
 // Values for the game window
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600
+
+// Values for parsing file
+#define MAX_LINE_LENGTH 65536
+#define MAX_WORD_LENGTH 64
 
 class Game {
  public:
@@ -21,6 +30,8 @@ class Game {
  private:
   void InitialiseWindow();
   void LoadAssets();
+
+  void ReadFile();
 
   void Draw();
   void HandleEvents();
