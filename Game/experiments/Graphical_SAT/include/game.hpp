@@ -20,8 +20,10 @@ class Game {
 
  private:
   void InitialiseWindow();
-  void Draw();
   void LoadAssets();
+
+  void Draw();
+  void HandleEvents();
 
  private:
   // SAT_Manager sat_mng_;
@@ -29,6 +31,7 @@ class Game {
   sf::RenderWindow window_;
   sf::Font font_;
   sf::ContextSettings settings_;
+  sf::Event event_;
 
  private:
   sf::Text welcome_text_;
