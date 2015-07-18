@@ -33,6 +33,11 @@ class Game {
 
   void ReadFile();
 
+  void Solve();
+  void DisplayResults(SAT_Manager SAT_manager_, int outcome);
+
+  void Decision();
+
   void Draw();
   void HandleEvents();
 
@@ -44,8 +49,14 @@ class Game {
   sf::ContextSettings settings_;
   sf::Event event_;
 
- private:
+  sf::CircleShape circle_;
   sf::Text welcome_text_;
+
+ private:
+  // bool is_satisfied_;
+  // int result_;
+  int num_literals_;
+  int num_variables_;
 };
 
 #endif  // GAME_HPP

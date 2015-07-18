@@ -38,7 +38,7 @@ TARGET   := bin/game
 SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS   := -std=c++11 -stdlib=libstdc++ -Wall -pedantic -Werror
+CFLAGS   := -std=c++11 -stdlib=libstdc++ -Wall -pedantic -Werror -g
 LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system -lsat
 LDFLAGS  := -L./lib/zchaff
 INC      := -I include
