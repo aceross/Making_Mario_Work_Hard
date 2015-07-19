@@ -6,8 +6,6 @@
 
 #include "../include/game.hpp"
 
-using namespace std;
-
 Game::Game() {
   // InitialiseWindow();
   LoadAssets();
@@ -46,11 +44,11 @@ void Game::ReadFile() {
   std::set<int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/quinn.cnf";
+  std::string filename = "lib/zchaff/problems/simple.cnf";
 
-  ifstream inp(filename, ios::in);
+  std::ifstream inp(filename, std::ios::in);
   if (!inp) {
-      cerr << "Can't open input file" << endl;
+      std::cerr << "Can't open input file" << std::endl;
       exit(1);
   }
   while (inp.getline(line_buffer, MAX_LINE_LENGTH)) {
@@ -62,10 +60,10 @@ void Game::ReadFile() {
           int cl_num;
 
           int arg = sscanf(line_buffer, "p cnf %d %d", &var_num, &cl_num);
-          if ( arg < 2 ) {
-              cerr << "Unable to read number of variables and clauses"
-                   << "at line " << line_num << endl;
-              exit(3);
+          if (arg < 2) {
+            std::cerr << "Unable to read number of variables and clauses"
+                      << "at line " << line_num << std::endl;
+            exit(3);
           }
           SAT_SetNumVariables(SAT_manager_, var_num);
         // Clause definition or continuation
@@ -83,7 +81,7 @@ void Game::ReadFile() {
 
             if (strlen(word_buffer) != 0) {     // check if number is there
               int var_idx = atoi(word_buffer);
-              int sign = 0;
+              int sign    = 0;
 
               if (var_idx != 0) {
                 if (var_idx < 0) { var_idx = -var_idx; sign = 1; }
@@ -93,8 +91,8 @@ void Game::ReadFile() {
                 // add this clause
                 if (clause_vars.size() != 0 &&
                    (clause_vars.size() == clause_lits.size())) {
-                  vector <int> temp;
-                  for (set<int>::iterator itr = clause_lits.begin();
+                  std::vector <int> temp;
+                  for (std::set<int>::iterator itr = clause_lits.begin();
                        itr != clause_lits.end(); ++itr)
                       temp.push_back(*itr);
                   SAT_AddClause(SAT_manager_, & temp.begin()[0], temp.size());
@@ -111,15 +109,15 @@ void Game::ReadFile() {
       }
   }
   if (!inp.eof()) {
-    cerr << "Input line " << line_num <<  " too long. Unable to continue..."
-    << endl;
+    std::cerr << "Input line " << line_num <<  " too long. Can't continue..."
+    << std::endl;
     exit(2);
   }
   // assert(clause_vars.size() == 0);
   // some benchmark has no 0 in the last clause
   if (clause_lits.size() && clause_vars.size() == clause_lits.size()) {
-    vector <int> temp;
-    for (set<int>::iterator itr = clause_lits.begin();
+    std::vector<int> temp;
+    for (std::set<int>::iterator itr = clause_lits.begin();
          itr != clause_lits.end(); ++itr)
         temp.push_back(*itr);
     SAT_AddClause(SAT_manager_, & temp.begin()[0], temp.size() );
@@ -168,11 +166,11 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
     break;
   case TIME_OUT:
     result  = "ABORT : TIME OUT";
-    std::cout << "Time out, unable to determine the satisfiability of the instance" << std::endl;
+    std::cout << "Time out, unable to determine satisfiability" << std::endl;
     break;
   case MEM_OUT:
     result  = "ABORT : MEM OUT";
-    std::cout << "Memory out, unable to determine the satisfiability of the instance" << std::endl;
+    std::cout << "Memory out, unable to determine satisfiability" << std::endl;
     break;
   default:
     std::cerr << "Unknown outcome" << std::endl;
@@ -183,7 +181,7 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
 void Game::Run() {
   ReadFile();
   Solve();
-  // Decision();
+  Decision();
 
   while (window_.isOpen()) {
     HandleEvents();
@@ -192,18 +190,13 @@ void Game::Run() {
 }
 
 // Give the variables a decision
-// Try to incorporate a problem decision here
-// Probably have a problem class anda a vector<int> member
-// Relate those to objects
-// When these objects chang value, the colour changes
-// Do until true --> how to define true?
 void Game::Decision() {
   num_variables_ = SAT_NumVariables(SAT_manager_);
   num_literals_  = SAT_NumLiterals(SAT_manager_);
 
   int i;
   std::cout << "SAT Number of Variables =  " << num_variables_ << std::endl;
-  std::cout << "SAT Number of Literals  =  " << num_literals_ << std::endl;
+  std::cout << "SAT Number of Literals  =  " << num_literals_  << std::endl;
   printf("\n");
   int check;
 
@@ -222,12 +215,9 @@ void Game::Decision() {
   // every var got an assignment, no free var left
   if (i >= num_variables_) {
     check = SAT_GetVarAsgnment(SAT_manager_, i);
-    printf("No Free Var left\n");
     printf("Variable %d value = %d\n", i, check);
     SAT_MakeDecision(SAT_manager_, 0, 0);
     check = SAT_GetVarAsgnment(SAT_manager_, i);
-    printf("After Decision\n");
-    printf("Variable %d value = %d\n", i, check);
   }
 }
 

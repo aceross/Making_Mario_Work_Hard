@@ -12,6 +12,7 @@
 #include <cstring>
 
 #include "../lib/zchaff/SAT.h"
+#include "variable_manager.hpp"
 
 // Values for the game window
 #define SCREEN_WIDTH  800
@@ -42,7 +43,8 @@ class Game {
   void HandleEvents();
 
  private:
-  SAT_Manager SAT_manager_;
+  SAT_Manager     SAT_manager_;
+  VariableManager var_mngr;
 
   sf::RenderWindow window_;
   sf::Font font_;
