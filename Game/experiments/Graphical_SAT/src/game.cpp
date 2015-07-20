@@ -129,7 +129,6 @@ void Game::ReadFile() {
 
 void Game::Solve() {
   int results = SAT_Solve(SAT_manager_);
-  // std::cout << "Result is " << result_ << std::endl;
   DisplayResults(SAT_manager_, results);
 }
 
