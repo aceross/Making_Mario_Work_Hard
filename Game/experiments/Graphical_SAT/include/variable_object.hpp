@@ -3,7 +3,9 @@
 #ifndef VARIABLE_OBJECT_HPP
 #define VARIABLE_OBJECT_HPP
 
-class VariableObject {
+#include <SFML/Graphics/Sprite.hpp>
+
+class VariableObject : public sf::Sprite {
  public:
   VariableObject();
   virtual void SetID(int id);

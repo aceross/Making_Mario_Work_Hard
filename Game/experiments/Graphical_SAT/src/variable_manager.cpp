@@ -12,6 +12,8 @@ void VariableManager::LoadVariables(SAT_Manager SAT_manager) {
   }
 }
 
-void VariableManager::GetNumVariables(int num_var) {
+void VariableManager::SetNumVariables(int num_var) {
   num_vars_ = num_var;
 }
+
+void VariableManager::SetFinalVarValues(int final_value) {}

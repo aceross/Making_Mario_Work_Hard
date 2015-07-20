@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  // InitialiseWindow();
+  InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -26,14 +26,15 @@ void Game::LoadAssets() {
   if (!font_.loadFromFile("font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
-  welcome_text_.setFont(font_);
-  welcome_text_.setColor(sf::Color::White);
-  welcome_text_.setString("Graphical SAT Solver");
-  welcome_text_.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+  title_text_.setFont(font_);
+  title_text_.setColor(sf::Color::Black);
+  title_text_.setString("Graphical SAT Solver");
+  title_text_.setPosition(275, 0);
 
   // Set up circle shape
   circle_.setRadius(20);
   circle_.setFillColor(sf::Color::Blue);
+  circle_.setPosition(250, 250);
 }
 
 void Game::ReadFile() {
@@ -45,69 +46,69 @@ void Game::ReadFile() {
   std::set<int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/simple.cnf";
+  std::string filename = "lib/zchaff/problems/single.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
-      std::cerr << "Can't open input file" << std::endl;
-      exit(1);
+    std::cerr << "Can't open input file" << std::endl;
+    exit(1);
   }
   while (inp.getline(line_buffer, MAX_LINE_LENGTH)) {
-      ++line_num;
-      if (line_buffer[0] == 'c') {
-          continue;
-      } else if (line_buffer[0] == 'p') {
-          int var_num;
-          int cl_num;
+    ++line_num;
+    if (line_buffer[0] == 'c') {
+      continue;
+    } else if (line_buffer[0] == 'p') {
+        int var_num;
+        int cl_num;
 
-          int arg = sscanf(line_buffer, "p cnf %d %d", &var_num, &cl_num);
-          if (arg < 2) {
-            std::cerr << "Unable to read number of variables and clauses"
-                      << "at line " << line_num << std::endl;
-            exit(3);
+        int arg = sscanf(line_buffer, "p cnf %d %d", &var_num, &cl_num);
+        if (arg < 2) {
+          std::cerr << "Unable to read number of variables and clauses"
+                    << "at line " << line_num << std::endl;
+          exit(3);
+        }
+        SAT_SetNumVariables(SAT_manager_, var_num);
+      // Clause definition or continuation
+    } else {
+        char *lp = line_buffer;
+        do {
+          char *wp = word_buffer;
+          while (*lp && ((*lp == ' ') || (*lp == '\t'))) {
+            lp++;
           }
-          SAT_SetNumVariables(SAT_manager_, var_num);
-        // Clause definition or continuation
-      } else {
-          char *lp = line_buffer;
-          do {
-            char *wp = word_buffer;
-            while (*lp && ((*lp == ' ') || (*lp == '\t'))) {
-              lp++;
-            }
-            while (*lp && (*lp != ' ') && (*lp != '\t') && (*lp != '\n')) {
-                *(wp++) = *(lp++);
-            }
-            *wp = '\0';  // terminate string
+          while (*lp && (*lp != ' ') && (*lp != '\t') && (*lp != '\n')) {
+              *(wp++) = *(lp++);
+          }
+          *wp = '\0';  // terminate string
 
-            if (strlen(word_buffer) != 0) {     // check if number is there
-              int var_idx = atoi(word_buffer);
-              int sign    = 0;
+          if (strlen(word_buffer) != 0) {     // check if number is there
+            int var_idx = atoi(word_buffer);
+            int sign    = 0;
 
-              if (var_idx != 0) {
-                if (var_idx < 0) { var_idx = -var_idx; sign = 1; }
-                clause_vars.insert(var_idx);
-                clause_lits.insert((var_idx << 1) + sign);
-              } else {
-                // add this clause
-                if (clause_vars.size() != 0 &&
-                   (clause_vars.size() == clause_lits.size())) {
-                  std::vector <int> temp;
-                  for (std::set<int>::iterator itr = clause_lits.begin();
-                       itr != clause_lits.end(); ++itr)
-                      temp.push_back(*itr);
-                  SAT_AddClause(SAT_manager_, & temp.begin()[0], temp.size());
-                // it contains var of both polarity
-                // it therefore is automatically satisfied
-                // just skip it
-                } else {}
-                clause_lits.clear();
-                clause_vars.clear();
-              }
+            if (var_idx != 0) {
+              if (var_idx < 0) { var_idx = -var_idx; sign = 1; }
+              clause_vars.insert(var_idx);
+              clause_lits.insert((var_idx << 1) + sign);
+            } else {
+              // add this clause
+              if (clause_vars.size() != 0 &&
+                 (clause_vars.size() == clause_lits.size())) {
+                std::vector <int> temp;
+                for (std::set<int>::iterator itr = clause_lits.begin();
+                     itr != clause_lits.end(); ++itr)
+                  temp.push_back(*itr);
+                SAT_AddClause(SAT_manager_, & temp.begin()[0], temp.size());
+              // it contains var of both polarity
+              // it therefore is automatically satisfied
+              // just skip it
+              } else {}
+              clause_lits.clear();
+              clause_vars.clear();
             }
           }
-          while (*lp);
-      }
+        }
+        while (*lp);
+    }
   }
   if (!inp.eof()) {
     std::cerr << "Input line " << line_num <<  " too long. Can't continue..."
@@ -130,8 +131,12 @@ void Game::ReadFile() {
 
 void Game::Solve() {
   int results = SAT_Solve(SAT_manager_);
-  SAT_AddHookFun(SAT_manager_, std::bind(&Game::Decision, this,
-                                         std::placeholders::_1), 5000);
+  int final_value;
+
+  for (int i = 0; i < num_variables_; ++i) {
+    final_value = SAT_GetVarAsgnment(SAT_manager_, i + 1);
+    var_mngr.variable_list_[i].SetFinalValue(final_value);
+  }
   DisplayResults(SAT_manager_, results);
 }
 
@@ -181,12 +186,9 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
 }
 
 void Game::Run() {
-  std::cout << "Reading File" << std::endl;
   ReadFile();
-  std::cout << "Loading variables into Variable Manager" << std::endl;
-  var_mngr.LoadVariables(SAT_manager_);
-  // Solve();
-
+  Solve();
+  // Decision(SAT_manager_);
 
   while (window_.isOpen()) {
     HandleEvents();
@@ -203,6 +205,7 @@ void Game::Decision(SAT_Manager SAT_manager_) {
   std::cout << "SAT Number of Variables =  " << num_variables_ << std::endl;
   std::cout << "SAT Number of Literals  =  " << num_literals_  << std::endl;
   printf("\n");
+  // int result;
   int check;
 
   for (i = 1; i < num_variables_; ++i) {
@@ -239,10 +242,10 @@ void Game::HandleEvents() {
 }
 
 void Game::Draw() {
-  window_.clear(sf::Color::Black);
+  window_.clear(sf::Color::White);
 
   // Decision();
-  window_.draw(welcome_text_);
+  window_.draw(title_text_);
   window_.draw(circle_);
 
   window_.display();

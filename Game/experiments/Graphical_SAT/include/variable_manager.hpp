@@ -13,8 +13,8 @@ class VariableManager {
  public:
   VariableManager();
   void LoadVariables(SAT_Manager SAT_manager);
-
-  void GetNumVariables(int num_var);
+  void SetNumVariables(int num_var);
+  void SetFinalVarValues(int final_value);
 
   std::vector<VariableObject> variable_list_;
  private:

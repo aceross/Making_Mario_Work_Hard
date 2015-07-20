@@ -46,13 +46,17 @@ class Game {
   SAT_Manager     SAT_manager_;
   VariableManager var_mngr;
 
-  sf::RenderWindow window_;
-  sf::Font font_;
+  sf::RenderWindow    window_;
+  sf::Font            font_;
   sf::ContextSettings settings_;
-  sf::Event event_;
+  sf::Event           event_;
 
-  sf::CircleShape circle_;
-  sf::Text welcome_text_;
+  sf::CircleShape     circle_;
+
+  sf::Text title_text_;
+  sf::Text instance_text_;
+  sf::Text solution_text_;
+  sf::Text result_text_;
 
  private:
   // bool is_satisfied_;
