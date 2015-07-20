@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  // InitialiseWindow();
+  InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -36,7 +36,7 @@ void Game::LoadAssets() {
   instance_text_.setFont(font_);
   instance_text_.setColor(sf::Color::Black);
   instance_text_.setCharacterSize(17);
-  instance_text_.setString("Graphical SAT Solver");
+  instance_text_.setString("Simple Dimple Pimple");
   instance_text_.setPosition(300, 300);
 
   // Set up circle shape
@@ -54,7 +54,7 @@ void Game::ReadFile() {
   std::set<int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/simple.cnf";
+  std::string filename = "lib/zchaff/problems/two.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
@@ -144,14 +144,20 @@ void Game::InitialiseCircles() {
     if (i == 0) {
       objects_.push_back(sf::CircleShape(15));
       std::cout << "Variable 1 added" << std::endl;
+      objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
+      objects_[i].setPosition(250, 250);
     }
     if (i == 1) {
-      objects_.push_back(sf::CircleShape(15, 3));
+      objects_.push_back(sf::CircleShape(18, 3));
       std::cout << "Variable 2 added" << std::endl;
+      objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
+      objects_[i].setPosition(300, 250);
     }
     if (i == 2) {
       objects_.push_back(sf::CircleShape(15, 4));
       std::cout << "Variable 3 added" << std::endl;
+      objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
+      objects_[i].setPosition(350, 250);
     }
   }
 }
@@ -173,6 +179,7 @@ void Game::Solve() {
   }
   DisplayResults(SAT_manager_, results);
   PrintSolution();
+  InitialiseCircles();
 }
 
 void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {

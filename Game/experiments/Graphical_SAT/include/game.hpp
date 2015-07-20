@@ -41,6 +41,7 @@ class Game {
 
   void Decision(SAT_Manager SAT_manager_);
 
+  void Update();
   void Draw();
   void HandleEvents();
 
