@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-class VariableObject : public sf::Sprite {
+class VariableObject {
  public:
   VariableObject();
   virtual void SetID(int id);

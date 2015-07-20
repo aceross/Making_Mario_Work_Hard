@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  InitialiseWindow();
+  // InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -22,19 +22,27 @@ void Game::InitialiseWindow() {
 }
 
 void Game::LoadAssets() {
-  // Load the welcome text
   if (!font_.loadFromFile("font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
+
+  // Load the title text
   title_text_.setFont(font_);
   title_text_.setColor(sf::Color::Black);
   title_text_.setString("Graphical SAT Solver");
   title_text_.setPosition(275, 0);
 
+  // Load the instance text
+  instance_text_.setFont(font_);
+  instance_text_.setColor(sf::Color::Black);
+  instance_text_.setCharacterSize(17);
+  instance_text_.setString("Graphical SAT Solver");
+  instance_text_.setPosition(300, 300);
+
   // Set up circle shape
-  circle_.setRadius(20);
-  circle_.setFillColor(sf::Color::Blue);
-  circle_.setPosition(250, 250);
+  // circle_.setRadius(15);
+  // circle_.setFillColor(sf::Color(172, 30, 30));  // red
+  // circle_.setPosition(250, 250);
 }
 
 void Game::ReadFile() {
@@ -46,7 +54,7 @@ void Game::ReadFile() {
   std::set<int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/single.cnf";
+  std::string filename = "lib/zchaff/problems/simple.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
@@ -127,17 +135,44 @@ void Game::ReadFile() {
   clause_lits.clear();
   clause_vars.clear();
   std::cout << "\tFinished reading CNF file..." << std::endl;
+  num_variables_ = SAT_NumVariables(SAT_manager_);
+  var_mngr.LoadVariables(SAT_manager_);
+}
+
+void Game::InitialiseCircles() {
+  for (int i = 0; i < num_variables_; ++i) {
+    if (i == 0) {
+      objects_.push_back(sf::CircleShape(15));
+      std::cout << "Variable 1 added" << std::endl;
+    }
+    if (i == 1) {
+      objects_.push_back(sf::CircleShape(15, 3));
+      std::cout << "Variable 2 added" << std::endl;
+    }
+    if (i == 2) {
+      objects_.push_back(sf::CircleShape(15, 4));
+      std::cout << "Variable 3 added" << std::endl;
+    }
+  }
 }
 
 void Game::Solve() {
+  printf("Number of variables = %d\n", num_variables_);
   int results = SAT_Solve(SAT_manager_);
-  int final_value;
+  printf("Before the switch\n");
 
-  for (int i = 0; i < num_variables_; ++i) {
-    final_value = SAT_GetVarAsgnment(SAT_manager_, i + 1);
-    var_mngr.variable_list_[i].SetFinalValue(final_value);
+  for (int i = 1, sz = SAT_NumVariables(SAT_manager_); i <= sz; ++i) {
+    if (SAT_GetVarAsgnment(SAT_manager_, i) == 1) {
+      var_mngr.variable_list_[i-1].SetFinalValue(i);
+      printf("Value Inserted\n");
+    }
+    if (SAT_GetVarAsgnment(SAT_manager_, i) == 0) {
+      var_mngr.variable_list_[i-1].SetFinalValue(i * (-1));
+      printf("Value Inserted\n");
+    }
   }
   DisplayResults(SAT_manager_, results);
+  PrintSolution();
 }
 
 void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
@@ -155,9 +190,13 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
             break;
           case 0:
             std::cout << "-" << i;
+            // var_mngr.variable_list_[i].SetFinalValue(i * -1);
+            // printf("Negative Value inserted\n");
             break;
           case 1:
             std::cout << i;
+            // var_mngr.variable_list_[i].SetFinalValue(i);
+            // printf("Positive Value inserted\n");
             break;
           default:
             std::cerr << "Unknown variable value state" << std::endl;
@@ -242,13 +281,29 @@ void Game::HandleEvents() {
 }
 
 void Game::Draw() {
-  window_.clear(sf::Color::White);
+  window_.clear(sf::Color(227, 227, 227));  // off-white
 
   // Decision();
+
   window_.draw(title_text_);
-  window_.draw(circle_);
+  window_.draw(instance_text_);
+  // window_.draw(circle_);
+
+  for (int i = 0; i < num_variables_; ++i) {
+    window_.draw(objects_[i]);
+  }
 
   window_.display();
+}
+
+void Game::PrintSolution() {
+  int s;
+  std::cout << "Printing solution..." << std::endl;
+  for (int i = 0; i < num_variables_; ++i) {
+    s = var_mngr.variable_list_[i].GetFinalValue();
+    printf("%d\n", s);
+  }
+  printf("\n");
 }
 
 Game::~Game() {}

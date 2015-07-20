@@ -5,7 +5,7 @@
 VariableObject::VariableObject() {}
 
 void VariableObject::SetID(int id) {
-  this->id_ = id;
+  id_ = id;
 }
 
 int VariableObject::GetID() {
@@ -13,7 +13,7 @@ int VariableObject::GetID() {
 }
 
 void VariableObject::SetInitialValue(int initial_value) {
-  this->initial_value_ = initial_value;
+  initial_value_ = initial_value;
 }
 
 int VariableObject::GetInitialValue() {
@@ -21,7 +21,7 @@ int VariableObject::GetInitialValue() {
 }
 
 void VariableObject::SetDecisionValue(int decision_value) {
-  this->decision_value_ = decision_value;
+  decision_value_ = decision_value;
 }
 
 int VariableObject::GetDecisionValue() {
@@ -29,7 +29,7 @@ int VariableObject::GetDecisionValue() {
 }
 
 void VariableObject::SetFinalValue(int final_value) {
-  this->final_value_ = final_value;
+  final_value_ = final_value;
 }
 
 int VariableObject::GetFinalValue() {

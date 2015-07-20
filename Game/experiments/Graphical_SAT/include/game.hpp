@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
+#include <vector>
 
 #include "../lib/zchaff/SAT.h"
 #include "variable_manager.hpp"
@@ -33,6 +34,7 @@ class Game {
   void LoadAssets();
 
   void ReadFile();
+  void InitialiseCircles();
 
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
@@ -41,6 +43,8 @@ class Game {
 
   void Draw();
   void HandleEvents();
+
+  void PrintSolution();
 
  private:
   SAT_Manager     SAT_manager_;
@@ -63,6 +67,8 @@ class Game {
   // int result_;
   int num_literals_;
   int num_variables_;
+
+  std::vector<sf::CircleShape> objects_;
 };
 
 #endif  // GAME_HPP
