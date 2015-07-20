@@ -6,10 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "z_variable.hpp"
-#include "y_variable.hpp"
-#include "x_variable.hpp"
-#include "var_object.hpp"
+#include "variable_object.hpp"
 #include "../lib/zchaff/SAT.h"
 
 class VariableManager {

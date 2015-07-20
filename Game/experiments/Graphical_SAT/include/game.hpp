@@ -37,7 +37,7 @@ class Game {
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
 
-  void Decision();
+  void Decision(SAT_Manager SAT_manager_);
 
   void Draw();
   void HandleEvents();

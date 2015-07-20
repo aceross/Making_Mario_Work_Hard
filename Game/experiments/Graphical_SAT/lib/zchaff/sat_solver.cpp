@@ -259,7 +259,7 @@ int main(int argc, char ** argv) {
     }
 
  /* if you want some statistics during the solving, uncomment following line */
-   SAT_AddHookFun(mng,output_status, 5000);
+  SAT_AddHookFun(mng, output_status, 5000);
 
   /* you can set all your parameters here, following values are the defaults*/
   //    SAT_SetMaxUnrelevance(mng, 20);

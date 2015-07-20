@@ -3,6 +3,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <functional>
 
 #include "../include/game.hpp"
 
@@ -36,7 +37,7 @@ void Game::LoadAssets() {
 }
 
 void Game::ReadFile() {
-  std::cout <<"Reading CNF file... "<< std::endl;
+  std::cout <<"\tReading CNF file... "<< std::endl;
 
   char line_buffer[MAX_LINE_LENGTH];
   char word_buffer[MAX_WORD_LENGTH];
@@ -124,11 +125,13 @@ void Game::ReadFile() {
   }
   clause_lits.clear();
   clause_vars.clear();
-  std::cout << "Finished reading CNF file..." << std::endl;
+  std::cout << "\tFinished reading CNF file..." << std::endl;
 }
 
 void Game::Solve() {
   int results = SAT_Solve(SAT_manager_);
+  SAT_AddHookFun(SAT_manager_, std::bind(&Game::Decision, this,
+                                         std::placeholders::_1), 5000);
   DisplayResults(SAT_manager_, results);
 }
 
@@ -178,9 +181,12 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
 }
 
 void Game::Run() {
+  std::cout << "Reading File" << std::endl;
   ReadFile();
-  Solve();
-  Decision();
+  std::cout << "Loading variables into Variable Manager" << std::endl;
+  var_mngr.LoadVariables(SAT_manager_);
+  // Solve();
+
 
   while (window_.isOpen()) {
     HandleEvents();
@@ -189,7 +195,7 @@ void Game::Run() {
 }
 
 // Give the variables a decision
-void Game::Decision() {
+void Game::Decision(SAT_Manager SAT_manager_) {
   num_variables_ = SAT_NumVariables(SAT_manager_);
   num_literals_  = SAT_NumLiterals(SAT_manager_);
 
