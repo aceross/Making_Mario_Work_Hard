@@ -36,13 +36,11 @@ void Game::LoadAssets() {
   instance_text_.setFont(font_);
   instance_text_.setColor(sf::Color::Black);
   instance_text_.setCharacterSize(17);
-  instance_text_.setString("Simple Dimple Pimple");
+  instance_text_.setString(170);
   instance_text_.setPosition(300, 300);
 
-  // Set up circle shape
-  // circle_.setRadius(15);
-  // circle_.setFillColor(sf::Color(172, 30, 30));  // red
-  // circle_.setPosition(250, 250);
+  // Load initial problem text
+
 }
 
 void Game::ReadFile() {
@@ -50,8 +48,8 @@ void Game::ReadFile() {
 
   char line_buffer[MAX_LINE_LENGTH];
   char word_buffer[MAX_WORD_LENGTH];
-  std::set<int> clause_vars;
-  std::set<int> clause_lits;
+  std::set <int> clause_vars;
+  std::set <int> clause_lits;
   int line_num = 0;
 
   std::string filename = "lib/zchaff/problems/two.cnf";
@@ -76,7 +74,7 @@ void Game::ReadFile() {
           exit(3);
         }
         SAT_SetNumVariables(SAT_manager_, var_num);
-      // Clause definition or continuation
+    // Clause definition or continuation
     } else {
         char *lp = line_buffer;
         do {
@@ -85,7 +83,7 @@ void Game::ReadFile() {
             lp++;
           }
           while (*lp && (*lp != ' ') && (*lp != '\t') && (*lp != '\n')) {
-              *(wp++) = *(lp++);
+            *(wp++) = *(lp++);
           }
           *wp = '\0';  // terminate string
 
@@ -120,7 +118,7 @@ void Game::ReadFile() {
   }
   if (!inp.eof()) {
     std::cerr << "Input line " << line_num <<  " too long. Can't continue..."
-    << std::endl;
+              << std::endl;
     exit(2);
   }
   // assert(clause_vars.size() == 0);
@@ -129,7 +127,7 @@ void Game::ReadFile() {
     std::vector<int> temp;
     for (std::set<int>::iterator itr = clause_lits.begin();
          itr != clause_lits.end(); ++itr)
-        temp.push_back(*itr);
+      temp.push_back(*itr);
     SAT_AddClause(SAT_manager_, & temp.begin()[0], temp.size() );
   }
   clause_lits.clear();

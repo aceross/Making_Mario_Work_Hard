@@ -1,3 +1,4 @@
+# ===============================
 # Making Mario Work Hard Makefile
 # ===============================
 
@@ -29,7 +30,7 @@ BUILD_CMD     = LOG=$$($(CMD) 2>&1) ; if [ $$? -eq 1 ]; \
 
 # This makefile uses LLVM/Clang but can be changed easily to g++ :
 # * to change to g++, change CC to g++
-# * remove -lstdc++ as this is clang specific
+
 CC       := clang++
 SRCDIR   := src
 BUILDDIR := build
