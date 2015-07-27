@@ -39,8 +39,8 @@ class SceneNode : public sf::Transformable, public sf::Drawable,
   void OnCommand(const Command& command, sf::Time delta_time);
   virtual unsigned int GetCategory() const;
 
-  void CheckSceneCollision(Scene& scene_graph, std::set<Pair>& collision_pairs);
-  void CheckNodeCollision(Scene& node, std::set<pair>& collision_pairs);
+  void CheckSceneCollision(SceneNode& scene_graph, std::set<Pair>& collision_pairs);
+  void CheckNodeCollision(SceneNode& node, std::set<Pair>& collision_pairs);
 
   virtual sf::FloatRect GetBoundingRect() const;
 
