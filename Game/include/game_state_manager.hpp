@@ -46,8 +46,8 @@ class GameStateManager {
   sf::Time    stats_update_time_;
   std::size_t stats_num_frames_;
 
-  PlayerManager player_mng;
-  StateStack states_;
+  PlayerManager player_manager_;
+  StateStack    states_;
 
   static const sf::Time TimePerFrame;
   static const int tileSize = 32;

@@ -9,7 +9,7 @@
 class Entity : public SceneNode {
  public:
   Entity();
-  sf::Vector2f GetVelocity_() const;
+  sf::Vector2f GetVelocity() const;
   void SetVelocity(float vx, float vy);
   void SetVeloctity(sf::Vector2f velocity);
 

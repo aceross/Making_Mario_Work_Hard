@@ -9,19 +9,24 @@
 #include "../include/player.hpp"
 #include "../include/resource_manager.hpp"
 #include "../include/data_table.hpp"
+#include "../include/command_queue.hpp"
 
 using namespace std::placeholders;
-//
-// namepace {
-//   const std::vector<PlayerData> Table = InitialisePlayerData();
-// }
+
+namespace {
+  const std::vector<PlayerData> Table = InitialisePlayerData();
+}
 
 Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : type_(type)
-, sprite_(textures.Get(Table[type].texture, Table[type].textureRect))
-, clauses_false_(0)
+, sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
 , clauses_true_(0)
+, clauses_false_(0)
 {}
+
+float Player::GetMaxSpeed() const {
+  return Table[type_].speed;
+}
 
 void Player::DrawCurrent(sf::RenderTarget &target,
                          sf::RenderStates states) const {
@@ -42,10 +47,20 @@ sf::FloatRect Player::GetBoundingRect() const {
   return GetWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
+// May need to update as Jump animation and Walk animation
 void Player::UpdateAnimation() {
-  // if (Table[type_].HasAnimation) {
-  //   sf::IntRect texture_rect = Table[type].texture_rect_;
-  //
-  //   if (Get)
-  // }
+  if (Table[type_].has_animation_) {
+    sf::IntRect texture_rect = Table[type_].texture_rect;
+
+  // Roll left: Texture rect offset once
+  if (GetVelocity().x < 0.f) {
+    texture_rect.left += texture_rect.width;
+  }
+    // Roll right: Texture rect offset twice
+  else if (GetVelocity().x > 0.f) {
+    texture_rect.left += 2 * texture_rect.width;
+  }
+
+  sprite_.setTextureRect(texture_rect);
+  }
 }

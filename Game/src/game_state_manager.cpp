@@ -37,7 +37,7 @@ void GameStateManager::Run() {
 
     UpdateStatistics(delta_time);
     Render();
-    sf::sleep(sf::microseconds(1));
+    // sf::sleep(sf::microseconds(1));
   }
   std::cout << "Quitting the game..." << std::endl;
 }

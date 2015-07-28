@@ -16,7 +16,7 @@
 
 class CommandQueue;
 
-class PlayerManager : public Entity {
+class PlayerManager {
  public:
   enum Action {
     MoveLeft,
@@ -44,18 +44,18 @@ class PlayerManager : public Entity {
   void SetLevelStatus(LevelStatus status);
   LevelStatus GetLevelStatus() const;
 
- public:
-  virtual sf::FloatRect GetBoundingRect() const;
+ // public:
+ //  virtual sf::FloatRect GetBoundingRect() const;
 
  private:
   void InitialiseActions();
   static bool IsRealtimeAction(Action action);
 
  private:
-  virtual void DrawCurrent(sf::RenderTarget& target,
-                           sf::RenderStates states) const;
-  virtual void UpdateCurrent(sf::Time delta_time_, CommandQueue& commands);
-  void UpdateText();
+  // virtual void DrawCurrent(sf::RenderTarget& target,
+  //                          sf::RenderStates states) const;
+  // virtual void UpdateCurrent(sf::Time delta_time_, CommandQueue& commands);
+  // void UpdateText();
 
  private:
   std::map<sf::Keyboard::Key, Action> key_binding_;

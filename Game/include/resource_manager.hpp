@@ -16,7 +16,7 @@ class ResourceManager {
   void Load(Identifier id, const std::string& filename);
 
   template <typename Parameter>
-  void Load(Identifier id, const std::string& filename, const Parameter& secondParam);
+  void Load(Identifier id, const std::string& filename, const Parameter& second_param);
 
   Resource&       Get(Identifier id);
   const Resource& Get(Identifier id) const;

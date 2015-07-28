@@ -4,7 +4,7 @@ void ResourceManager<Resource, Identifier>::Load(Identifier id, const std::strin
   // Create and load resource
   std::unique_ptr<Resource> resource(new Resource());
   if (!resource->loadFromFile(filename))
-    throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
+    throw std::runtime_error("ResourceManager::load - Failed to load " + filename);
 
   // If loading successful, insert resource to map
   InsertResource(id, std::move(resource));
@@ -12,12 +12,12 @@ void ResourceManager<Resource, Identifier>::Load(Identifier id, const std::strin
 
 template <typename Resource, typename Identifier>
 template <typename Parameter>
-void ResourceManager<Resource, Identifier>::Load(Identifier id, const std::string& filename, const Parameter& secondParam)
+void ResourceManager<Resource, Identifier>::Load(Identifier id, const std::string& filename, const Parameter& second_param)
 {
   // Create and load resource
   std::unique_ptr<Resource> resource(new Resource());
-  if (!resource->loadFromFile(filename, secondParam))
-    throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
+  if (!resource->loadFromFile(filename, second_param))
+    throw std::runtime_error("ResourceManager::load - Failed to load " + filename);
 
   // If loading successful, insert resource to map
   InsertResource(id, std::move(resource));
