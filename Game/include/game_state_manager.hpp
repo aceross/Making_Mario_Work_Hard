@@ -16,7 +16,6 @@
 #include "resource_identifiers.hpp"
 #include "state_stack.hpp"
 #include "player_manager.hpp"
-
 #include "../lib/zchaff/SAT.h"
 
 // Values for the game window
@@ -42,19 +41,19 @@ class GameStateManager {
   FontHolder    font_;
   TextureHolder textures_;
 
+  PlayerManager player_manager_;
+  StateStack    states_;
+
   sf::Text    stats_text_;
   sf::Time    stats_update_time_;
   std::size_t stats_num_frames_;
-
-  PlayerManager player_manager_;
-  StateStack    states_;
 
   static const sf::Time TimePerFrame;
   static const int tileSize = 32;
   bool game_over_           = false;
 
  private:
-  SAT_Manager sat_manager_;
+  // SAT_Manager sat_manager_;
 
  public:
   GameStateManager();

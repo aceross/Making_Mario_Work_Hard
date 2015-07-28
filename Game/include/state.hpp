@@ -15,7 +15,7 @@ class RenderWindow;
 }
 
 class StateStack;
-class Player;
+class PlayerManager;
 
 class State {
  public:
@@ -23,12 +23,12 @@ class State {
 
   struct Context {
     Context(sf::RenderWindow& window, TextureHolder& textures_,
-            FontHolder& fonts_, Player& player);
+            FontHolder& fonts_, PlayerManager& player_manager);
 
     sf::RenderWindow*  window_;
     TextureHolder*     textures_;
     FontHolder*        fonts_;
-    Player*            player_;
+    PlayerManager*     player_manager_;
   };
 
  public:

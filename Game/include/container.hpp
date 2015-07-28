@@ -9,26 +9,27 @@
 #include "component.hpp"
 
 namespace GUI {
-  class Container : public Component {
-   public:
-    typedef std::shared_ptr<Container> Ptr;
+class Container : public Component {
+ public:
+  typedef std::shared_ptr<Container> Ptr;
 
-   public:
-    Container();
-    void Pack(Component::Ptr component);
-    virtual bool IsSelectable() const;
-    virtual void HandleEvent(const sf::Event& event);
+ public:
+  Container();
+  void Pack(Component::Ptr component);
+  virtual bool IsSelectable() const;
+  virtual void HandleEvent(const sf::Event& event);
 
-   private:
-    virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    bool HasSelection() const;
-    void Select(std::size_t index);
-    void SelectNext();
-    void SelectPrevious();
-   private:
-    std::vector<Component::Ptr> children_;
-    int selected_child_;
-  }
-}
+ private:
+  using Component::Select;
+  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+  bool HasSelection() const;
+  void Select(std::size_t index);
+  void SelectNext();
+  void SelectPrevious();
+ private:
+  std::vector<Component::Ptr> children_;
+  int selected_child_;
+};
+}  // namespace GUI
 
 #endif  // CONTAINER_HPP

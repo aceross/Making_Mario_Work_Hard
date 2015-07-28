@@ -49,7 +49,7 @@ class SceneNode : public sf::Transformable, public sf::Drawable,
  private:
   void UpdateChildren(sf::Time delta_time, CommandQueue& commands);
 
-  virtual void Draw(sf::RenderTarget& target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
   virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
   void DrawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
   void DrawBoundingRect(sf::RenderTarget& target, sf::RenderStates states) const;

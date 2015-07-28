@@ -46,7 +46,7 @@ void SceneNode::UpdateChildren(sf::Time delta_time, CommandQueue& commands) {
   }
 }
 
-void SceneNode::Draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   // Apply transform of current node
   states.transform *= getTransform();
 

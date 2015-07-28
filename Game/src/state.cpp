@@ -2,17 +2,18 @@
 
 #include "../include/state.hpp"
 #include "../include/state_stack.hpp"
+#include "../include/player_manager.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures,
-                        FontHolder& fonts, Player& player)
-: window_(&window_)
+                        FontHolder& fonts, PlayerManager& player_manager)
+: window_(&window)
 , textures_(&textures)
-, fonts_(&fonts_)
-, player_(&player_)
+, fonts_(&fonts)
+, player_manager_(&player_manager)
 {}
 
 State::State(StateStack& states, Context context)
-: states_(&states_)
+: states_(&states)
 , context_(context)
 {}
 

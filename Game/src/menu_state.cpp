@@ -5,7 +5,7 @@
 
 #include "../include/menu_state.hpp"
 #include "../include/resource_manager.hpp"
-#include "../include/text_centring.hpp"
+#include "../include/text_utility.hpp"
 
 MenuState::MenuState(StateStack& stack, Context context)
 : State(stack, context)

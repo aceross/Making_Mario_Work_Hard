@@ -25,9 +25,9 @@ class RenderTarget;
 
 class Level : private sf::NonCopyable {
  public:
-  Level(sf::RenderTarget& outputTarget, FontHolder& fonts);
-  void     Update(sf::Time delta_time);
-  void     Draw();
+  Level(sf::RenderTarget& output_target, FontHolder& fonts);
+  void Update(sf::Time delta_time);
+  void draw();
 
   CommandQueue& GetCommandQueue();
 
@@ -36,10 +36,11 @@ class Level : private sf::NonCopyable {
 
  private:
   void LoadTextures();
-  void BuildScene();
   void AdaptPlayerPosition();
   void AdaptPlayerVelocity();
   void HandleCollisions();
+
+  void BuildScene();
 
   void AddEnemies();
   void AddSingleEnemy();
@@ -52,6 +53,18 @@ class Level : private sf::NonCopyable {
 
  private:
   enum Layer { Background, Air, LayerCount };
+
+  struct SpawnPoint {
+    SpawnPoint(Player::Type type, float x, float y)
+    : type(type)
+    , x(x)
+    , y(y)
+    {}
+
+    Player::Type type;
+    float x;
+    float y;
+  };
 
  private:
   sf::RenderTarget& target_;

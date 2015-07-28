@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-#include "text_centring.hpp"
+#include "../include/text_utility.hpp"
 
 
 void CentreOrigin(sf::Sprite& sprite) {
@@ -17,5 +17,5 @@ void CentreOrigin(sf::Sprite& sprite) {
 void CentreOrigin(sf::Text& text) {
   sf::FloatRect bounds = text.getLocalBounds();
   text.setOrigin(std::floor(bounds.left + bounds.width / 2.f),
-                 std::floor(bounds.top  + bounds.height / 2.f));
+                 std::floor(bounds.top + bounds.height / 2.f));
 }

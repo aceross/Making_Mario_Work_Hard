@@ -1,22 +1,42 @@
 // Copyright 2015, Aaron Ceross
 
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-
 #include <algorithm>
 #include <stack>
 #include <iostream>
+#include <string>
 
 #include "../include/game_state_manager.hpp"
+#include "../include/text_utility.hpp"
 #include "../include/game_state.hpp"
+#include "../include/state.hpp"
 #include "../include/menu_state.hpp"
 #include "../include/pause_state.hpp"
 #include "../include/level.hpp"
 #include "../include/title_screen_state.hpp"
 #include "../include/state_identifiers.hpp"
-#include "../include/text_centring.hpp"
 
 const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
+
+GameStateManager::GameStateManager()
+: window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
+                                    sf::Style::Default)
+, font_()
+, textures_()
+, player_manager_()
+, states_(State::Context(window_, textures_, font_, player_manager_))
+, stats_text_()
+, stats_update_time_()
+, stats_num_frames_(0)
+{
+  window_.setKeyRepeatEnabled(false);
+  window_.setVerticalSyncEnabled(true);
+
+  font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
+
+  stats_text_.setFont(font_.Get(Fonts::Main));
+  stats_text_.setPosition(5.f, 5.f);
+  stats_text_.setCharacterSize(10u);
+}
 
 void GameStateManager::Run() {
   sf::Clock update_clock;
@@ -58,9 +78,9 @@ void GameStateManager::UpdateStatistics(sf::Time delta_time) {
 
   if (stats_update_time_ >= sf::seconds(1.0f)) {
     stats_text_.setString(
-      "Frames / Second = " + toString(stats_num_frames_) + "\n" +
-      "Time / Update = "   + toString(stats_update_time_.asMicroseconds() /
-                                      stats_num_frames_) + "us");
+      "Frames / Second = " + std::to_string(stats_num_frames_) + "\n" +
+      "Time / Update = "  + std::to_string(stats_update_time_.asMicroseconds() /
+                                           stats_num_frames_) + "us");
   }
 }
 
@@ -76,24 +96,6 @@ void GameStateManager::ProcessInputs() {
 
 void GameStateManager::Update(sf::Time delta_time) {
   states_.Update(delta_time);
-}
-
-GameStateManager::GameStateManager()
-: window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
-                                    sf::Style::Default)
-, font_()
-, player_()
-, states_(State::Context(window_, textures_, font_, player_))
-, stats_text_()
-, stats_update_time_()
-, stats_num_frames_(0)
-{
-  window_.setKeyRepeatEnabled(false);
-
-  font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
-  stats_text_.setFont(font_.Get(Fonts::Main));
-  stats_text_.setPosition(5.f, 5.f);
-  stats_text_.setCharacterSize(10u);
 }
 
 void GameStateManager::RegisterStates() {
