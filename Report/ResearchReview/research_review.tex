@@ -207,44 +207,51 @@ research review and discuss future areas of investigation.
 
 \subsection{Definitions}
 
-The goals of the research project are to visualise computational complexity through video games.
-Therefore, the literature review begins with identifying the relevant key concepts in computational
-complexity theory in order to understand what characteristics makes a problem computationally hard.
+The goals of the research project are to visualise computational complexity
+through video games. Therefore, the literature review begins with identifying
+the relevant key concepts in computational complexity theory in order to
+understand what characteristics makes a problem computationally hard.
 
-Computational complexity theory is concerned with assessing and classifying the difficulty of
-defined tasks as well as the relationship between such tasks. Within computational complexity, there
-exist different types of problems, termed \textit{complexity classes}. Complexity classes rank the
-difficulty of differing types of problems. Of the many types of problems which can exist in
-computational complexity theory, the two fundamental types this research project is interested in
-are (\textit{i}) decision problems and (\textit{ii}) search problems. The importance of the
-distinction between these two types will be made clearer when discussing Boolean satisfiability
-(Chapter 2) and procedural content generation (Chapter 5).
+Computational complexity theory is concerned with assessing and classifying the
+difficulty of defined tasks as well as the relationship between such tasks.
+Within computational complexity, there exist different types of problems, termed
+\textit{complexity classes}. Complexity classes rank the difficulty of differing
+types of problems. Of the many types of problems which can exist in
+computational complexity theory, the two fundamental types this research project
+is interested in are (\textit{i}) decision problems and (\textit{ii}) search
+problems. The importance of the distinction between these two types will be made
+clearer when discussing Boolean satisfiability (Chapter 2) and procedural
+content generation (Chapter 5).
 
 \subsubsection{Decision problems and search problems}
 
-A decision problem is a binary choice one wherein, on an infinite set of inputs, the question may be
-answered `\textit{yes}' or `\textit{no}'  It is common  to define the decision problem equivalency
-as: ``the set of inputs for which the problem returns \textit{yes}''. Most problems may be reduced
-to a decision problem \cite{kendall2008survey}, which is important in that the determination of
-whether a solution exists or not is required in order to solve the complementary search problem
-\cite{Goldreich:2008}.
+A decision problem is a binary choice one wherein, on an infinite set of inputs,
+the question may be answered `\textit{yes}' or `\textit{no}'  It is common  to
+define the decision problem equivalency as: ``the set of inputs for which the
+problem returns \textit{yes}''. Most problems may be reduced to a decision
+problem \cite{kendall2008survey}, which is important in that the determination
+of whether a solution exists or not is required in order to solve the
+complementary search problem \cite{Goldreich:2008}.
 
-Search problems represent a significant area of research in computer science (citation needed),
-covering topics such as sorting and identifying the shortest path \cite{Goldreich:2008}. A search
-problem consists of the identification of a solution from a set of solutions (possibly infinite or
-empty). Therefore, given an instance of a search problem, a solution must be found or return a
+Search problems represent a significant area of research in computer science
+(citation needed), covering topics such as sorting and identifying the shortest
+path \cite{Goldreich:2008}. A search problem consists of the identification of a
+solution from a set of solutions (possibly infinite or empty). Therefore, given
+an instance of a search problem, a solution must be found or return a
 determination that no solution exists in such instance.
 
 \subsection{Survey of complexity classes}
 
 \subsubsection{P and NP}
 
-The two fundamental complexity classes relevant for this research project are \textbf{P} and
-\textbf{NP}\@. The P (polynomial) class of problems contain those decision problems that are often
-described as `easy' problems \cite{kendall2008survey} as the time required to solve such problem has
-an upper- bound that scales by a polynomial function of the input \cite{sipser2012introduction}. The
-other complexity class, NP (non-deterministic polynomial), relates to those problems that do not
-have an efficient way of finding a solution but can have a solution verified in polynomial time
+The two fundamental complexity classes relevant for this research project are
+\textbf{P} and \textbf{NP}\@. The P (polynomial) class of problems contain those
+decision problems that are often described as `easy' problems
+\cite{kendall2008survey} as the time required to solve such problem has an
+upper- bound that scales by a polynomial function of the input
+\cite{sipser2012introduction}. The other complexity class, NP (non-deterministic
+polynomial), relates to those problems that do not have an efficient way of
+finding a solution but can have a solution verified in polynomial time
 \cite{Goldreich:2008, Papadimitriou:2003:CC:1074100.1074233}.
 
 % Therefore:
