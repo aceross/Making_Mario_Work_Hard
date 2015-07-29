@@ -14,12 +14,12 @@ class GameState : public State {
  public:
   GameState(StateStack& states, Context context);
 
-  virtual void Draw();
+  virtual void draw();
   virtual bool Update(sf::Time delta_time);
   virtual bool HandleEvent(const sf::Event& event);
 
  private:
-  Level level_;
+  Level          level_;
   PlayerManager& player_manager_;
 };
 

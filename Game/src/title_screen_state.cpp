@@ -4,6 +4,7 @@
 
 #include "../include/title_screen_state.hpp"
 #include "../include/resource_manager.hpp"
+#include "../include/text_utility.hpp"
 
 
 TitleScreenState::TitleScreenState(StateStack& stack, Context context)
@@ -12,11 +13,11 @@ TitleScreenState::TitleScreenState(StateStack& stack, Context context)
 , show_text_(true)
 , text_effect_time_(sf::Time::Zero)
 {
-  background_sprite_.setTexture(context.textures->get(Textures::TitleScreen));
+  background_sprite_.setTexture(context.textures_->Get(Textures::TitleScreen));
 
-  text_.setFont(context.fonts->get(Fonts::Main));
+  text_.setFont(context.fonts_->Get(Fonts::Main));
   text_.setString("Press any key to start");
-  centreOrigin(text_);
+  CentreOrigin(text_);
   text_.setPosition(context.window_->getView().getSize() / 2.f);
 }
 

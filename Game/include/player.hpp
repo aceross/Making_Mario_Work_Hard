@@ -17,10 +17,11 @@ class Player : public Entity {
 
  public:
   Player(Type type, const TextureHolder& textures, const FontHolder& fonts);
+
   virtual sf::FloatRect GetBoundingRect() const;
-  virtual void Remove();
-  void FireProjectile();
-  float GetMaxSpeed() const;
+  virtual void          Remove();
+  void                  Fire();
+  float                 GetMaxSpeed() const;
 
  private:
   virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -35,7 +36,7 @@ class Player : public Entity {
   sf::Sprite  sprite_;
   Command     fire_command_;
   std::size_t direction_index_;
-  
+
   int clauses_true_;
   int clauses_false_;
 };

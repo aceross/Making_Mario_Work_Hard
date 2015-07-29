@@ -23,7 +23,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scroll_speed_(-50.f)
 , player_sprite_(nullptr)
 {
-  scene_texture_.Create(target_.getSize().x, target_.getSize().y);
+  scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
   LoadTextures();
   BuildScene();
@@ -76,14 +76,14 @@ void Level::BuildScene() {
   }
 
   // Prepare the tiled background
-  sf::Texture& texture = textures_.get(Textures::Desert);
-  sf::IntRect textureRect(level_bounds_);
-  texture.setRepeated(true);
+  // sf::Texture& texture = textures_.Get(Textures::Desert);
+  // sf::IntRect textureRect(level_bounds_);
+  // textures_.setRepeated(true);
 
   // Add the background sprite to the scene
-  std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-  backgroundSprite->setPosition(level_bounds_.left, level_bounds_.top);
-  scene_layers_[Background]->attachChild(std::move(backgroundSprite));
+  // std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
+  // backgroundSprite->setPosition(level_bounds_.left, level_bounds_.top);
+  // scene_layers_[Background]->AttachChild(std::move(backgroundSprite));
 
   // Add player's aircraft
   // std::unique_ptr<Aircraft> leader(new Aircraft(Aircraft::Eagle, mTextures));

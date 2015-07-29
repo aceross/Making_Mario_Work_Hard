@@ -1,5 +1,8 @@
 // Copyright 2015, Aaron Ceross
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -25,7 +28,7 @@ SceneNode::Ptr SceneNode::DetachChild(const SceneNode& node) {
 
   assert(found != children_.end());
 
-  Ptr result = std::move(*found);
+  Ptr result      = std::move(*found);
   result->parent_ = nullptr;
   children_.erase(found);
   return result;
@@ -65,7 +68,7 @@ void SceneNode::DrawCurrent(sf::RenderTarget&, sf::RenderStates) const {
 void SceneNode::DrawChildren(sf::RenderTarget& target,
                              sf::RenderStates states) const {
   for (const Ptr& child : children_) {
-    child->Draw(target, states);
+    child->draw(target, states);
   }
 }
 

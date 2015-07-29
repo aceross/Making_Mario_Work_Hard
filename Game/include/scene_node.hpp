@@ -7,7 +7,6 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 
 #include <vector>
 #include <memory>
@@ -29,14 +28,13 @@ class SceneNode : public sf::Transformable, public sf::Drawable,
   explicit SceneNode(Category::Type category = Category::None);
 
   void AttachChild(Ptr child);
-  Ptr DetachChild(const SceneNode& node);
-
+  Ptr  DetachChild(const SceneNode& node);
   void Update(sf::Time delta_time, CommandQueue& commands);
 
-  sf::Vector2f GetWorldPosition() const;
-  sf::Transform GetWorldTransform() const;
+  sf::Vector2f   GetWorldPosition() const;
+  sf::Transform  GetWorldTransform() const;
 
-  void OnCommand(const Command& command, sf::Time delta_time);
+  void                 OnCommand(const Command& command, sf::Time delta_time);
   virtual unsigned int GetCategory() const;
 
   void CheckSceneCollision(SceneNode& scene_graph, std::set<Pair>& collision_pairs);

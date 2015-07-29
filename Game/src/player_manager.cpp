@@ -6,6 +6,7 @@
 
 #include "../include/player_manager.hpp"
 #include "../include/command_queue.hpp"
+#include "../include/player.hpp"
 
 using namespace std::placeholders;
 
@@ -14,9 +15,9 @@ struct PlayerMover {
   : velocity(vx, vy)
   {}
 
-  void operator() (Player& player, sf::Time) const {
-    player.accelerate(velocity * player.getMaxSpeed());
-  }
+  // void operator() (Player& player, sf::Time) const {
+  //   player.accelerate(velocity * player.getMaxSpeed());
+  // }
 
   sf::Vector2f velocity;
 };
@@ -35,8 +36,8 @@ PlayerManager::PlayerManager()
   InitialiseActions();
 
   // Assign all categories to player's aircraft
-  for (auto& pair : action_binding_)
-    pair.second.category_ = Category::PlayerAircraft;
+  // for (auto& pair : action_binding_)
+  //   pair.second.category_ = Category::PlayerAircraft;
 }
 
 void PlayerManager::HandleEvent(const sf::Event& event,
@@ -88,11 +89,11 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 }
 
 void PlayerManager::InitialiseActions() {
-  key_binding_[MoveLeft].action  = derivedAction<Player>(PlayerMover(-1, 0));
-  key_binding_[MoveRight].action = derivedAction<Player>(PlayerMover(+1, 0));
-  key_binding_[Jump].action      = derivedAction<Player>(PlayerMover(0, -1));
-  key_binding_[MoveDown].action  = derivedAction<Player>(PlayerMover(0, +1));
-  key_binding_[Fire].action      = derivedAction<Player>([] (Player& a, sf::Time){ a.fire(); });
+  // key_binding_[MoveLeft].action  = derivedAction<Player>(PlayerMover(-1, 0));
+  // key_binding_[MoveRight].action = derivedAction<Player>(PlayerMover(+1, 0));
+  // key_binding_[Jump].action      = derivedAction<Player>(PlayerMover(0, -1));
+  // key_binding_[Crouch].action    = derivedAction<Player>(PlayerMover(0, +1));
+  // key_binding_[Fire].action      = derivedAction<Player>([] (Player& a, sf::Time){ a.Fire(); });
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {

@@ -3,7 +3,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "../include/text_node.hpp"
-#include "../include/text_centring.hpp"
+#include "../include/text_utility.hpp"
 
 TextNode::TextNode(const FontHolder& fonts, const std::string& text) {
   text_.setFont(fonts.Get(Fonts::Main));

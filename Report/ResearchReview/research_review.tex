@@ -95,12 +95,15 @@ experiences.''}{Shigeru Miyamoto}
 
 \section{Background and motivation}
 
-An NP-complete problem is one with a solution that can be \textit{verified} quickly in polynomial
-time, though an existing solution is not readily known or \textit{identifiable} \cite{cook1984can}.
-It has been proven that certain classic video games, such as \textit{Super Mario Bros}
-\cite{Aloupis2012}, are computationally hard in that the character could be made
-to solve an arbitrary instance of a Boolean satisfiability problem (SAT). SAT is a type of NP-complete problem in which the variables of the formula may be consistently replaced by the values
-TRUE or FALSE in a way that the formula evaluates to TRUE, or `satisfiable'.
+An NP-complete problem is one with a solution that can be \textit{verified}
+quickly in polynomial time, though an existing solution is not readily known or
+\textit{identifiable} \cite{cook1984can}. It has been proven that certain
+classic video games, such as \textit{Super Mario Bros} \cite{Aloupis2012}, are
+computationally hard in that the character could be made to solve an arbitrary
+instance of a Boolean satisfiability problem (SAT). SAT is a type of NP-complete
+problem in which the variables of the formula may be consistently replaced by
+the values TRUE or FALSE in a way that the formula evaluates to TRUE, or
+`satisfiable'.
 
 The primary motivation of this research is to investigate the feasibility of the video game medium
 as a teaching tool to visualise and demonstrate concepts in computational complexity. This could be
@@ -254,16 +257,17 @@ have an efficient way of finding a solution but can have a solution verified in 
 
 \subsubsection{P vs NP Problem}
 
-
-The P vs NP problem refers to search problems to which there exists an efficient algorithm that
-given a solution to a given instance determines whether or not the solution is
-correct\cite{sipser2012introduction,Goldreich:2008,kendall2008survey,du2011theory}.\footnote{This is
-also sometimes described as the P vs NP Question in literature} Although any given solution to an
-NP-complete problem can be verified quickly (in polynomial time), there is no known efficient way to
-locate a solution in the first place. A distinguishing characteristic of of NP-complete problems is
-that there is no known efficient solution to them \cite{Goldreich:2008}. That is, the time required to
-solve the problem using any currently known algorithm increases very quickly as the size of the
-problem grows.
+The P vs NP problem refers to search problems to which there exists an efficient
+algorithm that given a solution to a given instance determines whether or not
+the solution is correct\cite{sipser2012introduction,Goldreich:2008,kendall2008su
+rvey,du2011theory}.\footnote{This is also sometimes described as the P vs NP
+Question in literature} Although any given solution to an NP-complete problem
+can be verified quickly (in polynomial time), there is no known efficient way to
+locate a solution in the first place. A distinguishing characteristic of of NP-
+complete problems is that there is no known efficient solution to them
+\cite{Goldreich:2008}. That is, the time required to solve the problem using any
+currently known algorithm increases very quickly as the size of the problem
+grows.
 
 \begin{figure}[h!]
   
@@ -274,14 +278,16 @@ problem grows.
 \end{figure}
 
 
-Proving that P = NP or P $\neq$ NP is one of the most important open questions in theoretical
-computer science and has been described as one of seven principal unsolved problems in the field of
-mathematics \cite{devlin2002millennium}. The implications of P = NP are far-reaching. If it were
-possible to demonstrate that P = NP (i.e. all NP problems can be solved in polynomial time), then
-it would then be possible to solve difficult problems in polynomial time (see Figure~\ref{Euler}).
-For every problem that has an efficiently verifiable solution, that same solution could also be
-efficiently identified. While the problem is still being researched and open to debate, there is
-wide belief that P $\neq$ NP is more likely than P = NP \cite{Gasarch:2012:GCS:2261417.2261434}.
+Proving that P = NP or P $\neq$ NP is one of the most important open questions
+in theoretical computer science and has been described as one of seven principal
+unsolved problems in the field of mathematics \cite{devlin2002millennium}. The
+implications of P = NP are far-reaching. If it were possible to demonstrate that
+P = NP (i.e. all NP problems can be solved in polynomial time), then it would
+then be possible to solve difficult problems in polynomial time (see
+Figure~\ref{Euler}). For every problem that has an efficiently verifiable
+solution, that same solution could also be efficiently identified. While the
+problem is still being researched and open to debate, there is wide belief that
+P $\neq$ NP is more likely than P = NP \cite{Gasarch:2012:GCS:2261417.2261434}.
 
 
 % Search problems, for example, are not known to be solveable in polynomial time. 
@@ -289,35 +295,39 @@ wide belief that P $\neq$ NP is more likely than P = NP \cite{Gasarch:2012:GCS:2
 
 \subsubsection{NP-hard}
 
-A problem is considered to be classed as \textbf{NP-hard} if the solution's algorithm may be adapted
-to solve any problem in NP. By extension, this will then include all problems in P, which are
-contained within NP. It should be noted that not all NP-hard problems fall within NP nor are NP-hard
-problems necessarily decidable problems
+A problem is considered to be classed as \textbf{NP-hard} if the solution's
+algorithm may be adapted to solve any problem in NP. By extension, this will
+then include all problems in P, which are contained within NP. It should be
+noted that not all NP-hard problems fall within NP nor are NP-hard problems
+necessarily decidable problems
 \cite{sipser2012introduction,Goldreich:2008,kendall2008survey,du2011theory}.
 
 \subsubsection{NP-complete}
 
-When a problem is classed as both NP and NP-hard is said to be \textbf{NP-complete} and are
-considered to be the hardest problems in NP
-\cite{sipser2012introduction,Goldreich:2008,kendall2008survey,du2011theory}. A problem that is NP-
-complete can have every other problem in NP reducible to it \cite{papadimitriou2003computational}.
-`Reduction' in this sense that there exists an algorithm in P that change a problem into another
-instance \cite{du2011theory}.
+When a problem is classed as both NP and NP-hard is said to be \textbf{NP-
+complete} and are considered to be the hardest problems in NP
+\cite{sipser2012introduction,Goldreich:2008,kendall2008survey,du2011theory}. A
+problem that is NP- complete can have every other problem in NP reducible to it
+\cite{papadimitriou2003computational}. `Reduction' in this sense that there
+exists an algorithm in P that change a problem into another instance
+\cite{du2011theory}.
 
 \subsubsection{PSPACE} 
 
-Another relevant complexity class to this research review is \textbf{PSPACE}, as some games have
-been proven to be in this class \cite{DBLP:conf/fun/Forisek10, demaine2002push}.\footnote{Please
-refer to Chapter 3 of this research review for further information.} PSPACE refers to decision
-problem which may be solved with an amount of space polynomial in the size to its input
+Another relevant complexity class to this research review is \textbf{PSPACE}, as
+some games have been proven to be in this class \cite{DBLP:conf/fun/Forisek10,
+demaine2002push}.\footnote{Please refer to Chapter 3 of this research review for
+further information.} PSPACE refers to decision problem which may be solved with
+an amount of space polynomial in the size to its input
 \cite{sipser2012introduction}.
 
 \section{Chapter summary}
 
-This chapter has identified the relevant complexity classes and problems in order to establish that
-video games are computationally complex in Chapter 4. In the next chapter, these concepts will be
-used to show how problem instances may be proven to be NP-complete through the use of Boolean
-expressions. This will provide the foundation for being able to develop a game engine which produces
+This chapter has identified the relevant complexity classes and problems in
+order to establish that video games are computationally complex in Chapter 4. In
+the next chapter, these concepts will be used to show how problem instances may
+be proven to be NP-complete through the use of Boolean expressions. This will
+provide the foundation for being able to develop a game engine which produces
 computational hard levels in a video game.
 
 

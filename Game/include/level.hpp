@@ -6,6 +6,7 @@
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
 
 #include <array>
 #include <queue>
@@ -54,24 +55,12 @@ class Level : private sf::NonCopyable {
  private:
   enum Layer { Background, Air, LayerCount };
 
-  struct SpawnPoint {
-    SpawnPoint(Player::Type type, float x, float y)
-    : type(type)
-    , x(x)
-    , y(y)
-    {}
-
-    Player::Type type;
-    float x;
-    float y;
-  };
-
  private:
-  sf::RenderTarget& target_;
-  sf::RenderTexture scene_texture_;
-  sf::View          level_view_;
-  TextureHolder&    textures_;
-  FontHolder&       fonts_;
+  sf::RenderTarget&  target_;
+  sf::RenderTexture  scene_texture_;
+  sf::View           level_view_;
+  TextureHolder      textures_;
+  FontHolder&        fonts_;
 
   SceneNode                          scene_graph_;
   std::array<SceneNode*, LayerCount> scene_layers_;
