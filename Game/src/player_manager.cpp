@@ -93,7 +93,6 @@ void PlayerManager::InitialiseActions() {
   // key_binding_[MoveRight].action = derivedAction<Player>(PlayerMover(+1, 0));
   // key_binding_[Jump].action      = derivedAction<Player>(PlayerMover(0, -1));
   // key_binding_[Crouch].action    = derivedAction<Player>(PlayerMover(0, +1));
-  // key_binding_[Fire].action      = derivedAction<Player>([] (Player& a, sf::Time){ a.Fire(); });
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {
@@ -102,7 +101,6 @@ bool PlayerManager::IsRealtimeAction(Action action) {
     case MoveRight:
     case Crouch:
     case Jump:
-    case Fire:
       return true;
 
     default:

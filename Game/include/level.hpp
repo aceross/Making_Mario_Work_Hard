@@ -62,6 +62,8 @@ class Level : private sf::NonCopyable {
   TextureHolder      textures_;
   FontHolder&        fonts_;
 
+  sf::Text test_;
+
   SceneNode                          scene_graph_;
   std::array<SceneNode*, LayerCount> scene_layers_;
   CommandQueue                       command_queue_;

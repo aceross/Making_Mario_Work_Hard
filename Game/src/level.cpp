@@ -23,37 +23,41 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scroll_speed_(-50.f)
 , player_sprite_(nullptr)
 {
-  scene_texture_.create(target_.getSize().x, target_.getSize().y);
+  // scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
-  LoadTextures();
+  // LoadTextures();
   BuildScene();
 
+  // test text
+  test_.setFont(fonts.Get(Fonts::Main));
+  test_.setString("In the level");
+
   // Prepare the view
-  level_view_.setCenter(start_position_);
+  // level_view_.setCenter(start_position_);
 }
 
 void Level::Update(sf::Time delta_time) {
   // Scroll the world, reset player velocity
-  level_view_.move(0.f, scroll_speed_ * delta_time.asSeconds());
-  player_sprite_->SetVelocity(0.f, 0.f);
+  // level_view_.move(0.f, scroll_speed_ * delta_time.asSeconds());
+  // player_sprite_->SetVelocity(0.f, 0.f);
 
   // Forward commands to scene graph, adapt velocity
   // (scrolling, diagonal correction)
-  while (!command_queue_.IsEmpty())
-    scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
-  AdaptPlayerVelocity();
+  // while (!command_queue_.IsEmpty())
+  //   scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
+  // AdaptPlayerVelocity();
 
   // Collision detection and response (may destroy entities)
-  HandleCollisions();
+  // HandleCollisions();
 
   // Regular update step, adapt position (correct if outside view)
-  scene_graph_.Update(delta_time, command_queue_);
-  AdaptPlayerPosition();
+  // scene_graph_.Update(delta_time, command_queue_);
+  // AdaptPlayerPosition();
 }
 
 void Level::draw() {
-  target_.setView(level_view_);
-  target_.draw(scene_graph_);
+  // target_.setView(level_view_);
+  target_.draw(test_);
 }
 
 CommandQueue& Level::GetCommandQueue() {
@@ -68,12 +72,12 @@ void Level::LoadTextures() {
 
 void Level::BuildScene() {
   // Initialize the different layers
-  for (std::size_t i = 0; i < LayerCount; ++i) {
-    SceneNode::Ptr layer(new SceneNode());
-    scene_layers_[i] = layer.get();
-
-    scene_graph_.AttachChild(std::move(layer));
-  }
+  // for (std::size_t i = 0; i < LayerCount; ++i) {
+  //   SceneNode::Ptr layer(new SceneNode());
+  //   scene_layers_[i] = layer.get();
+  //
+  //   scene_graph_.AttachChild(std::move(layer));
+  // }
 
   // Prepare the tiled background
   // sf::Texture& texture = textures_.Get(Textures::Desert);
@@ -119,7 +123,7 @@ void Level::AdaptPlayerVelocity() {
 }
 
 void Level::HandleCollisions() {
-  std::set<SceneNode::Pair> collision_pairs;
+  // std::set<SceneNode::Pair> collision_pairs;
 
   // scene_graph_.CheckSceneCollision(scene_graph_, collision_pairs);
   //
