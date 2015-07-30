@@ -104,6 +104,7 @@ void GameStateManager::Update(sf::Time delta_time) {
 void GameStateManager::RegisterStates() {
   states_.RegisterState<TitleScreenState>(States::Title);
   states_.RegisterState<MenuState>(States::Menu);
+  states_.RegisterState<GameState>(States::Game);
   states_.RegisterState<PauseState>(States::Pause);
 }
 

@@ -12,10 +12,10 @@ MenuState::MenuState(StateStack& stack, Context context)
 , options_()
 , options_index_(0)
 {
-  sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
+  // sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
   sf::Font&    font    = context.fonts_->Get(Fonts::Main);
 
-  background_sprite_.setTexture(texture);
+  // background_sprite_.setTexture(texture);
 
   // A simple menu demonstration
   sf::Text play_option;
