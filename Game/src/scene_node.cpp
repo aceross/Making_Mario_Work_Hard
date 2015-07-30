@@ -111,16 +111,16 @@ void SceneNode::OnCommand(const Command& command, sf::Time delta_time) {
   }
 }
 
-void SceneNode::CheckSceneCollision(Scene& scene_graph,
-                                    std::set<Pair> &collision_pairs) {
+void SceneNode::CheckSceneCollision(SceneNode& scene_graph,
+                                    std::set<Pair>& collision_pairs) {
   CheckNodeCollision(scene_graph, collision_pairs);
 
   for (Ptr& child : scene_graph.children_) {
-    child->CheckNodeCollision(node, collision_pairs);
+    child->CheckSceneCollision(*child, collision_pairs);
   }
 }
 
-void SceneNode::CheckNodeCollision(Scene& &node,
+void SceneNode::CheckNodeCollision(SceneNode& node,
                                   std::set<Pair> &collision_pairs) {
   if (this != &node && Collision(*this, node)) {
     collision_pairs.insert(std::minmax(this, &node));
@@ -135,5 +135,5 @@ sf::FloatRect SceneNode::GetBoundingRect() const {
 }
 
 bool Collision(const SceneNode& lhs, const SceneNode& rhs) {
-  return lhs.GetBoundingRect().intesects(rhs.GetBoundingRect());
+  return lhs.GetBoundingRect().intersects(rhs.GetBoundingRect());
 }

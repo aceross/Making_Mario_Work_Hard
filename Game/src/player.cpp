@@ -20,9 +20,13 @@ namespace {
 Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : type_(type)
 , sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
+, fire_command_()
+, direction_index_(0)
 , clauses_true_(0)
 , clauses_false_(0)
-{}
+{
+  
+}
 
 float Player::GetMaxSpeed() const {
   return Table[type_].speed;
