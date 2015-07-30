@@ -19,7 +19,7 @@ class TitleScreenState : public State {
 
 
  private:
-  sf::Sprite background_sprite_;
+  // sf::Sprite background_sprite_;
   sf::Text   text_;
 
   bool        show_text_;

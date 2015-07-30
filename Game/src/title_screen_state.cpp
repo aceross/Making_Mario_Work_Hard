@@ -13,7 +13,7 @@ TitleScreenState::TitleScreenState(StateStack& stack, Context context)
 , show_text_(true)
 , text_effect_time_(sf::Time::Zero)
 {
-  background_sprite_.setTexture(context.textures_->Get(Textures::TitleScreen));
+  // background_sprite_.setTexture(context.textures_->Get(Textures::TitleScreen));
 
   text_.setFont(context.fonts_->Get(Fonts::Main));
   text_.setString("Press any key to start");
@@ -23,7 +23,7 @@ TitleScreenState::TitleScreenState(StateStack& stack, Context context)
 
 void TitleScreenState::Draw() {
   sf::RenderWindow& window = *GetContext().window_;
-  window.draw(background_sprite_);
+  // window.draw(background_sprite_);
 
   if (show_text_) {
     window.draw(text_);

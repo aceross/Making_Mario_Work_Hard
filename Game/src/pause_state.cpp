@@ -38,10 +38,10 @@ void PauseState::Draw() {
 }
 
 bool PauseState::Update(sf::Time) {
-	return false;
+  return false;
 }
 
 bool PauseState::HandleEvent(const sf::Event& event) {
-	// mGUIContainer.handleEvent(event);
-	return false;
+  // mGUIContainer.handleEvent(event);
+  return false;
 }

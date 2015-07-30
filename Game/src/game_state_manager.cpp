@@ -36,6 +36,9 @@ GameStateManager::GameStateManager()
   stats_text_.setFont(font_.Get(Fonts::Main));
   stats_text_.setPosition(5.f, 5.f);
   stats_text_.setCharacterSize(10u);
+
+  RegisterStates();
+  states_.PushState(States::Title);
 }
 
 void GameStateManager::Run() {
