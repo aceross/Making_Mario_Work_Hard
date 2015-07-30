@@ -20,7 +20,7 @@ class PauseState : public State {
  private:
   sf::Sprite background_sprite_;
   sf::Text paused_text_;
-  GUI::Container GUI_Container_;
+  // GUI::Container GUI_Container_;
 };
 
 #endif  // PAUSE_STATE_HPP

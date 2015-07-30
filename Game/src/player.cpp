@@ -20,12 +20,12 @@ namespace {
 Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : type_(type)
 , sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
-, fire_command_()
-, direction_index_(0)
-, clauses_true_(0)
-, clauses_false_(0)
+// , fire_command_()
+// , direction_index_(0)
+// , clauses_true_(0)
+// , clauses_false_(0)
 {
-  
+
 }
 
 float Player::GetMaxSpeed() const {
@@ -39,12 +39,12 @@ void Player::DrawCurrent(sf::RenderTarget &target,
 
 void Player::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
   // Update texts and animations
-  UpdateTexts();
+  // UpdateTexts();
   UpdateAnimation();
 
   // Update enemy movement pattern; apply velocity
-  UpdateMovementPattern(delta_time);
-  Entity::UpdateCurrent(delta_time, commands);
+  // UpdateMovementPattern(delta_time);
+  // Entity::UpdateCurrent(delta_time, commands);
 }
 
 sf::FloatRect Player::GetBoundingRect() const {

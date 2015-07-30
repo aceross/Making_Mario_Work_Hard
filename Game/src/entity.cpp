@@ -3,6 +3,8 @@
 #include <string>
 #include "../include/entity.hpp"
 
+Entity::Entity() {}
+
 void Entity::SetVeloctity(sf::Vector2f velocity) {
   velocity_ = velocity;
 }

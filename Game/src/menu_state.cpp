@@ -13,7 +13,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 , options_index_(0)
 {
   sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
-  sf::Font& font = context.fonts_->Get(Fonts::Main);
+  sf::Font&    font    = context.fonts_->Get(Fonts::Main);
 
   background_sprite_.setTexture(texture);
 
@@ -27,7 +27,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 
   sf::Text exit_option;
   exit_option.setFont(font);
-  exit_option.setString("Exit");
+  exit_option.setString("Quit");
   CentreOrigin(exit_option);
   exit_option.setPosition(play_option.getPosition() + sf::Vector2f(0.f, 30.f));
   options_.push_back(exit_option);
@@ -89,6 +89,6 @@ void MenuState::UpdateOptionText() {
   for (sf::Text& text : options_)
     text.setColor(sf::Color::White);
 
-  // Red the selected text
-  options_[options_index_].setColor(sf::Color::Red);
+  // Yellow the selected text
+  options_[options_index_].setColor(sf::Color::Yellow);
 }

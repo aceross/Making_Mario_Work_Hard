@@ -18,7 +18,7 @@ class Entity : public SceneNode {
 
  protected:
   using SceneNode::UpdateCurrent;
-  virtual void UpdateCurrent(sf::Time delta_time, CommandQueue& commands);
+  // virtual void UpdateCurrent(sf::Time delta_time, CommandQueue& commands);
 };
 
 #endif  // ENTITY_HPP
