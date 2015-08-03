@@ -13,8 +13,8 @@ class Font;
 namespace Textures {
   enum ID {
     Mario,
-    Level,
-    TitleScreen,
+    Koopa,
+    World,
     ButtonNormal,
     ButtonSelected,
     ButtonPressed

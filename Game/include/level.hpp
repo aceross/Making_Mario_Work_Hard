@@ -53,7 +53,7 @@ class Level : private sf::NonCopyable {
   sf::FloatRect GetPlayBounds() const;
 
  private:
-  enum Layer { Background, Air, LayerCount };
+  enum Layer { Background, Foreground, LayerCount };
 
  private:
   sf::RenderTarget&  target_;

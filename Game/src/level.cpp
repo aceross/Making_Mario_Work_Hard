@@ -6,6 +6,7 @@
 #include <cmath>
 #include <limits>
 #include <set>
+#include <memory>
 
 #include "../include/level.hpp"
 
@@ -67,8 +68,8 @@ CommandQueue& Level::GetCommandQueue() {
 
 void Level::LoadTextures() {
   textures_.Load(Textures::Mario, "resources/gfx/mario_bros.png");
-  // textures_.load(Textures::Raptor, "Media/Textures/Raptor.png");
-  // textures_.load(Textures::Desert, "Media/Textures/Desert.png");
+  textures_.Load(Textures::Koopa, "resources/gfx/enemies.png");
+  textures_.Load(Textures::World, "resources/gfx/tile_set.png");
 }
 
 void Level::BuildScene() {
@@ -90,12 +91,12 @@ void Level::BuildScene() {
   // backgroundSprite->setPosition(level_bounds_.left, level_bounds_.top);
   // scene_layers_[Background]->AttachChild(std::move(backgroundSprite));
 
-  // Add player's aircraft
+  // Add player sprite
   std::unique_ptr<Player> player(new Player(Player::SmallPlayer, textures_,
                                  fonts_));
   player_sprite_ = player.get();
   player_sprite_->setPosition(250, 250);
-  // scene_layers_[Air]->attachChild(std::move(leader));
+  scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 
 void Level::AdaptPlayerPosition() {
