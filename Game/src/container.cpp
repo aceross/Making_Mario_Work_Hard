@@ -41,7 +41,7 @@ void Container::HandleEvent(const sf::Event &event) {
   }
 }
 
-void Container::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void Container::Draw(sf::RenderTarget &target, sf::RenderStates states) const {
   states.transform *= getTransform();
 
   for (const Component::Ptr& child : children_) {

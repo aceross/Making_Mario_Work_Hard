@@ -23,9 +23,9 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scroll_speed_(-50.f)
 , player_sprite_(nullptr)
 {
-  // scene_texture_.create(target_.getSize().x, target_.getSize().y);
+  scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
-  // LoadTextures();
+  LoadTextures();
   BuildScene();
 
   // test text
@@ -33,7 +33,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
   test_.setString("In the level");
 
   // Prepare the view
-  // level_view_.setCenter(start_position_);
+  level_view_.setCenter(start_position_);
 }
 
 void Level::Update(sf::Time delta_time) {
@@ -57,7 +57,8 @@ void Level::Update(sf::Time delta_time) {
 
 void Level::draw() {
   // target_.setView(level_view_);
-  target_.draw(test_);
+  // target_.draw(test_);
+  target_.draw(scene_graph_);
 }
 
 CommandQueue& Level::GetCommandQueue() {
@@ -65,19 +66,19 @@ CommandQueue& Level::GetCommandQueue() {
 }
 
 void Level::LoadTextures() {
-  // textures_.Load(Textures::SmallPlayer, "Media/Textures/Eagle.png");
+  textures_.Load(Textures::Mario, "resources/gfx/mario_bros.png");
   // textures_.load(Textures::Raptor, "Media/Textures/Raptor.png");
   // textures_.load(Textures::Desert, "Media/Textures/Desert.png");
 }
 
 void Level::BuildScene() {
   // Initialize the different layers
-  // for (std::size_t i = 0; i < LayerCount; ++i) {
-  //   SceneNode::Ptr layer(new SceneNode());
-  //   scene_layers_[i] = layer.get();
-  //
-  //   scene_graph_.AttachChild(std::move(layer));
-  // }
+  for (std::size_t i = 0; i < LayerCount; ++i) {
+    SceneNode::Ptr layer(new SceneNode());
+    scene_layers_[i] = layer.get();
+
+    scene_graph_.AttachChild(std::move(layer));
+  }
 
   // Prepare the tiled background
   // sf::Texture& texture = textures_.Get(Textures::Desert);
@@ -90,9 +91,10 @@ void Level::BuildScene() {
   // scene_layers_[Background]->AttachChild(std::move(backgroundSprite));
 
   // Add player's aircraft
-  // std::unique_ptr<Aircraft> leader(new Aircraft(Aircraft::Eagle, mTextures));
-  // mPlayerAircraft = leader.get();
-  // mPlayerAircraft->setPosition(mSpawnPosition);
+  std::unique_ptr<Player> player(new Player(Player::SmallPlayer, textures_,
+                                 fonts_));
+  player_sprite_ = player.get();
+  player_sprite_->setPosition(250, 250);
   // scene_layers_[Air]->attachChild(std::move(leader));
 }
 

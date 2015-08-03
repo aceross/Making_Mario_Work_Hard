@@ -17,6 +17,7 @@
 
 const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
 
+// GSM contructor initialises the font, texture
 GameStateManager::GameStateManager()
 : window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
                                     sf::Style::Default)
@@ -31,7 +32,7 @@ GameStateManager::GameStateManager()
   window_.setKeyRepeatEnabled(false);
   window_.setVerticalSyncEnabled(true);
 
-  font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
+  font_.Load(Fonts::Main, "resources/font/Fixedsys500c.ttf");
 
   stats_text_.setFont(font_.Get(Fonts::Main));
   stats_text_.setPosition(5.f, 5.f);
@@ -71,7 +72,7 @@ void GameStateManager::Render() {
   states_.Draw();
 
   window_.setView(window_.getDefaultView());
-  window_.draw(stats_text_);
+  // window_.draw(stats_text_);
   window_.display();
 }
 
