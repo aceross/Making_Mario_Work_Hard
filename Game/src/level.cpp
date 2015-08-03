@@ -101,17 +101,17 @@ void Level::BuildScene() {
 
 void Level::AdaptPlayerPosition() {
   // Keep player's position inside the screen bounds,
-  // at least borderDistance units from the border
-  // sf::FloatRect viewBounds(level_view_.getCenter() - level_view_.getSize() /
-  //                                                   2.f, level_view_.getSize());
-  // const float borderDistance = 40.f;
-  //
-  // sf::Vector2f position = mPlayerAircraft->getPosition();
-  // position.x = std::max(position.x, viewBounds.left + borderDistance);
-  // position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
-  // position.y = std::max(position.y, viewBounds.top + borderDistance);
-  // position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-  // mPlayerAircraft->setPosition(position);
+  // at least border_distance units from the border
+  sf::FloatRect view_bounds(level_view_.getCenter() - level_view_.getSize() /
+                                                    2.f, level_view_.getSize());
+  const float border_distance = 40.f;
+
+  sf::Vector2f position = player_sprite_->getPosition();
+  position.x = std::max(position.x, view_bounds.left + border_distance);
+  position.x = std::min(position.x, view_bounds.left + view_bounds.width - border_distance);
+  position.y = std::max(position.y, view_bounds.top + border_distance);
+  position.y = std::min(position.y, view_bounds.top + view_bounds.height - border_distance);
+  player_sprite_->setPosition(position);
 }
 
 void Level::AdaptPlayerVelocity() {

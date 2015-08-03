@@ -4,15 +4,10 @@
 #define PLAYER_MANAGER_HPP
 
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Sprite.hpp>
 
 #include <map>
 
 #include "command.hpp"
-#include "command_queue.hpp"
-#include "resource_identifiers.hpp"
-#include "text_node.hpp"
-#include "entity.hpp"
 
 class CommandQueue;
 
@@ -23,7 +18,6 @@ class PlayerManager {
     MoveRight,
     Jump,
     Crouch,
-    Fire,
     ActionCount
   };
 
@@ -50,12 +44,6 @@ class PlayerManager {
  private:
   void InitialiseActions();
   static bool IsRealtimeAction(Action action);
-
- private:
-  // virtual void DrawCurrent(sf::RenderTarget& target,
-  //                          sf::RenderStates states) const;
-  // virtual void UpdateCurrent(sf::Time delta_time_, CommandQueue& commands);
-  // void UpdateText();
 
  private:
   std::map<sf::Keyboard::Key, Action> key_binding_;

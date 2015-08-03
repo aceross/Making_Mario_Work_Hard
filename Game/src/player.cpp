@@ -53,18 +53,18 @@ sf::FloatRect Player::GetBoundingRect() const {
 
 // May need to update as Jump animation and Walk animation
 void Player::UpdateAnimation() {
-  if (Table[type_].has_animation_) {
-    sf::IntRect texture_rect = Table[type_].texture_rect;
-
-  // Roll left: Texture rect offset once
-  if (GetVelocity().x < 0.f) {
-    texture_rect.left += texture_rect.width;
-  }
-    // Roll right: Texture rect offset twice
-  else if (GetVelocity().x > 0.f) {
-    texture_rect.left += 2 * texture_rect.width;
-  }
-
-  sprite_.setTextureRect(texture_rect);
-  }
+  // if (Table[type_].has_animation_) {
+  //   sf::IntRect texture_rect = Table[type_].texture_rect;
+  //
+  // // // Roll left: Texture rect offset once
+  // // if (GetVelocity().x < 0.f) {
+  // //   texture_rect.left += texture_rect.width;
+  // // }
+  // //   // Roll right: Texture rect offset twice
+  // // else if (GetVelocity().x > 0.f) {
+  // //   texture_rect.left += 2 * texture_rect.width;
+  // }
+  //
+  // sprite_.setTextureRect(texture_rect);
+  // }
 }

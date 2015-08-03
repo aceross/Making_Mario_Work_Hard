@@ -14,14 +14,16 @@
 class SceneNode;
 
 struct Command {
+  typedef std::function<void(SceneNode&, sf::Time)> Action;
+
   Command();
 
-  std::function<void(SceneNode&, sf::Time)> action_;
+  Action action_;
   unsigned int category_;
 };
 
 template <typename GameObject, typename Function>
-std::function<void(SceneNode&, sf::Time)> derivedAction(Function fn)
+Command::Action DerivedAction(Function fn)
 {
   return [=] (SceneNode& node, sf::Time delta_time)
   {

@@ -24,8 +24,10 @@ struct Direction {
   float distance_;
 };
 
+// need to change variables
 struct PlayerData {
   float speed;
+  int hit_points_;
   Textures::ID texture;
   sf::IntRect texture_rect;
   sf::Time projectile_interval;
