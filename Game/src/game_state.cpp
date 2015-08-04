@@ -17,18 +17,18 @@ void GameState::Draw() {
 }
 
 bool GameState::Update(sf::Time delta_time) {
-  // level_.Update(delta_time);
+  level_.Update(delta_time);
 
-  // CommandQueue& commands = level_.GetCommandQueue();
-  // player_manager_.HandleRealtimeInput(commands);
+  CommandQueue& commands = level_.GetCommandQueue();
+  player_manager_.HandleRealtimeInput(commands);
 
   return true;
 }
 
 bool GameState::HandleEvent(const sf::Event &event) {
   // Game input handling
-  // CommandQueue& commands = level_.GetCommandQueue();
-  // player_manager_.HandleEvent(event, commands);
+  CommandQueue& commands = level_.GetCommandQueue();
+  player_manager_.HandleEvent(event, commands);
 
   // Escape pressed, trigger the pause screen
   if (event.type == sf::Event::KeyPressed &&

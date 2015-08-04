@@ -11,15 +11,15 @@
 using namespace std::placeholders;
 
 struct PlayerMover {
-  PlayerMover(float vx, float vy)
-  : velocity(vx, vy)
+  PlayerMover(int vx, int vy)
+  : location_update(vx, vy)
   {}
 
   void operator() (Player& player, sf::Time) const {
-    // player.accelerate(velocity * player.getMaxSpeed());
+    player.UpdateLocation(location_update);
   }
 
-  sf::Vector2f velocity;
+  sf::Vector2i location_update;
 };
 
 PlayerManager::PlayerManager()
@@ -44,8 +44,9 @@ void PlayerManager::HandleEvent(const sf::Event& event,
   if (event.type == sf::Event::KeyPressed) {
     // Check if pressed key appears in key binding, trigger command if so
     auto found = key_binding_.find(event.key.code);
-    if (found != key_binding_.end() && !IsRealtimeAction(found->second))
+    if (found != key_binding_.end() && !IsRealtimeAction(found->second)) {
       commands.Push(action_binding_[found->second]);
+    }
   }
 }
 
@@ -53,8 +54,10 @@ void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
   // Traverse all assigned keys and check if they are pressed
   for (auto pair : key_binding_) {
     // If key is pressed, lookup action and trigger corresponding command
-    if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second))
+    if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second)) {
+      // printf("Handling Real Time input\n");
       commands.Push(action_binding_[pair.second]);
+    }
   }
 }
 
@@ -88,10 +91,10 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 }
 
 void PlayerManager::InitialiseActions() {
-  action_binding_[MoveLeft].action_  = DerivedAction<Player>(PlayerMover(-1, 0));
-  action_binding_[MoveRight].action_ = DerivedAction<Player>(PlayerMover(+1, 0));
-  action_binding_[Jump].action_      = DerivedAction<Player>(PlayerMover(0, -1));
-  action_binding_[Crouch].action_    = DerivedAction<Player>(PlayerMover(0, +1));
+  action_binding_[MoveLeft].action_  = DerivedAction<Player>(PlayerMover(-5, 0));
+  action_binding_[MoveRight].action_ = DerivedAction<Player>(PlayerMover(+5, 0));
+  action_binding_[Jump].action_      = DerivedAction<Player>(PlayerMover(0, -5));
+  action_binding_[Crouch].action_    = DerivedAction<Player>(PlayerMover(0, +5));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {

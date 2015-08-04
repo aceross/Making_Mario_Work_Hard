@@ -26,11 +26,11 @@ struct Direction {
 
 // need to change variables
 struct PlayerData {
-  float speed;
-  int hit_points_;
+  float        speed;
+  int          hit_points_;
   Textures::ID texture;
-  sf::IntRect texture_rect;
-  sf::Time projectile_interval;
+  sf::IntRect  texture_rect;
+  sf::Time     projectile_interval;
   std::vector<Direction> directions;
   bool has_animation_;
 };

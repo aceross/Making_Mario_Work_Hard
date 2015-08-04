@@ -72,7 +72,7 @@ void GameStateManager::Render() {
   states_.Draw();
 
   window_.setView(window_.getDefaultView());
-  // window_.draw(stats_text_);
+  window_.draw(stats_text_);
   window_.display();
 }
 
@@ -80,12 +80,12 @@ void GameStateManager::UpdateStatistics(sf::Time delta_time) {
   stats_update_time_ += delta_time;
   stats_num_frames_  += 1;
 
-  if (stats_update_time_ >= sf::seconds(1.0f)) {
-    stats_text_.setString(
-      "Frames / Second = " + std::to_string(stats_num_frames_) + "\n" +
-      "Time / Update = "  + std::to_string(stats_update_time_.asMicroseconds() /
-                                           stats_num_frames_) + "us");
-  }
+  // if (stats_update_time_ >= sf::seconds(1.0f)) {
+  //   stats_text_.setString(
+  //     "Frames / Second = " + std::to_string(stats_num_frames_) + "\n" +
+  //     "Time / Update = "  + std::to_string(stats_update_time_.asMicroseconds() /
+  //                                          stats_num_frames_) + "us");
+  // }
 }
 
 void GameStateManager::ProcessInputs() {

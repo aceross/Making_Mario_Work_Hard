@@ -28,8 +28,21 @@ Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts
 
 }
 
-float Player::GetMaxSpeed() const {
-  return Table[type_].speed;
+sf::Vector2i Player::GetLocation() {
+  return location_;
+}
+
+void Player::UpdateLocation(sf::Vector2i location_update) {
+  printf("Original location x = %d, y = %d\n", location_.x, location_.y);
+  printf("Location update x = %d, y = %d\n", location_update.x, location_update.y);
+  location_ += location_update;
+  printf("Location after update x = %d, y = %d\n", location_.x, location_.y);
+  printf("\n");
+}
+
+void Player::UpdateLocation(int x, int y) {
+  location_.x += x;
+  location_.y += y;
 }
 
 void Player::DrawCurrent(sf::RenderTarget &target,
@@ -53,18 +66,18 @@ sf::FloatRect Player::GetBoundingRect() const {
 
 // May need to update as Jump animation and Walk animation
 void Player::UpdateAnimation() {
-  // if (Table[type_].has_animation_) {
-  //   sf::IntRect texture_rect = Table[type_].texture_rect;
-  //
-  // // // Roll left: Texture rect offset once
-  // // if (GetVelocity().x < 0.f) {
-  // //   texture_rect.left += texture_rect.width;
-  // // }
-  // //   // Roll right: Texture rect offset twice
-  // // else if (GetVelocity().x > 0.f) {
-  // //   texture_rect.left += 2 * texture_rect.width;
-  // }
-  //
-  // sprite_.setTextureRect(texture_rect);
-  // }
+  if (Table[type_].has_animation_) {
+    sf::IntRect texture_rect = Table[type_].texture_rect;
+
+  // Roll left: Texture rect offset once
+  if (GetLocation().x < 0) {
+    texture_rect.left += texture_rect.width;
+  }
+  // Roll right: Texture rect offset twice
+  else if (GetLocation().x > 0) {
+    texture_rect.left += 2 * texture_rect.width;
+  }
+
+  sprite_.setTextureRect(texture_rect);
+  }
 }

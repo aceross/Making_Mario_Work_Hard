@@ -8,11 +8,9 @@ namespace Category {
   enum Type {
     None                          = 0,
     SceneForegroundLayer          = 1 << 0,
-    PlayerSprite                  = 1 << 1,
-    AlliedAircraft                = 1 << 2,
-    Enemy                         = 1 << 3,
+    Player                        = 1 << 1,
 
-    Player = PlayerSprite
+    // Player = SmallPlayer
   };
 }
 

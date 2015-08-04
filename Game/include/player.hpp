@@ -13,14 +13,18 @@
 
 class Player : public Entity {
  public:
-  enum Type { SmallPlayer, LargePlayer, TypeCount };
+  enum Type { SmallPlayer, SuperMario, TypeCount };
 
  public:
   Player(Type type, const TextureHolder& textures, const FontHolder& fonts);
 
   virtual sf::FloatRect GetBoundingRect() const;
   // virtual void          Remove();
-  float                 GetMaxSpeed() const;
+  // float                 GetMaxSpeed() const;
+
+  sf::Vector2i GetLocation();
+  void UpdateLocation(int x, int y);
+  void UpdateLocation(sf::Vector2i location_update);
 
  private:
   virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -33,11 +37,20 @@ class Player : public Entity {
  private:
   Type         type_;
   sf::Sprite   sprite_;
+  sf::Vector2i location_;
   // Command      fire_command_;
   // std::size_t  direction_index_;
   //
   // int clauses_true_;
   // int clauses_false_;
+
+  // bool moving_right_  = false;
+  // bool moving_left_   = false;
+  // bool jumping_       = false;
+  // bool falling_       = false;
+  // bool top_collision_ = false;
+  // bool can_move_      = false;
+
 };
 
 #endif  // PLAYER_HPP

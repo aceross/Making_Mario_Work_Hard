@@ -38,7 +38,7 @@ class Level : private sf::NonCopyable {
  private:
   void LoadTextures();
   void AdaptPlayerPosition();
-  void AdaptPlayerVelocity();
+  // void AdaptPlayerVelocity();
   void HandleCollisions();
 
   void BuildScene();
@@ -68,10 +68,10 @@ class Level : private sf::NonCopyable {
   std::array<SceneNode*, LayerCount> scene_layers_;
   CommandQueue                       command_queue_;
 
-  sf ::FloatRect level_bounds_;
-  sf ::Vector2f  start_position_;
-  float          scroll_speed_;
-  Player*        player_sprite_;
+  sf::FloatRect level_bounds_;
+  sf::Vector2f  start_position_;
+  float         scroll_speed_;
+  Player*       player_sprite_;
 };
 
 #endif  // LEVEL_HPP
