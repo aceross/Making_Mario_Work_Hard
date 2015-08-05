@@ -13,6 +13,7 @@
 #include "player.hpp"
 #include "tile_map.hpp"
 #include "collision.hpp"
+#include "tmx/MapLoader.h"
 
 class LevelState : public GameState {
  private:
@@ -24,6 +25,9 @@ class LevelState : public GameState {
 
   Player player;
   TileMap tilemap;
+
+  tmx::MapLoader ml;
+
   const Animation* current_animation_;
 
   // float speed_          = 32.0f;
