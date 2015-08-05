@@ -18,6 +18,7 @@
 #include "command.hpp"
 #include "command_queue.hpp"
 #include "player.hpp"
+#include "tile_map.hpp"
 
 // Forward declaration
 namespace sf {
@@ -61,6 +62,8 @@ class Level : private sf::NonCopyable {
   sf::View           level_view_;
   TextureHolder      textures_;
   FontHolder&        fonts_;
+
+  TileMap tilemap;
 
   sf::Text test_;
 

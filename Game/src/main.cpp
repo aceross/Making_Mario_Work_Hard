@@ -10,11 +10,10 @@ int main() {
     GameStateManager gsm;
 
     gsm.Run();
-    printf("Exiting program.\n");
+    std::cout << "Exiting program." << std::endl;
   } catch (std::exception& e) {
     std::cout << "\nEXCEPTION: " << e.what() << std::endl;
   }
-
 
   return 0;
 }
