@@ -1,6 +1,7 @@
 // Copyright 2015, Aaron Ceross
 
 #include <vector>
+#include <iostream>
 #include "../include/level_state.hpp"
 
 LevelState::LevelState(GameStateManager* gsm) {
@@ -63,7 +64,7 @@ bool LevelState::HasCollision(Player p, Tile t) {
   sf::FloatRect player = p.getGlobalBounds();
 
   if (player.contains(t.GetTilePosition())) {
-    printf("Intersection!!!!!!!!!\n");
+    std::cout << "Intersection" << std::endl;
     return true;
   }
   return false;
@@ -78,7 +79,7 @@ void LevelState::handleInput() {
 
   sf::Event event;
 
-  float speed         = 32.0f;
+  float speed         = 5.0f;
   float fall_speed    = 5.2f;
 
   // if a key was pressed set the correct animation and move correctly
@@ -102,6 +103,7 @@ void LevelState::handleInput() {
           current_animation_  = &player.player_move_left;
           noKeyWasPressed_    = false;
           player.moving_left_ = true;
+          // player.falling_     = true;
           player.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Right) {
@@ -133,9 +135,9 @@ void LevelState::handleInput() {
           // printf("tile position x = %d\n", tile );
 
           if (HasCollision(player, tilemap.t_map_[i][j])) {
-            printf("Collision!\n");
+            std::cout << "Collision" << std::endl;
             if (player.moving_left_) {
-              printf("Left Collision!\n");
+              std::cout << "Left Collision" << std::endl;
               player.moving_left_ = false;
             }
           }
