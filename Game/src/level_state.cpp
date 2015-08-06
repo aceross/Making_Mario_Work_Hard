@@ -65,7 +65,7 @@ void LevelState::draw(const sf::RenderWindow &window) {
   // gsm->window.draw(tilemap);
 
   // gsm->window.setView(mini_map_); // Draw minimap
-// window.draw(map);
+
 
   gsm->window.draw(ml);
 
@@ -115,6 +115,7 @@ void LevelState::handleInput() {
           current_animation_  = &player.player_move_left;
           noKeyWasPressed_    = false;
           player.moving_left_ = true;
+          movement.x -= speed;
           // player.falling_     = true;
           player.play(*current_animation_);
         }
@@ -122,6 +123,7 @@ void LevelState::handleInput() {
           current_animation_   = &player.player_move_right;
           noKeyWasPressed_     = false;
           player.moving_right_ = true;
+          movement.x += speed;
           player.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Space) {
@@ -136,50 +138,15 @@ void LevelState::handleInput() {
 
     player.play(*current_animation_);
     player.UpdatePosition(movement);
-
-    // printf("Player postion before collision loop : x = %f , y = %f\n",
-    //         player.getPosition().x, player.getPosition().y);
-    //
-    // // Collision rules
-    // for (int i = 0; i < tilemap.height; ++i) {
-    //   for (int j = 0; j < tilemap.width; ++j) {
-    //     if (tilemap.t_map_[i][j].GetTileValue() != 0) {
-    //       // printf("tile position x = %d\n", tile );
-    //
-    //       if (HasCollision(player, tilemap.t_map_[i][j])) {
-    //         std::cout << "Collision" << std::endl;
-    //         if (player.moving_left_) {
-    //           std::cout << "Left Collision" << std::endl;
-    //           player.moving_left_ = false;
-    //         }
-    //       }
-    //       if (player.moving_left_) {
-    //         movement.x -= speed;
-    //         player.moving_left_ = false;
-    //       }
-    //       if (player.moving_right_) {
-    //         movement.x += speed;
-    //         player.moving_right_ = false;
-    //       }
-    //       if (player.falling_) {
-    //         movement.y += fall_speed;
-    //       }
-    //     }
-    //   }  // End of innter for loop
-    // }  // End of outer for loop
-    //
     player.move(movement);
-    //
-    // printf("Player postion AFTER loop x = %f , y = %f\n",
-    //         player.getPosition().x, player.getPosition().y);
-    //
-    // // if no key was pressed stop the animation
+
+    // if no key was pressed stop the animation
     if (noKeyWasPressed_) {
       player.stop();
     }
     noKeyWasPressed_ = true;
-    //
-    // // update AnimatedSprite
+
+    // update AnimatedSprite
     player.UpdateAnimation(frame_time);
 
     // // draw
