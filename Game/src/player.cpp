@@ -3,9 +3,14 @@
 #include "../include/player.hpp"
 #include <vector>
 
-Player::Player(sf::Time frameTime, bool paused, bool looped) :
-  animation_(NULL), frame_time_(frameTime), current_frame_(0),
-  is_paused_(paused), is_looped_(looped), texture_(NULL) {}
+Player::Player(sf::Time frameTime, bool paused, bool looped)
+: animation_(NULL)
+, frame_time_(frameTime)
+, current_frame_(0)
+, is_paused_(paused)
+, is_looped_(looped)
+, texture_(NULL)
+{}
 
 void Player::setAnimation(const Animation& animation) {
   animation_     = &animation;

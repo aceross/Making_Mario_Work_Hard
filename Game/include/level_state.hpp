@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 
-
 #include "game_state.hpp"
 #include "player.hpp"
 #include "tile_map.hpp"
@@ -18,6 +17,7 @@
 class LevelState : public GameState {
  private:
   sf::View view;
+  sf::View mini_map_;
   sf::Text level_text;
   sf::Font font;
   sf::Sprite  tiles;
@@ -36,7 +36,6 @@ class LevelState : public GameState {
   bool noKeyWasPressed_ = true;
 
   sf::Vector2f movement_;
-
 
   bool HasCollision(Player p, Tile t);
   void ManageCollision();

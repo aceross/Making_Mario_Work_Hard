@@ -14,40 +14,44 @@ LevelState::LevelState(GameStateManager* gsm)
   movement_.x = 0.f;
   movement_.y = 0.f;
 
-  // Setting the view
+  // Setting the main view
   this->view.setSize(pos);
-  pos *= 0.5f;
+  pos *= 0.3f;
   this->view.setCenter(pos);
+  view.zoom(0.6f);
 
-  // this->tilemap.initialiseMap();
+  mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
+
   assert(ml.Load("fulllevel.tmx"));
 
   // Initialising the Player
-  // this->player = Player(sf::seconds(1.0), true, false);
-  // if (!player.texture.loadFromFile("assets/gfx/sprite.png")) {
-  //   std::cout << "  Error loading image. Exiting..." << std::endl;
-  //   exit(-1);
-  // }
+  this->player = Player(sf::seconds(1.0), true, false);
+  if (!player.texture.loadFromFile("assets/gfx/mario_bros.png")) {
+    std::cout << "  Error loading image. Exiting..." << std::endl;
+    exit(-1);
+  }
 
   // set up the animations
   // (set spritesheet and push frames)
-  // Animation move_right;
-  // move_right.setSpriteSheet(player.texture);
-  // move_right.addFrame(sf::IntRect(192, 0, 32, 32));
-  // move_right.addFrame(sf::IntRect(288, 0, 32, 32));
-  // player.player_move_right = move_right;
-  //
-  // Animation move_left;
-  // move_left.setSpriteSheet(player.texture);
-  // move_left.addFrame(sf::IntRect(320, 0, 32, 32));
-  // move_left.addFrame(sf::IntRect(352, 0, 32, 32));
-  // player.player_move_left = move_left;
-  //
-  // current_animation_ = &player.player_move_right;
-  //
+  Animation move_right;
+  move_right.setSpriteSheet(player.texture);
+  move_right.addFrame(sf::IntRect(176, 32, 16, 16));
+  move_right.addFrame(sf::IntRect(80, 32, 16, 16));
+  move_right.addFrame(sf::IntRect(96, 32, 16, 16));
+  player.player_move_right = move_right;
+
+  Animation move_left;
+  move_left.setSpriteSheet(player.texture);
+  move_left.addFrame(sf::IntRect(16, 16, -176, -32));
+  move_left.addFrame(sf::IntRect(16, 16, -80, -32));
+  move_left.addFrame(sf::IntRect(16, 16, -96, -32));
+  player.player_move_left = move_left;
+
+  current_animation_ = &player.player_move_right;
+
   // // set position
-  // player.setPosition(sf::Vector2f(64, 192));
-  // player.position_ = sf::Vector2f(64, 192);
+  player.setPosition(sf::Vector2f(64, 192));
+  player.position_ = sf::Vector2f(64, 192);
 
   // Initialising the map
   // tilemap.tiles.setTexture(tilemap.tileset);
@@ -56,12 +60,16 @@ LevelState::LevelState(GameStateManager* gsm)
 
 void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.setView(this->view);
-  gsm->window.clear(sf::Color::Black);
+  gsm->window.clear(sf::Color::Blue);
 
   // gsm->window.draw(tilemap);
+
+  // gsm->window.setView(mini_map_); // Draw minimap
+// window.draw(map);
+
   gsm->window.draw(ml);
 
-  // gsm->window.draw(player);
+  gsm->window.draw(player);
 }
 
 bool LevelState::HasCollision(Player p, Tile t) {
@@ -103,31 +111,31 @@ void LevelState::handleInput() {
         if (event.key.code == sf::Keyboard::Escape) gsm->popState();
 
         // Manual movement
-        // if (event.key.code == sf::Keyboard::Left) {
-        //   current_animation_  = &player.player_move_left;
-        //   noKeyWasPressed_    = false;
-        //   player.moving_left_ = true;
-        //   // player.falling_     = true;
-        //   player.play(*current_animation_);
-        // }
-        // if (event.key.code == sf::Keyboard::Right) {
-        //   current_animation_   = &player.player_move_right;
-        //   noKeyWasPressed_     = false;
-        //   player.moving_right_ = true;
-        //   player.play(*current_animation_);
-        // }
-        // if (event.key.code == sf::Keyboard::Space) {
-        //   current_animation_   = &player.player_move_right;
-        //   noKeyWasPressed_     = false;
-        //   player.jumping_      = true;
-        //   player.falling_      = false;
-        // }
+        if (event.key.code == sf::Keyboard::Left) {
+          current_animation_  = &player.player_move_left;
+          noKeyWasPressed_    = false;
+          player.moving_left_ = true;
+          // player.falling_     = true;
+          player.play(*current_animation_);
+        }
+        if (event.key.code == sf::Keyboard::Right) {
+          current_animation_   = &player.player_move_right;
+          noKeyWasPressed_     = false;
+          player.moving_right_ = true;
+          player.play(*current_animation_);
+        }
+        if (event.key.code == sf::Keyboard::Space) {
+          current_animation_   = &player.player_move_right;
+          noKeyWasPressed_     = false;
+          player.jumping_      = true;
+          player.falling_      = false;
+        }
         break;
       default: break;
     }
 
-    // player.play(*current_animation_);
-    // player.UpdatePosition(movement);
+    player.play(*current_animation_);
+    player.UpdatePosition(movement);
 
     // printf("Player postion before collision loop : x = %f , y = %f\n",
     //         player.getPosition().x, player.getPosition().y);
@@ -160,19 +168,19 @@ void LevelState::handleInput() {
     //   }  // End of innter for loop
     // }  // End of outer for loop
     //
-    // player.move(movement);
+    player.move(movement);
     //
     // printf("Player postion AFTER loop x = %f , y = %f\n",
     //         player.getPosition().x, player.getPosition().y);
     //
     // // if no key was pressed stop the animation
-    // if (noKeyWasPressed_) {
-    //   player.stop();
-    // }
-    // noKeyWasPressed_ = true;
+    if (noKeyWasPressed_) {
+      player.stop();
+    }
+    noKeyWasPressed_ = true;
     //
     // // update AnimatedSprite
-    // player.UpdateAnimation(frame_time);
+    player.UpdateAnimation(frame_time);
 
     // // draw
     // gsm->window.clear();
