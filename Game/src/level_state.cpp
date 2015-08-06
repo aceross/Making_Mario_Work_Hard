@@ -5,7 +5,7 @@
 #include "../include/level_state.hpp"
 
 LevelState::LevelState(GameStateManager* gsm)
-: ml("assets/maps/")
+: ml("resources/maps/")
 {
   std::cout << "Welcome to level state" << std::endl;
 
@@ -14,11 +14,15 @@ LevelState::LevelState(GameStateManager* gsm)
   movement_.x = 0.f;
   movement_.y = 0.f;
 
+
+  // view.setViewport(sf::FloatRect(200, 300, gsm->window.getSize().x,
+  //                                    gsm->window.getSize().y));
+
   // Setting the main view
   this->view.setSize(pos);
-  pos *= 0.3f;
+  pos *= 0.5f;
   this->view.setCenter(pos);
-  view.zoom(0.6f);
+  view.zoom(0.876f);
 
   mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 
@@ -26,7 +30,7 @@ LevelState::LevelState(GameStateManager* gsm)
 
   // Initialising the Player
   this->player = Player(sf::seconds(1.0), true, false);
-  if (!player.texture.loadFromFile("assets/gfx/mario_bros.png")) {
+  if (!player.texture.loadFromFile("resources/gfx/mario_bros.png")) {
     std::cout << "  Error loading image. Exiting..." << std::endl;
     exit(-1);
   }
@@ -59,7 +63,9 @@ LevelState::LevelState(GameStateManager* gsm)
 }
 
 void LevelState::draw(const sf::RenderWindow &window) {
+  view.setCenter(player.getPosition());
   gsm->window.setView(this->view);
+
   gsm->window.clear(sf::Color::Blue);
 
   // gsm->window.draw(tilemap);
@@ -148,11 +154,6 @@ void LevelState::handleInput() {
 
     // update AnimatedSprite
     player.UpdateAnimation(frame_time);
-
-    // // draw
-    // gsm->window.clear();
-    // gsm->window.draw(player);
-    // gsm->window.display();
   }
   return;
 }
