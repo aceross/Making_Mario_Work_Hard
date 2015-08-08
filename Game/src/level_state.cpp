@@ -22,11 +22,12 @@ LevelState::LevelState(GameStateManager* gsm)
   this->view.setSize(pos);
   pos *= 0.5f;
   this->view.setCenter(pos);
-  view.zoom(0.876f);
+  view.zoom(0.57f);
 
   mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 
-  assert(ml.Load("fulllevel.tmx"));
+  assert(ml.Load("simple_collision_test.tmx"));
+  ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
 
   // Initialising the Player
   this->player = Player(sf::seconds(1.0), true, false);
@@ -54,12 +55,8 @@ LevelState::LevelState(GameStateManager* gsm)
   current_animation_ = &player.player_move_right;
 
   // // set position
-  player.setPosition(sf::Vector2f(64, 192));
-  player.position_ = sf::Vector2f(64, 192);
-
-  // Initialising the map
-  // tilemap.tiles.setTexture(tilemap.tileset);
-  // tiles = tilemap.tiles;
+  player.setPosition(sf::Vector2f(96, 160));
+  player.position_ = sf::Vector2f(96, 160);
 }
 
 void LevelState::draw(const sf::RenderWindow &window) {
@@ -67,14 +64,7 @@ void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.setView(this->view);
 
   gsm->window.clear(sf::Color::Blue);
-
-  // gsm->window.draw(tilemap);
-
-  // gsm->window.setView(mini_map_); // Draw minimap
-
-
   gsm->window.draw(ml);
-
   gsm->window.draw(player);
 }
 
@@ -97,8 +87,8 @@ void LevelState::handleInput() {
 
   sf::Event event;
 
-  float speed         = 5.0f;
-  float fall_speed    = 5.2f;
+  float speed      = 2.5f;
+  float fall_speed = 2.5f;
 
   // if a key was pressed set the correct animation and move correctly
   sf::Vector2f movement(0.f, 0.f);
@@ -122,7 +112,7 @@ void LevelState::handleInput() {
           noKeyWasPressed_    = false;
           player.moving_left_ = true;
           movement.x -= speed;
-          // player.falling_     = true;
+          player.falling_     = true;
           player.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Right) {
@@ -130,6 +120,7 @@ void LevelState::handleInput() {
           noKeyWasPressed_     = false;
           player.moving_right_ = true;
           movement.x += speed;
+          player.falling_      = true;
           player.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Space) {
@@ -155,6 +146,66 @@ void LevelState::handleInput() {
     // update AnimatedSprite
     player.UpdateAnimation(frame_time);
   }
+
+  std::vector<tmx::MapLayer>& layers_ = ml.GetLayers();
+  for (auto& layer : layers_) {
+    if (layer.type == tmx::ObjectGroup) {
+      for (auto& object : layer.objects) {
+        if (layer.name == "Walls") {
+          std::cout << "Collision is true" << std::endl;
+        }
+      }
+    }
+
+  }
+
+
+  // std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+  //   for(auto& layer : layers)
+  //   {
+  //       if(layer.type == tmx::ObjectGroup)
+  //       {
+  //           for(auto& obj : layer.objects)
+  //           {
+  // // Find the layer named collision
+  // if(layer.name == "Collision")
+  // {
+  //     // Check down / gravity
+  //     if(obj.Contains(sf::Vector2f(cameraPos.x, cameraPos.y + player.height*2)))
+  //     {
+  //         falling = false;
+  //     }
+  //     else
+  //     {
+  //         falling = true;
+  //         acc.restart();
+  //     }
+  //     // Left
+  //     if(obj.Contains(sf::Vector2f(cameraPos.x - player.width/2 - 1, cameraPos.y)))
+  //     {
+  //         moveLeft = false;
+  //     }
+  //     else
+  //     {
+  //         moveLeft = true;
+  //         cout << "Move left is true!" << endl;
+  //     }
+  //     // Right
+  //     if(obj.Contains(sf::Vector2f(cameraPos.x + player.width/2 + 1, cameraPos.y)))
+  //     {
+  //         moveRight = false;
+  //     }
+  //     else
+  //     {
+  //         moveRight = true;
+  //         cout << "Move right is true!" << endl;
+  //     }
+  //               }
+  //           }
+  //       }
+  //   }
+
+
   return;
 }
 

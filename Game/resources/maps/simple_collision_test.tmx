@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tile_set" tilewidth="16" tileheight="16">
+  <image source="tile_set.png" width="528" height="448"/>
+ </tileset>
+ <layer name="Collision" width="20" height="20">
+  <properties>
+   <property name="Collideable" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A8oEQmxmceOW4YNQ8hR834GAWjgBAAAAGxBMk=
+  </data>
+ </layer>
+ <objectgroup name="Walls">
+  <object x="47.5" y="192.5" width="224" height="15"/>
+  <object x="256" y="112.5" width="15.5" height="80.5"/>
+  <object x="48" y="111.5" width="208.5" height="16"/>
+  <object x="47.5" y="129" width="16.5" height="63.5"/>
+ </objectgroup>
+</map>

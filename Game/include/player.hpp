@@ -33,6 +33,7 @@ class Player : public sf::Sprite {
   sf::FloatRect getLocalBounds() const;
   sf::FloatRect getGlobalBounds() const;
   sf::FloatRect getSize() const;
+  sf::FloatRect GetBoundingRect() const;
   bool isLooped() const;
   bool isPlaying() const;
   sf::Time getFrameTime() const;
@@ -52,7 +53,7 @@ class Player : public sf::Sprite {
   bool moving_right_  = false;
   bool moving_left_   = false;
   bool jumping_       = false;
-  bool falling_       = false;
+  bool falling_       = true;
   bool top_collision_ = false;
   bool can_move_      = false;
 

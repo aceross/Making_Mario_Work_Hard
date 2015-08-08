@@ -147,13 +147,15 @@ void Player::UpdateAnimation(sf::Time delta_time) {
 
 void Player::UpdatePosition(sf::Vector2f movement) {
   position_ += movement;
+  // if falling = true
+  // fall
 }
 
 bool Player::HasCollision(Player* p, Tile t) {
   sf::FloatRect player = p->getGlobalBounds();
 
   if (player.contains(t.GetTilePosition())) {
-    printf("Intersection!!!!!!!!!\n");
+    printf("Intersection!\n");
     return true;
   }
   return false;
@@ -167,4 +169,19 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.texture     = texture_;
     target.draw(vertices_, 4, sf::Quads, states);
   }
+  // Draw Outline
+  // sf::FloatRect rect = GetBoundingRect();
+  // sf::RectangleShape shape;
+  //
+  // shape.setPosition(sf::Vector2f(rect.left, rect.top));
+  // shape.setSize(sf::Vector2f(rect.width, rect.height));
+  // shape.setFillColor(sf::Color::Transparent);
+  // shape.setOutlineColor(sf::Color::Green);
+  // shape.setOutlineThickness(1.f);
+  //
+  // target.draw(shape);
+}
+
+sf::FloatRect Player::GetBoundingRect() const {
+  return sf::FloatRect();
 }
