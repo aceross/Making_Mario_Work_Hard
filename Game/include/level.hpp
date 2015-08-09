@@ -11,6 +11,8 @@
 #include <array>
 #include <queue>
 
+#include "tmx/MapLoader.h"
+
 #include "resource_manager.hpp"
 #include "resource_identifiers.hpp"
 #include "sprite_node.hpp"
@@ -18,7 +20,7 @@
 #include "command.hpp"
 #include "command_queue.hpp"
 #include "player.hpp"
-#include "tile_map.hpp"
+// #include "tile_map.hpp"
 
 // Forward declaration
 namespace sf {
@@ -63,7 +65,8 @@ class Level : private sf::NonCopyable {
   TextureHolder      textures_;
   FontHolder&        fonts_;
 
-  TileMap tilemap;
+  // TileMap tilemap;
+  tmx::MapLoader map_loader_;
 
   sf::Text test_;
 

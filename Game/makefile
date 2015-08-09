@@ -38,8 +38,8 @@ TARGET   := bin/game
 SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS   := -std=c++11 -stdlib=libstdc++ -Wall -pedantic -Werror
-LIB      := -lstdc++ -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
+CFLAGS   := -std=c++11 -stdlib=libstdc++ -pedantic
+LIB      := -lstdc++ -lz -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
 INC      := -I include
 
 # links the *.o objects together along with the necessary libraries
@@ -49,7 +49,7 @@ $(TARGET): $(OBJECTS)
 
 # makes the build directory with the *.o objects
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(BUILDDIR) $(BUILDDIR)/pugixml
 	@echo "$(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 ###	@$(BUILD_CMD)
 

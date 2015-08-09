@@ -16,11 +16,13 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , level_view_(output_target.getDefaultView())
 , textures_()
 , fonts_(fonts)
+, map_loader_("resources/maps/")
 , scene_graph_()
 , scene_layers_()
-, level_bounds_(0.f, 0.f, level_view_.getSize().x, 2000.f)
-, start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
-                                                 level_view_.getSize().y / 2.f)
+, level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
+// , start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
+//                                                  level_view_.getSize().y / 2.f)
+, start_position_(level_view_.getSize())
 , scroll_speed_(0.f)
 , player_sprite_(nullptr)
 {
@@ -35,6 +37,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 
   // Prepare the view
   level_view_.setCenter(start_position_);
+  level_view_.zoom(0.57f);
 }
 
 void Level::Update(sf::Time delta_time) {
@@ -46,7 +49,7 @@ void Level::Update(sf::Time delta_time) {
   AdaptPlayerPosition();
 
   // Collision detection and response (may destroy entities)
-  // HandleCollisions();
+  HandleCollisions();
 
   // Regular update step, adapt position (correct if outside view)
   scene_graph_.Update(delta_time, command_queue_);
@@ -54,7 +57,7 @@ void Level::Update(sf::Time delta_time) {
 }
 
 void Level::draw() {
-  // target_.setView(level_view_);
+  target_.setView(level_view_);
   target_.draw(test_);
   target_.draw(scene_graph_);
 }

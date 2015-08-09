@@ -80,12 +80,14 @@ void GameStateManager::UpdateStatistics(sf::Time delta_time) {
   stats_update_time_ += delta_time;
   stats_num_frames_  += 1;
 
-  // if (stats_update_time_ >= sf::seconds(1.0f)) {
-  //   stats_text_.setString(
-  //     "Frames / Second = " + std::to_string(stats_num_frames_) + "\n" +
-  //     "Time / Update = "  + std::to_string(stats_update_time_.asMicroseconds() /
-  //                                          stats_num_frames_) + "us");
-  // }
+  if (stats_update_time_ >= sf::seconds(1.0f)) {
+    stats_text_.setString(
+      "Frames / Second = " + std::to_string(stats_num_frames_) + "\n" +
+      "Time / Update = "  + std::to_string(stats_update_time_.asMicroseconds() /
+                                           stats_num_frames_) + "us");
+    stats_text_.setPosition(10.f, 575.f);
+  }
+
 }
 
 void GameStateManager::ProcessInputs() {
