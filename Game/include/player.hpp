@@ -18,6 +18,7 @@ class Player : public Entity {
  public:
   Player(Type type, const TextureHolder& textures, const FontHolder& fonts);
 
+  virtual unsigned int  GetCategory() const;
   virtual sf::FloatRect GetBoundingRect() const;
   // virtual void          Remove();
   // float                 GetMaxSpeed() const;

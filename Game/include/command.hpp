@@ -35,4 +35,4 @@ Command::Action DerivedAction(Function fn)
   };
 }
 
-#endif // BOOK_COMMAND_HPP
+#endif  // COMMAND_HPP

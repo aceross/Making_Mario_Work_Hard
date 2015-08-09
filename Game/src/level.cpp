@@ -21,17 +21,13 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
 , start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
                                                  level_view_.getSize().y / 2.f)
-, scroll_speed_(0.f)
+, movement_speed_(2.5f)
 , player_sprite_(nullptr)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
   LoadTextures();
   BuildScene();
-
-  // test text
-  test_.setFont(fonts.Get(Fonts::Main));
-  test_.setString("In the level");
 
   // Prepare the view
   level_view_.setCenter(player_sprite_->getPosition());
@@ -44,13 +40,13 @@ void Level::Update(sf::Time delta_time) {
   while (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
-  AdaptPlayerPosition();
 
   // Collision detection and response (may destroy entities)
   HandleCollisions();
 
   // Regular update step, adapt position (correct if outside view)
   scene_graph_.Update(delta_time, command_queue_);
+  AdaptPlayerPosition();
 }
 
 void Level::draw() {
@@ -75,19 +71,8 @@ void Level::BuildScene() {
     Category::Type category = (i == Foreground) ? Category::SceneForegroundLayer : Category::None;
     SceneNode::Ptr layer(new SceneNode(category));
     scene_layers_[i] = layer.get();
-
     scene_graph_.AttachChild(std::move(layer));
   }
-
-  // Prepare the tiled background
-  // sf::Texture& texture = textures_.Get(Textures::Desert);
-  // sf::IntRect textureRect(level_bounds_);
-  // textures_.setRepeated(true);
-
-  // Add the background sprite to the scene
-  // std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-  // backgroundSprite->setPosition(level_bounds_.left, level_bounds_.top);
-  // scene_layers_[Background]->AttachChild(std::move(backgroundSprite));
 
   // Read in the tile map
   std::unique_ptr<MapNode> ml(new MapNode());
@@ -111,13 +96,13 @@ void Level::AdaptPlayerPosition() {
   //                                                   2.f, level_view_.getSize());
   // const float border_distance = 40.f;
 
-  // sf::Vector2i position = player_sprite_->GetLocation();
+  sf::Vector2f position = player_sprite_->getPosition();
   // printf("First postion x = %d y = %d\n", position.x, position.y);
   // position.x = std::max(position.x, view_bounds.left + border_distance);
   // position.x = std::min(position.x, view_bounds.left + view_bounds.width - border_distance);
   // position.y = std::max(position.y, view_bounds.top + border_distance);
   // position.y = std::min(position.y, view_bounds.top + view_bounds.height - border_distance);
-  // player_sprite_->setPosition(position);
+  player_sprite_->setPosition(position);
   // sf::Vector2i location_update = static_cast<sf::Vector2i>(position);
   // printf("location_update x = %d y = %d\n", position.x, position.y);
   // player_sprite_->UpdateLocation(position);

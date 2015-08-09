@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 #include "../include/player_manager.hpp"
 #include "../include/command_queue.hpp"
@@ -11,20 +12,21 @@
 using namespace std::placeholders;
 
 struct PlayerMover {
-  PlayerMover(int vx, int vy)
+  PlayerMover(float vx, float vy)
   : location_update(vx, vy)
   {}
 
   void operator() (Player& player, sf::Time) const {
-    player.UpdateLocation(location_update);
+    player.move(location_update);
   }
 
-  sf::Vector2i location_update;
+  sf::Vector2f location_update;
 };
 
 PlayerManager::PlayerManager()
 : current_level_status_(LevelRunning)
 {
+  std::cout << "Setting intitial key bindings" << std::endl;
   // Set initial key bindings
   key_binding_[sf::Keyboard::Left]  = MoveLeft;
   key_binding_[sf::Keyboard::Right] = MoveRight;
@@ -34,9 +36,10 @@ PlayerManager::PlayerManager()
   // Set initial action bindings
   InitialiseActions();
 
-  // Assign all categories to player's aircraft
-  for (auto& pair : action_binding_)
-    pair.second.category_ = Category::Player;
+  // Assign all categories to player
+  for (auto& pair : action_binding_) {
+    pair.second.category_ = Category::PlayerSprite;
+  }
 }
 
 void PlayerManager::HandleEvent(const sf::Event& event,
@@ -55,7 +58,7 @@ void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
   for (auto pair : key_binding_) {
     // If key is pressed, lookup action and trigger corresponding command
     if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second)) {
-      // printf("Handling Real Time input\n");
+      std::cout << "Pushing Real Time Input" << std::endl;
       commands.Push(action_binding_[pair.second]);
     }
   }
@@ -91,10 +94,12 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 }
 
 void PlayerManager::InitialiseActions() {
-  action_binding_[MoveLeft].action_  = DerivedAction<Player>(PlayerMover(-5, 0));
-  action_binding_[MoveRight].action_ = DerivedAction<Player>(PlayerMover(+5, 0));
-  action_binding_[Jump].action_      = DerivedAction<Player>(PlayerMover(0, -5));
-  action_binding_[Crouch].action_    = DerivedAction<Player>(PlayerMover(0, +5));
+  const float movement_speed = 2.5f;
+  std::cout << "Initialising Actions" << std::endl;
+  action_binding_[MoveLeft].action_  = DerivedAction<Player>(PlayerMover(-movement_speed, 0));
+  action_binding_[MoveRight].action_ = DerivedAction<Player>(PlayerMover(+movement_speed, 0));
+  action_binding_[Jump].action_      = DerivedAction<Player>(PlayerMover(0, -movement_speed));
+  action_binding_[Crouch].action_    = DerivedAction<Player>(PlayerMover(0, +movement_speed));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {

@@ -4,9 +4,7 @@
 #define PLAYER_MANAGER_HPP
 
 #include <SFML/Window/Event.hpp>
-
 #include <map>
-
 #include "command.hpp"
 
 class CommandQueue;

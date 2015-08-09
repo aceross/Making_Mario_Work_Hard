@@ -75,7 +75,7 @@ class Level : private sf::NonCopyable {
 
   sf::FloatRect level_bounds_;
   sf::Vector2f  start_position_;
-  float         scroll_speed_;
+  float         movement_speed_;
   Player*       player_sprite_;
 };
 

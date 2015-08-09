@@ -33,11 +33,7 @@ sf::Vector2i Player::GetLocation() {
 }
 
 void Player::UpdateLocation(sf::Vector2i location_update) {
-  printf("Original location x = %d, y = %d\n", location_.x, location_.y);
-  printf("Location update x = %d, y = %d\n", location_update.x, location_update.y);
   location_ += location_update;
-  printf("Location after update x = %d, y = %d\n", location_.x, location_.y);
-  printf("\n");
 }
 
 void Player::UpdateLocation(int x, int y) {
@@ -58,6 +54,10 @@ void Player::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
   // Update enemy movement pattern; apply velocity
   // UpdateMovementPattern(delta_time);
   // Entity::UpdateCurrent(delta_time, commands);
+}
+
+unsigned int Player::GetCategory() const {
+  return Category::PlayerSprite;
 }
 
 sf::FloatRect Player::GetBoundingRect() const {

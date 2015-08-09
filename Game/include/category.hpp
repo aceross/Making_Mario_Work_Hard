@@ -6,11 +6,9 @@
 // Entity/scene node category, used to dispatch commands
 namespace Category {
   enum Type {
-    None                          = 0,
-    SceneForegroundLayer          = 1 << 0,
-    Player                        = 1 << 1,
-
-    // Player = SmallPlayer
+    None                 = 0,
+    SceneForegroundLayer = 1 << 0,
+    PlayerSprite         = 1 << 1,
   };
 }
 
