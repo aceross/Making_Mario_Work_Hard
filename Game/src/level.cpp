@@ -20,9 +20,8 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
-// , start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
-//                                                  level_view_.getSize().y / 2.f)
-, start_position_(level_view_.getSize())
+, start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
+                                                 level_view_.getSize().y / 2.f)
 , scroll_speed_(0.f)
 , player_sprite_(nullptr)
 {
