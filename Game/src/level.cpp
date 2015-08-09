@@ -16,7 +16,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , level_view_(output_target.getDefaultView())
 , textures_()
 , fonts_(fonts)
-, map_loader_("resources/maps/")
+// , map_loader_("resources/maps/")
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
@@ -52,7 +52,6 @@ void Level::Update(sf::Time delta_time) {
 
   // Regular update step, adapt position (correct if outside view)
   scene_graph_.Update(delta_time, command_queue_);
-
 }
 
 void Level::draw() {
@@ -90,6 +89,11 @@ void Level::BuildScene() {
   // std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
   // backgroundSprite->setPosition(level_bounds_.left, level_bounds_.top);
   // scene_layers_[Background]->AttachChild(std::move(backgroundSprite));
+
+  std::unique_ptr<MapNode> ml(new MapNode());
+  assert(ml->ml_.Load("fulllevel.tmx"));
+  ml->ml_.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+  scene_layers_[Background]->AttachChild(std::move(ml));
 
   // Add player sprite
   std::unique_ptr<Player> player(new Player(Player::SmallPlayer, textures_,

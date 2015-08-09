@@ -16,6 +16,7 @@
 #include "resource_manager.hpp"
 #include "resource_identifiers.hpp"
 #include "sprite_node.hpp"
+#include "map_node.hpp"
 #include "scene_node.hpp"
 #include "command.hpp"
 #include "command_queue.hpp"
@@ -64,7 +65,7 @@ class Level : private sf::NonCopyable {
   TextureHolder      textures_;
   FontHolder&        fonts_;
 
-  tmx::MapLoader map_loader_;
+  // tmx::MapLoader map_loader_;
 
   sf::Text test_;
 
