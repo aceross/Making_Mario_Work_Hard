@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <array>
 #include "animation.hpp"
 #include "tile_map.hpp"
 
@@ -61,6 +62,8 @@ class Player : public sf::Sprite {
   float bottom, left, right, top;
 
   sf::Vector2f position_;
+
+  std::vector<sf::Vector2f> collision_points_;
 
  private:
   const Animation* animation_;

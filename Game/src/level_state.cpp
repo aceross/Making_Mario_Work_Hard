@@ -47,9 +47,9 @@ LevelState::LevelState(GameStateManager* gsm)
 
   Animation move_left;
   move_left.setSpriteSheet(player.texture);
-  move_left.addFrame(sf::IntRect(16, 16, -176, -32));
-  move_left.addFrame(sf::IntRect(16, 16, -80, -32));
-  move_left.addFrame(sf::IntRect(16, 16, -96, -32));
+  move_left.addFrame(sf::IntRect(176, 32, 16, 16));
+  move_left.addFrame(sf::IntRect(80, 32, 16, 16));
+  move_left.addFrame(sf::IntRect(96, 32, 16, 16));
   player.player_move_left = move_left;
 
   current_animation_ = &player.player_move_right;
@@ -134,8 +134,8 @@ void LevelState::handleInput() {
     }
 
     player.play(*current_animation_);
-    player.UpdatePosition(movement);
-    player.move(movement);
+    // player.UpdatePosition(movement);
+    // player.move(movement);
 
     // if no key was pressed stop the animation
     if (noKeyWasPressed_) {
@@ -147,66 +147,60 @@ void LevelState::handleInput() {
     player.UpdateAnimation(frame_time);
   }
 
+  // Handle Collision
+
   std::vector<tmx::MapLayer>& layers_ = ml.GetLayers();
   for (auto& layer : layers_) {
+
     if (layer.type == tmx::ObjectGroup) {
+
       for (auto& object : layer.objects) {
+
         if (layer.name == "Walls") {
-          std::cout << "Collision is true" << std::endl;
+          // std::cout << "In Walls layer" << std::endl;
+
+          // for (auto& point : player.collision_points_) {
+
+            if (object.Contains(player.position_)) {
+              std::cout << "Collision" << std::endl;
+            }
+          // }
+
+
+
+
+
+
+
+
+          // Down Collision
+          // if (object.Contains(sf::Vector2f(player.position_.x, player.position_.y +
+          //                                  player.getGlobalBounds().height * 2))) {
+          //   std::cout << "Gravity Collision" << std::endl;
+          // }
+
+          // Left
+          // if(object.Contains(sf::Vector2f(player.position_.x - player.getGlobalBounds().width/2 - 1,
+          //                                 player.position_.y))) {
+          //     std::cout << "Left Collision" << std::endl;
+          // } else {
+          //
+          // }
+          //
+          // // Right
+          // if(object.Contains(sf::Vector2f(player.position_.x - player.getGlobalBounds().width/2 + 1,
+          //                                 player.position_.y))) {
+          //     std::cout << "Right Collision" << std::endl;
+          // }
         }
       }
     }
-
   }
 
-
-  // std::vector<tmx::MapLayer>& layers = ml.GetLayers();
-  //   for(auto& layer : layers)
-  //   {
-  //       if(layer.type == tmx::ObjectGroup)
-  //       {
-  //           for(auto& obj : layer.objects)
-  //           {
-  // // Find the layer named collision
-  // if(layer.name == "Collision")
-  // {
-  //     // Check down / gravity
-  //     if(obj.Contains(sf::Vector2f(cameraPos.x, cameraPos.y + player.height*2)))
-  //     {
-  //         falling = false;
-  //     }
-  //     else
-  //     {
-  //         falling = true;
-  //         acc.restart();
-  //     }
-  //     // Left
-  //     if(obj.Contains(sf::Vector2f(cameraPos.x - player.width/2 - 1, cameraPos.y)))
-  //     {
-  //         moveLeft = false;
-  //     }
-  //     else
-  //     {
-  //         moveLeft = true;
-  //         cout << "Move left is true!" << endl;
-  //     }
-  //     // Right
-  //     if(obj.Contains(sf::Vector2f(cameraPos.x + player.width/2 + 1, cameraPos.y)))
-  //     {
-  //         moveRight = false;
-  //     }
-  //     else
-  //     {
-  //         moveRight = true;
-  //         cout << "Move right is true!" << endl;
-  //     }
-  //               }
-  //           }
-  //       }
-  //   }
-
-
-  return;
+  player.move(movement);
+  // player.UpdatePosition(movement);
 }
+
+
 
 LevelState::~LevelState() {}

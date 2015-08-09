@@ -2,6 +2,7 @@
 
 #include "../include/player.hpp"
 #include <vector>
+#include <SFML/System/Vector2.hpp>
 
 Player::Player(sf::Time frameTime, bool paused, bool looped)
 : animation_(NULL)
@@ -10,7 +11,12 @@ Player::Player(sf::Time frameTime, bool paused, bool looped)
 , is_paused_(paused)
 , is_looped_(looped)
 , texture_(NULL)
-{}
+{
+  collision_points_.push_back(sf::Vector2f(-8.f, -8.f));
+  collision_points_.push_back(sf::Vector2f(8.f, -8.f));
+  collision_points_.push_back(sf::Vector2f(8.f, 8.f));
+  collision_points_.push_back(sf::Vector2f(-8.f, 8.f));
+}
 
 void Player::setAnimation(const Animation& animation) {
   animation_     = &animation;
