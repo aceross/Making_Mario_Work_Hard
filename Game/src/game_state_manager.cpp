@@ -67,7 +67,7 @@ void GameStateManager::Run() {
 }
 
 void GameStateManager::Render() {
-  window_.clear();
+  window_.clear(sf::Color::Blue);
 
   states_.Draw();
 

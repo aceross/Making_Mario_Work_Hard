@@ -13,7 +13,7 @@
 
 class Player : public Entity {
  public:
-  enum Type { SmallPlayer, SuperMario, TypeCount };
+  enum Type { SmallMario, SuperMario, TypeCount };
 
  public:
   Player(Type type, const TextureHolder& textures, const FontHolder& fonts);

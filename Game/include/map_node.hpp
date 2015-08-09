@@ -8,7 +8,6 @@
 
 class MapNode : public SceneNode {
  public:
-  // explicit MapNode(const sf ::Texture& texture);
   MapNode();
 
  private:

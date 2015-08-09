@@ -16,7 +16,6 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , level_view_(output_target.getDefaultView())
 , textures_()
 , fonts_(fonts)
-// , map_loader_("resources/maps/")
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
@@ -35,7 +34,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
   test_.setString("In the level");
 
   // Prepare the view
-  level_view_.setCenter(start_position_);
+  level_view_.setCenter(player_sprite_->getPosition());
   level_view_.zoom(0.57f);
 }
 
@@ -90,13 +89,14 @@ void Level::BuildScene() {
   // backgroundSprite->setPosition(level_bounds_.left, level_bounds_.top);
   // scene_layers_[Background]->AttachChild(std::move(backgroundSprite));
 
+  // Read in the tile map
   std::unique_ptr<MapNode> ml(new MapNode());
   assert(ml->ml_.Load("fulllevel.tmx"));
   ml->ml_.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
   scene_layers_[Background]->AttachChild(std::move(ml));
 
   // Add player sprite
-  std::unique_ptr<Player> player(new Player(Player::SmallPlayer, textures_,
+  std::unique_ptr<Player> player(new Player(Player::SmallMario, textures_,
                                  fonts_));
   player_sprite_ = player.get();
   player_sprite_->setPosition(250, 250);
