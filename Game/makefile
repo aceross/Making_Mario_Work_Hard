@@ -30,15 +30,15 @@ BUILD_CMD     = LOG=$$($(CMD) 2>&1) ; if [ $$? -eq 1 ]; \
 # This makefile uses LLVM/Clang but can be changed easily to g++ :
 # * to change to g++, change CC to g++
 # * remove -lstdc++ as this is clang specific
-CC       := g++
+CC       := clang++
 SRCDIR   := src
 BUILDDIR := build
 TARGET   := bin/game
-#-stdlib=libstdc++
+
 SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS   := -std=c++11
+CFLAGS   := -std=c++11 -stdlib=libstdc++ -pedantic
 LIB      := -lsfml-graphics -lsfml-window -lsfml-system -lBox2D -lstdc++ -lz
 INC      := -I include
 

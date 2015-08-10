@@ -28,6 +28,10 @@ Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts
 
 }
 
+float Player::GetMaxSpeed() const {
+  return Table[type_].speed;
+}
+
 sf::Vector2i Player::GetLocation() {
   return location_;
 }

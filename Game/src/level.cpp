@@ -35,6 +35,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 }
 
 void Level::Update(sf::Time delta_time) {
+  // level_view_.move(0.f, movement_speed_ * delta_time.asSeconds());
   // Forward commands to scene graph, adapt velocity
   // (scrolling, diagonal correction)
   while (!command_queue_.IsEmpty()) {
@@ -66,9 +67,10 @@ void Level::LoadTextures() {
 }
 
 void Level::BuildScene() {
-  // Initialize the different layers
+  // Initialise the different layers
   for (std::size_t i = 0; i < LayerCount; ++i) {
-    Category::Type category = (i == Foreground) ? Category::SceneForegroundLayer : Category::None;
+    Category::Type category = (i == Foreground) ?
+                              Category::SceneForegroundLayer : Category::None;
     SceneNode::Ptr layer(new SceneNode(category));
     scene_layers_[i] = layer.get();
     scene_graph_.AttachChild(std::move(layer));
@@ -76,7 +78,7 @@ void Level::BuildScene() {
 
   // Read in the tile map
   std::unique_ptr<MapNode> ml(new MapNode());
-  assert(ml->ml_.Load("fulllevel.tmx"));
+  assert(ml->ml_.Load("simple_collision_test.tmx"));
   ml->ml_.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
   scene_layers_[Background]->AttachChild(std::move(ml));
 
@@ -84,9 +86,9 @@ void Level::BuildScene() {
   std::unique_ptr<Player> player(new Player(Player::SmallMario, textures_,
                                  fonts_));
   player_sprite_ = player.get();
-  player_sprite_->setPosition(250, 250);
-  player_sprite_->UpdateLocation(250, 250);
-  scene_layers_[Foreground]->AttachChild(std::move(player));
+  player_sprite_->setPosition(64, 160);
+  // player_sprite_->UpdateLocation(64, 160);
+  scene_layers_[Background]->AttachChild(std::move(player));
 }
 
 void Level::AdaptPlayerPosition() {

@@ -21,7 +21,7 @@ class Player : public Entity {
   virtual unsigned int  GetCategory() const;
   virtual sf::FloatRect GetBoundingRect() const;
   // virtual void          Remove();
-  // float                 GetMaxSpeed() const;
+  float                 GetMaxSpeed() const;
 
   sf::Vector2i GetLocation();
   void UpdateLocation(int x, int y);
