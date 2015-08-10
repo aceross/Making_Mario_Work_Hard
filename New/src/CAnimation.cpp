@@ -1,7 +1,7 @@
 
-#include "CAnimation.h"
+#include "../include/CAnimation.h"
 
-CAnimation::CAnimation() 
+CAnimation::CAnimation()
 {
     CurrentFrame    = 0; // Zero based value
     NumberOfFrames  = 0;
@@ -12,7 +12,7 @@ CAnimation::CAnimation()
     RunOnce         = false;
 }
 
-void CAnimation::Animate() 
+void CAnimation::Animate()
 {
     // No Animation if only 1 frame
     if (NumberOfFrames <= 1)
@@ -20,21 +20,21 @@ void CAnimation::Animate()
         CurrentFrame = 0;
         return;
     }
-    
+
     if(PreviousTime + FrameRate > SDL_GetTicks())
         return;
- 
+
     PreviousTime = SDL_GetTicks();
 
     CurrentFrame += FrameIncrement;
-    
-    if(Oscillate) 
+
+    if(Oscillate)
     {
-        if(FrameIncrement > 0) 
+        if(FrameIncrement > 0)
         {
             if(CurrentFrame >= NumberOfFrames - 1)
                 FrameIncrement = -FrameIncrement;
-            
+
         }else
         {
             if(CurrentFrame <= 0)
@@ -58,13 +58,13 @@ void CAnimation::Animate()
     }
 }
 
-void CAnimation::SetFrameRate(int Rate) 
+void CAnimation::SetFrameRate(int Rate)
 {
     FrameRate = Rate;
 }
 
 
-void CAnimation::SetCurrentFrame(int Frame) 
+void CAnimation::SetCurrentFrame(int Frame)
 {
     if(Frame < 0 || Frame >= NumberOfFrames) return;
 
@@ -72,7 +72,7 @@ void CAnimation::SetCurrentFrame(int Frame)
 }
 
 
-int CAnimation::GetCurrentFrame() 
+int CAnimation::GetCurrentFrame()
 {
     return CurrentFrame;
 }

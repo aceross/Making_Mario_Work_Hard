@@ -1,7 +1,7 @@
 
-#include "CBeanStalk.h"
-#include "CMario.h"
-#include "CSoundManager.h"
+#include "../include/CBeanStalk.h"
+#include "../include/CMario.h"
+#include "../include/CSoundManager.h"
 
 CBeanStalk::CBeanStalk()
 {
@@ -18,15 +18,15 @@ CBeanStalk::CBeanStalk()
 }
 
 CBeanStalk::CBeanStalk(CEntity* temp, int params[])
-{   
+{
     // parameter 0: Max Height
     // parmeter  1: Current Height
-    
+
     if (params[0] != UNINITIALIZED_PARAM)
         MaxHeight = params[0];
     else
         MaxHeight = BEANSTALK_HEIGHT;
-    
+
     if (params[1] > 0)
         temp->Height = params[1];
     else if (params[1] == 0)
@@ -36,9 +36,9 @@ CBeanStalk::CBeanStalk(CEntity* temp, int params[])
 
     // Offset Y by Height
     temp->Y -= temp->Height;
-    
+
     temp->Flags = BEANSTALK_FLAGS;
-    temp->Width = BEANSTALK_WIDTH;    
+    temp->Width = BEANSTALK_WIDTH;
     temp->NumberOfFrames = BEANSTALK_ANIMATION_NUM_FRAMES;
     temp->Collision_Width = BEANSTALK_COLLISION_WIDTH;
     temp->Collision_Height = BEANSTALK_COLLISION_HEIGHT;
@@ -46,18 +46,18 @@ CBeanStalk::CBeanStalk(CEntity* temp, int params[])
     temp->Collision_Y = BEANSTALK_COLLISION_Y;
     temp->MaxSpeedX = BEANSTALK_MAXSPEED_X;
     temp->MaxSpeedY = BEANSTALK_MAXSPEED_Y;
-    
+
     PopulateData(temp);
-    
+
     // Build Dynamic Graphic
     Load(BEANSTALK_GFX, Width, MaxHeight, NumberOfFrames);
-            
+
     PreviousTime = 0;
     Growing = false;
 }
 
-bool CBeanStalk::Load(std::string File, int Width, int Height, int NumberOfFrames) 
-{   
+bool CBeanStalk::Load(std::string File, int Width, int Height, int NumberOfFrames)
+{
     SDL_Surface* tiles = NULL;
 
     if((tiles = CSurface::Load(File)) == NULL)
@@ -76,7 +76,7 @@ bool CBeanStalk::Load(std::string File, int Width, int Height, int NumberOfFrame
     {
         int Y = (x % 2);
 
-        memcpy(SBeanStalk->pixels + (x * tilesize), tiles->pixels + (Y * tilesize), tilesize);      
+        memcpy(SBeanStalk->pixels + (x * tilesize), tiles->pixels + (Y * tilesize), tilesize);
     }
 
     SEntity = SDL_DisplayFormatAlpha(SBeanStalk);
@@ -87,29 +87,29 @@ bool CBeanStalk::Load(std::string File, int Width, int Height, int NumberOfFrame
 
     SDL_FreeSurface(tiles);
     SDL_FreeSurface(SBeanStalk);
-        
+
     ZIndex = 0;
     MinY = Y - Height;
-      
+
     return true;
 }
 
 void CBeanStalk::Loop()
-{     
-    // Grow the Bean Stalk    
+{
+    // Grow the Bean Stalk
     if (Growing)
     {
         // Play growing sound ONCE
         static bool SoundPlayed = false;
-        
+
         if (!SoundPlayed)
         {
             CSoundManager::SoundManager.Play(FX_VINE);
             SoundPlayed = true;
         }
-        
+
         int GrowthFrameRate = 10;
-        
+
         if (Height <= MaxHeight)
         {
             // Change Displayed Height of BeanStalk
@@ -117,33 +117,33 @@ void CBeanStalk::Loop()
             {
                 if (Y >= MinY)
                     Y -= 1;
-                
+
                 Height += 1;
 
                 PreviousTime = SDL_GetTicks();
-            }           
+            }
         }else
         {
             Growing = false;
             Height = MaxHeight;
         }
     }
-    
+
     CEntity::Loop();
 }
 
-void CBeanStalk::Tidy() 
+void CBeanStalk::Tidy()
 {
     if(SEntity)
         SDL_FreeSurface(SEntity);
-    
+
     SEntity = NULL;
 }
 
-bool CBeanStalk::OnCollision(CEntity* Entity) 
-{   
+bool CBeanStalk::OnCollision(CEntity* Entity)
+{
     SDL_Rect target = Entity->GetTargetBox();
-    
+
     if ((Entity->Type == ENTITY_TYPE_PLAYER) && (target.x >= X+10 && target.x <= X+10))
     {
         // Player is on the ladder
@@ -151,8 +151,5 @@ bool CBeanStalk::OnCollision(CEntity* Entity)
         Entity->Flags = 0; // Disable gravity whilst on ladder
     }
 
-    return true;    
+    return true;
 }
-
-
-
