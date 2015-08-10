@@ -1,0 +1,7 @@
+./tilesets/tileset1.png
+./gfx/Levels/level1-background.png 0.5 1
+16
+1
+./maps/1.map ./maps/2.map ./maps/3.map ./maps/4.map ./maps/5.map ./maps/6.map ./maps/7.map ./maps/8.map ./maps/9.map ./maps/10.map ./maps/11.map ./maps/12.map ./maps/13.map ./maps/14.map ./maps/15.map ./maps/16.map
+
+

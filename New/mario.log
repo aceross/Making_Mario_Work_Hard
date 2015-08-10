@@ -1,0 +1,25 @@
+X: SDL Initialized
+X: SDL Video Mode Set
+X: TTF_SDL Initialized
+X: Sound System Initialized
+X: Game state switched to 0
+X: Game state switched to 3
+X: Level: level1 Area: 1 Loaded Successfully
+X: Level: level1 Area: 2 Loaded Successfully
+X: Loading Surface: ./gfx/mario.png
+X: Loading Surface: ./gfx/rex.png
+X: Loading Surface: ./gfx/questionbox.png
+X: Loading Surface: ./gfx/powerups.png
+X: Loading Surface: ./gfx/banzaibill.png
+X: Loading Surface: ./gfx/pipes.png
+X: Loading Surface: ./gfx/rotatingblock.png
+X: Loading Surface: ./gfx/piranhaplant.png
+X: Loading Surface: ./gfx/dragoncoin.png
+X: Loading Surface: ./gfx/midwaygate.png
+X: Loading Surface: ./gfx/midwaygatebar.png
+X: Loading Surface: ./gfx/giantgate.png
+X: Loading Surface: ./gfx/giantgatebar.png
+X: Loading Surface: ./gfx/coin.png
+X: Entities Initialized Successfully
+X: Game state switched to 1
+X: Game Closing - Tidying
