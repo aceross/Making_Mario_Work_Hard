@@ -13,6 +13,7 @@
 #include "tile_map.hpp"
 #include "collision.hpp"
 #include "tmx/MapLoader.h"
+#include "tmx/tmx2box2d.h"
 
 class LevelState : public GameState {
  private:
@@ -39,6 +40,7 @@ class LevelState : public GameState {
 
   bool HasCollision(Player p, Tile t);
   void ManageCollision();
+  void InitialiseWorld();
 
  public:
   virtual void draw(const sf::RenderWindow &window);
@@ -46,6 +48,10 @@ class LevelState : public GameState {
   virtual void handleInput();
 
   explicit LevelState(GameStateManager* gsm);
+
+  //create a box2D world
+  b2World world;
+
   virtual ~LevelState();
 };
 

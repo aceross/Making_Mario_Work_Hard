@@ -6,6 +6,7 @@
 
 LevelState::LevelState(GameStateManager* gsm)
 : ml("resources/maps/")
+, world(tmx::SfToBoxVec(sf::Vector2f(0.f, 9.8f)))
 {
   std::cout << "Welcome to level state" << std::endl;
 
@@ -27,7 +28,7 @@ LevelState::LevelState(GameStateManager* gsm)
   mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 
   assert(ml.Load("simple_collision_test.tmx"));
-  ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+  // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
 
   // Initialising the Player
   this->player = Player(sf::seconds(1.0), true, false);
@@ -59,6 +60,46 @@ LevelState::LevelState(GameStateManager* gsm)
   player.position_ = sf::Vector2f(96, 160);
 }
 
+void LevelState::InitialiseWorld() {
+  std::vector<std::unique_ptr<sf::Shape>> debugBoxes;
+  std::vector<DebugShape> debugShapes;
+  std::map<b2Body*, sf::CircleShape> dynamicShapes; //we can use raw pointers because box2D manages its own memory
+
+  std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+  for (auto& layer : layers) {
+    if (layer.type == tmx::ObjectGroup) {
+      for (auto& object : layer.objects) {
+        if (layer.name == "Walls") {
+          b2Body* b = tmx::BodyCreator::Add(object, world);
+          //iterate over body info to create some visual debugging shapes to help visualise
+          debugBoxes.push_back(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(sf::Vector2f(6.f, 6.f))));
+          sf::Vector2f pos = tmx::BoxToSfVec(b->GetPosition());
+          debugBoxes.back()->setPosition(pos);
+          debugBoxes.back()->setOrigin(3.f, 3.f);
+
+          for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext()) {
+            b2Shape::Type shapeType = f->GetType();
+            if (shapeType == b2Shape::e_polygon) {
+              DebugShape ds;
+              ds.setPosition(pos);
+              b2PolygonShape* ps = (b2PolygonShape*)f->GetShape();
+              int count = ps->GetVertexCount();
+              for (int i = 0; i < count; i++)
+                ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(i)), sf::Color::Green));
+
+              ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(0)), sf::Color::Green));
+              debugShapes.push_back(ds);
+            }
+
+
+              }
+          }
+        }
+      }
+    }
+  }
+
+
 void LevelState::draw(const sf::RenderWindow &window) {
   view.setCenter(player.getPosition());
   gsm->window.setView(this->view);
@@ -80,7 +121,8 @@ bool LevelState::HasCollision(Player p, Tile t) {
 
 void LevelState::ManageCollision() {}
 
-void LevelState::update() {}
+void LevelState::update() {
+}
 
 void LevelState::handleInput() {
   sf::Clock frame_clock;
@@ -148,9 +190,8 @@ void LevelState::handleInput() {
   }
 
   // Handle Collision
-
-  std::vector<tmx::MapLayer>& layers_ = ml.GetLayers();
-  for (auto& layer : layers_) {
+  std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+  for (auto& layer : layers) {
 
     if (layer.type == tmx::ObjectGroup) {
 
