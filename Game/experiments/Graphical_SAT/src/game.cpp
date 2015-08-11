@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  InitialiseWindow();
+  // InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -57,7 +57,7 @@ void Game::ReadFile() {
   std::set <int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/two.cnf";
+  std::string filename = "lib/zchaff/problems/unsolved.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
@@ -137,9 +137,14 @@ void Game::ReadFile() {
   }
   clause_lits.clear();
   clause_vars.clear();
-  std::cout << "\tSuccessfully read CNF file..." << std::endl;
+  // std::cout << "\tSuccessfully read CNF file..." << std::endl;
+
+  // Assign values from SAT manager to Game class instance
   num_variables_ = SAT_NumVariables(SAT_manager_);
+  num_literals_  = SAT_NumLiterals(SAT_manager_);
   num_clauses_   = SAT_NumClauses(SAT_manager_);
+
+  // Load the variables into variable manager
   var_mngr.LoadVariables(SAT_manager_);
 }
 
@@ -168,8 +173,10 @@ void Game::InitialiseCircles() {
 
 void Game::Solve() {
   std::cout << "Number of variables:  " << num_variables_ << std::endl;
-  std::cout << "Number of clauses:    " << num_variables_ << std::endl;
-  int results = SAT_Solve(SAT_manager_);
+  std::cout << "Number of literals:   " << num_literals_  << std::endl;
+  std::cout << "Number of clauses:    " << num_clauses_   << std::endl;
+
+  satisfiability_result_ = SAT_Solve(SAT_manager_);
 
   for (int i = 1, sz = SAT_NumVariables(SAT_manager_); i <= sz; ++i) {
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 1) {
@@ -181,7 +188,7 @@ void Game::Solve() {
       // std::cout << "Value Inserted" << std::endl;
     }
   }
-  DisplayResults(SAT_manager_, results);
+  DisplayResults(SAT_manager_, satisfiability_result_);
   PrintSolution();
   InitialiseCircles();
 }
@@ -308,20 +315,24 @@ void Game::Draw() {
 }
 
 void Game::PrintSolution() {
-  int s;
-  // std::cout << "\tPrinting solution..." << std::endl;
-  std::cout << std::endl;
-  std::cout << "===== SOLUTION =====" << std::endl;
-  for (int i = 0; i < num_variables_; ++i) {
-    s = var_mngr.variable_list_[i].GetFinalValue();
-    if (s < 0) {
-      assignment_ = "FALSE";
-    } else {
-      assignment_ = "TRUE";
+  if (satisfiability_result_ == UNSATISFIABLE) {
+    std::cout << "No solution possible" << std::endl;
+  } else {
+    int s;
+    // std::cout << "\tPrinting solution..." << std::endl;
+    std::cout << std::endl;
+    std::cout << "===== SOLUTION =====" << std::endl;
+    for (int i = 0; i < num_variables_; ++i) {
+      s = var_mngr.variable_list_[i].GetFinalValue();
+      if (s < 0) {
+        assignment_ = "FALSE";
+      } else {
+        assignment_ = "TRUE";
+      }
+      std::cout << "Variable " << i + 1 << ": " << assignment_ << std::endl;
     }
-    std::cout << "Variable " << i + 1 << ": " << assignment_ << std::endl;
+    printf("\n");
   }
-  printf("\n");
 }
 
 Game::~Game() {}

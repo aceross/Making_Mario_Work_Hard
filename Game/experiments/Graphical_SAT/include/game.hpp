@@ -66,7 +66,7 @@ class Game {
 
  private:
   // bool is_satisfied_;
-  // int result_;
+  int satisfiability_result_;
   int num_literals_;
   int num_variables_;
   int num_clauses_;
