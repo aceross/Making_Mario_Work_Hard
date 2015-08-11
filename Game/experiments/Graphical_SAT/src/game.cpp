@@ -57,7 +57,7 @@ void Game::ReadFile() {
   std::set <int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/unsolved.cnf";
+  std::string filename = "lib/zchaff/problems/quinn.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
@@ -171,6 +171,38 @@ void Game::InitialiseCircles() {
   }
 }
 
+void Game::DisplayClauses() {
+  // Only 3 literals in array as analysing 3SAT instances
+  int clause_literals[3];
+  int clause_index;
+  int num_clause_literals;
+
+  clause_index = SAT_GetFirstClause(SAT_manager_);
+
+  for (int i = 0; i < num_clauses_; ++i) {
+    std::cout << std::endl;
+    std::cout << "Clause index: " << clause_index + 1 << std::endl;
+
+    num_clause_literals = SAT_GetClauseNumLits(SAT_manager_, clause_index);
+    // std::cout << "Number of clause literals: " << num_clause_literals << std::endl;
+
+    SAT_GetClauseLits(SAT_manager_, clause_index, clause_literals);
+
+    for (int j = 0; j < num_clause_literals; ++j) {
+      int true_literal = clause_literals[j];
+      if (true_literal % 2) {
+        true_literal = ((true_literal - 1) / 2) * -1;
+
+    } else {
+      true_literal = true_literal / 2;
+    }
+      std::cout << "Clause literal " << j + 1 << ":  " << true_literal << std::endl;
+    }
+
+    clause_index = SAT_GetNextClause(SAT_manager_, clause_index);
+  }
+}
+
 void Game::Solve() {
   std::cout << "Number of variables:  " << num_variables_ << std::endl;
   std::cout << "Number of literals:   " << num_literals_  << std::endl;
@@ -181,13 +213,14 @@ void Game::Solve() {
   for (int i = 1, sz = SAT_NumVariables(SAT_manager_); i <= sz; ++i) {
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 1) {
       var_mngr.variable_list_[i-1].SetFinalValue(i);
-      // std::cout << "Value Inserted" << std::endl;
+      // std::cout << "\tValue Inserted" << std::endl;
     }
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 0) {
       var_mngr.variable_list_[i-1].SetFinalValue(i * (-1));
-      // std::cout << "Value Inserted" << std::endl;
+      // std::cout << "\tValue Inserted" << std::endl;
     }
   }
+  DisplayClauses();
   DisplayResults(SAT_manager_, satisfiability_result_);
   PrintSolution();
   InitialiseCircles();
@@ -315,13 +348,14 @@ void Game::Draw() {
 }
 
 void Game::PrintSolution() {
+  std::cout << std::endl;
+  std::cout << "===== SOLUTION =====" << std::endl;
+
   if (satisfiability_result_ == UNSATISFIABLE) {
     std::cout << "No solution possible" << std::endl;
   } else {
     int s;
-    // std::cout << "\tPrinting solution..." << std::endl;
-    std::cout << std::endl;
-    std::cout << "===== SOLUTION =====" << std::endl;
+
     for (int i = 0; i < num_variables_; ++i) {
       s = var_mngr.variable_list_[i].GetFinalValue();
       if (s < 0) {

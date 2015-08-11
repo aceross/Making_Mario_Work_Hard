@@ -37,6 +37,8 @@ class Game {
   void ReadFile();
   void InitialiseCircles();
 
+  void DisplayClauses();
+
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
 
@@ -65,7 +67,6 @@ class Game {
   sf::Text result_text_;
 
  private:
-  // bool is_satisfied_;
   int satisfiability_result_;
   int num_literals_;
   int num_variables_;
