@@ -1,32 +1,32 @@
 
-#include "CSurface.h"
+#include "../include/CSurface.h"
 
-CSurface::CSurface() 
+CSurface::CSurface()
 {
-    
+
 }
 
-SDL_Surface* CSurface::Load(std::string File) 
-{    
+SDL_Surface* CSurface::Load(std::string File)
+{
     SDL_Surface* STemp = NULL;
     SDL_Surface* SReturn = NULL;
-    
+
     if((STemp = IMG_Load(File.c_str())) == NULL)
         return NULL;
-    
+
     SReturn = SDL_DisplayFormatAlpha(STemp);
-    
+
     SDL_FreeSurface(STemp);
     STemp = NULL;
-    
+
     return SReturn;
 }
 
-bool CSurface::Draw(SDL_Surface* SDest, SDL_Surface* SSrc, int X, int Y) 
+bool CSurface::Draw(SDL_Surface* SDest, SDL_Surface* SSrc, int X, int Y)
 {
     if(SDest == NULL || SSrc == NULL)
         return false;
-    
+
     SDL_Rect DestR;
 
     DestR.x = X;
@@ -38,11 +38,11 @@ bool CSurface::Draw(SDL_Surface* SDest, SDL_Surface* SSrc, int X, int Y)
 }
 
 
-bool CSurface::Draw(SDL_Surface* SDest, SDL_Surface* SSrc, int X, int Y, int X2, int Y2, int W, int H) 
+bool CSurface::Draw(SDL_Surface* SDest, SDL_Surface* SSrc, int X, int Y, int X2, int Y2, int W, int H)
 {
-    if(SDest == NULL || SSrc == NULL) 
+    if(SDest == NULL || SSrc == NULL)
         return false;
-    
+
     SDL_Rect DestR;
 
     DestR.x = X;
@@ -60,14 +60,12 @@ bool CSurface::Draw(SDL_Surface* SDest, SDL_Surface* SSrc, int X, int Y, int X2,
     return true;
 }
 
-bool CSurface::Transparent(SDL_Surface* SDest, int R, int G, int B) 
+bool CSurface::Transparent(SDL_Surface* SDest, int R, int G, int B)
 {
-    if(SDest == NULL) 
+    if(SDest == NULL)
         return false;
-   
+
     SDL_SetColorKey(SDest, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(SDest->format, R, G, B));
 
     return true;
 }
-
-

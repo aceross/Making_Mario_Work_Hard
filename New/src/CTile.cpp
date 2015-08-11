@@ -1,5 +1,5 @@
 
-#include "CTile.h"
+#include "../include/CTile.h"
 
 
 CTile::CTile() {
@@ -7,5 +7,3 @@ CTile::CTile() {
     TypeID = TILE_TYPE_NONE;
     Highlight = false;
 }
-
-

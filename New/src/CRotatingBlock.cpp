@@ -1,8 +1,8 @@
 #include <unistd.h>
 
-#include "CRotatingBlock.h"
-#include "CSoundManager.h"
-#include "CBlockPiece.h"
+#include "../include/CRotatingBlock.h"
+#include "../include/CSoundManager.h"
+#include "../include/CBlockPiece.h"
 
 void CRotatingBlock::LoadSettings()
 {
@@ -22,33 +22,33 @@ void CRotatingBlock::LoadSettings()
     CONST_COLLISION_Y      = 0;
     CONST_MAXSPEED_X       = 0;
     CONST_MAXSPEED_Y       = 0;
-    CONST_GFX    =  "./gfx/rotatingblock.png";     
+    CONST_GFX    =  "./gfx/rotatingblock.png";
 }
 
-CRotatingBlock::CRotatingBlock() 
+CRotatingBlock::CRotatingBlock()
 {
     LoadSettings();
 }
 
 CRotatingBlock::CRotatingBlock(CEntity* temp, int params[])
-{   
+{
     LoadSettings();
-    
+
     Rotating = false;
-    
+
     CBlock::Initialize(temp, params);
 }
 
-void CRotatingBlock::Animate() 
-{    
-    if (Rotating)    
-        Animation.SetNumberOfFrames(CONST_ANIMATION_NUM_FRAMES);    
+void CRotatingBlock::Animate()
+{
+    if (Rotating)
+        Animation.SetNumberOfFrames(CONST_ANIMATION_NUM_FRAMES);
     else
     {
         CurrentFrameRow = 0;
         Animation.SetNumberOfFrames(0);
     }
-    
+
     CBlock::Animate();
 }
 
@@ -60,33 +60,33 @@ void CRotatingBlock::Loop()
             Rotating = false;
             Flags ^= ENTITY_FLAG_GHOST;
         }
-    
+
     CBlock::Loop();
 }
 
-bool CRotatingBlock::OnCollision(CEntity* Entity) 
+bool CRotatingBlock::OnCollision(CEntity* Entity)
 {
     // The box is a normal rotating block
     if ((!Opened) && (Entity->Type == ENTITY_TYPE_PLAYER) && (Above(Entity, true)) && !Contains)
     {
         Rotating = true;
         RotatingTime = SDL_GetTicks();
-        
+
         Flags |= ENTITY_FLAG_GHOST;
         CSoundManager::SoundManager.Play(FX_BREAK_BLOCK);
-        
+
         return true;
     }
-   
+
     // Box Destroyed if Spun on from above
     if (Entity->Type == ENTITY_TYPE_PLAYER && Below(Entity, true))
     {
         if (((CMario*)Entity)->Spinning && ((CMario*)Entity)->MarioState >= SUPER_MARIO)
             BreakBlock();
     }
-    
+
     CBlock::OnCollision(Entity);
-    
+
     return true;
 }
 
@@ -100,7 +100,7 @@ void CRotatingBlock::BreakBlock()
 {
     // Destroy block
     Kill();
-    
+
     // Show pieces
     CreateBlockPiece(X + 8, Y - 40, -10, -8);
     CreateBlockPiece(X + 24, Y - 40, 10, -8);
@@ -119,8 +119,8 @@ void CRotatingBlock::CreateBlockPiece(int x, int y, int sX, int sY)
 
     location temploc;
     temploc.X = piece.X;
-    temploc.Y = piece.Y;        
+    temploc.Y = piece.Y;
     piece.Path.push_back(temploc);
 
-    CEntity::EntityList.push_back(new CBlockPiece(&piece, NULL));  
+    CEntity::EntityList.push_back(new CBlockPiece(&piece, NULL));
 }

@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-#include "CQuestionBox.h"
+#include "../include/CQuestionBox.h"
 
 void CQuestionBox::LoadSettings()
 {
@@ -20,17 +20,17 @@ void CQuestionBox::LoadSettings()
     CONST_COLLISION_Y = 0;
     CONST_MAXSPEED_X = 0;
     CONST_MAXSPEED_Y = 5;
-    CONST_GFX = "./gfx/questionbox.png";     
+    CONST_GFX = "./gfx/questionbox.png";
 }
 
-CQuestionBox::CQuestionBox() 
-{   
+CQuestionBox::CQuestionBox()
+{
     LoadSettings();
 }
 
 CQuestionBox::CQuestionBox(CEntity* temp, int params[])
-{   
+{
     LoadSettings();
-    
+
     CBlock::Initialize(temp, params);
 }

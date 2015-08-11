@@ -1,6 +1,6 @@
 
-#include "CRex.h"
-#include "GlobalFunctions.h"
+#include "../include/CRex.h"
+#include "../include/GlobalFunctions.h"
 
 void CRex::LoadSettings()
 {
@@ -10,12 +10,12 @@ void CRex::LoadSettings()
     CONST_COLLISION_Y_SECONDSTATE = 45;
     CONST_SECONDSTATE_TIME_LIMIT = 15000;
     CONST_MAXSPEED_X_SECONDSTATE = 6;
-    
+
     CONST_ANIMATION_NUM_FRAMES = 2;
-    
+
     CONST_LEFT_FRAMECOL = 0;
     CONST_RIGHT_FRAMECOL = 1;
-    
+
     CONST_POINTS_EARNED = 500;
     CONST_FLAGS = 1;
     CONST_WIDTH = 50;
@@ -27,7 +27,7 @@ void CRex::LoadSettings()
     CONST_MAXSPEED_X = 2;
     CONST_MAXSPEED_Y = 12;
     CONST_GFX = "./gfx/rex.png";
-    
+
     HasSecondState = true;
     DiesInSecondState = true;
 }
@@ -38,9 +38,9 @@ CRex::CRex()
 }
 
 CRex::CRex(CEntity* temp, int params[])
-{   
+{
     LoadSettings();
-    
+
     CEnemy::Initialize(temp, params);
 }
 
@@ -50,6 +50,6 @@ void CRex::Animate()
         Animation.RunOnce = true;
     else
         Animation.RunOnce = false;
-    
+
     CEnemy::Animate();
 }

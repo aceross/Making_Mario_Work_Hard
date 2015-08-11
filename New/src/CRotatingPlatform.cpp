@@ -1,6 +1,6 @@
-#include "CRotatingPlatform.h"
+#include "../include/CRotatingPlatform.h"
 #include <cmath>
-#include "CLevel.h"
+#include "../include/CLevel.h"
 
 CRotatingPlatform::CRotatingPlatform()
 {
@@ -16,31 +16,31 @@ void CRotatingPlatform::Initialize(int params[])
 {
     /*
      * Params
-     * 
+     *
      * 0. Platform Type
      * 1. Start Angle
      * 2. End Angle
      * 3. Direction
-     * 4. Oscillate 
+     * 4. Oscillate
      */
-    
+
     StartAngle = params[1] * RP_DEGREE_FRACTIONS;
     EndAngle = params[2] * RP_DEGREE_FRACTIONS;
     Direction = params[3];
-    
+
     Stopped = true;
-    
+
     if (params[4] == 1)
         Oscillate = true;
     else
         Oscillate = false;
-    
+
     CurrentAngle = StartAngle;
     Radius = RP_NUM_OF_SPOKES * RP_SPOKE_SIZE + (RP_SPOKE_SIZE / 2);
     RotationSpeed = RP_ROTATIONSPEED;
-    
+
     Flags = RP_FLAGS;
-    
+
     OriginX = X;
     OriginY = Y;
 
@@ -48,34 +48,34 @@ void CRotatingPlatform::Initialize(int params[])
     FindNewPosition();
 
     MoveTime = 0;
-    
+
     SSpoke = CSurfaceManager::SurfaceManager.GetSurface(RP_SPOKE_GFX);
-    SBlock = CSurfaceManager::SurfaceManager.GetSurface(RP_BLOCK_GFX);  
+    SBlock = CSurfaceManager::SurfaceManager.GetSurface(RP_BLOCK_GFX);
 }
 
 
 void CRotatingPlatform::Render(SDL_Surface* SDisplay, int X2Offset)
-{   
+{
     // Only if in current area
     if (CLevel::Level.GetCurrentAreaID() != AreaID)
         return;
-    
+
     // Draw Central Block
     if(SBlock == NULL || SDisplay == NULL) return;
 
-    CSurface::Draw( SDisplay, SBlock, 
-                    (OriginX - (RP_SPOKE_SIZE / 2)) - CCamera::Camera.GetX(), 
-                    (OriginY - (RP_SPOKE_SIZE / 2)) - CCamera::Camera.GetY(), 
+    CSurface::Draw( SDisplay, SBlock,
+                    (OriginX - (RP_SPOKE_SIZE / 2)) - CCamera::Camera.GetX(),
+                    (OriginY - (RP_SPOKE_SIZE / 2)) - CCamera::Camera.GetY(),
                     0, 0, RP_SPOKE_SIZE, RP_SPOKE_SIZE);
-    
+
     // Render Spokes
     for (int x=0; x < RP_NUM_OF_SPOKES; x++)
-        CSurface::Draw( SDisplay, SSpoke, 
-                        Spokes[x].X - CCamera::Camera.GetX(), 
-                        Spokes[x].Y - CCamera::Camera.GetY(), 
-                        0, 0, RP_SPOKE_SIZE, RP_SPOKE_SIZE);    
-    
-    
+        CSurface::Draw( SDisplay, SSpoke,
+                        Spokes[x].X - CCamera::Camera.GetX(),
+                        Spokes[x].Y - CCamera::Camera.GetY(),
+                        0, 0, RP_SPOKE_SIZE, RP_SPOKE_SIZE);
+
+
     CPlatform::Render(SDisplay, X2Offset);
 }
 
@@ -84,22 +84,22 @@ void CRotatingPlatform::Loop()
 {
     // Move platform around origin in 1 degree increments
     // One move every RotationSpeed ms
-    
+
     if (Stopped)
         return;
-    
+
     int CurrentTime = (SDL_GetTicks() - RotationSpeed);
-    
-    if (CurrentTime > MoveTime)       
-    {                
-        MoveTime = SDL_GetTicks();      
+
+    if (CurrentTime > MoveTime)
+    {
+        MoveTime = SDL_GetTicks();
 
         FindNewPosition();
-        
+
         if ((Oscillate) && ((CurrentAngle == EndAngle) || (CurrentAngle == StartAngle)))
-            Direction *= -1;        
-    }    
-    
+            Direction *= -1;
+    }
+
     CPlatform::Loop();
 }
 
@@ -118,7 +118,7 @@ bool CRotatingPlatform::OnCollision(CEntity* Entity)
     if (Entity->Type == ENTITY_TYPE_PLAYER && Below(Entity))
         if (Stopped)
             Stopped = false;
-    
+
     CPlatform::OnCollision(Entity);
 }
 
@@ -161,13 +161,13 @@ void CRotatingPlatform::FindNewPosition()
         {
             // Move carried Item with platform
             Carrying->Y = Y - Carrying->Height;
-            Carrying->X += dX;               
-        }                        
+            Carrying->X += dX;
+        }
     }
     else
-    { 
+    {
         // put things back the way they were
         X = previousX;
         Y = previousY;
-    }    
+    }
 }
