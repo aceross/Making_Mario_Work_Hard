@@ -31,6 +31,7 @@ class Game {
 
  private:
   void InitialiseWindow();
+  void InitialiseTexts();
   void LoadAssets();
 
   void ReadFile();
@@ -68,6 +69,9 @@ class Game {
   // int result_;
   int num_literals_;
   int num_variables_;
+  int num_clauses_;
+
+  std::string assignment_;
 
   std::vector<sf::CircleShape> objects_;
 };

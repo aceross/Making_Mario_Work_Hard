@@ -26,6 +26,10 @@ void Game::LoadAssets() {
     std::cout << "Could not find the requested font." << std::endl;
   }
 
+  InitialiseTexts();
+}
+
+void Game::InitialiseTexts() {
   // Load the title text
   title_text_.setFont(font_);
   title_text_.setColor(sf::Color::Black);
@@ -36,15 +40,16 @@ void Game::LoadAssets() {
   instance_text_.setFont(font_);
   instance_text_.setColor(sf::Color::Black);
   instance_text_.setCharacterSize(17);
-  instance_text_.setString(170);
+  // instance_text_.setString(170);
   instance_text_.setPosition(300, 300);
 
   // Load initial problem text
-
 }
 
+// Adapted from the zchaff library
 void Game::ReadFile() {
-  std::cout <<"\tReading CNF file... "<< std::endl;
+  std::cout << std::endl;
+  std::cout << "===== READING FILE ===== "<< std::endl;
 
   char line_buffer[MAX_LINE_LENGTH];
   char word_buffer[MAX_WORD_LENGTH];
@@ -132,8 +137,9 @@ void Game::ReadFile() {
   }
   clause_lits.clear();
   clause_vars.clear();
-  std::cout << "\tFinished reading CNF file..." << std::endl;
+  std::cout << "\tSuccessfully read CNF file..." << std::endl;
   num_variables_ = SAT_NumVariables(SAT_manager_);
+  num_clauses_   = SAT_NumClauses(SAT_manager_);
   var_mngr.LoadVariables(SAT_manager_);
 }
 
@@ -141,19 +147,19 @@ void Game::InitialiseCircles() {
   for (int i = 0; i < num_variables_; ++i) {
     if (i == 0) {
       objects_.push_back(sf::CircleShape(15));
-      std::cout << "Variable 1 added" << std::endl;
+      // std::cout << "Variable 1 added" << std::endl;
       objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
       objects_[i].setPosition(250, 250);
     }
     if (i == 1) {
       objects_.push_back(sf::CircleShape(18, 3));
-      std::cout << "Variable 2 added" << std::endl;
+      // std::cout << "Variable 2 added" << std::endl;
       objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
       objects_[i].setPosition(300, 250);
     }
     if (i == 2) {
       objects_.push_back(sf::CircleShape(15, 4));
-      std::cout << "Variable 3 added" << std::endl;
+      // std::cout << "Variable 3 added" << std::endl;
       objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
       objects_[i].setPosition(350, 250);
     }
@@ -161,18 +167,18 @@ void Game::InitialiseCircles() {
 }
 
 void Game::Solve() {
-  printf("Number of variables = %d\n", num_variables_);
+  std::cout << "Number of variables:  " << num_variables_ << std::endl;
+  std::cout << "Number of clauses:    " << num_variables_ << std::endl;
   int results = SAT_Solve(SAT_manager_);
-  printf("Before the switch\n");
 
   for (int i = 1, sz = SAT_NumVariables(SAT_manager_); i <= sz; ++i) {
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 1) {
       var_mngr.variable_list_[i-1].SetFinalValue(i);
-      printf("Value Inserted\n");
+      // std::cout << "Value Inserted" << std::endl;
     }
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 0) {
       var_mngr.variable_list_[i-1].SetFinalValue(i * (-1));
-      printf("Value Inserted\n");
+      // std::cout << "Value Inserted" << std::endl;
     }
   }
   DisplayResults(SAT_manager_, results);
@@ -181,6 +187,8 @@ void Game::Solve() {
 }
 
 void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
+  std::cout << std::endl;
+  std::cout << "===== SATISFIABILITY =====" << std::endl;
   std::string result = "UNKNOWN";
 
   switch (outcome) {
@@ -232,7 +240,6 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
 void Game::Run() {
   ReadFile();
   Solve();
-  // Decision(SAT_manager_);
 
   while (window_.isOpen()) {
     HandleEvents();
@@ -248,7 +255,6 @@ void Game::Decision(SAT_Manager SAT_manager_) {
   int i;
   std::cout << "SAT Number of Variables =  " << num_variables_ << std::endl;
   std::cout << "SAT Number of Literals  =  " << num_literals_  << std::endl;
-  printf("\n");
   // int result;
   int check;
 
@@ -303,10 +309,17 @@ void Game::Draw() {
 
 void Game::PrintSolution() {
   int s;
-  std::cout << "Printing solution..." << std::endl;
+  // std::cout << "\tPrinting solution..." << std::endl;
+  std::cout << std::endl;
+  std::cout << "===== SOLUTION =====" << std::endl;
   for (int i = 0; i < num_variables_; ++i) {
     s = var_mngr.variable_list_[i].GetFinalValue();
-    printf("%d\n", s);
+    if (s < 0) {
+      assignment_ = "FALSE";
+    } else {
+      assignment_ = "TRUE";
+    }
+    std::cout << "Variable " << i + 1 << ": " << assignment_ << std::endl;
   }
   printf("\n");
 }
