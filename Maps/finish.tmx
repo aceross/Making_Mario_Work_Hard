@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tile_set" tilewidth="16" tileheight="16">
+  <image source="Game/resources/Mario/graphics/tile_set.png" width="528" height="448"/>
+ </tileset>
+ <tileset firstgid="925" name="item_objects" tilewidth="16" tileheight="16">
+  <image source="Game/resources/Mario/graphics/item_objects.png" width="576" height="336"/>
+ </tileset>
+ <tileset firstgid="1681" name="mario_bros" tilewidth="16" tileheight="16">
+  <image source="Game/resources/Mario/graphics/mario_bros.png" width="384" height="528"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUUAKiGXHLTWViYJgGxNOZiDPrLTMDQw0e87YBzdkOxDuINA8E0M3jQcLkAHTzeIGYD4j5qWAeyE26SBjdjUo4MBOURjePDwvGB6axodqFyzw9Is1bh8U8GJ3EiDBDH8m8JCT7GAc5BgA+7g3C
+  </data>
+ </layer>
+</map>
