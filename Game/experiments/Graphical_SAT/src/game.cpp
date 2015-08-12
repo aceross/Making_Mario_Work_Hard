@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  // InitialiseWindow();
+  InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -157,19 +157,20 @@ void Game::ReadFile() {
 // green 0, 138, 46
 // grey 47, 50, 50
 void Game::InitialiseVariableShapes() {
-  sf::Vector2f position(250, 80);
-  sf::Vector2f label_position(230, 80);
+  sf::Vector2f position(150, 150);
+  sf::Vector2f label_position(150, 110);
 
   char variable_name = 'A';
 
   for (int i = 0; i < num_variables_; ++i) {
-    // Create variable label and new object
-    objects_.push_back(sf::CircleShape(10));
+    // Create variable label and circle object
+    var_mngr.variable_list_[i].circle_ = sf::CircleShape(8);
     variable_label_.push_back(sf::Text());
     std::cout << "Variable" << i + 1 << "added" << std::endl;
 
     // Fill the colour
-    objects_[i].setFillColor(sf::Color(47, 50, 50));  // green
+    var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(47, 50, 50));
+    // objects_[i].setFillColor(sf::Color(47, 50, 50));  // green
     variable_label_[i].setString(variable_name);
     variable_name++;
 
@@ -178,11 +179,45 @@ void Game::InitialiseVariableShapes() {
     variable_label_[i].setColor(sf::Color::Black);
     variable_label_[i].setCharacterSize(25);
     variable_label_[i].setPosition(label_position);
-    objects_[i].setPosition(position);
+    var_mngr.variable_list_[i].circle_.setPosition(position);
+    // objects_[i].setPosition(position);
 
     // Increment the position for the next variable
     position.x += 40;
     label_position.x += 40;
+  }
+}
+
+void Game::GetLiterals(int clause_index, int* literals) {
+  int num_literals;
+  num_literals = SAT_GetClauseNumLits(SAT_manager_, clause_index);
+
+  for (int i = 0; i < num_literals; ++i) {
+    literals[i] = var_mngr.clauses_[clause_index][i];
+    std::cout << literals[i] << std::endl;
+  }
+}
+
+void Game::InitialiseClauseShapes() {
+  sf::Vector2f position(150, 150);
+  sf::Vector2f label_position(75, 370);
+  // sf::Vector2f
+  int literals[20];
+
+  for (int i = 0; i < num_clauses_; ++i) {
+    clause_string_.push_back(sf::Text());
+    clause_string_[i].setFont(font_);
+    clause_string_[i].setColor(sf::Color::Black);
+    clause_string_[i].setCharacterSize(18);
+
+    // Get the literals
+    GetLiterals(i, literals);
+
+    clause_string_[i].setString("(  " + std::to_string(literals[0]) + "  v  " +
+                               std::to_string(literals[1]) + "  v  " +
+                               std::to_string(literals[2]) + "   )");
+    clause_string_[i].setPosition(label_position);
+    label_position.y += 40;
   }
 }
 
@@ -202,7 +237,6 @@ void Game::GetClauses() {
   int clause_literals[3];
   int clause_index;
   int num_clause_literals;
-  // std::vector<int> clause_number;
 
   clause_index = SAT_GetFirstClause(SAT_manager_);
 
@@ -232,11 +266,8 @@ void Game::GetClauses() {
           // std::cout << "Do something" << std::endl;
         }
       }
-
-      // std::cout << "Clause literal " << j + 1 << ":  " << true_literal << std::endl;
     }
 
-    // var_mngr.clauses_.push_back(clause_number);
     clause_index = SAT_GetNextClause(SAT_manager_, clause_index);
   }
   std::cout << std::endl;
@@ -310,7 +341,8 @@ void Game::Solve() {
   PrintClauses();
   // DisplayResults(SAT_manager_, satisfiability_result_);
   // PrintSolution();
-  // InitialiseVariableShapes();
+  InitialiseVariableShapes();
+  InitialiseClauseShapes();
 }
 
 void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
@@ -430,8 +462,12 @@ void Game::Draw() {
   // window_.draw(variable_label_);
 
   for (int i = 0; i < num_variables_; ++i) {
-    window_.draw(objects_[i]);
+    window_.draw(var_mngr.variable_list_[i].circle_);
     window_.draw(variable_label_[i]);
+  }
+
+  for (int j = 0; j < num_clauses_; ++j) {
+    window_.draw(clause_string_[j]);
   }
 
   window_.display();

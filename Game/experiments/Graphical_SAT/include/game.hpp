@@ -37,12 +37,13 @@ class Game {
 
   void ReadFile();
   void InitialiseVariableShapes();
+  void InitialiseClauseShapes();
 
   void InitialiseClauses();
   void DisplayClauses();
   void PrintClauses();
   void GetClauses();
-  void AssignLiterals();
+  void GetLiterals(int clause_index, int* literals);
 
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
@@ -69,8 +70,7 @@ class Game {
   sf::Text instance_text_;
   sf::Text solution_text_;
   sf::Text result_text_;
-
-  // sf::Text variable_label_;
+  sf::Text clause_text_;
 
  private:
   int satisfiability_result_;
@@ -82,6 +82,7 @@ class Game {
 
   std::vector<sf::CircleShape> objects_;
   std::vector<sf::Text> variable_label_;
+  std::vector<sf::Text> clause_string_;
 };
 
 #endif  // GAME_HPP

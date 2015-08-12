@@ -22,6 +22,7 @@ class VariableObject {
   int  GetFinalValue();
 
   void SetClauseLocation(int clause_number);
+  int  GetClauseLocations();
 
  public:
   sf::CircleShape circle_;
