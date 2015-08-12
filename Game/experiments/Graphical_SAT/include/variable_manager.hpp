@@ -18,8 +18,9 @@ class VariableManager {
 
   void LoadNumClauses(SAT_Manager SAT_manager);
   void AssignLiterals(SAT_Manager SAT_manager);
-
+  // std::vector<std::vector<Tile>> t_map_;
   std::vector<VariableObject> variable_list_;
+  std::vector<std::vector<int>> clauses_;
  private:
   int num_vars_;
 };

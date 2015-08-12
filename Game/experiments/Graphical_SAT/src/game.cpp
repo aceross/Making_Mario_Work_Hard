@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  InitialiseWindow();
+  // InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -17,13 +17,13 @@ void Game::InitialiseWindow() {
   settings_.antialiasingLevel = 8;
   window_.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT),
                                "Graphical SAT Solver",
-                                sf::Style::Default, settings_);
+                               sf::Style::Default, settings_);
   window_.setFramerateLimit(60);
 }
 
 void Game::LoadAssets() {
   if (!font_.loadFromFile("font/OpenSans-Regular.ttf")) {
-    std::cout << "Could not find the requested font." << std::endl;
+    std::cerr << "Could not find the requested font." << std::endl;
   }
 
   InitialiseTexts();
@@ -62,7 +62,7 @@ void Game::ReadFile() {
   std::set <int> clause_lits;
   int line_num = 0;
 
-  std::string filename = "lib/zchaff/problems/quinn.cnf";
+  std::string filename = "lib/zchaff/problems/3SAT_Mario_Ben.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
@@ -186,11 +186,23 @@ void Game::InitialiseVariableShapes() {
   }
 }
 
+void Game::InitialiseClauses(){
+  for (unsigned int i = 0; i < num_clauses_; ++i) {
+    std::vector<int> tmp_value;
+    for (unsigned int j = 0; j < num_literals_; ++j) {
+      tmp_value.push_back(j);
+    }
+    var_mngr.clauses_.push_back(tmp_value);
+  }
+}
+
 void Game::GetClauses() {
+  InitialiseClauses();
   // Only 3 literals in array as analysing 3SAT instances
   int clause_literals[3];
   int clause_index;
   int num_clause_literals;
+  // std::vector<int> clause_number;
 
   clause_index = SAT_GetFirstClause(SAT_manager_);
 
@@ -210,20 +222,24 @@ void Game::GetClauses() {
       } else {
         true_literal = true_literal / 2;
       }
+      std::cout << "True literal =  " << true_literal << std::endl;
+      var_mngr.clauses_[i][j] = true_literal;
 
       // Check that the variable is within this clause
       for (int k = 0; k < num_variables_; ++k) {
         int temp = var_mngr.variable_list_[k].GetInitialValue();
         if (true_literal == temp || true_literal == temp * -1) {
-          std::cout << "Do something" << std::endl;
+          // std::cout << "Do something" << std::endl;
         }
       }
 
-      std::cout << "Clause literal " << j + 1 << ":  " << true_literal << std::endl;
+      // std::cout << "Clause literal " << j + 1 << ":  " << true_literal << std::endl;
     }
 
+    // var_mngr.clauses_.push_back(clause_number);
     clause_index = SAT_GetNextClause(SAT_manager_, clause_index);
   }
+  std::cout << std::endl;
 }
 
 void Game::DisplayClauses() {
@@ -262,6 +278,16 @@ void Game::DisplayClauses() {
   }
 }
 
+void Game::PrintClauses() {
+  for (std::vector<std::vector<int>>::size_type i = 0; i < var_mngr.clauses_.size(); ++i) {
+    std::cout << "Clause No. " << i + 1 << std::endl;
+    for (std::vector<int>::size_type j = 0; j < var_mngr.clauses_.size(); ++j) {
+      std::cout << "Variable " << j + 1 << ": " << var_mngr.clauses_[i][j] << std::endl;
+    }
+  std::cout << std::endl;
+  }
+}
+
 void Game::Solve() {
   std::cout << "Number of variables:  " << num_variables_ << std::endl;
   std::cout << "Number of literals:   " << num_literals_  << std::endl;
@@ -279,10 +305,12 @@ void Game::Solve() {
       // std::cout << "\tValue Inserted" << std::endl;
     }
   }
-  DisplayClauses();
-  DisplayResults(SAT_manager_, satisfiability_result_);
-  PrintSolution();
-  InitialiseVariableShapes();
+  // DisplayClauses();
+  GetClauses();
+  PrintClauses();
+  // DisplayResults(SAT_manager_, satisfiability_result_);
+  // PrintSolution();
+  // InitialiseVariableShapes();
 }
 
 void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {

@@ -3,26 +3,29 @@
 #ifndef VARIABLE_OBJECT_HPP
 #define VARIABLE_OBJECT_HPP
 
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 class VariableObject {
  public:
   VariableObject();
-  virtual void SetID(int id);
-  virtual int GetID();
+  void SetID(int id);
+  int  GetID();
 
-  virtual void SetInitialValue(int initial_value);
-  virtual int GetInitialValue();
+  void SetInitialValue(int initial_value);
+  int  GetInitialValue();
 
-  virtual void SetDecisionValue(int decision_value);
-  virtual int GetDecisionValue();
+  void SetDecisionValue(int decision_value);
+  int  GetDecisionValue();
 
-  virtual void SetFinalValue(int final_value);
-  virtual int GetFinalValue();
+  void SetFinalValue(int final_value);
+  int  GetFinalValue();
 
   void SetClauseLocation(int clause_number);
 
+ public:
+  sf::CircleShape circle_;
+  std::vector<int> clause_location_;
  private:
   int id_;
   int initial_value_;

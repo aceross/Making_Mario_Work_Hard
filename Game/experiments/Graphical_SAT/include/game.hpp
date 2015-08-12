@@ -38,7 +38,9 @@ class Game {
   void ReadFile();
   void InitialiseVariableShapes();
 
+  void InitialiseClauses();
   void DisplayClauses();
+  void PrintClauses();
   void GetClauses();
   void AssignLiterals();
 
