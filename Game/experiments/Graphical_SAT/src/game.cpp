@@ -7,7 +7,9 @@
 
 #include "../include/game.hpp"
 
-Game::Game() {
+Game::Game()
+: solution_displayed_(false)
+{
   InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
@@ -170,7 +172,6 @@ void Game::InitialiseVariableShapes() {
 
     // Fill the colour
     var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(47, 50, 50));
-    // objects_[i].setFillColor(sf::Color(47, 50, 50));  // green
     variable_label_[i].setString(variable_name);
     variable_name++;
 
@@ -180,7 +181,6 @@ void Game::InitialiseVariableShapes() {
     variable_label_[i].setCharacterSize(25);
     variable_label_[i].setPosition(label_position);
     var_mngr.variable_list_[i].circle_.setPosition(position);
-    // objects_[i].setPosition(position);
 
     // Increment the position for the next variable
     position.x += 40;
@@ -199,13 +199,17 @@ void Game::GetLiterals(int clause_index, int* literals) {
 }
 
 void Game::InitialiseClauseShapes() {
-  sf::Vector2f position(150, 150);
+  sf::Vector2f clause_value_position(275, 370);
   sf::Vector2f label_position(75, 370);
-  // sf::Vector2f
+
   int literals[20];
 
   for (int i = 0; i < num_clauses_; ++i) {
+    clause_objects_.push_back(sf::CircleShape(4));
+    clause_value_.push_back(sf::CircleShape(8));
     clause_string_.push_back(sf::Text());
+
+    clause_value_[i].setFillColor(sf::Color(47, 50, 50));
     clause_string_[i].setFont(font_);
     clause_string_[i].setColor(sf::Color::Black);
     clause_string_[i].setCharacterSize(18);
@@ -215,9 +219,13 @@ void Game::InitialiseClauseShapes() {
 
     clause_string_[i].setString("(  " + std::to_string(literals[0]) + "  v  " +
                                std::to_string(literals[1]) + "  v  " +
-                               std::to_string(literals[2]) + "   )");
+                               std::to_string(literals[2]) + "   )   =");
     clause_string_[i].setPosition(label_position);
+    clause_value_[i].setPosition(clause_value_position);
+
+    // Update clause positions
     label_position.y += 40;
+    clause_value_position.y += 40;
   }
 }
 
@@ -317,6 +325,13 @@ void Game::PrintClauses() {
     }
   std::cout << std::endl;
   }
+}
+
+void Game::GraphicSolution() {
+  do {
+    std::cout << "In solution Display" << std::endl;
+    solution_displayed_ = true;
+  } while(!solution_displayed_);
 }
 
 void Game::Solve() {
@@ -446,6 +461,13 @@ void Game::HandleEvents() {
       case sf::Event::Closed: // || sf::Keyboard::Keyboard::Escape:
         window_.close();
         break;
+
+      case sf::Event::KeyPressed:
+        // Run Graphical Display of Results
+        if (event_.key.code == sf::Keyboard::Return) {
+          GraphicSolution();
+        }
+        break;
       default: break;
     }
   }
@@ -468,6 +490,7 @@ void Game::Draw() {
 
   for (int j = 0; j < num_clauses_; ++j) {
     window_.draw(clause_string_[j]);
+    window_.draw(clause_value_[j]);
   }
 
   window_.display();

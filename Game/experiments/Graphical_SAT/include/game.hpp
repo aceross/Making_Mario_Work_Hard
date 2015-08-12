@@ -14,7 +14,6 @@
 
 #include "../lib/zchaff/SAT.h"
 #include "variable_manager.hpp"
-#include "shape.hpp"
 
 // Values for the game window
 #define SCREEN_WIDTH  800
@@ -47,6 +46,7 @@ class Game {
 
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
+  void GraphicSolution();
 
   void Decision(SAT_Manager SAT_manager_);
 
@@ -80,9 +80,12 @@ class Game {
 
   std::string assignment_;
 
-  std::vector<sf::CircleShape> objects_;
+  std::vector<sf::CircleShape> clause_objects_;
+  std::vector<sf::CircleShape> clause_value_;
   std::vector<sf::Text> variable_label_;
   std::vector<sf::Text> clause_string_;
+
+  bool solution_displayed_;
 };
 
 #endif  // GAME_HPP
