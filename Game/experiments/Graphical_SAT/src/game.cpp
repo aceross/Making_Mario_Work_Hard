@@ -8,7 +8,7 @@
 #include "../include/game.hpp"
 
 Game::Game() {
-  // InitialiseWindow();
+  InitialiseWindow();
   LoadAssets();
   SAT_manager_ = SAT_InitManager();
 }
@@ -36,14 +36,19 @@ void Game::InitialiseTexts() {
   title_text_.setString("Graphical SAT Solver");
   title_text_.setPosition(275, 0);
 
-  // Load the instance text
+  // Load the variable text
+  variable_text_.setFont(font_);
+  variable_text_.setColor(sf::Color::Black);
+  variable_text_.setCharacterSize(25);
+  variable_text_.setString("Variables:");
+  variable_text_.setPosition(35, 80);
+
+  // Load instance text
   instance_text_.setFont(font_);
   instance_text_.setColor(sf::Color::Black);
-  instance_text_.setCharacterSize(17);
-  // instance_text_.setString(170);
-  instance_text_.setPosition(300, 300);
-
-  // Load initial problem text
+  instance_text_.setCharacterSize(25);
+  instance_text_.setString("Clauses:");
+  instance_text_.setPosition(35, 320);
 }
 
 // Adapted from the zchaff library
@@ -148,26 +153,76 @@ void Game::ReadFile() {
   var_mngr.LoadVariables(SAT_manager_);
 }
 
-void Game::InitialiseCircles() {
+// red 172, 30, 30
+// green 0, 138, 46
+// grey 47, 50, 50
+void Game::InitialiseVariableShapes() {
+  sf::Vector2f position(250, 80);
+  sf::Vector2f label_position(230, 80);
+
+  char variable_name = 'A';
+
   for (int i = 0; i < num_variables_; ++i) {
-    if (i == 0) {
-      objects_.push_back(sf::CircleShape(15));
-      // std::cout << "Variable 1 added" << std::endl;
-      objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
-      objects_[i].setPosition(250, 250);
+    // Create variable label and new object
+    objects_.push_back(sf::CircleShape(10));
+    variable_label_.push_back(sf::Text());
+    std::cout << "Variable" << i + 1 << "added" << std::endl;
+
+    // Fill the colour
+    objects_[i].setFillColor(sf::Color(47, 50, 50));  // green
+    variable_label_[i].setString(variable_name);
+    variable_name++;
+
+    // Add the positions
+    variable_label_[i].setFont(font_);
+    variable_label_[i].setColor(sf::Color::Black);
+    variable_label_[i].setCharacterSize(25);
+    variable_label_[i].setPosition(label_position);
+    objects_[i].setPosition(position);
+
+    // Increment the position for the next variable
+    position.x += 40;
+    label_position.x += 40;
+  }
+}
+
+void Game::GetClauses() {
+  // Only 3 literals in array as analysing 3SAT instances
+  int clause_literals[3];
+  int clause_index;
+  int num_clause_literals;
+
+  clause_index = SAT_GetFirstClause(SAT_manager_);
+
+  for (int i = 0; i < num_clauses_; ++i) {
+    std::cout << std::endl;
+    std::cout << "Clause index: " << clause_index + 1 << std::endl;
+
+    num_clause_literals = SAT_GetClauseNumLits(SAT_manager_, clause_index);
+    std::cout << "Number of clause literals: " << num_clause_literals << std::endl;
+
+    SAT_GetClauseLits(SAT_manager_, clause_index, clause_literals);
+
+    for (int j = 0; j < num_clause_literals; ++j) {
+      int true_literal = clause_literals[j];
+      if (true_literal % 2) {
+        true_literal = ((true_literal - 1) / 2) * -1;
+      } else {
+        true_literal = true_literal / 2;
+      }
+
+      // Check that the variable is within this clause
+      for (int k = 0; k < num_variables_; ++k) {
+        int temp = var_mngr.variable_list_[k].GetInitialValue();
+        if (true_literal == temp || true_literal == temp * -1) {
+          std::cout << "Do something" << std::endl;
+        }
+      }
+
+      std::cout << "Clause literal " << j + 1 << ":  " << true_literal << std::endl;
     }
-    if (i == 1) {
-      objects_.push_back(sf::CircleShape(18, 3));
-      // std::cout << "Variable 2 added" << std::endl;
-      objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
-      objects_[i].setPosition(300, 250);
-    }
-    if (i == 2) {
-      objects_.push_back(sf::CircleShape(15, 4));
-      // std::cout << "Variable 3 added" << std::endl;
-      objects_[i].setFillColor(sf::Color(172, 30, 30));  // red
-      objects_[i].setPosition(350, 250);
-    }
+
+    clause_index = SAT_GetNextClause(SAT_manager_, clause_index);
   }
 }
 
@@ -184,18 +239,22 @@ void Game::DisplayClauses() {
     std::cout << "Clause index: " << clause_index + 1 << std::endl;
 
     num_clause_literals = SAT_GetClauseNumLits(SAT_manager_, clause_index);
-    // std::cout << "Number of clause literals: " << num_clause_literals << std::endl;
+    std::cout << "Number of clause literals: " << num_clause_literals << std::endl;
 
     SAT_GetClauseLits(SAT_manager_, clause_index, clause_literals);
 
+    // zchaff returns literals as even if positive or odd if negative
+    // check to see if these is a modulous, then it's odd
+    // subtract 1, divide by 2 (to get the original value), and make negative
+    // otherwise simply divide by two
     for (int j = 0; j < num_clause_literals; ++j) {
       int true_literal = clause_literals[j];
       if (true_literal % 2) {
         true_literal = ((true_literal - 1) / 2) * -1;
-
-    } else {
-      true_literal = true_literal / 2;
-    }
+      } else {
+        true_literal = true_literal / 2;
+      }
+      // Numbers start from 0; Add 1 for readability
       std::cout << "Clause literal " << j + 1 << ":  " << true_literal << std::endl;
     }
 
@@ -223,7 +282,7 @@ void Game::Solve() {
   DisplayClauses();
   DisplayResults(SAT_manager_, satisfiability_result_);
   PrintSolution();
-  InitialiseCircles();
+  InitialiseVariableShapes();
 }
 
 void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
@@ -285,6 +344,7 @@ void Game::Run() {
     HandleEvents();
     Draw();
   }
+  std::cout << "...Game Over..." << std::endl;
 }
 
 // Give the variables a decision
@@ -310,7 +370,7 @@ void Game::Decision(SAT_Manager SAT_manager_) {
       break;
     }
   }
-  // every var got an assignment, no free var left
+  // every var got an assignment, no free variables left
   if (i >= num_variables_) {
     check = SAT_GetVarAsgnment(SAT_manager_, i);
     printf("Variable %d value = %d\n", i, check);
@@ -323,7 +383,7 @@ void Game::HandleEvents() {
   while (window_.pollEvent(event_)) {
     switch (event_.type) {
       // Close window
-      case sf::Event::Closed:
+      case sf::Event::Closed: // || sf::Keyboard::Keyboard::Escape:
         window_.close();
         break;
       default: break;
@@ -338,10 +398,12 @@ void Game::Draw() {
 
   window_.draw(title_text_);
   window_.draw(instance_text_);
-  // window_.draw(circle_);
+  window_.draw(variable_text_);
+  // window_.draw(variable_label_);
 
   for (int i = 0; i < num_variables_; ++i) {
     window_.draw(objects_[i]);
+    window_.draw(variable_label_[i]);
   }
 
   window_.display();

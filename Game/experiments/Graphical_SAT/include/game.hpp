@@ -14,6 +14,7 @@
 
 #include "../lib/zchaff/SAT.h"
 #include "variable_manager.hpp"
+#include "shape.hpp"
 
 // Values for the game window
 #define SCREEN_WIDTH  800
@@ -35,9 +36,11 @@ class Game {
   void LoadAssets();
 
   void ReadFile();
-  void InitialiseCircles();
+  void InitialiseVariableShapes();
 
   void DisplayClauses();
+  void GetClauses();
+  void AssignLiterals();
 
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
@@ -59,12 +62,13 @@ class Game {
   sf::ContextSettings settings_;
   sf::Event           event_;
 
-  sf::CircleShape     circle_;
-
   sf::Text title_text_;
+  sf::Text variable_text_;
   sf::Text instance_text_;
   sf::Text solution_text_;
   sf::Text result_text_;
+
+  // sf::Text variable_label_;
 
  private:
   int satisfiability_result_;
@@ -75,6 +79,7 @@ class Game {
   std::string assignment_;
 
   std::vector<sf::CircleShape> objects_;
+  std::vector<sf::Text> variable_label_;
 };
 
 #endif  // GAME_HPP

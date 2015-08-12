@@ -16,6 +16,9 @@ class VariableManager {
   void SetNumVariables(int num_var);
   void SetFinalVarValues(int final_value);
 
+  void LoadNumClauses(SAT_Manager SAT_manager);
+  void AssignLiterals(SAT_Manager SAT_manager);
+
   std::vector<VariableObject> variable_list_;
  private:
   int num_vars_;

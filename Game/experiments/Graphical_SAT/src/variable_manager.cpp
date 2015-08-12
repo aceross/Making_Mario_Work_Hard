@@ -8,7 +8,7 @@ void VariableManager::LoadVariables(SAT_Manager SAT_manager) {
   num_vars_ = SAT_NumVariables(SAT_manager);
   for (int i = 0; i < num_vars_; ++i) {
     variable_list_.push_back(VariableObject());
-    variable_list_[i].SetID(i);
+    variable_list_[i].SetInitialValue(i);
   }
 }
 
@@ -17,3 +17,11 @@ void VariableManager::SetNumVariables(int num_var) {
 }
 
 void VariableManager::SetFinalVarValues(int final_value) {}
+
+void VariableManager::LoadNumClauses(SAT_Manager SAT_manager) {
+
+}
+
+void VariableManager::AssignLiterals(SAT_Manager SAT_manager) {
+
+}

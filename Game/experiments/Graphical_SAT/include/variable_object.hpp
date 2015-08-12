@@ -4,6 +4,7 @@
 #define VARIABLE_OBJECT_HPP
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <vector>
 
 class VariableObject {
  public:
@@ -20,11 +21,15 @@ class VariableObject {
   virtual void SetFinalValue(int final_value);
   virtual int GetFinalValue();
 
+  void SetClauseLocation(int clause_number);
+
  private:
   int id_;
   int initial_value_;
   int decision_value_;
   int final_value_;
+
+  std::vector<int> clause_locations_;
 };
 
 #endif  // VARIABLE_OBJECT_HPP
