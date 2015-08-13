@@ -16,7 +16,9 @@ void VariableManager::SetNumVariables(int num_var) {
   num_vars_ = num_var;
 }
 
-void VariableManager::SetFinalVarValues(int final_value) {}
+void VariableManager::SetFinalVarValues(int final_value) {
+  // Get SAT_manager and then push iterate and push to 
+}
 
 void VariableManager::LoadNumClauses(SAT_Manager SAT_manager) {
 

@@ -47,6 +47,7 @@ class Game {
   void Solve();
   void DisplayResults(SAT_Manager SAT_manager_, int outcome);
   void GraphicSolution();
+  void SetClauseString();
 
   void Decision(SAT_Manager SAT_manager_);
 
@@ -71,6 +72,7 @@ class Game {
   sf::Text solution_text_;
   sf::Text result_text_;
   sf::Text clause_text_;
+  sf::Text satisfiable_text_;
 
  private:
   int satisfiability_result_;
@@ -86,6 +88,7 @@ class Game {
   std::vector<sf::Text> clause_string_;
 
   bool solution_displayed_;
+  bool not_satisfiable_;
 };
 
 #endif  // GAME_HPP

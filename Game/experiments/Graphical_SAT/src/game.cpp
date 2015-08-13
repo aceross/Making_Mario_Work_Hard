@@ -4,11 +4,14 @@
 #include <set>
 #include <vector>
 #include <functional>
+#include <thread>
+#include <chrono>
 
 #include "../include/game.hpp"
 
 Game::Game()
 : solution_displayed_(false)
+, not_satisfiable_(false)
 {
   InitialiseWindow();
   LoadAssets();
@@ -51,6 +54,12 @@ void Game::InitialiseTexts() {
   instance_text_.setCharacterSize(25);
   instance_text_.setString("Clauses:");
   instance_text_.setPosition(35, 320);
+
+  // Initialise Final Satisfiability text
+  satisfiable_text_.setFont(font_);
+  satisfiable_text_.setCharacterSize(50);
+  satisfiable_text_.setColor(sf::Color::Green);
+  satisfiable_text_.setPosition(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2);
 }
 
 // Adapted from the zchaff library
@@ -168,7 +177,7 @@ void Game::InitialiseVariableShapes() {
     // Create variable label and circle object
     var_mngr.variable_list_[i].circle_ = sf::CircleShape(8);
     variable_label_.push_back(sf::Text());
-    std::cout << "Variable" << i + 1 << "added" << std::endl;
+    // std::cout << "Variable" << i + 1 << "added" << std::endl;
 
     // Fill the colour
     var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(47, 50, 50));
@@ -188,13 +197,15 @@ void Game::InitialiseVariableShapes() {
   }
 }
 
+void Game::SetClauseString() {}
+
 void Game::GetLiterals(int clause_index, int* literals) {
   int num_literals;
   num_literals = SAT_GetClauseNumLits(SAT_manager_, clause_index);
 
   for (int i = 0; i < num_literals; ++i) {
     literals[i] = var_mngr.clauses_[clause_index][i];
-    std::cout << literals[i] << std::endl;
+    // std::cout << literals[i] << std::endl;
   }
 }
 
@@ -328,8 +339,41 @@ void Game::PrintClauses() {
 }
 
 void Game::GraphicSolution() {
+  std::cout << "In solution Display" << std::endl;
+  int s;
+  int num_clause_literals;
+  int true_literal;
   do {
-    std::cout << "In solution Display" << std::endl;
+    for (int i = 0; i < num_variables_; ++i) {
+      // Get the final values of the variables
+      s = var_mngr.variable_list_[i].GetFinalValue();
+
+      // Change colour as appropriate
+      if (s > 0) { // if true, make green
+        var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(0, 138, 46));
+      } else {     // if false, make red
+        var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(172, 30, 30));
+      }
+      // Update the variable colour
+      Draw();
+
+      // Get the number of clauses
+      num_clause_literals = SAT_GetClauseNumLits(SAT_manager_, i);
+
+      // Iterate through clauses and update values
+      for (int j = 0; j < num_clauses_; ++j) {
+        for (int k = 0; k < num_clause_literals; ++k) {
+          true_literal = var_mngr.clauses_[j][k];
+          if (true_literal == s) {
+            clause_value_[j].setFillColor(sf::Color(0, 138, 46));
+          }
+        }
+
+      }
+      Draw();
+
+      std::this_thread::sleep_for (std::chrono::seconds(2));
+    }
     solution_displayed_ = true;
   } while(!solution_displayed_);
 }
@@ -353,9 +397,9 @@ void Game::Solve() {
   }
   // DisplayClauses();
   GetClauses();
-  PrintClauses();
-  // DisplayResults(SAT_manager_, satisfiability_result_);
-  // PrintSolution();
+  // PrintClauses();
+  DisplayResults(SAT_manager_, satisfiability_result_);
+  PrintSolution();
   InitialiseVariableShapes();
   InitialiseClauseShapes();
 }
@@ -467,6 +511,9 @@ void Game::HandleEvents() {
         if (event_.key.code == sf::Keyboard::Return) {
           GraphicSolution();
         }
+        if (event_.key.code == sf::Keyboard::Escape) {
+          window_.close();
+        }
         break;
       default: break;
     }
@@ -491,6 +538,15 @@ void Game::Draw() {
   for (int j = 0; j < num_clauses_; ++j) {
     window_.draw(clause_string_[j]);
     window_.draw(clause_value_[j]);
+  }
+
+  if (solution_displayed_) {
+    satisfiable_text_.setString("SATISFIABLE");
+    window_.draw(satisfiable_text_);
+  } else if (not_satisfiable_) {
+    satisfiable_text_.setColor(sf::Color::Red);
+    satisfiable_text_.setString("NOT SATISFIABLE");
+    window_.draw(satisfiable_text_);
   }
 
   window_.display();
@@ -518,4 +574,6 @@ void Game::PrintSolution() {
   }
 }
 
-Game::~Game() {}
+Game::~Game() {
+  // some sort of clean up
+}
