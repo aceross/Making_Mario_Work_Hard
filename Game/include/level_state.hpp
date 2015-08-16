@@ -8,15 +8,17 @@
 #include <iostream>
 #include <string>
 
-
 #include "game_state.hpp"
 #include "player.hpp"
 #include "tile_map.hpp"
 #include "collision.hpp"
+#include "tmx/MapLoader.h"
+#include "tmx/tmx2box2d.h"
 
 class LevelState : public GameState {
  private:
   sf::View view;
+  sf::View mini_map_;
   sf::Text level_text;
   sf::Font font;
   sf::Sprite  tiles;
@@ -24,6 +26,9 @@ class LevelState : public GameState {
 
   Player player;
   TileMap tilemap;
+
+  tmx::MapLoader ml;
+
   const Animation* current_animation_;
 
   // float speed_          = 32.0f;
@@ -33,9 +38,9 @@ class LevelState : public GameState {
 
   sf::Vector2f movement_;
 
-
   bool HasCollision(Player p, Tile t);
   void ManageCollision();
+  void InitialiseWorld();
 
  public:
   virtual void draw(const sf::RenderWindow &window);
@@ -43,6 +48,10 @@ class LevelState : public GameState {
   virtual void handleInput();
 
   explicit LevelState(GameStateManager* gsm);
+
+  //create a box2D world
+  b2World world;
+
   virtual ~LevelState();
 };
 

@@ -1,0 +1,9 @@
+./tilesets/tileset1.png
+./gfx/Levels/level2-background.png 0.5 1 f8e0b0
+"4-02 - Map 1 (Yoster Island).mp3"
+16
+2
+clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map clear.map
+1.map 2.map 3.map blank.map blank.map 6.map 7.map 8.map blank.map 10.map 11.map 12.map blank.map blank.map blank.map blank.map 
+
+

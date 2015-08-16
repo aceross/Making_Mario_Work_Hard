@@ -84,7 +84,7 @@ MenuState::MenuState(GameStateManager* gsm) {
   this->selection = 0;
 
   // Load menu font
-  if (!font.loadFromFile("assets/font/OpenSans-Regular.ttf")) {
+  if (!font.loadFromFile("resources/font/OpenSans-Regular.ttf")) {
     std::cout << "Could not find the requested font." << std::endl;
   }
 

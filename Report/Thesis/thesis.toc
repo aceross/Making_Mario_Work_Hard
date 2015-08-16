@@ -1,0 +1,64 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Aims and Objectives}{5}
+\contentsline {section}{\numberline {1.1}Background and motivation}{5}
+\contentsline {section}{\numberline {1.2}Research aims and objectives}{5}
+\contentsline {section}{\numberline {1.3}Thesis Structure}{6}
+\contentsline {chapter}{\numberline {2}Computational complexity theory}{7}
+\contentsline {section}{\numberline {2.1}Fundamental concepts}{7}
+\contentsline {subsection}{\numberline {2.1.1}Definitions}{7}
+\contentsline {subsubsection}{Decision problems and search problems}{7}
+\contentsline {subsection}{\numberline {2.1.2}Survey of complexity classes}{8}
+\contentsline {subsubsection}{P and NP}{8}
+\contentsline {subsubsection}{P vs NP Problem}{8}
+\contentsline {subsubsection}{NP-hard}{8}
+\contentsline {subsubsection}{NP-complete}{9}
+\contentsline {subsubsection}{PSPACE}{9}
+\contentsline {section}{\numberline {2.2}Chapter summary}{9}
+\contentsline {chapter}{\numberline {3}Boolean satisfiability problems}{10}
+\contentsline {section}{\numberline {3.1}Principle concepts and definitions}{10}
+\contentsline {section}{\numberline {3.2}Boolean Satisfiability problem and NP-completeness}{10}
+\contentsline {subsection}{\numberline {3.2.1}Examples of SAT reductions}{11}
+\contentsline {section}{\numberline {3.3}SAT solvers}{11}
+\contentsline {subsection}{\numberline {3.3.1}The DPLL algorithm}{11}
+\contentsline {section}{\numberline {3.4}Available SAT solvers}{12}
+\contentsline {subsubsection}{Features of modern DPLL-based SAT solvers}{12}
+\contentsline {section}{\numberline {3.5}Chapter summary}{14}
+\contentsline {chapter}{\numberline {4}Computational complexity and the hardness of (video) games}{15}
+\contentsline {section}{\numberline {4.1}Overview}{15}
+\contentsline {section}{\numberline {4.2}2D platform games}{16}
+\contentsline {subsubsection}{Characteristics of 2D games}{16}
+\contentsline {subsection}{\numberline {4.2.1}Characteristics of NP-hard games}{16}
+\contentsline {section}{\numberline {4.3}Chapter summary}{18}
+\contentsline {chapter}{\numberline {5}Content generation}{19}
+\contentsline {section}{\numberline {5.1}The fundamentals of content generation}{19}
+\contentsline {subsection}{\numberline {5.1.1}Overview}{19}
+\contentsline {section}{\numberline {5.2}Taxonomy of game elements}{20}
+\contentsline {subsubsection}{Online vs offline generation}{20}
+\contentsline {subsubsection}{Necessary vs optional content}{20}
+\contentsline {subsection}{\numberline {5.2.1}Challenges in PCG}{20}
+\contentsline {section}{\numberline {5.3}Content generation methodologies}{21}
+\contentsline {subsection}{\numberline {5.3.1}PCG heuristic techniques}{22}
+\contentsline {section}{\numberline {5.4}Chapter summary}{23}
+\contentsline {chapter}{\numberline {6}Level Design and Generation}{24}
+\contentsline {section}{\numberline {6.1}Designing NP-hard levels}{24}
+\contentsline {chapter}{\numberline {7}Game Engine Design}{27}
+\contentsline {section}{\numberline {7.1}Design considerations}{27}
+\contentsline {subsection}{\numberline {7.1.1}Development language and libraries}{27}
+\contentsline {section}{\numberline {7.2}Basic game engine mechanics}{28}
+\contentsline {subsection}{\numberline {7.2.1}Game loop}{28}
+\contentsline {subsection}{\numberline {7.2.2}Player movement}{28}
+\contentsline {subsection}{\numberline {7.2.3}Collision management}{28}
+\contentsline {section}{\numberline {7.3}Level generation}{28}
+\contentsline {section}{\numberline {7.4}SAT solver integration}{28}
+\contentsline {subsection}{\numberline {7.4.1}Reading in the CNF file}{28}
+\contentsline {subsection}{\numberline {7.4.2}Accessing variables and clauses}{28}
+\contentsline {section}{\numberline {7.5}Project wiki and references}{28}
+\contentsline {section}{\numberline {7.6}Unit testing}{28}
+\contentsline {chapter}{\numberline {8}Evaluation}{29}
+\contentsline {chapter}{\numberline {9}Future Work}{30}
+\contentsline {section}{\numberline {9.1}Constrained level size}{30}
+\contentsline {section}{\numberline {9.2}Additional complexity classes}{30}
+\contentsline {subsection}{\numberline {9.2.1}PSPACE}{30}
+\contentsline {subsection}{\numberline {9.2.2}EXSPACE}{30}
+\contentsline {section}{\numberline {9.3}Web Deployment}{30}
+\contentsline {chapter}{Bibliography}{31}

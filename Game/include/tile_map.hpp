@@ -25,7 +25,7 @@ class TileMap : public sf::Sprite {
   sf::VertexArray vertices;
   sf::Texture     tileset;
   sf::Sprite      tiles;
-  std::vector<std::vector<Tile>> t_map_;
+  std::vector<std::vector<Tile> > t_map_;
 
   unsigned int height;
   unsigned int width;

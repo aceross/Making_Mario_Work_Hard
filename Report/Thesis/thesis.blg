@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/dev/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
+White space in argument---line 31 of file thesis.aux
+ : \citation{kendall2008su
+ :                         rvey}
+I'm skipping whatever remains of this command
+The style file: abbrv.bst
+Database file #1: ../ResearchReview/references.bib.bib
+A bad cross reference---entry "DBLP:conf/fun/Forisek10"
+refers to entry "DBLP:conf/fun/2010", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/fun/2010"
+Warning--empty year in Papadimitriou:2003:CC:1074100.1074233
+You've used 68 entries,
+            2118 wiz_defined-function locations,
+            893 strings with 14643 characters,
+and the built_in function-call counts, 23822 in all, are:
+= -- 2468
+> -- 871
+< -- 31
++ -- 357
+- -- 278
+* -- 1470
+:= -- 3751
+add.period$ -- 228
+call.type$ -- 68
+change.case$ -- 335
+chr.to.int$ -- 0
+cite$ -- 69
+duplicate$ -- 1047
+empty$ -- 2005
+format.name$ -- 278
+if$ -- 5235
+int.to.chr$ -- 0
+int.to.str$ -- 68
+missing$ -- 70
+newline$ -- 347
+num.names$ -- 136
+pop$ -- 405
+preamble$ -- 1
+purify$ -- 274
+quote$ -- 0
+skip$ -- 761
+stack$ -- 0
+substring$ -- 1572
+swap$ -- 308
+text.length$ -- 31
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 258
+warning$ -- 1
+while$ -- 254
+width$ -- 70
+write$ -- 775
+(There were 2 error messages)

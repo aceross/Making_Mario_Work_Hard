@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tile_set" tilewidth="16" tileheight="16">
+  <image source="../gfx/tile_set.png" width="528" height="448"/>
+  <tile id="24">
+   <animation>
+    <frame tileid="24" duration="250"/>
+    <frame tileid="25" duration="250"/>
+    <frame tileid="26" duration="250"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer name="Wall/Ground" width="20" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2D4AEYqYwAGaAAV
+  </data>
+ </layer>
+ <layer name="Scenery" width="20" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBiZYCoTA8M0IJ7ORB3ztgHN2Q7EO0g0byDcIcRIHbtAQBBolhEQC1PBTJBZJkBsDMXUMJNSAABFYQkW
+  </data>
+ </layer>
+ <layer name="Box-Hit" width="20" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQx3IDLQDhjEAACkwAB0=
+  </data>
+ </layer>
+ <layer name="Box-Unhit" width="20" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQx1IDrQDhjEAACUcABo=
+  </data>
+ </layer>
+ <objectgroup name="Collision"/>
+ <layer name="Collision" width="20" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQx3IDrQDBhGQpTIGAIm0AmI=
+  </data>
+ </layer>
+</map>

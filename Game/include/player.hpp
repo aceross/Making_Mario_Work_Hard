@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <array>
 #include "animation.hpp"
 #include "tile_map.hpp"
 
@@ -33,6 +34,7 @@ class Player : public sf::Sprite {
   sf::FloatRect getLocalBounds() const;
   sf::FloatRect getGlobalBounds() const;
   sf::FloatRect getSize() const;
+  sf::FloatRect GetBoundingRect() const;
   bool isLooped() const;
   bool isPlaying() const;
   sf::Time getFrameTime() const;
@@ -52,7 +54,7 @@ class Player : public sf::Sprite {
   bool moving_right_  = false;
   bool moving_left_   = false;
   bool jumping_       = false;
-  bool falling_       = false;
+  bool falling_       = true;
   bool top_collision_ = false;
   bool can_move_      = false;
 
@@ -60,6 +62,8 @@ class Player : public sf::Sprite {
   float bottom, left, right, top;
 
   sf::Vector2f position_;
+
+  std::vector<sf::Vector2f> collision_points_;
 
  private:
   const Animation* animation_;

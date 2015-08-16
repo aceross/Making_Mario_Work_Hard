@@ -1,0 +1,25 @@
+0	Sky
+1	Grass Top
+2	Soil
+3	Block Top Left transp
+4	Block Top Right transp
+5	Block Bottom Left transp
+6	Block Bottom Right transp
+7       Grass Left
+8       Grass Right
+9       Grass Left Corner on Sky
+10      Grass Right Corner on Sky
+11      Soil Left side
+12      Soil Right side
+13      Grass Left Corner on Soil
+14      Grass Right Corner on Soil
+15      NONE
+16	Block Top Left on soil
+17	Block Top Right on soil
+18	Block Bottom Left on soil
+19	Block Bottom Right on soil
+20      TILE_TYPE_SLOPE_0_15_LEFT
+21      TILE_TYPE_SLOPE_0_15_RIGHT
+22      Slope Fill Right
+23      Slope Fill Left
+

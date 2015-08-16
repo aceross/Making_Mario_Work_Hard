@@ -2,10 +2,21 @@
 
 #include "../include/player.hpp"
 #include <vector>
+#include <SFML/System/Vector2.hpp>
 
-Player::Player(sf::Time frameTime, bool paused, bool looped) :
-  animation_(NULL), frame_time_(frameTime), current_frame_(0),
-  is_paused_(paused), is_looped_(looped), texture_(NULL) {}
+Player::Player(sf::Time frameTime, bool paused, bool looped)
+: animation_(NULL)
+, frame_time_(frameTime)
+, current_frame_(0)
+, is_paused_(paused)
+, is_looped_(looped)
+, texture_(NULL)
+{
+  collision_points_.push_back(sf::Vector2f(-8.f, -8.f));
+  collision_points_.push_back(sf::Vector2f(8.f, -8.f));
+  collision_points_.push_back(sf::Vector2f(8.f, 8.f));
+  collision_points_.push_back(sf::Vector2f(-8.f, 8.f));
+}
 
 void Player::setAnimation(const Animation& animation) {
   animation_     = &animation;
@@ -142,13 +153,15 @@ void Player::UpdateAnimation(sf::Time delta_time) {
 
 void Player::UpdatePosition(sf::Vector2f movement) {
   position_ += movement;
+  // if falling = true
+  // fall
 }
 
 bool Player::HasCollision(Player* p, Tile t) {
   sf::FloatRect player = p->getGlobalBounds();
 
   if (player.contains(t.GetTilePosition())) {
-    printf("Intersection!!!!!!!!!\n");
+    printf("Intersection!\n");
     return true;
   }
   return false;
@@ -162,4 +175,19 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.texture     = texture_;
     target.draw(vertices_, 4, sf::Quads, states);
   }
+  // Draw Outline
+  // sf::FloatRect rect = GetBoundingRect();
+  // sf::RectangleShape shape;
+  //
+  // shape.setPosition(sf::Vector2f(rect.left, rect.top));
+  // shape.setSize(sf::Vector2f(rect.width, rect.height));
+  // shape.setFillColor(sf::Color::Transparent);
+  // shape.setOutlineColor(sf::Color::Green);
+  // shape.setOutlineThickness(1.f);
+  //
+  // target.draw(shape);
+}
+
+sf::FloatRect Player::GetBoundingRect() const {
+  return sf::FloatRect();
 }
