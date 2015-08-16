@@ -177,7 +177,6 @@ void Game::InitialiseVariableShapes() {
     // Create variable label and circle object
     var_mngr.variable_list_[i].circle_ = sf::CircleShape(8);
     variable_label_.push_back(sf::Text());
-    // std::cout << "Variable" << i + 1 << "added" << std::endl;
 
     // Fill the colour
     var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(47, 50, 50));
@@ -205,7 +204,6 @@ void Game::GetLiterals(int clause_index, int* literals) {
 
   for (int i = 0; i < num_literals; ++i) {
     literals[i] = var_mngr.clauses_[clause_index][i];
-    // std::cout << literals[i] << std::endl;
   }
 }
 
@@ -347,11 +345,11 @@ void Game::GraphicSolution() {
     for (int i = 0; i < num_variables_; ++i) {
       // Get the final values of the variables
       s = var_mngr.variable_list_[i].GetFinalValue();
-
       // Change colour as appropriate
-      if (s > 0) { // if true, make green
+      // if true, make green, else false and mark as red
+      if (s > 0) {
         var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(0, 138, 46));
-      } else {     // if false, make red
+      } else {
         var_mngr.variable_list_[i].circle_.setFillColor(sf::Color(172, 30, 30));
       }
       // Update the variable colour
@@ -388,11 +386,9 @@ void Game::Solve() {
   for (int i = 1, sz = SAT_NumVariables(SAT_manager_); i <= sz; ++i) {
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 1) {
       var_mngr.variable_list_[i-1].SetFinalValue(i);
-      // std::cout << "\tValue Inserted" << std::endl;
     }
     if (SAT_GetVarAsgnment(SAT_manager_, i) == 0) {
       var_mngr.variable_list_[i-1].SetFinalValue(i * (-1));
-      // std::cout << "\tValue Inserted" << std::endl;
     }
   }
   // DisplayClauses();
@@ -421,13 +417,9 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
             break;
           case 0:
             std::cout << "-" << i;
-            // var_mngr.variable_list_[i].SetFinalValue(i * -1);
-            // printf("Negative Value inserted\n");
             break;
           case 1:
             std::cout << i;
-            // var_mngr.variable_list_[i].SetFinalValue(i);
-            // printf("Positive Value inserted\n");
             break;
           default:
             std::cerr << "Unknown variable value state" << std::endl;
@@ -452,7 +444,7 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
   default:
     std::cerr << "Unknown outcome" << std::endl;
   }
-  printf("\n");
+  std::cout << std::endl;
 }
 
 void Game::Run() {
@@ -474,7 +466,7 @@ void Game::Decision(SAT_Manager SAT_manager_) {
   int i;
   std::cout << "SAT Number of Variables =  " << num_variables_ << std::endl;
   std::cout << "SAT Number of Literals  =  " << num_literals_  << std::endl;
-  // int result;
+
   int check;
 
   for (i = 1; i < num_variables_; ++i) {
@@ -502,7 +494,7 @@ void Game::HandleEvents() {
   while (window_.pollEvent(event_)) {
     switch (event_.type) {
       // Close window
-      case sf::Event::Closed: // || sf::Keyboard::Keyboard::Escape:
+      case sf::Event::Closed:
         window_.close();
         break;
 
@@ -523,12 +515,9 @@ void Game::HandleEvents() {
 void Game::Draw() {
   window_.clear(sf::Color(227, 227, 227));  // off-white
 
-  // Decision();
-
   window_.draw(title_text_);
   window_.draw(instance_text_);
   window_.draw(variable_text_);
-  // window_.draw(variable_label_);
 
   for (int i = 0; i < num_variables_; ++i) {
     window_.draw(var_mngr.variable_list_[i].circle_);
