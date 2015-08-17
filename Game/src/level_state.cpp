@@ -60,7 +60,7 @@ LevelState::LevelState(GameStateManager* gsm)
 
   current_animation_ = &player.player_move_right;
 
-  // // set position
+  // set position
   player.setPosition(sf::Vector2f(96, 160));
   player.position_ = sf::Vector2f(96, 160);
 }
@@ -104,7 +104,6 @@ void LevelState::InitialiseWorld() {
     }
   }
 
-
 void LevelState::draw(const sf::RenderWindow &window) {
   view.setCenter(player.getPosition());
   gsm->window.setView(this->view);
@@ -127,8 +126,7 @@ bool LevelState::HasCollision(Player p, Tile t) {
 
 void LevelState::ManageCollision() {}
 
-void LevelState::update() {
-}
+void LevelState::update() {}
 
 void LevelState::handleInput() {
   sf::Clock frame_clock;
@@ -247,7 +245,5 @@ void LevelState::handleInput() {
   player.move(movement);
   // player.UpdatePosition(movement);
 }
-
-
 
 LevelState::~LevelState() {}
