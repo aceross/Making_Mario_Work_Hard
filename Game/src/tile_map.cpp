@@ -75,9 +75,9 @@ void TileMap::PrintMap() {
 }
 
 void TileMap::initialiseMap() {
-  setParameters("assets/maps/map1.txt");
+  setParameters("resources/maps/test.map");
   PrintMap();
-  loadMap("assets/gfx/level1.png", sf::Vector2u(32, 32));
+  loadMap("resources/gfx/tile_set.png", sf::Vector2u(16, 16));
 }
 
 void TileMap::resizeMap(int width, int height) {

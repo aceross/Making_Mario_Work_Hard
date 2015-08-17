@@ -10,7 +10,7 @@ HelpState::HelpState(GameStateManager* gsm) {
   pos *= 0.5f;
   this->view.setCenter(pos);
 
-  if (!font.loadFromFile("assets/font/OpenSans-Regular.ttf")) {
+  if (!font.loadFromFile("resources/font/OpenSans-Regular.ttf")) {
     std::cout << "Error loading font." << std::endl;
   }
 

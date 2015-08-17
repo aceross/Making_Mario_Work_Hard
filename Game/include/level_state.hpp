@@ -12,6 +12,7 @@
 #include "player.hpp"
 #include "tile_map.hpp"
 #include "collision.hpp"
+#include "zchaff_manager.hpp"
 #include "tmx/MapLoader.h"
 #include "tmx/tmx2box2d.h"
 
@@ -28,6 +29,7 @@ class LevelState : public GameState {
   TileMap tilemap;
 
   tmx::MapLoader ml;
+  ZChaffManager zchaff_manager_;
 
   const Animation* current_animation_;
 

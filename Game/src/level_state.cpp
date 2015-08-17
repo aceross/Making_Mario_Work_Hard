@@ -15,7 +15,6 @@ LevelState::LevelState(GameStateManager* gsm)
   movement_.x = 0.f;
   movement_.y = 0.f;
 
-
   // view.setViewport(sf::FloatRect(200, 300, gsm->window.getSize().x,
   //                                    gsm->window.getSize().y));
 
@@ -25,10 +24,16 @@ LevelState::LevelState(GameStateManager* gsm)
   this->view.setCenter(pos);
   view.zoom(0.57f);
 
+  // Set the mini map view
   mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 
+  // initialise the level map
+  this->tilemap.initialiseMap();
   assert(ml.Load("simple_collision_test.tmx"));
   // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+
+  // zchaff manager initialisation
+  zchaff_manager_.LoadInstance();
 
   // Initialising the Player
   this->player = Player(sf::seconds(1.0), true, false);
@@ -105,7 +110,8 @@ void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.setView(this->view);
 
   gsm->window.clear(sf::Color::Blue);
-  gsm->window.draw(ml);
+  // gsm->window.draw(ml);
+  gsm->window.draw(tilemap);
   gsm->window.draw(player);
 }
 
