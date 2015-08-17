@@ -11,7 +11,7 @@
 \documentclass[11pt, a4paper, oneside]{report} % A4, 11pt font, one-sided
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc} %setlength{parskip}{0.7em}
-\usepackage{bibentry} 
+\usepackage{bibentry}
 \usepackage[margin= 1.3in]{geometry}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{epigraph}
@@ -22,9 +22,6 @@
 \linespread{1.1}
 
 \begin{document}
-
-
-
 
 
 % ------------------------------------------------------------------------------
@@ -87,9 +84,6 @@ Blank at the moment
 \tableofcontents
 
 
-
-
-
 % ------------------------------------------------------------------------------
 % CHP 1 --- INTRODUCTION
 % ------------------------------------------------------------------------------
@@ -115,11 +109,11 @@ the values TRUE or FALSE in a way that the formula evaluates to TRUE, or
 The primary motivation of this research is to investigate the feasibility of the
 video game medium as a teaching tool to visualise and demonstrate concepts in
 computational complexity. This could be achieved through the evaluation of
-different instances of SAT in a video game setting.\@ 
+different instances of SAT in a video game setting.\@
 
 Computer science and mathematics can be quite daunting subjects for new students
-and quite often the concepts may not be clear. The utilisation of video games as 
-a medium to introduce the topic and concepts could be 
+and quite often the concepts may not be clear. The utilisation of video games as
+a medium to introduce the topic and concepts could be
 
 There are several challanges that need to be addressed in order for this method
 to be feasible.
@@ -146,7 +140,7 @@ take an instance of SAT and generate a human-playable level that is
 computationally hard. This level would then be able to be solved by a SAT
 solver. The solution to the level would then be visualised on screen. In order
 to fulfil this aim, the research project will implement a game engine through
-achieving the following objectives: \\ 
+achieving the following objectives: \\
 
 \begin{enumerate}
 
@@ -204,7 +198,7 @@ Chapter 2 covers the fundamental concepts in computational complexity,
 identifying which characteristics render a task difficult. The chapter discusses
 the well-known P vs NP question and explains the NP-hardness complexity class.
 Other classes which are later explored within the project are also demonstrated
-and analysed. 
+and analysed.
 
 The overview of computational complexity provides the basis for the discussion
 in Chapter 3 on Boolean Satisfiability problems and SAT solving software. In
@@ -1468,27 +1462,27 @@ further explored in the next chapter on design considerations.
 
 \chapter{Level Design and Generation}
 
-In the previous chapters, the basis for making a 2D platform game NP-hard was 
-established. In this chapter, the focus will be on designing a playable level 
-that incorporates those elements. 
+In the previous chapters, the basis for making a 2D platform game NP-hard was
+established. In this chapter, the focus will be on designing a playable level
+that incorporates those elements.
 
 In previous literature, the level design has focused on the gadgets that
 correspond to 3SAT reductions in order to prove that the game is in
 fact NP-hard.. In these models, the actual gameplay is
-generalised and left-otherwise unaddressed. 
+generalised and left-otherwise unaddressed.
 
-This provides a challenge when 
+This provides a challenge when
 
 \section{Designing NP-hard levels}
 
-For the purposes of this project, the size of the levels are n X n, which 
-means that the size is essentially unlimited. 
+For the purposes of this project, the size of the levels are n X n, which
+means that the size is essentially unlimited.
 
 % Review Aloupis and Forisek
 
 % \section{Modifying the model in Aloupis \textit{et al}}
 
-% The Aloupis et al model 
+% The Aloupis et al model
 
 % \subsection{Modification 1: Joining the variable with the clause}
 
@@ -1504,7 +1498,7 @@ means that the size is essentially unlimited.
 % different areas  of the level that would otherwise not be accessible or to other
 % levels entirely.
 
-% The use of warp tunnels has two functions: (1) it allows for a neat way in which 
+% The use of warp tunnels has two functions: (1) it allows for a neat way in which
 % to demonstrate clauses
 
 % In the Aloupis model, the need for enemies does not feature as prominently as
@@ -1523,7 +1517,7 @@ together in a three variable, three clause 3SAT reducation.
   \label{full-level}
 \end{figure}
 
-This will be briefly described below. 
+This will be briefly described below.
 
 The player starts as in Aloupis et al \cite{Aloupis2012} with a start gadget
 that turns `small' Mario (composed of a single 16x16 tile) into Super Mario.
@@ -1544,7 +1538,7 @@ There are a number of issues which arise when scaling a level.
 
 In \textit{Super Mario Bros.}, the player may discover that certain pipes are
 able to be utilised in order to travel to different hidden areas or even other
-levels. This game mechanic provides a useful solution to scalability. 
+levels. This game mechanic provides a useful solution to scalability.
 
 In the project's implementation, after the player picks a variable by falling
 and using the pipe, the player is taken to a clause choosing gadget. Here there
@@ -1603,14 +1597,6 @@ then proceeds to the finish gadget, shown in Figure~\ref{finish}.
 \end{figure}
 
 
-
-
-
-
-
-
-
-
 % ------------------------------------------------------------------------------
 % Game Engine Design
 % ------------------------------------------------------------------------------
@@ -1630,7 +1616,7 @@ from time developing the game engine.
 The game engine uses the Simple and Fast Media Library (SFML) for handling
 graphics and player input. There are a number of libraries which can provide this
 functionality. The primary criteria in selecting a suitable multimedia library
-was based on ease of use and ease of integration. 
+was based on ease of use and ease of integration.
 
 The candidate libraries were SFML, SDL, and Allegro, as these were the most
 popular choices for C++ game development. The decision to use SFML was based on
@@ -1677,14 +1663,14 @@ SAT solver into the game engine.
 
 \section{Project wiki and references}
 
-A project wiki has acted as a journal and reference guide for the game engine's 
-development. The rationale behind keeping this documentation was to allow for 
-future development work to be carried out on the game engine. 
+A project wiki has acted as a journal and reference guide for the game engine's
+development. The rationale behind keeping this documentation was to allow for
+future development work to be carried out on the game engine.
 
 \section{Unit testing}
 
 The game engine source code also includes a testing framework for the various
-modules. In this project, googletest, Google's C++ Testing Framework was used. 
+modules. In this project, googletest, Google's C++ Testing Framework was used.
 
 % ------------------------------------------------------------------------------
 % EVALUATION
