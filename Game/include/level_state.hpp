@@ -18,11 +18,11 @@
 
 class LevelState : public GameState {
  private:
-  sf::View view;
-  sf::View mini_map_;
-  sf::Text level_text;
-  sf::Font font;
-  sf::Sprite  tiles;
+  sf::View      view;
+  sf::View      mini_map_;
+  sf::Text      level_text;
+  sf::Font      font;
+  sf::Sprite    tiles;
   sf::FloatRect block;
 
   Player player;
@@ -30,6 +30,9 @@ class LevelState : public GameState {
 
   tmx::MapLoader ml;
   ZChaffManager zchaff_manager_;
+
+  unsigned int level_height_;
+  unsigned int level_width_;
 
   const Animation* current_animation_;
 

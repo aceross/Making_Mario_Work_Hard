@@ -4,18 +4,17 @@
 #include <vector>
 #include "../include/tile_map.hpp"
 
-// Constructor and Destructor
 TileMap::TileMap()  {}
 TileMap::~TileMap() {}
 
 // Loads in the map layout and graphical assets
 // this function is addapted from the SFL tutorial on tilemaps
-bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
-  if (!this->tileset.loadFromFile(tileset)) return false;
+bool TileMap::LoadMap(const std::string& tileset, sf::Vector2u tileSize) {
+  if (!tileset_.loadFromFile(tileset)) return false;
 
   // Resize the vertex array to fit the level size
-  this->vertices.setPrimitiveType(sf::Quads);
-  this->vertices.resize(width * height * 8);
+  vertices_.setPrimitiveType(sf::Quads);
+  vertices_.resize(width * height * 8);
 
   for (std::vector<std::vector<int>>::size_type i = 0; i < width; ++i) {
     for (std::vector<int>::size_type j = 0; j < height; ++j) {
@@ -27,11 +26,11 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
       // Find the tileValue's position in the tileset texture
       // 'tu' is the column value on the tileset
       // 'tv' is the row value on the tileset
-      int tu = tileValue % (this->tileset.getSize().x / tileSize.x);
-      int tv = tileValue / (this->tileset.getSize().x / tileSize.x);
+      int tu = tileValue % (tileset_.getSize().x / tileSize.x);
+      int tv = tileValue / (tileset_.getSize().x / tileSize.x);
 
       // Get a pointer to the current tile's quad
-      sf::Vertex* quad = &vertices[(i + j * width) * 4];
+      sf::Vertex* quad = &vertices_[(i + j * width) * 4];
 
       // define the current tile's four corners
       quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
@@ -40,7 +39,7 @@ bool TileMap::loadMap(const std::string& tileset, sf::Vector2u tileSize) {
                                       (j + 1) * tileSize.y);
       quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
 
-      this->t_map_[j][i].SetTilePosition(quad[0].position);
+      t_map_[j][i].SetTilePosition(quad[0].position);
 
       // define the current tile's four texture coordinates
       quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
@@ -58,10 +57,10 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   states.transform *= getTransform();
 
   // apply the tileset texture
-  states.texture = &tileset;
+  states.texture = &tileset_;
 
   // draw the vertex array
-  target.draw(vertices, states);
+  target.draw(vertices_, states);
 }
 
 // Prints the tilemap in the terminal
@@ -74,13 +73,13 @@ void TileMap::PrintMap() {
   }
 }
 
-void TileMap::initialiseMap() {
-  setParameters("resources/maps/test.map");
+void TileMap::InitialiseMap() {
+  SetParameters("resources/maps/level.map");
   PrintMap();
-  loadMap("resources/gfx/tile_set.png", sf::Vector2u(16, 16));
+  LoadMap("resources/gfx/tile_set.png", sf::Vector2u(16, 16));
 }
 
-void TileMap::resizeMap(int width, int height) {
+void TileMap::ResizeMap(int width, int height) {
   t_map_.resize(height);
   int check = t_map_.size();
   printf("Map resize is %d\n", check);
@@ -99,7 +98,7 @@ void TileMap::LoadBlocks() {
   }
 }
 
-void TileMap::setParameters(std::string filepath) {
+void TileMap::SetParameters(std::string filepath) {
   std::ifstream mapfile(filepath);
 
   mapfile >> width >> height;

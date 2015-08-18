@@ -18,13 +18,13 @@ class TileMap : public sf::Sprite {
   using sf::Drawable::draw;
   TileMap();
   ~TileMap();
-  bool loadMap(const std::string& tileset, sf::Vector2u tileSize);
-  void initialiseMap();
+  bool LoadMap(const std::string& tileset, sf::Vector2u tileSize);
+  void InitialiseMap();
   void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-  sf::VertexArray vertices;
-  sf::Texture     tileset;
-  sf::Sprite      tiles;
+  sf::VertexArray vertices_;
+  sf::Texture     tileset_;
+  sf::Sprite      tiles_;
   std::vector<std::vector<Tile> > t_map_;
 
   unsigned int height;
@@ -32,12 +32,12 @@ class TileMap : public sf::Sprite {
 
  private:
   // For collision
-  sf::FloatRect getLocalBounds() const;
-  sf::FloatRect getGlobalBounds() const;
+  sf::FloatRect GetLocalBounds() const;
+  sf::FloatRect GetGlobalBounds() const;
 
   void LoadBlocks();
-  void setParameters(std::string filepath);
-  void resizeMap(int width, int height);
+  void SetParameters(std::string filepath);
+  void ResizeMap(int width, int height);
   void PrintMap();
 };
 
