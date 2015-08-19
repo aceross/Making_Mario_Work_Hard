@@ -191,3 +191,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 sf::FloatRect Player::GetBoundingRect() const {
   return sf::FloatRect();
 }
+
+void Player::SolveLevel(SAT_Manager sm) {
+  
+}

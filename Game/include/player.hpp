@@ -11,14 +11,34 @@
 #include <array>
 #include "animation.hpp"
 #include "tile_map.hpp"
+#include "../lib/zchaff/SAT.h"
 
 
 class Player : public sf::Sprite {
+private:
+  bool start_gadget_;
+  bool in_variable_gadget_;
+  bool in_warp_gadget_;
+  bool in_clause_;
+  bool in_check_in_;
+  bool in_check_out_;
+  bool finish_;
+
+  unsigned int num_variables_;
+  unsigned int num_clauses_;
+
+  unsigned int variable_gadget_ID_;
+  unsigned int clause_gadget_ID_;
+
+  int variable_assignement_;
+
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
 
   void update(TileMap tm);
+
+  void SolveLevel(SAT_Manager sm);
 
   // methods for animation
   void UpdateAnimation(sf::Time deltaTime);

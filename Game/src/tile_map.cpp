@@ -9,7 +9,7 @@ TileMap::~TileMap() {}
 
 // Loads in the map layout and graphical assets
 // this function is addapted from the SFL tutorial on tilemaps
-bool TileMap::LoadMap(const std::string& tileset, sf::Vector2u tileSize) {
+bool TileMap::LoadMap(const std::string& tileset, sf::Vector2u tile_size) {
   if (!tileset_.loadFromFile(tileset)) return false;
 
   // Resize the vertex array to fit the level size
@@ -18,35 +18,35 @@ bool TileMap::LoadMap(const std::string& tileset, sf::Vector2u tileSize) {
 
   for (std::vector<std::vector<int>>::size_type i = 0; i < width; ++i) {
     for (std::vector<int>::size_type j = 0; j < height; ++j) {
-      int tileNumber = i + j * width;
-      int tileValue = t_map_[j][i].GetTileValue();
+      int tile_number = i + j * width;
+      int tile_value = t_map_[j][i].GetTileValue();
 
-      t_map_[j][i].SetTileID(tileNumber);
+      t_map_[j][i].SetTileID(tile_number);
 
       // Find the tileValue's position in the tileset texture
       // 'tu' is the column value on the tileset
       // 'tv' is the row value on the tileset
-      int tu = tileValue % (tileset_.getSize().x / tileSize.x);
-      int tv = tileValue / (tileset_.getSize().x / tileSize.x);
+      int tu = tile_value % (tileset_.getSize().x / tile_size.x);
+      int tv = tile_value / (tileset_.getSize().x / tile_size.x);
 
       // Get a pointer to the current tile's quad
       sf::Vertex* quad = &vertices_[(i + j * width) * 4];
 
       // define the current tile's four corners
-      quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
-      quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y);
-      quad[2].position = sf::Vector2f((i + 1) * tileSize.x,
-                                      (j + 1) * tileSize.y);
-      quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
+      quad[0].position = sf::Vector2f(i * tile_size.x, j * tile_size.y);
+      quad[1].position = sf::Vector2f((i + 1) * tile_size.x, j * tile_size.y);
+      quad[2].position = sf::Vector2f((i + 1) * tile_size.x,
+                                      (j + 1) * tile_size.y);
+      quad[3].position = sf::Vector2f(i * tile_size.x, (j + 1) * tile_size.y);
 
       t_map_[j][i].SetTilePosition(quad[0].position);
 
       // define the current tile's four texture coordinates
-      quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
-      quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-      quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x,
-                                       (tv + 1) * tileSize.y);
-      quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+      quad[0].texCoords = sf::Vector2f(tu * tile_size.x, tv * tile_size.y);
+      quad[1].texCoords = sf::Vector2f((tu + 1) * tile_size.x, tv * tile_size.y);
+      quad[2].texCoords = sf::Vector2f((tu + 1) * tile_size.x,
+                                       (tv + 1) * tile_size.y);
+      quad[3].texCoords = sf::Vector2f(tu * tile_size.x, (tv + 1) * tile_size.y);
     }
   }
   return true;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="120" height="80" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tile_set" tilewidth="16" tileheight="16">
+  <image source="tile_set.png" width="528" height="448"/>
+ </tileset>
+ <tileset firstgid="925" name="smb_enemies_sheet" tilewidth="16" tileheight="16">
+  <image source="../gfx/smb_enemies_sheet.png" width="436" height="261"/>
+ </tileset>
+ <tileset firstgid="1357" name="smb_enemies_sheet" tilewidth="32" tileheight="32">
+  <image source="../gfx/smb_enemies_sheet.png" width="436" height="261"/>
+ </tileset>
+ <tileset firstgid="1461" name="item_objects" tilewidth="16" tileheight="16">
+  <image source="../gfx/item_objects.png" width="576" height="336"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="120" height="80">
+  <data encoding="base64" compression="zlib">
+   eJztmktu2zAQQG1n1ebTdbZZJk2yzxWS9gK5QtvcOScJhSYALVAUaXKG5Og9YGAClGfIeRIsgN7tAAD+szcUVrku+G5rJ/iVRbo3Gv235Lf2fSzdF43e4zeeTxL85oHfNjW0OMXv2tzENzf4XrFJ5y7XhYvLvW6N0ZHye+sGdxWb9NPlunfxsNetMToSfkPf95+13HHqGmvXsEBq757d4CXQi9icf43/rOWOU9dYu4YFUnv3xw3+Lvhdmhs9LNC6hz2HBWrvq7UT/B6D32369d+ZSvONGhZY2pf/zlSab9SwQO19SvdGo//4jeeTRKP3+I3nkwS/eZzid21OEvzmIeWX86M+kPLL+VEfpPotPV/g/KgNqb0rOV+Y4PyoDSm922pYoPY+WzvB7zG199XaCX6Pwe82/XJ+ZIOlfXF+ZIPa+5TujUb/8RvPJ4lG7/EbzycJfvM4xe/anCT4zUPKL+dHfSDll/OjPkj1y/nRmKT2jvOjMUnpHZEfI5CyzhrXbLFOD8TW+ctN/t6XXVMjx2h1eiK2zn9u8m1lL2vX1MgxWp2eCK1z6bfm/azsGut1eiS0j9A1a/tK6bHFOr2jdU9arDMCWuukThus9cNanRRC7w7a7wnUkSO2Fmv96LXOq+DC8Nu+zlNHfm8EYgt1YoT8XnhRwpT68Bnz39zQOg+F9ZbWYL1OjJDfSxdXLn5UXsvcr8T97YfVOjnM/U7P7L0XJc9wzK80h9mnpTpL/g/e/Bdzv1eBOJUp9fx/DFpY9rtGit+HXR2/8/8xaNFj37Xq3CyMJ76cPu7q+NUOrdpW6wAAAAAAAAAAAAAAAAAAAAAAAABAGR8GuVJn
+  </data>
+ </layer>
+</map>

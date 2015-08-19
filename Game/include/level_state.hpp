@@ -18,17 +18,17 @@
 
 class LevelState : public GameState {
  private:
-  sf::View      view;
+  sf::View      view_;
   sf::View      mini_map_;
-  sf::Text      level_text;
-  sf::Font      font;
-  sf::Sprite    tiles;
+  sf::Text      level_text_;
+  sf::Font      font_;
+  sf::Sprite    tiles_;
   sf::FloatRect block;
 
-  Player player;
-  TileMap tilemap;
+  Player player_;
+  TileMap tilemap_;
 
-  tmx::MapLoader ml;
+  tmx::MapLoader tmx_map_loader_;
   ZChaffManager zchaff_manager_;
 
   unsigned int level_height_;
@@ -39,7 +39,7 @@ class LevelState : public GameState {
   // float speed_          = 32.0f;
   // float jump_speed_     = 4.0f;
   // float fall_speed_     = 5.2f;
-  bool noKeyWasPressed_ = true;
+  bool no_key_pressed_ = true;
 
   sf::Vector2f movement_;
 

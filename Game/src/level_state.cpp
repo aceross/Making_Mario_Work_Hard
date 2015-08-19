@@ -5,7 +5,7 @@
 #include "../include/level_state.hpp"
 
 LevelState::LevelState(GameStateManager* gsm)
-: ml("resources/maps/")
+: tmx_map_loader_("resources/maps/")
 , world(tmx::SfToBoxVec(sf::Vector2f(0.f, 9.8f)))
 {
   std::cout << "Welcome to level state" << std::endl;
@@ -19,7 +19,7 @@ LevelState::LevelState(GameStateManager* gsm)
   //                                    gsm->window.getSize().y));
 
   // Setting the main view
-  view.setSize(pos);
+  view_.setSize(pos);
   // pos *= 0.5f;
   // this->view.setCenter(pos);
   // view.zoom(0.53f);
@@ -30,15 +30,15 @@ LevelState::LevelState(GameStateManager* gsm)
 
   // initialise the level map
   // this->tilemap.InitialiseMap();
-  assert(ml.Load("basic_level.tmx"));
+  assert(tmx_map_loader_.Load("basic_level.tmx"));
   // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
 
   // zchaff manager initialisation
   zchaff_manager_.LoadInstance();
 
   // Initialising the Player
-  this->player = Player(sf::seconds(1.0), true, false);
-  if (!player.texture.loadFromFile("resources/gfx/mario_bros.png")) {
+  player_ = Player(sf::seconds(1.0), true, false);
+  if (!player_.texture.loadFromFile("resources/gfx/mario_bros.png")) {
     std::cout << "  Error loading image. Exiting..." << std::endl;
     exit(-1);
   }
@@ -46,32 +46,32 @@ LevelState::LevelState(GameStateManager* gsm)
   // set up the animations
   // (set spritesheet and push frames)
   Animation move_right;
-  move_right.setSpriteSheet(player.texture);
+  move_right.setSpriteSheet(player_.texture);
   move_right.addFrame(sf::IntRect(176, 32, 16, 16));
   move_right.addFrame(sf::IntRect(80, 32, 16, 16));
   move_right.addFrame(sf::IntRect(96, 32, 16, 16));
-  player.player_move_right = move_right;
+  player_.player_move_right = move_right;
 
   Animation move_left;
-  move_left.setSpriteSheet(player.texture);
+  move_left.setSpriteSheet(player_.texture);
   move_left.addFrame(sf::IntRect(176, 32, 16, 16));
   move_left.addFrame(sf::IntRect(80, 32, 16, 16));
   move_left.addFrame(sf::IntRect(96, 32, 16, 16));
-  player.player_move_left = move_left;
+  player_.player_move_left = move_left;
 
-  current_animation_ = &player.player_move_right;
+  current_animation_ = &player_.player_move_right;
 
   // set position
-  player.setPosition(sf::Vector2f(96, 160));
-  player.position_ = sf::Vector2f(96, 160);
+  player_.setPosition(sf::Vector2f(96, 160));
+  player_.position_ = sf::Vector2f(96, 160);
 }
 
 void LevelState::InitialiseWorld() {
   std::vector<std::unique_ptr<sf::Shape>> debugBoxes;
   std::vector<DebugShape> debugShapes;
-  std::map<b2Body*, sf::CircleShape> dynamicShapes; //we can use raw pointers because box2D manages its own memory
+  std::map<b2Body*, sf::CircleShape> dynamicShapes;
 
-  std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+  std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
   for (auto& layer : layers) {
     if (layer.type == tmx::ObjectGroup) {
       for (auto& object : layer.objects) {
@@ -106,16 +106,16 @@ void LevelState::InitialiseWorld() {
   }
 
 void LevelState::draw(const sf::RenderWindow &window) {
-  view.setCenter(player.getPosition());
+  view_.setCenter(player_.getPosition());
   gsm->window.clear(sf::Color::Blue);
 
-  gsm->window.setView(view);
-  gsm->window.draw(ml);
+  gsm->window.setView(view_);
+  gsm->window.draw(tmx_map_loader_);
   // gsm->window.draw(tilemap);
-  gsm->window.draw(player);
+  gsm->window.draw(player_);
 
   gsm->window.setView(mini_map_);
-  gsm->window.draw(ml);
+  gsm->window.draw(tmx_map_loader_);
   // gsm->window.draw(tilemap);
 }
 
@@ -159,47 +159,47 @@ void LevelState::handleInput() {
 
         // Manual movement
         if (event.key.code == sf::Keyboard::Left) {
-          current_animation_  = &player.player_move_left;
-          noKeyWasPressed_    = false;
-          player.moving_left_ = true;
+          current_animation_  = &player_.player_move_left;
+          no_key_pressed_    = false;
+          player_.moving_left_ = true;
           movement.x -= speed;
-          player.falling_     = true;
-          player.play(*current_animation_);
+          player_.falling_     = true;
+          player_.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Right) {
-          current_animation_   = &player.player_move_right;
-          noKeyWasPressed_     = false;
-          player.moving_right_ = true;
+          current_animation_   = &player_.player_move_right;
+          no_key_pressed_      = false;
+          player_.moving_right_ = true;
           movement.x += speed;
-          player.falling_      = true;
-          player.play(*current_animation_);
+          player_.falling_      = true;
+          player_.play(*current_animation_);
         }
         if (event.key.code == sf::Keyboard::Space) {
-          current_animation_   = &player.player_move_right;
-          noKeyWasPressed_     = false;
-          player.jumping_      = true;
-          player.falling_      = false;
+          current_animation_   = &player_.player_move_right;
+          no_key_pressed_      = false;
+          player_.jumping_      = true;
+          player_.falling_      = false;
         }
         break;
       default: break;
     }
 
-    player.play(*current_animation_);
+    player_.play(*current_animation_);
     // player.UpdatePosition(movement);
     // player.move(movement);
 
     // if no key was pressed stop the animation
-    if (noKeyWasPressed_) {
-      player.stop();
+    if (no_key_pressed_) {
+      player_.stop();
     }
-    noKeyWasPressed_ = true;
+    no_key_pressed_ = true;
 
     // update AnimatedSprite
-    player.UpdateAnimation(frame_time);
+    player_.UpdateAnimation(frame_time);
   }
 
   // Handle Collision
-  std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+  std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
   for (auto& layer : layers) {
 
     if (layer.type == tmx::ObjectGroup) {
@@ -211,7 +211,7 @@ void LevelState::handleInput() {
 
           // for (auto& point : player.collision_points_) {
 
-            if (object.Contains(player.position_)) {
+            if (object.Contains(player_.position_)) {
               std::cout << "Collision" << std::endl;
             }
           // }
@@ -247,7 +247,7 @@ void LevelState::handleInput() {
     }
   }
 
-  player.move(movement);
+  player_.move(movement);
   // player.UpdatePosition(movement);
 }
 
