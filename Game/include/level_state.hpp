@@ -58,6 +58,9 @@ class LevelState : public GameState {
   b2World world;
 
   virtual ~LevelState();
+
+ private:
+  void SolveStart();
 };
 
 #endif  // LEVEL_STATE_HPP

@@ -9,13 +9,15 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <queue>
 #include "animation.hpp"
 #include "tile_map.hpp"
 #include "../lib/zchaff/SAT.h"
 
 
 class Player : public sf::Sprite {
-private:
+public:
+  void StartLevel();
   bool start_gadget_;
   bool in_variable_gadget_;
   bool in_warp_gadget_;
@@ -30,13 +32,21 @@ private:
   unsigned int variable_gadget_ID_;
   unsigned int clause_gadget_ID_;
 
-  int variable_assignement_;
+  int variable_assignment_;
+
+  sf::Vector2f forward_move_;
+  sf::Vector2f jump_move_;
+  sf::Vector2f fall_move_;
+private:
+  void Jump();
+  std::queue<sf::Vector2f> command_queue_;
+  void InitialiseQueue();
 
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
 
-  void update(TileMap tm);
+  void update();
 
   void SolveLevel(SAT_Manager sm);
 
@@ -98,13 +108,8 @@ private:
   bool HasCollision(Player* p, Tile t);
 
   float speed_          = 32.0f;
-  // float jump_speed_     = 4.0f;
   float fall_speed_     = 5.2f;
   bool noKeyWasPressed_ = true;
-
-  // sf::Vector2f movement_;
-
-  // std::vector<std::vector<int>> postion_;
 
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

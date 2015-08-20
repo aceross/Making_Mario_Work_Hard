@@ -1,8 +1,10 @@
 // Copyright 2015, Aaron Ceross
 
-#include "../include/player.hpp"
-#include <vector>
 #include <SFML/System/Vector2.hpp>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include "../include/player.hpp"
 
 Player::Player(sf::Time frameTime, bool paused, bool looped)
 : animation_(NULL)
@@ -16,6 +18,12 @@ Player::Player(sf::Time frameTime, bool paused, bool looped)
   collision_points_.push_back(sf::Vector2f(8.f, -8.f));
   collision_points_.push_back(sf::Vector2f(8.f, 8.f));
   collision_points_.push_back(sf::Vector2f(-8.f, 8.f));
+
+  forward_move_ = sf::Vector2f(16, 0);
+  jump_move_ = sf::Vector2f(0, -16);
+  fall_move_ = sf::Vector2f(0, 16);
+
+  InitialiseQueue();
 }
 
 void Player::setAnimation(const Animation& animation) {
@@ -167,7 +175,15 @@ bool Player::HasCollision(Player* p, Tile t) {
   return false;
 }
 
-void Player::update(TileMap tm) {}
+void Player::update() {
+  if (!command_queue_.empty()) {
+    position_ = command_queue_.front();
+    move(position_);
+    command_queue_.pop();
+  } else {
+    finish_ = true;
+  }  
+}
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   if (animation_ && texture_) {
@@ -192,6 +208,25 @@ sf::FloatRect Player::GetBoundingRect() const {
   return sf::FloatRect();
 }
 
+void Player::InitialiseQueue() {
+  command_queue_.push(forward_move_);
+}
+
+void Player::StartLevel() {
+  // for (unsigned int i = 0; i < 4; ++i) {
+  //   move(forward_move_);
+  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+  // }
+  // move(jump_move_);
+  // // std::this_thread::sleep_for (std::chrono::seconds(4));
+  // std::cout << "Jumping" << std::endl;
+  // move(fall_move_);
+  // std::cout << "Falling" << std::endl;
+}
+
+void Player::Jump() {
+
+}
 void Player::SolveLevel(SAT_Manager sm) {
-  
+
 }

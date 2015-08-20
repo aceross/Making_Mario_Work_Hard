@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "../include/level_state.hpp"
 
 LevelState::LevelState(GameStateManager* gsm)
@@ -59,11 +61,15 @@ LevelState::LevelState(GameStateManager* gsm)
   move_left.addFrame(sf::IntRect(96, 32, 16, 16));
   player_.player_move_left = move_left;
 
+  Animation jump;
+  jump.setSpriteSheet(player_.texture);
+  jump.addFrame(sf::IntRect(114, 32, 16, 16));
+
   current_animation_ = &player_.player_move_right;
 
   // set position
-  player_.setPosition(sf::Vector2f(96, 160));
-  player_.position_ = sf::Vector2f(96, 160);
+  player_.setPosition(sf::Vector2f(32, 64));
+  player_.position_ = sf::Vector2f(32, 64);
 }
 
 void LevelState::InitialiseWorld() {
@@ -119,6 +125,21 @@ void LevelState::draw(const sf::RenderWindow &window) {
   // gsm->window.draw(tilemap);
 }
 
+void LevelState::SolveStart() {
+  // for (unsigned int i = 0; i < 4; ++i) {
+  //   player_.move(player_.forward_move_);
+  //   gsm->window.draw(player_);
+  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+  // }
+  //   player_.move( player_.jump_move_);
+  //   gsm->window.draw(player_);
+  // // std::this_thread::sleep_for (std::chrono::seconds(4));
+  // std::cout << "Jumping" << std::endl;
+  // player_.move(player_.fall_move_);
+  // gsm->window.draw(player_);
+  // std::cout << "Falling" << std::endl;
+}
+
 bool LevelState::HasCollision(Player p, Tile t) {
   // sf::FloatRect player = p.getGlobalBounds();
   //
@@ -131,7 +152,9 @@ bool LevelState::HasCollision(Player p, Tile t) {
 
 void LevelState::ManageCollision() {}
 
-void LevelState::update() {}
+void LevelState::update() {
+  player_.update();
+}
 
 void LevelState::handleInput() {
   sf::Clock frame_clock;
@@ -179,6 +202,13 @@ void LevelState::handleInput() {
           no_key_pressed_      = false;
           player_.jumping_      = true;
           player_.falling_      = false;
+        }
+        if (event.key.code == sf::Keyboard::S) {
+          current_animation_   = &player_.player_move_right;
+          no_key_pressed_      = false;
+          player_.jumping_      = true;
+          player_.falling_      = false;
+          SolveStart();
         }
         break;
       default: break;

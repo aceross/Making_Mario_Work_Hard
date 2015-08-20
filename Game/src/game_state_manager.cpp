@@ -45,14 +45,6 @@ void GameStateManager::gameLoop() {
     sf::Time delta = updateClock.restart();
     updateTime += delta;  // add up previous leftover time
 
-    // determine the number of iterations to do (100 fps; capped at 10)
-    // int loops = std::min<int>(static_cast<int>(updateTime /
-    //                                            sf::milliseconds(10)), 10);
-    // while (loops--)
-    //   // updateSingleStep();                 // update by one fixed timestep
-    //   updateTime %= sf::milliseconds(10);    // drop leftover frames
-    //   // updateDeltaTime(delta);              // update based on time passed
-
     peekState()->handleInput();
     peekState()->update();
 
@@ -73,7 +65,6 @@ GameStateManager::GameStateManager() {
   window.create(sf::VideoMode(800, 600), "Making Mario Work Hard",
                                           sf::Style::Default, settings);
   window.setFramerateLimit(60);
-  // this->background.setTexture(this->texmgr.getRef("background"));
 }
 
 GameStateManager::~GameStateManager() {
