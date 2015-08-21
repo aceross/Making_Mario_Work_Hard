@@ -28,12 +28,14 @@ class ZChaffManager {
 
   int satisfiability_result_;
   std::string assignment_;
+
  public:
   ZChaffManager();
   void LoadInstance();
   void GetLiterals(int clause_index, int* literals);
   ~ZChaffManager();
-private:
+
+ private:
   void ReadSATFile();
   void Solve();
   void InitialiseClauseStructure();
