@@ -38,13 +38,19 @@ public:
   sf::Vector2f jump_move_;
   sf::Vector2f fall_move_;
 private:
-  void Jump();
+  void AddLeftJump();
+  void AddRightJump();
+
   std::queue<sf::Vector2f> command_queue_;
-  void InitialiseQueue();
+
+  // Movement Queues
+  void CreateStartGadgetQueue();
+  int SelectVariable();
 
  public:
   explicit Player(sf::Time frameTime = sf::seconds(0.2f),
                   bool paused = false, bool looped = true);
+  Player(sf::Texture);
 
   void update();
 

@@ -60,6 +60,13 @@ class LevelState : public GameState {
   virtual ~LevelState();
 
  private:
+  bool start_gadget_;
+  bool in_variable_gadget_;
+  bool in_warp_gadget_;
+  bool in_clause_;
+  bool in_check_in_;
+  bool in_check_out_;
+  bool finish_;
   void SolveStart();
 };
 

@@ -20,8 +20,8 @@ Player::Player(sf::Time frameTime, bool paused, bool looped)
   collision_points_.push_back(sf::Vector2f(-8.f, 8.f));
 
   forward_move_ = sf::Vector2f(16, 0);
-  jump_move_ = sf::Vector2f(0, -16);
-  fall_move_ = sf::Vector2f(0, 16);
+  jump_move_    = sf::Vector2f(0, -16);
+  fall_move_    = sf::Vector2f(0, 16);
 
   InitialiseQueue();
 }
@@ -161,8 +161,6 @@ void Player::UpdateAnimation(sf::Time delta_time) {
 
 void Player::UpdatePosition(sf::Vector2f movement) {
   position_ += movement;
-  // if falling = true
-  // fall
 }
 
 bool Player::HasCollision(Player* p, Tile t) {
@@ -180,9 +178,10 @@ void Player::update() {
     position_ = command_queue_.front();
     move(position_);
     command_queue_.pop();
+    std::cout << "Player update" << std::endl;
   } else {
     finish_ = true;
-  }  
+  }
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -191,25 +190,16 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.texture     = texture_;
     target.draw(vertices_, 4, sf::Quads, states);
   }
-  // Draw Outline
-  // sf::FloatRect rect = GetBoundingRect();
-  // sf::RectangleShape shape;
-  //
-  // shape.setPosition(sf::Vector2f(rect.left, rect.top));
-  // shape.setSize(sf::Vector2f(rect.width, rect.height));
-  // shape.setFillColor(sf::Color::Transparent);
-  // shape.setOutlineColor(sf::Color::Green);
-  // shape.setOutlineThickness(1.f);
-  //
-  // target.draw(shape);
 }
 
 sf::FloatRect Player::GetBoundingRect() const {
   return sf::FloatRect();
 }
 
-void Player::InitialiseQueue() {
-  command_queue_.push(forward_move_);
+void Player::CreateStartGadgetQueue() {
+  for (int i = 0; i < 5; ++i) {
+    command_queue_.push(forward_move_);
+  }
 }
 
 void Player::StartLevel() {
@@ -224,9 +214,10 @@ void Player::StartLevel() {
   // std::cout << "Falling" << std::endl;
 }
 
-void Player::Jump() {
+void Player::AddRightJump() {}
 
-}
+void Player::AddLeftJump() {}
+
 void Player::SolveLevel(SAT_Manager sm) {
 
 }

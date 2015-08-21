@@ -147,8 +147,10 @@ bool LevelState::HasCollision(Player p, Tile t) {
 
 void LevelState::ManageCollision() {}
 
+//Thread sleeps for a
 void LevelState::update() {
   player_.update();
+  std::this_thread::sleep_for (std::chrono::seconds(1));
 }
 
 void LevelState::handleInput() {
