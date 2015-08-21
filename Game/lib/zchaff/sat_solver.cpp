@@ -51,9 +51,8 @@ const int MAX_LINE_LENGTH       = 65536;
 const int MAX_WORD_LENGTH       = 64;
 
 //This cnf parser function is based on the GRASP code by Joao Marques Silva
-void read_cnf(SAT_Manager mng, char * filename )
-{
-//    cout <<"read cnf "<<endl;
+void read_cnf(SAT_Manager mng, char * filename ) {
+    // cout <<"read cnf "<<endl;
     char line_buffer[MAX_LINE_LENGTH];
     char word_buffer[MAX_WORD_LENGTH];
     set<int> clause_vars;
@@ -130,7 +129,7 @@ void read_cnf(SAT_Manager mng, char * filename )
         cerr << "Input line " << line_num <<  " too long. Unable to continue..." << endl;
         exit(2);
     }
-//    assert (clause_vars.size() == 0);         //some benchmark has no 0 in the last clause
+    // assert (clause_vars.size() == 0);         //some benchmark has no 0 in the last clause
     if (clause_lits.size() && clause_vars.size()==clause_lits.size() ) {
         vector <int> temp;
         for (set<int>::iterator itr = clause_lits.begin();
@@ -140,17 +139,16 @@ void read_cnf(SAT_Manager mng, char * filename )
     }
     clause_lits.clear();
     clause_vars.clear();
-//    cout <<"done read cnf"<<endl;
+    // cout <<"done read cnf"<<endl;
 }
 
-
-void handle_result(SAT_Manager mng, int outcome, char * filename )
-{
+void handle_result(SAT_Manager mng, int outcome, char * filename ) {
     string result = "UNKNOWN";
     switch (outcome) {
     case SATISFIABLE:
         cout << "Instance Satisfiable" << endl;
-//following lines will print out a solution if a solution exist
+
+        // following lines will print out a solution if a solution exist
         for (int i=1, sz = SAT_NumVariables(mng); i<= sz; ++i) {
             switch(SAT_GetVarAsgnment(mng, i)) {
             case -1:
@@ -199,10 +197,8 @@ void handle_result(SAT_Manager mng, int outcome, char * filename )
     cout << "Number of Implication\t\t\t\t" << SAT_NumImplications(mng)<< endl;
     //other statistics comes here
     cout << "Total Run Time\t\t\t\t\t" << SAT_GetCPUTime(mng) << endl;
-//    cout << "RESULT:\t" << filename << " " << result << " RunTime: " << SAT_GetCPUTime(mng)<< endl;
+    // cout << "RESULT:\t" << filename << " " << result << " RunTime: " << SAT_GetCPUTime(mng)<< endl;
     cout  << "RESULT:\t"<<result << endl;
-
-
 }
 
 void output_status(SAT_Manager mng)
@@ -244,8 +240,7 @@ void verify_solution(SAT_Manager mng)
     cout <<"c "<< num_verified << " Clauses are true, Verify Solution successful."<<endl;;
 }
 
-int main(int argc, char ** argv)
-{
+int main(int argc, char ** argv) {
     SAT_Manager mng = SAT_InitManager();
     if (argc < 2) {
         cerr << "Z-Chaff: Accelerated SAT Solver from Princeton. " << endl;
@@ -263,17 +258,17 @@ int main(int argc, char ** argv)
         SAT_SetTimeLimit(mng, atoi(argv[2]));
     }
 
-/* if you want some statistics during the solving, uncomment following line */
-   SAT_AddHookFun(mng,output_status, 5000);
+ /* if you want some statistics during the solving, uncomment following line */
+  SAT_AddHookFun(mng, output_status, 5000);
 
-/* you can set all your parameters here, following values are the defaults*/
-//    SAT_SetMaxUnrelevance(mng, 20);
-//    SAT_SetMinClsLenForDelete(mng, 100);
-//    SAT_SetMaxConfClsLenAllowed(mng, 5000);
+  /* you can set all your parameters here, following values are the defaults*/
+  //    SAT_SetMaxUnrelevance(mng, 20);
+  //    SAT_SetMinClsLenForDelete(mng, 100);
+  //    SAT_SetMaxConfClsLenAllowed(mng, 5000);
 
-/* randomness may help sometimes, by default, there is no randomness */
-//    SAT_SetRandomness (mng, 10);
-//    SAT_SetRandSeed (mng, -1);
+  /* randomness may help sometimes, by default, there is no randomness */
+  //    SAT_SetRandomness (mng, 10);
+  //    SAT_SetRandSeed (mng, -1);
     int result = SAT_Solve(mng);
     if (result == SATISFIABLE)
         verify_solution(mng);

@@ -12,6 +12,7 @@
 #include <queue>
 
 #include "tmx/MapLoader.h"
+// #include "..lib/zchaff/SAT.h"
 
 #include "resource_manager.hpp"
 #include "resource_identifiers.hpp"
@@ -21,6 +22,7 @@
 #include "command.hpp"
 #include "command_queue.hpp"
 #include "player.hpp"
+#include "zchaff_manager.hpp"
 
 // Forward declaration
 namespace sf {
@@ -77,6 +79,7 @@ class Level : private sf::NonCopyable {
   sf::Vector2f  start_position_;
   float         movement_speed_;
   Player*       player_sprite_;
+  ZChaffManager zchaff_manager_;
 };
 
 #endif  // LEVEL_HPP

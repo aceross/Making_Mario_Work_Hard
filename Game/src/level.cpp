@@ -29,7 +29,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
   LoadTextures();
   BuildScene();
 
-  // Prepare the view
+  // Prepare the main view and the mini-map
   level_view_.setCenter(player_sprite_->getPosition());
   level_view_.zoom(0.57f);
 }
@@ -47,12 +47,10 @@ void Level::Update(sf::Time delta_time) {
 
   // Regular update step, adapt position (correct if outside view)
   scene_graph_.Update(delta_time, command_queue_);
-  AdaptPlayerPosition();
 }
 
 void Level::draw() {
   target_.setView(level_view_);
-  target_.draw(test_);
   target_.draw(scene_graph_);
 }
 
@@ -75,6 +73,9 @@ void Level::BuildScene() {
     scene_layers_[i] = layer.get();
     scene_graph_.AttachChild(std::move(layer));
   }
+
+  // Start and load SAT solver
+  zchaff_manager_.LoadInstance();
 
   // Read in the tile map
   std::unique_ptr<MapNode> ml(new MapNode());
@@ -109,17 +110,6 @@ void Level::AdaptPlayerPosition() {
   // printf("location_update x = %d y = %d\n", position.x, position.y);
   // player_sprite_->UpdateLocation(position);
 }
-
-// void Level::AdaptPlayerVelocity() {
-//   // sf::Vector2f velocity = mPlayerAircraft->GetVelocity();
-//   //
-//   // // If moving diagonally, reduce velocity (to have always same velocity)
-//   // if (velocity.x != 0.f && velocity.y != 0.f)
-//   //   mPlayerAircraft->SetVelocity(velocity / std::sqrt(2.f));
-//   //
-//   // // Add scrolling velocity
-//   // mPlayerAircraft->Accelerate(0.f, mScrollSpeed);
-// }
 
 void Level::HandleCollisions() {
   // std::set<SceneNode::Pair> collision_pairs;

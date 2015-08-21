@@ -1,8 +1,8 @@
 CC = g++ -Wall
-CFLAGS = -O3 
+CFLAGS = -O3
 
 #CFLAGS = -O3 -DNDEBUG
-#MFLAGS = 
+#MFLAGS =
 #LINKFLAGS = --static
 
 ifeq (solaris, $(OSTYPE))
@@ -12,13 +12,13 @@ endif
 RANLIB = ranlib
 AR = ar
 
-.SUFFIXES: .o .cpp 
+.SUFFIXES: .o .cpp
 
 HEADERS = zchaff_base.h zchaff_clsgen.h zchaff_header.h zchaff_version.h zchaff_dbase.h zchaff_solver.h
 
-SOLVER_SRCS = sat_solver.cpp 
+SOLVER_SRCS = sat_solver.cpp
 SOLVER_OBJS = $(SOLVER_SRCS:.cpp=.o)
-                  
+
 
 LIB_SRCS =  zchaff_utils.cpp \
 	    zchaff_solver.cpp\
@@ -31,7 +31,7 @@ LIB_OBJS = $(LIB_SRCS:.cpp=.o)
 
 
 zchaff:   $(SOLVER_OBJS) libsat.a SAT.h
-	  $(CC) $(LINKFLAGS) $(CFLAGS) $(MFLAGS) $(SOLVER_OBJS) libsat.a -o zchaff 
+	  $(CC) $(LINKFLAGS) $(CFLAGS) $(MFLAGS) $(SOLVER_OBJS) libsat.a -o zchaff
 
 zverify_df: zverify_df.cpp
 	  $(CC) $(LINKFLAGS) $(CFLAGS) $(MFLAGS) zverify_df.cpp -o zverify_df
@@ -60,9 +60,9 @@ libsat.a:   $(LIB_OBJS)
 	$(RANLIB) libsat.a
 
 .cpp.o:
-	$(CC) $(CFLAGS) $(MFLAGS) -c $< 
+	$(CC) $(CFLAGS) $(MFLAGS) -c -g $< 
 
-clean:	
+clean:
 	rm -f *.o libsat.a zchaff *wrapper.cpp zminimal zverify_df cnf_stats SAT_C.h
 
 all: zchaff zverify_df zminimal cnf_stats

@@ -1,0 +1,6 @@
+c  3SAT_Mario_Ben.cnf
+c
+p cnf 3 3
+ 1  2  3  0
+ 1 -2  3  0
+-1 -2 -3  0

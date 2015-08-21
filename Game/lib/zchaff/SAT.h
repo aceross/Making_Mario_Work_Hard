@@ -38,8 +38,8 @@
 
 #define SAT_Manager void *
 
-typedef long long long64;  // this is for 32 bit unix machines
-// typedef long long64;     // this is for Windows or 64 bit unix machines
+// typedef long long long64;  // this is for 32 bit unix machines
+typedef long long64;     // this is for Windows or 64 bit unix machines
 
 
 #ifndef _SAT_STATUS_
