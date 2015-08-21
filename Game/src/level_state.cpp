@@ -17,21 +17,16 @@ LevelState::LevelState(GameStateManager* gsm)
   movement_.x = 0.f;
   movement_.y = 0.f;
 
-  // view.setViewport(sf::FloatRect(0, 0, gsm->window.getSize().x,
-  //                                    gsm->window.getSize().y));
-
   // Setting the main view
   view_.setSize(pos);
-  // pos *= 0.5f;
-  // this->view.setCenter(pos);
-  // view.zoom(0.53f);
+  view_.zoom(0.53f);
 
   // Set the mini map view
   mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
   mini_map_.zoom(3.0f);
 
   // initialise the level map
-  // this->tilemap.InitialiseMap();
+  // tilemap_.InitialiseMap();
   assert(tmx_map_loader_.Load("basic_level.tmx"));
   // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
 
@@ -41,7 +36,7 @@ LevelState::LevelState(GameStateManager* gsm)
   // Initialising the Player
   player_ = Player(sf::seconds(1.0), true, false);
   if (!player_.texture.loadFromFile("resources/gfx/mario_bros.png")) {
-    std::cout << "  Error loading image. Exiting..." << std::endl;
+    std::cout << " Exiting..." << std::endl;
     exit(-1);
   }
 
