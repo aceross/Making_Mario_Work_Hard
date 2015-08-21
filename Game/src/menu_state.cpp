@@ -33,6 +33,7 @@ void MenuState::moveDown() {
 }
 
 void MenuState::update() {}
+
 void MenuState::handleInput() {
   sf::Event event;
 
@@ -102,7 +103,7 @@ MenuState::MenuState(GameStateManager* gsm) {
   options[1].setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT /
                         (NUM_OPTIONS + 1) * 2);
 
-// Quit Option
+  // Quit Option
   options[2].setFont(font);
   options[2].setColor(sf::Color::White);
   options[2].setString("Quit");

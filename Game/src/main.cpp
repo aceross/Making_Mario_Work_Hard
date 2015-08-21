@@ -8,7 +8,7 @@ int main() {
 
   gsm.pushState(new MenuState(&gsm));
   gsm.gameLoop();
-  printf("Exiting program.\n");
+  std::cout << "...Exiting program..." << std::endl;
 
   return 0;
 }
