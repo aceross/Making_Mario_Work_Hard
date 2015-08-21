@@ -35,6 +35,7 @@ class ZChaffManager {
   ~ZChaffManager();
 private:
   void ReadSATFile();
+  void Solve();
   void InitialiseClauseStructure();
   void GetClauses();
   void PrintSolution();
