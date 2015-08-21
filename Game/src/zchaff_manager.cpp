@@ -13,8 +13,7 @@ ZChaffManager::ZChaffManager() {
 void ZChaffManager::LoadInstance() {
   std::cout << "Loading SAT Instance" << std::endl;
   ReadSATFile();
-  GetClauses();
-  PrintSolution();
+  Solve();
 }
 
 void ZChaffManager::ReadSATFile() {
@@ -172,6 +171,26 @@ void ZChaffManager::GetClauses() {
   std::cout << std::endl;
 }
 
+void ZChaffManager::Solve() {
+  std::cout << "Number of variables:  " << num_variables_ << std::endl;
+  std::cout << "Number of literals:   " << num_literals_  << std::endl;
+  std::cout << "Number of clauses:    " << num_clauses_   << std::endl;
+
+  satisfiability_result_ = SAT_Solve(SAT_manager_);
+
+  for (int i = 1, sz = SAT_NumVariables(SAT_manager_); i <= sz; ++i) {
+    if (SAT_GetVarAsgnment(SAT_manager_, i) == 1) {
+      var_manager_.variable_list_[i-1].SetFinalValue(i);
+    }
+    if (SAT_GetVarAsgnment(SAT_manager_, i) == 0) {
+      var_manager_.variable_list_[i-1].SetFinalValue(i * (-1));
+    }
+  }
+
+  GetClauses();
+  PrintSolution();
+}
+
 void ZChaffManager::PrintSolution() {
   std::cout << std::endl;
   std::cout << "===== SOLUTION =====" << std::endl;
@@ -180,7 +199,6 @@ void ZChaffManager::PrintSolution() {
     std::cout << "No solution possible" << std::endl;
   } else {
     int s;
-
     for (int i = 0; i < num_variables_; ++i) {
       s = var_manager_.variable_list_[i].GetFinalValue();
       if (s < 0) {

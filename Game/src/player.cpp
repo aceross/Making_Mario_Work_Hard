@@ -23,7 +23,7 @@ Player::Player(sf::Time frameTime, bool paused, bool looped)
   jump_move_    = sf::Vector2f(0, -16);
   fall_move_    = sf::Vector2f(0, 16);
 
-  InitialiseQueue();
+  // InitialiseQueue();
 }
 
 void Player::setAnimation(const Animation& animation) {

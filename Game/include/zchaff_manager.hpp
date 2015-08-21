@@ -37,6 +37,7 @@ private:
   void ReadSATFile();
   void InitialiseClauseStructure();
   void GetClauses();
+  void Solve();
   void PrintSolution();
 };
 
