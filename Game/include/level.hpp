@@ -12,7 +12,6 @@
 #include <queue>
 
 #include "tmx/MapLoader.h"
-// #include "..lib/zchaff/SAT.h"
 
 #include "resource_manager.hpp"
 #include "resource_identifiers.hpp"

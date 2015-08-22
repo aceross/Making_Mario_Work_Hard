@@ -33,7 +33,7 @@ class GameStateManager {
 
   void RegisterStates();
 
-// member variables
+ // member variables
  private:
   sf::RenderWindow    window_;
   sf::ContextSettings settings_;
@@ -49,11 +49,9 @@ class GameStateManager {
   std::size_t stats_num_frames_;
 
   static const sf::Time TimePerFrame;
-  static const int tileSize = 32;
-  bool game_over_           = false;
 
- private:
-  // SAT_Manager sat_manager_;
+  static const int tileSize = 16;
+  bool game_over_           = false;
 
  public:
   GameStateManager();

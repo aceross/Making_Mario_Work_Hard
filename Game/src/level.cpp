@@ -35,15 +35,14 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 }
 
 void Level::Update(sf::Time delta_time) {
-  // level_view_.move(0.f, movement_speed_ * delta_time.asSeconds());
-  // Forward commands to scene graph, adapt velocity
-  // (scrolling, diagonal correction)
-  while (!command_queue_.IsEmpty()) {
+  if (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
+    player_sprite_->move(0, 10);
+    std::cout << "Command Executed" << std::endl;
   }
 
   // Collision detection and response (may destroy entities)
-  HandleCollisions();
+  // HandleCollisions();
 
   // Regular update step, adapt position (correct if outside view)
   scene_graph_.Update(delta_time, command_queue_);
