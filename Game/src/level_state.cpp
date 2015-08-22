@@ -17,6 +17,9 @@ LevelState::LevelState(GameStateManager* gsm)
   movement_.x = 0.f;
   movement_.y = 0.f;
 
+  // zchaff manager initialisation
+  zchaff_manager_.LoadInstance();
+
   // Setting the main view
   view_.setSize(pos);
   view_.zoom(0.53f);
@@ -26,12 +29,9 @@ LevelState::LevelState(GameStateManager* gsm)
   // mini_map_.zoom(3.0f);
 
   // initialise the level map
-  tilemap_.InitialiseMap();
+  tilemap_.InitialiseMap(zchaff_manager_);
   assert(tmx_map_loader_.Load("basic_level.tmx"));
   // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
-
-  // zchaff manager initialisation
-  zchaff_manager_.LoadInstance();
 
   // Initialising the Player
   player_ = Player(sf::seconds(1.0), true, false);
