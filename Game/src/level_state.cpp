@@ -23,10 +23,10 @@ LevelState::LevelState(GameStateManager* gsm)
 
   // Set the mini map view
   mini_map_.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
-  mini_map_.zoom(3.0f);
+  // mini_map_.zoom(3.0f);
 
   // initialise the level map
-  // tilemap_.InitialiseMap();
+  tilemap_.InitialiseMap();
   assert(tmx_map_loader_.Load("basic_level.tmx"));
   // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
 
@@ -68,42 +68,42 @@ LevelState::LevelState(GameStateManager* gsm)
 }
 
 void LevelState::InitialiseWorld() {
-  std::vector<std::unique_ptr<sf::Shape>> debugBoxes;
-  std::vector<DebugShape> debugShapes;
-  std::map<b2Body*, sf::CircleShape> dynamicShapes;
-
-  std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
-  for (auto& layer : layers) {
-    if (layer.type == tmx::ObjectGroup) {
-      for (auto& object : layer.objects) {
-        if (layer.name == "Walls") {
-          b2Body* b = tmx::BodyCreator::Add(object, world);
-          //iterate over body info to create some visual debugging shapes to help visualise
-          debugBoxes.push_back(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(sf::Vector2f(6.f, 6.f))));
-          sf::Vector2f pos = tmx::BoxToSfVec(b->GetPosition());
-          debugBoxes.back()->setPosition(pos);
-          debugBoxes.back()->setOrigin(3.f, 3.f);
-
-          for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext()) {
-            b2Shape::Type shapeType = f->GetType();
-            if (shapeType == b2Shape::e_polygon) {
-              DebugShape ds;
-              ds.setPosition(pos);
-              b2PolygonShape* ps = (b2PolygonShape*)f->GetShape();
-              int count = ps->GetVertexCount();
-              for (int i = 0; i < count; i++)
-                ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(i)), sf::Color::Green));
-
-              ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(0)), sf::Color::Green));
-              debugShapes.push_back(ds);
-            }
-
-
-              }
-          }
-        }
-      }
-    }
+  // std::vector<std::unique_ptr<sf::Shape>> debugBoxes;
+  // std::vector<DebugShape> debugShapes;
+  // std::map<b2Body*, sf::CircleShape> dynamicShapes;
+  //
+  // std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
+  // for (auto& layer : layers) {
+  //   if (layer.type == tmx::ObjectGroup) {
+  //     for (auto& object : layer.objects) {
+  //       if (layer.name == "Walls") {
+  //         b2Body* b = tmx::BodyCreator::Add(object, world);
+  //         //iterate over body info to create some visual debugging shapes to help visualise
+  //         debugBoxes.push_back(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(sf::Vector2f(6.f, 6.f))));
+  //         sf::Vector2f pos = tmx::BoxToSfVec(b->GetPosition());
+  //         debugBoxes.back()->setPosition(pos);
+  //         debugBoxes.back()->setOrigin(3.f, 3.f);
+  //
+  //         for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext()) {
+  //           b2Shape::Type shapeType = f->GetType();
+  //           if (shapeType == b2Shape::e_polygon) {
+  //             DebugShape ds;
+  //             ds.setPosition(pos);
+  //             b2PolygonShape* ps = (b2PolygonShape*)f->GetShape();
+  //             int count = ps->GetVertexCount();
+  //             for (int i = 0; i < count; i++)
+  //               ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(i)), sf::Color::Green));
+  //
+  //             ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(0)), sf::Color::Green));
+  //             debugShapes.push_back(ds);
+  //           }
+  //
+  //
+  //             }
+  //         }
+  //       }
+  //     }
+  //   }
   }
 
 void LevelState::draw(const sf::RenderWindow &window) {
@@ -111,13 +111,13 @@ void LevelState::draw(const sf::RenderWindow &window) {
   gsm->window.clear(sf::Color::Blue);
 
   gsm->window.setView(view_);
-  gsm->window.draw(tmx_map_loader_);
-  // gsm->window.draw(tilemap);
+  // gsm->window.draw(tmx_map_loader_);
+  gsm->window.draw(tilemap_);
   gsm->window.draw(player_);
 
   gsm->window.setView(mini_map_);
-  gsm->window.draw(tmx_map_loader_);
-  // gsm->window.draw(tilemap);
+  // gsm->window.draw(tmx_map_loader_);
+  gsm->window.draw(tilemap_);
 }
 
 void LevelState::SolveStart() {
@@ -150,7 +150,7 @@ void LevelState::ManageCollision() {}
 //Thread sleeps for a
 void LevelState::update() {
   player_.update();
-  std::this_thread::sleep_for (std::chrono::seconds(1));
+  // std::this_thread::sleep_for (std::chrono::seconds(1));
 }
 
 void LevelState::handleInput() {

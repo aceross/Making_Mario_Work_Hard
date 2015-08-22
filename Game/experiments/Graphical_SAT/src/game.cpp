@@ -13,9 +13,13 @@ Game::Game()
 : solution_displayed_(false)
 , not_satisfiable_(false)
 {
-  InitialiseWindow();
-  LoadAssets();
+  // InitialiseWindow();
+  // LoadAssets();
   SAT_manager_ = SAT_InitManager();
+
+  // Text writing test
+  // ReadTextFile();
+  AppendTextFile();
 }
 
 void Game::InitialiseWindow() {
@@ -32,6 +36,29 @@ void Game::LoadAssets() {
   }
 
   InitialiseTexts();
+}
+
+void Game::ReadTextFile() {}
+
+void Game::AppendTextFile() {
+  std::fstream myfile;
+  std::ifstream other_file("append1.txt", std::ios::in);
+  std::streampos begin, end;
+
+  myfile.open ("example.txt", std::ios_base::app | std::ios_base::out);
+  myfile << other_file.rdbuf();
+  myfile.close();
+
+  // begin = myfile.tellg();
+  // myfile.seekg(0, std::ios::end);
+  // end = myfile.tellg();
+
+  // std::ofstream file_writer;
+  // file_writer.open ("example.txt");
+  // file_writer << "Writing ANOTHER thing to file.\n";
+  // file_writer.close();
+
+  std::cout << "Finished appending" << std::endl;
 }
 
 void Game::InitialiseTexts() {
@@ -448,12 +475,12 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
 }
 
 void Game::Run() {
-  ReadFile();
-  Solve();
+  // ReadFile();
+  // Solve();
 
   while (window_.isOpen()) {
     HandleEvents();
-    Draw();
+    // Draw();
   }
   std::cout << "...Game Over..." << std::endl;
 }
@@ -500,9 +527,9 @@ void Game::HandleEvents() {
 
       case sf::Event::KeyPressed:
         // Run Graphical Display of Results
-        if (event_.key.code == sf::Keyboard::Return) {
-          GraphicSolution();
-        }
+        // if (event_.key.code == sf::Keyboard::Return) {
+        //   GraphicSolution();
+        // }
         if (event_.key.code == sf::Keyboard::Escape) {
           window_.close();
         }

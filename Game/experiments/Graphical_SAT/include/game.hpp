@@ -34,6 +34,9 @@ class Game {
   void InitialiseTexts();
   void LoadAssets();
 
+  void ReadTextFile();
+  void AppendTextFile();
+
   void ReadFile();
   void InitialiseVariableShapes();
   void InitialiseClauseShapes();
