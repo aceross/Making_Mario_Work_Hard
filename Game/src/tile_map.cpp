@@ -173,6 +173,7 @@ void TileMap::CreateChunkMap(unsigned int var, unsigned int clause) {
 
   chunk_map_.push_back(innerend);
   std::cout << "Chunk Map complete" << std::endl;
+  PrintChunkMap();
 }
 
 unsigned int TileMap::SetChunkMapRows() {
@@ -227,7 +228,14 @@ void TileMap::AddStartGadget() {
   ChunkReader(map_chunk_manager_.start_gadget_);
 }
 
-void TileMap::AddWarpGadget() {}
+void TileMap::PrintChunkMap() {
+  for (int i = 0; i < chunk_map_.size(); ++i) {
+    for (int j = 0; j < chunk_map_[i].size(); ++j) {
+      std::cout << chunk_map_[i][j].name_ << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
 
 void TileMap::ChunkReader(MapChunk chunk) {
   std::ifstream chunk_file(chunk.file_path_);
