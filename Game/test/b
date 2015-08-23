@@ -1,0 +1,47 @@
+Outer[0][0] : start_gadget
+t[0][0] : start_gadget
+Test 1 (3 vars and 3 clauses) failed
+start_gadget
+warp_start
+warp
+warp
+warp
+warp_end
+variable_gadget
+warp_start
+warp
+warp
+warp
+warp_end
+variable_gadget
+warp_start
+warp
+warp
+warp
+warp_end
+check_in
+clause_gadget
+clause_gadget
+clause_gadget
+finish_gadget
+Test 2 (2 vars and 4 clauses) failed
+start_gadget
+warp_start
+warp
+warp
+warp
+warp
+warp_end
+variable_gadget
+warp_start
+warp
+warp
+warp
+warp
+warp_end
+check_in
+clause_gadget
+clause_gadget
+clause_gadget
+clause_gadget
+finish_gadget

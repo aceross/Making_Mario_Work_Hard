@@ -7,6 +7,7 @@
 
 class MapChunk {
  public:
+  MapChunk();
   std::string name_;
   std::string file_path_;
   unsigned int chunk_height_;
