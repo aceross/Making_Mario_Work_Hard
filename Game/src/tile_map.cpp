@@ -100,9 +100,10 @@ void TileMap::SetSATParameters(ZChaffManager zchaff_manager) {
   num_clauses_     = zchaff_manager.GetNumClauses();
   num_variables_   = zchaff_manager.GetNumVariables();
 
+  // the warp gadget has clauses (num_clauses) entry and exit (+ 2)
   // each variable has two literals (e.g. x and ¬x)
-  // therefore need two warp gadgets for each literal
-  num_warp_gadgets = num_variables_ * 2;
+  // therefore need two warp gadgets for each literal (* 2)
+  num_warp_gadgets = (num_variables_ + 2) * 2;
 
   chunk_map_rows_    = SetChunkMapRows();
   chunk_map_columns_ = SetChunkMapColumns();
@@ -229,50 +230,23 @@ void TileMap::CreateChunkMap(unsigned int var, unsigned int clause) {
 }
 
 void TileMap::TestLoop() {
-std::cout << "chunk map size : " << chunk_map_.size() << std::endl;
+  std::cout << "chunk map size : " << chunk_map_.size() << std::endl;
   // for (int i = 0; i < chunk_map_.size(); ++i) {
   //   for (int j = 0; j < chunk_map_[i].size(); ++j) {
-  for (int i = 0; i < 1; ++i) {
-    for (int j = 0; j < 7; ++j) {
+  for (int i = 0; i < num_variables_; ++i) {
+    for (int j = 0; j < num_warp_gadgets + 1; ++j) {
       ChunkReader(chunk_map_[i][j]);
-      // for (int k = t_row; t_row < chunk_map_[i][j].chunk_height_ + t_row; ++k) {
-      //   for (int m = t_col; t_col < chunk_map_[i][j].chunk_width_ + t_col; ++m) {
-      //     mapfile >> value;
-      //     values_count++;
-      //     std::cout << value << ' ';
-      //     t_map_[k][m].SetTileValue(value);
-      //     // Tile t;
-      //     // t.SetTileValue(value);
-      //     // tmp_value.push_back(t);
-      //     if (k == tilemap_width_) {
-      //       t_col = 0;
-      //       k++;
-      //     }
-      //   }
-      //   std::cout << "values counted: " <<values_count << std::endl;
-      //   values_count = 0;
-      //   std::cout << std::endl;
-      //   std::cout << "tmp value size: " << tmp_value.size() << std::endl;
-      //   std::cout << "tile_map_width: " << tilemap_width_  << std::endl;
-      //   // t_map_.push_back(tmp_value);
-      //   // if (tmp_value.size() < tilemap_width_) {
-      //   //   std::cout << "Adding Padding lol" << std::endl;
-      //   //   SetPadding(tmp_value);
-      //   // }
-      //   t_row = chunk_map_[i][j].chunk_height_ + t_row;
-      //   t_row = chunk_map_[i][j].chunk_height_ + t_row;
-      // }
-      // t_map_.push_back(tmp_value);
-      // mapfile.close();
-      // std::cout << std::endl;
     }
+    t_row_ += 13;
+    t_col_  = 0;
     std::cout << std::endl;
+  }
+  for (int k = 0; k < num_clauses_ + 2; ++k) {
+      ChunkReader(chunk_map_[num_variables_][k]);
   }
 
   std::cout << std::endl;
   std::cout << "Yatta!" << std::endl;
-  // PrintMap();
-  // exit(1);
 }
 
 void TileMap::TestPrint() {
@@ -374,11 +348,11 @@ void TileMap::ChunkReader(MapChunk chunk) {
   std::cout << "Read width  : " << read_width  - t_col_ << std::endl;
 
   int tmp_col = 0;
-  int tmp_row = 0;
+  // int tmp_row = 0;
 
   int value;
   // int values_count = 0;
-  for (int i = 0; i < chunk.chunk_height_; ++i) {
+  for (int i = t_row_; i < read_height; ++i) {
     for (int j = t_col_; j < read_width; ++j) {
       if (j == tilemap_width_) { j = 0; }
       chunk_file >> value;
@@ -387,11 +361,11 @@ void TileMap::ChunkReader(MapChunk chunk) {
       t_map_[i][j].SetTileValue(value);
       tmp_col = j;
     }
-    tmp_row = i;
+    // tmp_row = i;
   }
 
   t_col_ = tmp_col + 1;
-  t_row_ = tmp_row;
+  // t_row_ = tmp_row;
   chunk_file.close();
   std::cout << "Added Chunk values" << std::endl;
 
