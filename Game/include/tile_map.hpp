@@ -31,7 +31,11 @@ class TileMap : public sf::Sprite {
   sf::VertexArray vertices_;
   sf::Texture     tileset_;
   sf::Sprite      tiles_;
+
   std::vector<std::vector< Tile> > t_map_;
+  std::vector<Tile> tile_start_row_;
+  std::vector<Tile> tile_variable_row;
+  std::vector<Tile> tile_checkout_row;
 
   MapChunkManager map_chunk_manager_;
   std::vector< std::vector<MapChunk> > chunk_map_;
@@ -69,6 +73,7 @@ class TileMap : public sf::Sprite {
   void InitialiseChunkMap();
   unsigned int SetChunkMapRows();
   unsigned int SetChunkMapColumns();
+  void GetChunkMapParameters();
 
   void PrintChunkMap();
 
@@ -77,6 +82,11 @@ class TileMap : public sf::Sprite {
   unsigned int warp_columns_;
   unsigned int clause_checkout_columns_;
   unsigned int max_column_length_;
+
+  unsigned int vars_height_;
+  unsigned int vars_width_;
+  unsigned int checkout_height_;
+  unsigned int checkout_width_;
 
  private:
   // For collision
