@@ -30,7 +30,7 @@ LevelState::LevelState(GameStateManager* gsm)
 
   // initialise the level map
   tilemap_.InitialiseMap(zchaff_manager_);
-  assert(tmx_map_loader_.Load("basic_level.tmx"));
+  // assert(tmx_map_loader_.Load("basic_level.tmx"));
   // ml.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
 
   // Initialising the Player
@@ -67,46 +67,10 @@ LevelState::LevelState(GameStateManager* gsm)
   player_.position_ = sf::Vector2f(32, 64);
 }
 
-void LevelState::InitialiseWorld() {
-  // std::vector<std::unique_ptr<sf::Shape>> debugBoxes;
-  // std::vector<DebugShape> debugShapes;
-  // std::map<b2Body*, sf::CircleShape> dynamicShapes;
-  //
-  // std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
-  // for (auto& layer : layers) {
-  //   if (layer.type == tmx::ObjectGroup) {
-  //     for (auto& object : layer.objects) {
-  //       if (layer.name == "Walls") {
-  //         b2Body* b = tmx::BodyCreator::Add(object, world);
-  //         //iterate over body info to create some visual debugging shapes to help visualise
-  //         debugBoxes.push_back(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(sf::Vector2f(6.f, 6.f))));
-  //         sf::Vector2f pos = tmx::BoxToSfVec(b->GetPosition());
-  //         debugBoxes.back()->setPosition(pos);
-  //         debugBoxes.back()->setOrigin(3.f, 3.f);
-  //
-  //         for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext()) {
-  //           b2Shape::Type shapeType = f->GetType();
-  //           if (shapeType == b2Shape::e_polygon) {
-  //             DebugShape ds;
-  //             ds.setPosition(pos);
-  //             b2PolygonShape* ps = (b2PolygonShape*)f->GetShape();
-  //             int count = ps->GetVertexCount();
-  //             for (int i = 0; i < count; i++)
-  //               ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(i)), sf::Color::Green));
-  //
-  //             ds.AddVertex(sf::Vertex(tmx::BoxToSfVec(ps->GetVertex(0)), sf::Color::Green));
-  //             debugShapes.push_back(ds);
-  //           }
-  //
-  //
-  //             }
-  //         }
-  //       }
-  //     }
-  //   }
-  }
+void LevelState::InitialiseWorld() {}
 
 void LevelState::draw(const sf::RenderWindow &window) {
+  // std::cout << "draw" << std::endl;
   view_.setCenter(player_.getPosition());
   gsm->window.clear(sf::Color::Blue);
 
@@ -149,7 +113,7 @@ void LevelState::ManageCollision() {}
 
 //Thread sleeps for a
 void LevelState::update() {
-  player_.update();
+  // player_.update();
   // std::this_thread::sleep_for (std::chrono::seconds(1));
 }
 
@@ -194,6 +158,22 @@ void LevelState::handleInput() {
           player_.falling_      = true;
           player_.play(*current_animation_);
         }
+        if (event.key.code == sf::Keyboard::Up) {
+          current_animation_   = &player_.player_move_right;
+          no_key_pressed_      = false;
+          player_.moving_right_ = true;
+          movement.y += speed;
+          player_.falling_      = true;
+          player_.play(*current_animation_);
+        }
+        if (event.key.code == sf::Keyboard::Down) {
+          current_animation_   = &player_.player_move_right;
+          no_key_pressed_      = false;
+          player_.moving_right_ = true;
+          movement.y -= speed;
+          player_.falling_      = true;
+          player_.play(*current_animation_);
+        }
         if (event.key.code == sf::Keyboard::Space) {
           current_animation_   = &player_.player_move_right;
           no_key_pressed_      = false;
@@ -225,54 +205,26 @@ void LevelState::handleInput() {
     player_.UpdateAnimation(frame_time);
   }
 
-  // Handle Collision
-  std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
-  for (auto& layer : layers) {
-
-    if (layer.type == tmx::ObjectGroup) {
-
-      for (auto& object : layer.objects) {
-
-        if (layer.name == "Walls") {
-          // std::cout << "In Walls layer" << std::endl;
-
-          // for (auto& point : player.collision_points_) {
-
-            if (object.Contains(player_.position_)) {
-              std::cout << "Collision" << std::endl;
-            }
-          // }
-
-
-
-
-
-
-
-
-          // Down Collision
-          // if (object.Contains(sf::Vector2f(player.position_.x, player.position_.y +
-          //                                  player.getGlobalBounds().height * 2))) {
-          //   std::cout << "Gravity Collision" << std::endl;
-          // }
-
-          // Left
-          // if(object.Contains(sf::Vector2f(player.position_.x - player.getGlobalBounds().width/2 - 1,
-          //                                 player.position_.y))) {
-          //     std::cout << "Left Collision" << std::endl;
-          // } else {
-          //
-          // }
-          //
-          // // Right
-          // if(object.Contains(sf::Vector2f(player.position_.x - player.getGlobalBounds().width/2 + 1,
-          //                                 player.position_.y))) {
-          //     std::cout << "Right Collision" << std::endl;
-          // }
-        }
-      }
-    }
-  }
+  // // Handle Collision
+  // std::vector<tmx::MapLayer>& layers = tmx_map_loader_.GetLayers();
+  // for (auto& layer : layers) {
+  //
+  //   if (layer.type == tmx::ObjectGroup) {
+  //
+  //     for (auto& object : layer.objects) {
+  //
+  //       if (layer.name == "Walls") {
+  //         // std::cout << "In Walls layer" << std::endl;
+  //
+  //         // for (auto& point : player.collision_points_) {
+  //
+  //           if (object.Contains(player_.position_)) {
+  //             std::cout << "Collision" << std::endl;
+  //           }
+  //       }
+  //     }
+  //   }
+  // }
 
   player_.move(movement);
   // player.UpdatePosition(movement);

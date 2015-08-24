@@ -78,6 +78,7 @@ class TileMap : public sf::Sprite {
   void GetChunkMapParameters();
 
   void SetPadding(std::vector<Tile> var);
+  void TestPrint();
 
   void TestLoop();
 
@@ -95,6 +96,10 @@ class TileMap : public sf::Sprite {
   unsigned int vars_width_;
   unsigned int checkout_height_;
   unsigned int checkout_width_;
+
+
+  int t_row_;
+  int t_col_;
 
  private:
   // For collision
