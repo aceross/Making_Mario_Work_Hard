@@ -226,36 +226,23 @@ void TileMap::TestLoop() {
   for (int i = 0; i < chunk_map_.size(); ++i) {
     for (int j = 0; j < chunk_map_[i].size(); ++j) {
       std::cout << "Chunk: "<< chunk_map_[i][j].name_ << std::endl;
+      std::cout << "chunk height: " << chunk_map_[i][j].chunk_height_ << std::endl;
+      std::cout << "chunk width : " << chunk_map_[i][j].chunk_width_   << std::endl;
       std::ifstream mapfile(chunk_map_[i][j].file_path_);
       std::cout << "File opened" << std::endl;
-      mapfile >> value;
-      std::cout << "first map value: " << value << std::endl;
+      for (int k = 0; k < chunk_map_[i][j].chunk_height_; ++k) {
+        for (int m = 0; m < chunk_map_[i][j].chunk_width_; ++ m) {
+          mapfile >> value;
+          std::cout << value << ' ';
+        }
+        std::cout << std::endl;
+      }
       mapfile.close();
       std::cout << std::endl;
     }
     std::cout << std::endl;
   }
-  // int value;
-  // for (int i = 0; i < chunk_map_.size(); ++i) {
-  //   for (int j = 0; i < chunk_map_[i].size(); ++j) {
-  //     std::cout << "Chunk: " << chunk_map_[i][j].name_ << std::endl;
-  //     // std::ifstream mapfile(chunk_map_[i][j].file_path_);
-  //     // Draw Each chunk to tile_map
-  //     // for (int k = 0; k < chunk_map_[i][j].chunk_height_; ++k) {
-  //     //   // std::vector<Tile> tmp_value;
-  //     //   for (int m = 0; m < chunk_map_[i][j].chunk_height_; ++ m) {
-  //     //     // mapfile >> value;
-  //     //     // std::cout << "First value: " << value << std::endl;
-  //     //     // Tile t;
-  //     //     // t.SetTileValue(value);
-  //     //     // tmp_value.push_back(t);
-  //     //   }
-  //     //   // t_map_.push_back(tmp_value);
-  //     // }
-  //     // mapfile.close();
-  //   }
-  //   std::cout << " " << std::endl;
-  // }
+
   std::cout << std::endl;
   std::cout << "Yatta!" << std::endl;
 }
