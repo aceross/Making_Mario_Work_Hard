@@ -50,6 +50,8 @@ class TileMap : public sf::Sprite {
   unsigned int num_variables_;
   unsigned int num_warp_gadgets;
 
+  unsigned int padding_;
+
  private:
   // Procedural content generation - Map Generation
   void SetSATParameters(ZChaffManager zchaff_manager);
@@ -75,7 +77,9 @@ class TileMap : public sf::Sprite {
   unsigned int SetChunkMapColumns();
   void GetChunkMapParameters();
 
-  void SetPadding(std::vector<MapChunk> var);
+  void SetPadding(std::vector<Tile> var);
+
+  void TestLoop();
 
   unsigned int var_row_width_;
 
