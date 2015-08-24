@@ -79,10 +79,6 @@ void TileMap::InitialiseMap(ZChaffManager zchaff_manager) {
   // SetParameters("resources/maps/level.map");
   // PrintMap();
   SetSATParameters(zchaff_manager);
-  std::cout << "TileMap Height : " << tilemap_height_ << std::endl;
-  std::cout << "TileMap Width  : " << tilemap_width_  << std::endl;
-
-  std::cout << "Going into Chunk to Tile" << std::endl;
   ChunkToTileMap();
 
   if (!LoadMap("resources/gfx/tile_set.png", sf::Vector2u(16, 16))) {
@@ -91,6 +87,8 @@ void TileMap::InitialiseMap(ZChaffManager zchaff_manager) {
   std::cout << "Map Initialised" << std::endl;
 }
 
+/* Get the variables and clauses from the SAT solver
+------------------------------------------------------------------------------*/
 void TileMap::SetSATParameters(ZChaffManager zchaff_manager) {
   num_clauses_     = zchaff_manager.GetNumClauses();
   num_variables_   = zchaff_manager.GetNumVariables();
@@ -105,17 +103,27 @@ void TileMap::SetSATParameters(ZChaffManager zchaff_manager) {
   CreateChunkMap(num_variables_, num_clauses_);
 }
 
+/* Establish the tilemap height and width from the chunk map
+------------------------------------------------------------------------------*/
 void TileMap::GetChunkMapParameters() {
   tilemap_height_ = 0;
   tilemap_width_  = 0;
+  unsigned int temp_width = 0;
 
   for (int i = 0; i < chunk_map_.size(); ++i) {
     tilemap_height_ += chunk_map_[i][0].chunk_height_;
-    tilemap_width_  += chunk_map_[i][0].chunk_width_;
-    for (int j = 0; j < chunk_map_[i].size(); ++j) {
-      tilemap_width_ += chunk_map_[i][0].chunk_width_;
-    }
   }
+  for (int j = 0; j < chunk_map_[0].size(); ++j) {
+      std::cout << "chunk name: " << chunk_map_[0][j].name_ << std::endl;
+      std::cout << "chunk width: " << chunk_map_[0][j].chunk_width_ << std::endl;
+      temp_width += chunk_map_[0][j].chunk_width_;
+      std::cout << "temp width: " << temp_width << std::endl;
+      std::cout << std::endl;
+    }
+    tilemap_width_ += temp_width;
+    std::cout << "tilemap width: " << tilemap_width_ << std::endl;
+    std::cout << std::endl;
+
   std::cout << " Fucn Tile Map Height : " << tilemap_height_ << std::endl;
   std::cout << " Fucn Tile Map Width  : " << tilemap_width_  << std::endl;
 }
@@ -124,12 +132,12 @@ void TileMap::CreateChunkMap(unsigned int var, unsigned int clause) {
   chunk_map_.clear();
 
   // The Start Gadget happens only once and is a special case of variable
-  // std::vector<MapChunk> chunk_start_row;
-  // chunk_start_row.push_back(map_chunk_manager_.start_gadget_);
-  // for (int i = 0; i < 2; ++i) {
-  //   chunk_start_row.push_back(map_chunk_manager_.warp_start_);
-  // }
-  // chunk_start_row.push_back(map_chunk_manager_.warp_end_);
+  std::vector<MapChunk> chunk_start_row;
+  chunk_start_row.push_back(map_chunk_manager_.start_gadget_);
+  for (int i = 0; i < 2; ++i) {
+    chunk_start_row.push_back(map_chunk_manager_.warp_start_);
+  }
+  chunk_start_row.push_back(map_chunk_manager_.warp_end_);
 
   // Set the tile_map up for the Start Gadget
 
@@ -138,58 +146,30 @@ void TileMap::CreateChunkMap(unsigned int var, unsigned int clause) {
   // The Start Gadget happens only once and is a special case of variable
   std::vector<MapChunk> innerstart;
   innerstart.push_back(map_chunk_manager_.start_gadget_);
-  tilemap_height_  = map_chunk_manager_.start_gadget_.chunk_height_ + 2;
-  vars_height_     = tilemap_height_;
-  tilemap_width_   = map_chunk_manager_.start_gadget_.chunk_width_;
-  vars_width_      = tilemap_width_;
   for (int i = 0; i < 2; ++i) {
     innerstart.push_back(map_chunk_manager_.warp_start_);
-    // tilemap_height_ += map_chunk_manager_.warp_start_.chunk_height_;
-    tilemap_width_  += map_chunk_manager_.warp_start_.chunk_width_;
-    vars_width_     += map_chunk_manager_.warp_start_.chunk_width_;
     for (int i = 0; i < clause; ++i) {
       innerstart.push_back(map_chunk_manager_.warp_pipe_);
-
-      tilemap_width_  += map_chunk_manager_.warp_pipe_.chunk_width_;
-      vars_width_     += map_chunk_manager_.warp_pipe_.chunk_width_;
     }
     innerstart.push_back(map_chunk_manager_.warp_end_);
-    // tilemap_height_ += map_chunk_manager_.warp_end_.chunk_height_;
-    tilemap_width_  += map_chunk_manager_.warp_end_.chunk_width_;
-    vars_width_     += map_chunk_manager_.warp_end_.chunk_width_;
   }
 
   std::vector<MapChunk> innervar;
   innervar.push_back(map_chunk_manager_.variable_gadget_);
-  tilemap_height_ += map_chunk_manager_.variable_gadget_.chunk_height_ * (var - 1);
-
-  tilemap_width_  += map_chunk_manager_.variable_gadget_.chunk_width_;
   for (int i = 0; i < 2; ++i) {
     innervar.push_back(map_chunk_manager_.warp_start_);
-    // tilemap_height_ += map_chunk_manager_.warp_start_.chunk_height_;
-    tilemap_width_  += map_chunk_manager_.warp_start_.chunk_width_;
     for (int i = 0; i < clause; ++i) {
       innervar.push_back(map_chunk_manager_.warp_pipe_);
-      // tilemap_height_ += map_chunk_manager_.warp_pipe_.chunk_height_;
-      tilemap_width_  += map_chunk_manager_.warp_pipe_.chunk_width_;
     }
     innervar.push_back(map_chunk_manager_.warp_end_);
-    // tilemap_height_ += map_chunk_manager_.warp_end_.chunk_height_;
-    tilemap_width_  += map_chunk_manager_.warp_end_.chunk_width_;
   }
 
   std::vector<MapChunk> innerend;
   innerend.push_back(map_chunk_manager_.check_in_);
-  tilemap_height_ += map_chunk_manager_.check_in_.chunk_height_;
-  tilemap_width_  += map_chunk_manager_.check_in_.chunk_width_;
   for (int m = 0; m < clause; ++m) {
     innerend.push_back(map_chunk_manager_.clause_);
-    // tilemap_height_ += map_chunk_manager_.clause_.chunk_height_;
-    tilemap_width_  += map_chunk_manager_.clause_.chunk_width_;
   }
   innerend.push_back(map_chunk_manager_.finish_gadget_);
-  // tilemap_height_ += map_chunk_manager_.finish_gadget_.chunk_height_;
-  tilemap_width_  += map_chunk_manager_.finish_gadget_.chunk_width_;
 
   // Add the variable gadget vector for remaining variables
   // var - 1 for Start Gadget
@@ -198,11 +178,30 @@ void TileMap::CreateChunkMap(unsigned int var, unsigned int clause) {
   for (int i = 0; i < var - 1; ++i) {
     chunk_map_.push_back(innervar);
   }
-
   chunk_map_.push_back(innerend);
   std::cout << "Chunk Map complete" << std::endl;
   PrintChunkMap();
+
   GetChunkMapParameters();
+
+  // unsigned int padding = tilemap_width_ - innerstart.size();
+  // std::cout << "innerstart size = " << innerstart.size() << std::endl;
+  // std::cout << "Padding         = " << padding << std::endl;
+
+  SetPadding(innerstart);
+
+}
+
+void TileMap::SetPadding(std::vector<MapChunk> var) {
+  var_row_width_ = 0;
+
+  for (int i = 0; i < var.size(); ++i) {
+    var_row_width_ += var[i].chunk_width_;
+  }
+  std::cout << " Var Row : " << var_row_width_  << std::endl;
+
+  unsigned int padding = tilemap_width_ - var_row_width_;
+  std::cout << "Padding         = " << padding << std::endl;
 }
 
 unsigned int TileMap::SetChunkMapRows() {
@@ -221,7 +220,7 @@ unsigned int TileMap::SetChunkMapColumns() {
   return warp_columns_;
 }
 
-void TileMap::InitialiseChunkMap() {
+void TileMap::InitialiseTiles() {
   for (unsigned int i = 0; i < tilemap_height_; ++i) {
     std::vector<Tile> tmp_value;
     for (unsigned int j = 0; j < tilemap_width_; ++j) {
@@ -234,14 +233,14 @@ void TileMap::InitialiseChunkMap() {
 
 void TileMap::ChunkToTileMap() {
   std::ifstream map_chunk_values;
-  InitialiseChunkMap();
+  InitialiseTiles();
   for (unsigned int i = 0; i < chunk_map_.size(); ++i) {
     for (unsigned int j = 0; j < chunk_map_[i].size(); ++j) {
       map_chunk_values.open(chunk_map_[i][j].file_path_);
     }
 
   }
-  std::cout << "Chunk to Tile map complete" << std::endl;
+  // std::cout << "Chunk to Tile map complete" << std::endl;
 }
 
 void TileMap::AddStartGadget() {
@@ -257,7 +256,7 @@ void TileMap::AddStartGadget() {
 void TileMap::PrintChunkMap() {
   for (int i = 0; i < chunk_map_.size(); ++i) {
     for (int j = 0; j < chunk_map_[i].size(); ++j) {
-      std::cout << chunk_map_[i][j].name_ << ' ';
+      std::cout << chunk_map_[i][j].name_ << "       ";
     }
     std::cout << std::endl;
   }

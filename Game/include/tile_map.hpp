@@ -70,10 +70,14 @@ class TileMap : public sf::Sprite {
   void AddFinishGadget();
 
   void ChunkToTileMap();
-  void InitialiseChunkMap();
+  void InitialiseTiles();
   unsigned int SetChunkMapRows();
   unsigned int SetChunkMapColumns();
   void GetChunkMapParameters();
+
+  void SetPadding(std::vector<MapChunk> var);
+
+  unsigned int var_row_width_;
 
   void PrintChunkMap();
 
