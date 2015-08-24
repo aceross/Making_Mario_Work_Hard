@@ -108,21 +108,40 @@ void TileMap::SetSATParameters(ZChaffManager zchaff_manager) {
 void TileMap::GetChunkMapParameters() {
   tilemap_height_ = 0;
   tilemap_width_  = 0;
+  var_row_width_  = 0;
   unsigned int temp_width = 0;
 
+  // Get total height of map
   for (int i = 0; i < chunk_map_.size(); ++i) {
     tilemap_height_ += chunk_map_[i][0].chunk_height_;
   }
+
+  // Get variable map width
   for (int j = 0; j < chunk_map_[0].size(); ++j) {
-      std::cout << "chunk name: " << chunk_map_[0][j].name_ << std::endl;
-      std::cout << "chunk width: " << chunk_map_[0][j].chunk_width_ << std::endl;
-      temp_width += chunk_map_[0][j].chunk_width_;
-      std::cout << "temp width: " << temp_width << std::endl;
-      std::cout << std::endl;
-    }
-    tilemap_width_ += temp_width;
-    std::cout << "tilemap width: " << tilemap_width_ << std::endl;
+    // std::cout << "chunk name: " << chunk_map_[0][j].name_ << std::endl;
+    // std::cout << "chunk width: " << chunk_map_[0][j].chunk_width_ << std::endl;
+    temp_width += chunk_map_[0][j].chunk_width_;
+    // std::cout << "temp width: " << temp_width << std::endl;
     std::cout << std::endl;
+  }
+  var_row_width_ += temp_width;
+  std::cout << "var_row_width_: " << var_row_width_ << std::endl;
+  std::cout << std::endl;
+
+  // Get clause width
+  temp_width = 0;
+  unsigned int clause_row = num_variables_;
+  for (int j = 0; j < chunk_map_[clause_row].size(); ++j) {
+    std::cout << "chunk name:  " << chunk_map_[clause_row][j].name_ << std::endl;
+    std::cout << "chunk width: " << chunk_map_[clause_row][j].chunk_width_ << std::endl;
+    temp_width += chunk_map_[clause_row][j].chunk_width_;
+    std::cout << "temp width: " << temp_width << std::endl;
+    std::cout << std::endl;
+  }
+  tilemap_width_ += temp_width;
+  std::cout << "tilemap width (after checkout): " << tilemap_width_ << std::endl;
+  std::cout << std::endl;
+
 
   std::cout << " Fucn Tile Map Height : " << tilemap_height_ << std::endl;
   std::cout << " Fucn Tile Map Width  : " << tilemap_width_  << std::endl;
