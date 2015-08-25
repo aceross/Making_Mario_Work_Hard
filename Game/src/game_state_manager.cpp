@@ -32,7 +32,7 @@ GameStateManager::GameStateManager()
   window_.setKeyRepeatEnabled(false);
   window_.setVerticalSyncEnabled(true);
 
-  font_.Load(Fonts::Main, "resources/font/Fixedsys500c.ttf");
+  font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
 
   stats_text_.setFont(font_.Get(Fonts::Main));
   stats_text_.setPosition(5.f, 5.f);

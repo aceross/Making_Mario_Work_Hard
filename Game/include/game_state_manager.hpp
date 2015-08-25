@@ -23,7 +23,6 @@
 #define SCREEN_HEIGHT 600
 
 class GameStateManager {
-// Methods
  private:
   void Update(sf::Time delta_time);
   void ProcessInputs();
