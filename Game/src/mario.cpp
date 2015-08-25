@@ -6,7 +6,7 @@
 #include <cmath>
 #include <vector>
 
-#include "../include/player.hpp"
+#include "../include/mario.hpp"
 #include "../include/resource_manager.hpp"
 #include "../include/data_table.hpp"
 #include "../include/command_queue.hpp"
@@ -17,40 +17,34 @@ namespace {
   const std::vector<PlayerData> Table = InitialisePlayerData();
 }
 
-Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts)
-: type_(type)
-, sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
-// , fire_command_()
-// , direction_index_(0)
-// , clauses_true_(0)
-// , clauses_false_(0)
-{
+Mario::Mario(Type type, const TextureHolder& textures, const FontHolder& fonts)
+: sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
+, type_(type)
+{}
 
-}
-
-float Player::GetMaxSpeed() const {
+float Mario::GetSpeed() const {
   return Table[type_].speed;
 }
 
-sf::Vector2i Player::GetLocation() {
+sf::Vector2i Mario::GetLocation() {
   return location_;
 }
 
-void Player::UpdateLocation(sf::Vector2i location_update) {
+void Mario::UpdateLocation(sf::Vector2i location_update) {
   location_ += location_update;
 }
 
-void Player::UpdateLocation(int x, int y) {
+void Mario::UpdateLocation(int x, int y) {
   location_.x += x;
   location_.y += y;
 }
 
-void Player::DrawCurrent(sf::RenderTarget &target,
+void Mario::DrawCurrent(sf::RenderTarget &target,
                          sf::RenderStates states) const {
   target.draw(sprite_, states);
 }
 
-void Player::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
+void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
   // Update texts and animations
   // UpdateTexts();
   UpdateAnimation();
@@ -60,16 +54,16 @@ void Player::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
   // Entity::UpdateCurrent(delta_time, commands);
 }
 
-unsigned int Player::GetCategory() const {
+unsigned int Mario::GetCategory() const {
   return Category::PlayerSprite;
 }
 
-sf::FloatRect Player::GetBoundingRect() const {
+sf::FloatRect Mario::GetBoundingRect() const {
   return GetWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
 // May need to update as Jump animation and Walk animation
-void Player::UpdateAnimation() {
+void Mario::UpdateAnimation() {
   if (Table[type_].has_animation_) {
     sf::IntRect texture_rect = Table[type_].texture_rect;
 

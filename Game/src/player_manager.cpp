@@ -7,17 +7,18 @@
 
 #include "../include/player_manager.hpp"
 #include "../include/command_queue.hpp"
-#include "../include/player.hpp"
+#include "../include/mario.hpp"
 
 using namespace std::placeholders;
 
-struct PlayerMover {
-  PlayerMover(float vx, float vy)
+struct MarioMover {
+  MarioMover(float vx, float vy)
   : location_update(vx, vy)
   {}
 
-  void operator() (Player& player, sf::Time) const {
-    player.move(location_update);
+  void operator() (Mario& mario, sf::Time) const {
+    // player.move(location_update);
+    mario.move(location_update);
   }
 
   sf::Vector2f location_update;
@@ -95,18 +96,16 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 
 void PlayerManager::InitialiseActions() {
   const float movement_speed = 2.5f;
-  std::cout << "Initialising Actions" << std::endl;
-  action_binding_[MoveLeft].action_  = DerivedAction<Player>(PlayerMover(-movement_speed, 0));
-  action_binding_[MoveRight].action_ = DerivedAction<Player>(PlayerMover(+movement_speed, 0));
-  action_binding_[Jump].action_      = DerivedAction<Player>(PlayerMover(0, -movement_speed));
-  action_binding_[Crouch].action_    = DerivedAction<Player>(PlayerMover(0, +movement_speed));
+  action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-movement_speed, 0));
+  action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+movement_speed, 0));
+  action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -movement_speed));
+  action_binding_[Crouch].action_    = DerivedAction<Mario>(MarioMover(0, +movement_speed));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {
   switch (action) {
     case MoveLeft:
     case MoveRight:
-    case Crouch:
     case Jump:
       return true;
 

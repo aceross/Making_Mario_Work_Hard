@@ -1,7 +1,7 @@
 // Copyright 2015, Aaron Ceross
 
-#ifndef PLAYER_HPP
-#define PLAYER_HPP
+#ifndef MARIO_HPP
+#define MARIO_HPP
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -11,21 +11,22 @@
 #include "animation.hpp"
 #include "text_node.hpp"
 
-class Player : public Entity {
+class Mario : public Entity {
  public:
   enum Type { SmallMario, SuperMario, TypeCount };
 
  public:
-  Player(Type type, const TextureHolder& textures, const FontHolder& fonts);
+  Mario(Type type, const TextureHolder& textures, const FontHolder& fonts);
 
   virtual unsigned int  GetCategory() const;
   virtual sf::FloatRect GetBoundingRect() const;
   // virtual void          Remove();
-  float                 GetMaxSpeed() const;
+  float GetSpeed() const;
 
   sf::Vector2i GetLocation();
   void UpdateLocation(int x, int y);
   void UpdateLocation(sf::Vector2i location_update);
+  sf::Sprite   sprite_;
 
  private:
   virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -37,10 +38,9 @@ class Player : public Entity {
 
  private:
   Type         type_;
-  sf::Sprite   sprite_;
+  // sf::Sprite   sprite_;
   sf::Vector2i location_;
-  // Command      fire_command_;
-  // std::size_t  direction_index_;
+
   //
   // int clauses_true_;
   // int clauses_false_;
@@ -54,4 +54,4 @@ class Player : public Entity {
 
 };
 
-#endif  // PLAYER_HPP
+#endif  // MARIO_HPP

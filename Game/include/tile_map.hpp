@@ -32,12 +32,8 @@ class TileMap : public sf::Sprite {
   sf::Texture     tileset_;
   sf::Sprite      tiles_;
 
-  std::vector<std::vector< Tile> > t_map_;
-  std::vector<Tile> tile_start_row_;
-  std::vector<Tile> tile_variable_row;
-  std::vector<Tile> tile_checkout_row;
-
-  MapChunkManager map_chunk_manager_;
+  std::vector<std::vector< Tile> >     t_map_;
+  MapChunkManager                      map_chunk_manager_;
   std::vector< std::vector<MapChunk> > chunk_map_;
 
   unsigned int tilemap_height_;
@@ -82,10 +78,9 @@ class TileMap : public sf::Sprite {
 
   void TestLoop();
 
-  unsigned int var_row_width_;
-
   void PrintChunkMap();
 
+  // Level generation values
   unsigned int chunk_map_rows_;
   unsigned int chunk_map_columns_;
   unsigned int warp_columns_;
@@ -94,9 +89,9 @@ class TileMap : public sf::Sprite {
 
   unsigned int vars_height_;
   unsigned int vars_width_;
+  unsigned int var_row_width_;
   unsigned int checkout_height_;
   unsigned int checkout_width_;
-
 
   int t_row_;
   int t_col_;

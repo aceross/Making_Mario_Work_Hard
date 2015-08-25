@@ -22,7 +22,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
                                                  level_view_.getSize().y / 2.f)
 , movement_speed_(2.5f)
-, player_sprite_(nullptr)
+, player_mario_(nullptr)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
@@ -30,14 +30,15 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
   BuildScene();
 
   // Prepare the main view and the mini-map
-  level_view_.setCenter(player_sprite_->getPosition());
+  level_view_.setCenter(player_mario_->getPosition());
   level_view_.zoom(0.57f);
+  mini_map_.setViewport(sf::FloatRect(0.72f, 0, 0.23f, 0.23f));
 }
 
 void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
-    player_sprite_->move(0, 10);
+    // player_sprite_->move(0, 10);
     std::cout << "Command Executed" << std::endl;
   }
 
@@ -49,7 +50,12 @@ void Level::Update(sf::Time delta_time) {
 }
 
 void Level::draw() {
+  // draw the main view level
   target_.setView(level_view_);
+  target_.draw(scene_graph_);
+
+  // draw the mini map view
+  target_.setView(mini_map_);
   target_.draw(scene_graph_);
 }
 
@@ -85,11 +91,11 @@ void Level::BuildScene() {
   scene_layers_[Background]->AttachChild(std::move(map_node));
 
   // Add player sprite
-  std::unique_ptr<Player> player(new Player(Player::SmallMario, textures_,
+  std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_,
                                  fonts_));
-  player_sprite_ = player.get();
-  player_sprite_->setPosition(64, 160);
-  scene_layers_[Background]->AttachChild(std::move(player));
+  player_mario_ = player.get();
+  player_mario_->setPosition(0, 0);
+  scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 
 void Level::AdaptPlayerPosition() {
@@ -99,13 +105,13 @@ void Level::AdaptPlayerPosition() {
   //                                                   2.f, level_view_.getSize());
   // const float border_distance = 40.f;
 
-  sf::Vector2f position = player_sprite_->getPosition();
+  sf::Vector2f position = player_mario_->getPosition();
   // printf("First postion x = %d y = %d\n", position.x, position.y);
   // position.x = std::max(position.x, view_bounds.left + border_distance);
   // position.x = std::min(position.x, view_bounds.left + view_bounds.width - border_distance);
   // position.y = std::max(position.y, view_bounds.top + border_distance);
   // position.y = std::min(position.y, view_bounds.top + view_bounds.height - border_distance);
-  player_sprite_->setPosition(position);
+  player_mario_->setPosition(position);
   // sf::Vector2i location_update = static_cast<sf::Vector2i>(position);
   // printf("location_update x = %d y = %d\n", position.x, position.y);
   // player_sprite_->UpdateLocation(position);

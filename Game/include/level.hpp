@@ -20,7 +20,7 @@
 #include "scene_node.hpp"
 #include "command.hpp"
 #include "command_queue.hpp"
-#include "player.hpp"
+#include "mario.hpp"
 #include "zchaff_manager.hpp"
 
 // Forward declaration
@@ -63,6 +63,7 @@ class Level : private sf::NonCopyable {
   sf::RenderTarget&  target_;
   sf::RenderTexture  scene_texture_;
   sf::View           level_view_;
+  sf::View           mini_map_;
   TextureHolder      textures_;
   FontHolder&        fonts_;
 
@@ -77,7 +78,7 @@ class Level : private sf::NonCopyable {
   sf::FloatRect level_bounds_;
   sf::Vector2f  start_position_;
   float         movement_speed_;
-  Player*       player_sprite_;
+  Mario*        player_mario_;
   ZChaffManager zchaff_manager_;
 };
 
