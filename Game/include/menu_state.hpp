@@ -3,41 +3,31 @@
 #ifndef MENU_STATE_HPP
 #define MENU_STATE_HPP
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <string>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 #include <vector>
-#include "game_state.hpp"
 
-#define NUM_OPTIONS 3
+#include "state.hpp"
 
-// Set the values for the game window
-#define SCREEN_WIDTH  800
-#define SCREEN_HEIGHT 600
-
-class MenuState : public GameState {
- private:
-  sf::View view;
-  sf::Text options[NUM_OPTIONS];
-  sf::Font font;
-
-  int selection;
-
-  // std::vector<std::string> options = { "Start Game", "Help", "Quit"};
-
-  void loadGame();
-
+class MenuState : public State {
  public:
-  virtual void draw(const sf::RenderWindow &window);
-  virtual void update();
-  virtual void handleInput();
+  MenuState(StateStack& stack, Context context);
 
-  void moveUp();
-  void moveDown();
+  virtual void Draw();
+  virtual bool Update(sf::Time dt);
+  virtual bool HandleEvent(const sf::Event& event);
 
-  explicit MenuState(GameStateManager* gsm);
-  virtual ~MenuState();
+  void UpdateOptionText();
+
+ private:
+  enum OptionNames { Play, Exit };
+
+ private:
+  sf::Sprite background_sprite_;
+
+  std::vector<sf::Text>  options_;
+  std::size_t        options_index_;
 };
-
 
 #endif  // MENU_STATE_HPP

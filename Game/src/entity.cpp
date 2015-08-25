@@ -3,15 +3,32 @@
 #include <string>
 #include "../include/entity.hpp"
 
-void Entity::SetVeloctity(sf::Vector2f velocity) {
-  velocity_ = velocity;
+Entity::Entity()
+: speed_()
+, hit_points_()
+{}
+
+int Entity::GetHitPoints() const {
+  return hit_points_;
 }
 
-void Entity::SetVelocity(float vx, float vy) {
-  velocity_.x = vx;
-  velocity_.y = vy;
+void Entity::Damage(int points) {
+  assert(points > 0);
+  hit_points_ -= points;
 }
 
-sf::Vector2f Entity::GetVelocity_() const {
-  return velocity_;
+void Entity::Destroy() {
+  hit_points_ = 0;
+}
+
+void Entity::Remove() {
+  Destroy();
+}
+
+bool Entity::IsDestroyed() const {
+  return hit_points_ <= 0;
+}
+
+void Entity::UpdateCurrent(sf::Time delta_time, CommandQueue &commands) {
+  move(speed_ * delta_time.asSeconds());
 }

@@ -39,7 +39,8 @@ SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS   := -std=c++11 -stdlib=libstdc++ -pedantic
-LIB      := -lstdc++ -lz -lsat -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
+LIB      := -lsfml-graphics -lsfml-window -lsfml-system -lBox2D -lstdc++ -lz \
+            -lsat
 LDFLAGS  := -L./lib/zchaff
 INC      := -I include
 

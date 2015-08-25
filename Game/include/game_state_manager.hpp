@@ -3,50 +3,61 @@
 #ifndef GAME_STATE_MANAGER_HPP
 #define GAME_STATE_MANAGER_HPP
 
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Time.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 #include <vector>
 #include <stack>
 #include <map>
 #include <string>
 
-#include "texture_manager.hpp"
+#include "resource_manager.hpp"
+#include "resource_identifiers.hpp"
+#include "state_stack.hpp"
+#include "player_manager.hpp"
+#include "../lib/zchaff/SAT.h"
 
 // Values for the game window
 #define SCREEN_WIDTH  800
 #define SCREEN_HEIGHT 600
 
-class GameState;
-
 class GameStateManager {
+// Methods
  private:
-  void loadTextures();
-  void loadTiles();
-  sf::Time updateTime;
-  sf::Clock updateClock;
+  void Update(sf::Time delta_time);
+  void ProcessInputs();
+  void Render();
+
+  void UpdateStatistics(sf::Time delta_time);
+
+  void RegisterStates();
+
+ // member variables
+ private:
+  sf::RenderWindow    window_;
+  sf::ContextSettings settings_;
+
+  FontHolder    font_;
+  TextureHolder textures_;
+
+  PlayerManager player_manager_;
+  StateStack    states_;
+
+  sf::Text    stats_text_;
+  sf::Time    stats_update_time_;
+  std::size_t stats_num_frames_;
+
+  static const sf::Time TimePerFrame;
+
+  static const int tileSize = 16;
+  bool game_over_           = false;
 
  public:
-  static const int tileSize = 32;
-  bool game_over = false;
-
-  std::stack<GameState*> states;
-
-  sf::RenderWindow    window;
-  sf::ContextSettings settings;
-
-  TextureManager texmgr;
-  sf::Sprite background;
-
-  // std::map<std::string, Tile> tileAtlas;
-
-  void pushState(GameState* state);
-  void popState();
-  void changeState(GameState* state);
-  GameState* peekState();
-
-  void gameLoop();
-
   GameStateManager();
   ~GameStateManager();
+
+  void Run();
 };
 
 #endif  // GAME_STATE_MANAGER_HPP

@@ -1,14 +1,19 @@
 // Copyright 2015, Aaron Ceross
 
+#include <stdexcept>
+#include <iostream>
+
 #include "../include/game_state_manager.hpp"
-#include "../include/menu_state.hpp"
 
 int main() {
-  GameStateManager gsm;
+  try {
+    GameStateManager gsm;
 
-  gsm.pushState(new MenuState(&gsm));
-  gsm.gameLoop();
-  std::cout << "...Exiting program..." << std::endl;
+    gsm.Run();
+    std::cout << "Exiting program." << std::endl;
+  } catch (std::exception& e) {
+    std::cout << "\nEXCEPTION: " << e.what() << std::endl;
+  }
 
   return 0;
 }

@@ -3,19 +3,24 @@
 #ifndef GAME_STATE_HPP
 #define GAME_STATE_HPP
 
-#include "game_state_manager.hpp"
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-class GameState {
+#include "state.hpp"
+#include "level.hpp"
+#include "player_manager.hpp"
+
+class GameState : public State {
  public:
-  virtual ~GameState() {}
+  GameState(StateStack& states, Context context);
 
-  virtual void draw(const sf::RenderWindow &window) = 0;
-  virtual void update()                             = 0;
-  virtual void handleInput()                        = 0;
+  virtual void Draw();
+  virtual bool Update(sf::Time delta_time);
+  virtual bool HandleEvent(const sf::Event& event);
 
- protected:
-  GameStateManager* gsm;
-  sf::RenderWindow* window;
+ private:
+  Level          level_;
+  PlayerManager& player_manager_;
 };
 
 #endif  // GAME_STATE_HPP

@@ -1,223 +1,87 @@
 // Copyright 2015, Aaron Ceross
 
-#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+
+#include <cmath>
 #include <vector>
-#include <thread>
-#include <chrono>
+
 #include "../include/player.hpp"
+#include "../include/resource_manager.hpp"
+#include "../include/data_table.hpp"
+#include "../include/command_queue.hpp"
 
-Player::Player(sf::Time frameTime, bool paused, bool looped)
-: animation_(NULL)
-, frame_time_(frameTime)
-, current_frame_(0)
-, is_paused_(paused)
-, is_looped_(looped)
-, texture_(NULL)
+using namespace std::placeholders;
+
+namespace {
+  const std::vector<PlayerData> Table = InitialisePlayerData();
+}
+
+Player::Player(Type type, const TextureHolder& textures, const FontHolder& fonts)
+: type_(type)
+, sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
+// , fire_command_()
+// , direction_index_(0)
+// , clauses_true_(0)
+// , clauses_false_(0)
 {
-  collision_points_.push_back(sf::Vector2f(-8.f, -8.f));
-  collision_points_.push_back(sf::Vector2f(8.f, -8.f));
-  collision_points_.push_back(sf::Vector2f(8.f, 8.f));
-  collision_points_.push_back(sf::Vector2f(-8.f, 8.f));
 
-  forward_move_ = sf::Vector2f(16, 0);
-  jump_move_    = sf::Vector2f(0, -16);
-  fall_move_    = sf::Vector2f(0, 16);
-
-  // InitialiseQueue();
 }
 
-void Player::setAnimation(const Animation& animation) {
-  animation_     = &animation;
-  texture_       = animation_->getSpriteSheet();
-  current_frame_ = 0;
-  setFrame(current_frame_);
+float Player::GetMaxSpeed() const {
+  return Table[type_].speed;
 }
 
-void Player::setFrameTime(sf::Time time) {
-  frame_time_ = time;
+sf::Vector2i Player::GetLocation() {
+  return location_;
 }
 
-void Player::play() {
-  is_paused_ = false;
+void Player::UpdateLocation(sf::Vector2i location_update) {
+  location_ += location_update;
 }
 
-void Player::play(const Animation& animation) {
-  if (getAnimation() != &animation) {
-    setAnimation(animation);
-  }
-  play();
+void Player::UpdateLocation(int x, int y) {
+  location_.x += x;
+  location_.y += y;
 }
 
-void Player::pause() {
-  is_paused_ = true;
+void Player::DrawCurrent(sf::RenderTarget &target,
+                         sf::RenderStates states) const {
+  target.draw(sprite_, states);
 }
 
-void Player::stop() {
-  is_paused_     = true;
-  current_frame_ = 0;
-  setFrame(current_frame_);
+void Player::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
+  // Update texts and animations
+  // UpdateTexts();
+  UpdateAnimation();
+
+  // Update enemy movement pattern; apply velocity
+  // UpdateMovementPattern(delta_time);
+  // Entity::UpdateCurrent(delta_time, commands);
 }
 
-void Player::setLooped(bool looped) {
-  is_looped_ = looped;
-}
-
-void Player::setColor(const sf::Color& color) {
-  // Update the vertices' color
-  vertices_[0].color = color;
-  vertices_[1].color = color;
-  vertices_[2].color = color;
-  vertices_[3].color = color;
-}
-
-const Animation* Player::getAnimation() const {
-  return animation_;
-}
-
-sf::FloatRect Player::getLocalBounds() const {
-  sf::IntRect rect = animation_->getFrame(current_frame_);
-
-  float width  = static_cast<float>(std::abs(rect.width));
-  float height = static_cast<float>(std::abs(rect.height));
-
-  return sf::FloatRect(0.f, 0.f, width, height);
-}
-
-sf::FloatRect Player::getGlobalBounds() const {
-  return getTransform().transformRect(getLocalBounds());
-}
-
-sf::FloatRect Player::getSize() const {
-  return getTransform().transformRect(getSize());
-}
-
-bool Player::isLooped() const {
-  return is_looped_;
-}
-
-bool Player::isPlaying() const {
-  return !is_paused_;
-}
-
-sf::Time Player::getFrameTime() const {
-  return frame_time_;
-}
-
-void Player::setFrame(std::size_t newFrame, bool resetTime) {
-  if (animation_) {
-    // calculate new vertex positions and texture coordiantes
-    sf::IntRect rect = animation_->getFrame(newFrame);
-
-    vertices_[0].position = sf::Vector2f(0.f, 0.f);
-    vertices_[1].position = sf::Vector2f(0.f, static_cast<float>(rect.height));
-    vertices_[2].position = sf::Vector2f(static_cast<float>(rect.width),
-                                         static_cast<float>(rect.height));
-    vertices_[3].position = sf::Vector2f(static_cast<float>(rect.width), 0.f);
-
-    float left   = static_cast<float>(rect.left) + 0.0001f;
-    float right  = left + static_cast<float>(rect.width);
-    float top    = static_cast<float>(rect.top);
-    float bottom = top + static_cast<float>(rect.height);
-
-    vertices_[0].texCoords = sf::Vector2f(left, top);
-    vertices_[1].texCoords = sf::Vector2f(left, bottom);
-    vertices_[2].texCoords = sf::Vector2f(right, bottom);
-    vertices_[3].texCoords = sf::Vector2f(right, top);
-  }
-
-  if (resetTime) {
-    current_time_ = sf::Time::Zero;
-  }
-}
-
-void Player::UpdateAnimation(sf::Time delta_time) {
-  // if not paused and we have a valid animation
-  if (!is_paused_ && animation_) {
-    // add delta time
-    current_time_ += delta_time;
-
-    // if current time is bigger then the frame time advance one frame
-    if (current_time_ >= frame_time_) {
-      // reset time, but keep the remainder
-      current_time_ = sf::microseconds(current_time_.asMicroseconds() %
-                                       frame_time_.asMicroseconds());
-
-      // get next Frame index
-      if (current_frame_ + 1 <= animation_->getSize()) {
-        current_frame_++;
-      } else {
-        // animation has ended
-        // reset to start
-        current_frame_ = 0;
-        if (is_looped_) {
-          is_paused_ = true;
-        }
-      }
-      // set the current frame, not reseting the time
-      setFrame(current_frame_, false);
-    }
-  }
-}
-
-void Player::UpdatePosition(sf::Vector2f movement) {
-  position_ += movement;
-}
-
-bool Player::HasCollision(Player* p, Tile t) {
-  sf::FloatRect player = p->getGlobalBounds();
-
-  if (player.contains(t.GetTilePosition())) {
-    printf("Intersection!\n");
-    return true;
-  }
-  return false;
-}
-
-void Player::update() {
-  if (!command_queue_.empty()) {
-    position_ = command_queue_.front();
-    move(position_);
-    command_queue_.pop();
-    std::cout << "Player update" << std::endl;
-  } else {
-    finish_ = true;
-  }
-}
-
-void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  if (animation_ && texture_) {
-    states.transform  *= getTransform();
-    states.texture     = texture_;
-    target.draw(vertices_, 4, sf::Quads, states);
-  }
+unsigned int Player::GetCategory() const {
+  return Category::PlayerSprite;
 }
 
 sf::FloatRect Player::GetBoundingRect() const {
-  return sf::FloatRect();
+  return GetWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
-void Player::CreateStartGadgetQueue() {
-  for (int i = 0; i < 5; ++i) {
-    command_queue_.push(forward_move_);
+// May need to update as Jump animation and Walk animation
+void Player::UpdateAnimation() {
+  if (Table[type_].has_animation_) {
+    sf::IntRect texture_rect = Table[type_].texture_rect;
+
+  // Roll left: Texture rect offset once
+  if (GetLocation().x < 0) {
+    texture_rect.left += texture_rect.width;
   }
-}
+  // Roll right: Texture rect offset twice
+  else if (GetLocation().x > 0) {
+    texture_rect.left += 2 * texture_rect.width;
+  }
 
-void Player::StartLevel() {
-  // for (unsigned int i = 0; i < 4; ++i) {
-  //   move(forward_move_);
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
-  // }
-  // move(jump_move_);
-  // // std::this_thread::sleep_for (std::chrono::seconds(4));
-  // std::cout << "Jumping" << std::endl;
-  // move(fall_move_);
-  // std::cout << "Falling" << std::endl;
-}
-
-void Player::AddRightJump() {}
-
-void Player::AddLeftJump() {}
-
-void Player::SolveLevel(SAT_Manager sm) {
-
+  sprite_.setTextureRect(texture_rect);
+  }
 }

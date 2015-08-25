@@ -3,6 +3,7 @@
  <tileset firstgid="1" name="tile_set" tilewidth="16" tileheight="16">
   <image source="tile_set.png" width="528" height="448"/>
  </tileset>
+<<<<<<< HEAD
  <layer name="Collision" width="20" height="20">
   <properties>
    <property name="Collideable" value="true"/>
@@ -16,5 +17,21 @@
   <object x="256" y="112.5" width="15.5" height="80.5"/>
   <object x="48" y="111.5" width="208.5" height="16"/>
   <object x="47.5" y="129" width="16.5" height="63.5"/>
+=======
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIwEoUYixmUeJWwbKPHx+Isc8YvTjMo8YtxBjPiGzyYnfUTAKiAEAMhwGHQ==
+  </data>
+ </layer>
+ <objectgroup name="Collision">
+  <object x="130" y="145" width="44" height="13"/>
+  <object x="36.5" y="110" width="10" height="82"/>
+  <object x="33" y="97.5" width="254" height="13"/>
+  <object x="208" y="161.5" width="16" height="13"/>
+  <object x="81" y="192.5" width="206.5" height="15.5"/>
+  <object x="243.5" y="175.5" height="12.5"/>
+  <object x="48" y="176" width="46" height="16"/>
+  <object x="270.5" y="111.5" width="19.5" height="80.5"/>
+>>>>>>> collision
  </objectgroup>
 </map>
