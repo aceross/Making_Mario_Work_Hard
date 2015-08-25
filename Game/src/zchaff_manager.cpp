@@ -127,6 +127,14 @@ void ZChaffManager::GetLiterals(int clause_index, int* literals) {
   }
 }
 
+unsigned int ZChaffManager::GetNumClauses() {
+  return num_clauses_;
+}
+
+unsigned int ZChaffManager::GetNumVariables() {
+  return num_variables_;
+}
+
 void ZChaffManager::InitialiseClauseStructure() {
   for (unsigned int i = 0; i < num_clauses_; ++i) {
     std::vector<int> tmp_value;

@@ -12,32 +12,103 @@
 #include <cctype>
 
 #include "tile.hpp"
+#include "map_chunk_manager.hpp"
+#include "zchaff_manager.hpp"
 
 class TileMap : public sf::Sprite {
  public:
   using sf::Drawable::draw;
   TileMap();
   ~TileMap();
-  bool loadMap(const std::string& tileset, sf::Vector2u tileSize);
-  void initialiseMap();
+  bool LoadMap(const std::string& tileset, sf::Vector2u tileSize);
+  void InitialiseMap(ZChaffManager zchaff_manager);
   void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-  sf::VertexArray vertices;
-  sf::Texture     tileset;
-  sf::Sprite      tiles;
-  std::vector<std::vector<Tile>> t_map_;
+  //test function
+  void CreateChunkMap(unsigned int var, unsigned int clause);
+  std::vector< std::vector<std::string> > test_map_;
 
-  unsigned int height;
-  unsigned int width;
+  sf::VertexArray vertices_;
+  sf::Texture     tileset_;
+  sf::Sprite      tiles_;
+
+  std::vector<std::vector< Tile> > t_map_;
+  std::vector<Tile> tile_start_row_;
+  std::vector<Tile> tile_variable_row;
+  std::vector<Tile> tile_checkout_row;
+
+  MapChunkManager map_chunk_manager_;
+  std::vector< std::vector<MapChunk> > chunk_map_;
+
+  unsigned int tilemap_height_;
+  unsigned int tilemap_width_;
+
+  unsigned int row_count_;
+  unsigned int column_count_;
+
+  unsigned int num_clauses_;
+  unsigned int num_variables_;
+  unsigned int num_warp_gadgets;
+
+  unsigned int padding_;
+
+ private:
+  // Procedural content generation - Map Generation
+  void SetSATParameters(ZChaffManager zchaff_manager);
+
+  void ChunkReader(MapChunk chunk);
+
+  void AddStartGadget();
+
+  void AddWarpGadget();
+  void AddWarpStart();
+  void AddWarpPipe();
+  void AddWarpExit();
+
+  void AddVariableGadget();
+
+  void AddCheckinGadget();
+  void AddClauseGadget();
+  void AddFinishGadget();
+
+  void ChunkToTileMap();
+  void InitialiseTiles();
+  unsigned int SetChunkMapRows();
+  unsigned int SetChunkMapColumns();
+  void GetChunkMapParameters();
+
+  void SetPadding(std::vector<Tile> var);
+  void TestPrint();
+
+  void TestLoop();
+
+  unsigned int var_row_width_;
+
+  void PrintChunkMap();
+
+  unsigned int chunk_map_rows_;
+  unsigned int chunk_map_columns_;
+  unsigned int warp_columns_;
+  unsigned int clause_checkout_columns_;
+  unsigned int max_column_length_;
+
+  unsigned int vars_height_;
+  unsigned int vars_width_;
+  unsigned int checkout_height_;
+  unsigned int checkout_width_;
+
+
+  int t_row_;
+  int t_col_;
 
  private:
   // For collision
-  sf::FloatRect getLocalBounds() const;
-  sf::FloatRect getGlobalBounds() const;
+  sf::FloatRect GetLocalBounds() const;
+  sf::FloatRect GetGlobalBounds() const;
 
-  void LoadBlocks();
-  void setParameters(std::string filepath);
-  void resizeMap(int width, int height);
+  void LoadTileObjects();
+  void SetParameters(std::string filepath);
+  void ResizeMap(int width, int height);
   void PrintMap();
 };
 

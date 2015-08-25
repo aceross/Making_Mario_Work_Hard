@@ -77,17 +77,18 @@ void Level::BuildScene() {
   zchaff_manager_.LoadInstance();
 
   // Read in the tile map
-  std::unique_ptr<MapNode> ml(new MapNode());
-  assert(ml->ml_.Load("simple_collision_test.tmx"));
-  ml->ml_.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
-  scene_layers_[Background]->AttachChild(std::move(ml));
+  std::unique_ptr<MapNode> map_node(new MapNode());
+  map_node->tile_map_.InitialiseMap(zchaff_manager_);
+  // std::unique_ptr<MapNode> ml(new MapNode());
+  // assert(ml->ml_.Load("simple_collision_test.tmx"));
+  // ml->ml_.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+  scene_layers_[Background]->AttachChild(std::move(map_node));
 
   // Add player sprite
   std::unique_ptr<Player> player(new Player(Player::SmallMario, textures_,
                                  fonts_));
   player_sprite_ = player.get();
   player_sprite_->setPosition(64, 160);
-  // player_sprite_->UpdateLocation(64, 160);
   scene_layers_[Background]->AttachChild(std::move(player));
 }
 
