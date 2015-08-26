@@ -17,7 +17,6 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    // player.move(location_update);
     mario.MoveMario(location_update);
     mario.move(location_update);
   }
@@ -33,7 +32,6 @@ PlayerManager::PlayerManager()
   key_binding_[sf::Keyboard::Left]  = MoveLeft;
   key_binding_[sf::Keyboard::Right] = MoveRight;
   key_binding_[sf::Keyboard::Space] = Jump;
-  key_binding_[sf::Keyboard::Down]  = Crouch;
 
   // Set initial action bindings
   InitialiseActions();
@@ -100,7 +98,6 @@ void PlayerManager::InitialiseActions() {
   action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-movement_speed, 0));
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+movement_speed, 0));
   action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -movement_speed));
-  action_binding_[Crouch].action_    = DerivedAction<Mario>(MarioMover(0, +movement_speed));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {

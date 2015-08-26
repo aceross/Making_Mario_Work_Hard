@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "../include/mario.hpp"
-#include "../include/navigation_manager.hpp"
 #include "../include/resource_manager.hpp"
 #include "../include/data_table.hpp"
 #include "../include/command_queue.hpp"
@@ -20,8 +19,11 @@ namespace {
 
 Mario::Mario(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
+, navigator_()
 , type_(type)
-{}
+{
+  // navigator_
+}
 
 float Mario::GetSpeed() const {
   return Table[type_].speed;
@@ -79,4 +81,9 @@ void Mario::UpdateAnimation() {
 
   sprite_.setTextureRect(texture_rect);
   }
+}
+
+void Mario::InitialiseLevelNavigator(TileMap tm) {
+  navigator_.GetTileMap(tm);
+  std::cout << "TileMap Attained" << std::endl;
 }

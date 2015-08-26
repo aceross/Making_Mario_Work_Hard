@@ -3,14 +3,18 @@
 #ifndef NAVIGATION_MANAGER_HPP
 #define NAVIGATION_MANAGER_HPP
 
-#include "../include/map_chunk_manager.hpp"
+// #include "../include/map_chunk_manager.hpp"
 #include "../include/tile_map.hpp"
+#include "../include/command_queue.hpp"
 
 class NavigationManager {
  public:
-  NavigationManager(MapChunkManager cm, TileMap tm);
-private:
-  MapChunkManager chunk_manager_;
+  NavigationManager();
+  NavigationManager(TileMap tm);
+  void InitialiseQueues();
+  void GetTileMap(TileMap tm);
+ private:
+  // MapChunkManager chunk_manager_;
   TileMap tile_map_;
 
   // location boolean values

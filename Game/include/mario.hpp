@@ -6,10 +6,12 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "entity.hpp"
+#include "navigation_manager.hpp"
 #include "command.hpp"
 #include "resource_identifiers.hpp"
 #include "animation.hpp"
 #include "text_node.hpp"
+#include "tile_map.hpp"
 
 class Mario : public Entity {
  public:
@@ -27,6 +29,10 @@ class Mario : public Entity {
   void UpdateLocation(int x, int y);
   void UpdateLocation(sf::Vector2i location_update);
   sf::Sprite   sprite_;
+
+  void InitialiseLevelNavigator(TileMap tm);
+
+  NavigationManager navigator_;
 
  private:
   virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

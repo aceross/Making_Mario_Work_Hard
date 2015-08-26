@@ -26,8 +26,12 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
+  // init level instance
   LoadTextures();
   BuildScene();
+
+  //
+
 
   // Prepare the main view and the mini-map
   level_view_.setCenter(player_mario_->getPosition());
@@ -81,19 +85,19 @@ void Level::BuildScene() {
 
   // Start and load SAT solver
   zchaff_manager_.LoadInstance();
-
   // Read in the tile map
+  tile_map_.InitialiseMap(zchaff_manager_);
+
   std::unique_ptr<MapNode> map_node(new MapNode());
   map_node->tile_map_.InitialiseMap(zchaff_manager_);
-  // std::unique_ptr<MapNode> ml(new MapNode());
-  // assert(ml->ml_.Load("simple_collision_test.tmx"));
-  // ml->ml_.UpdateQuadTree(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
   scene_layers_[Background]->AttachChild(std::move(map_node));
 
   // Add player sprite
-  std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_,
-                                 fonts_));
+  std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
   player_mario_ = player.get();
+  player_mario_->InitialiseLevelNavigator(tile_map_);
+
+
   player_mario_->setPosition(0, 0);
   scene_layers_[Foreground]->AttachChild(std::move(player));
 }

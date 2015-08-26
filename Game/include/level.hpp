@@ -22,6 +22,7 @@
 #include "command_queue.hpp"
 #include "mario.hpp"
 #include "zchaff_manager.hpp"
+#include "tile_map.hpp"
 
 // Forward declaration
 namespace sf {
@@ -68,7 +69,7 @@ class Level : private sf::NonCopyable {
   FontHolder&        fonts_;
 
   // tmx::MapLoader map_loader_;
-
+  TileMap tile_map_;
   sf::Text test_;
 
   SceneNode                          scene_graph_;

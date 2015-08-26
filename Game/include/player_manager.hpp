@@ -15,7 +15,6 @@ class PlayerManager {
     MoveLeft,
     MoveRight,
     Jump,
-    Crouch,
     ActionCount
   };
 
