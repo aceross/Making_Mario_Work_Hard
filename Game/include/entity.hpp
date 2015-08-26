@@ -15,6 +15,8 @@ class Entity : public SceneNode {
   int GetHitPoints() const;
   void Damage(int points);
   void Destroy();
+  void MoveMario(sf::Vector2f movement);
+  void MoveMario(float move_x, float move_y);
   virtual void Remove();
   virtual bool IsDestroyed() const;
 
@@ -22,7 +24,7 @@ class Entity : public SceneNode {
   using SceneNode::UpdateCurrent;
   virtual void UpdateCurrent(sf::Time delta_time, CommandQueue& commands);
 private:
-  sf::Vector2f speed_;
+  sf::Vector2f movement_;
   int hit_points_;
 };
 

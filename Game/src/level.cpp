@@ -39,7 +39,7 @@ void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
     // player_sprite_->move(0, 10);
-    std::cout << "Command Executed" << std::endl;
+    // std::cout << "Command Executed" << std::endl;
   }
 
   // Collision detection and response (may destroy entities)

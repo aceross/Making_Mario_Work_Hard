@@ -18,6 +18,7 @@ struct MarioMover {
 
   void operator() (Mario& mario, sf::Time) const {
     // player.move(location_update);
+    mario.MoveMario(location_update);
     mario.move(location_update);
   }
 
@@ -59,7 +60,7 @@ void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
   for (auto pair : key_binding_) {
     // If key is pressed, lookup action and trigger corresponding command
     if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second)) {
-      std::cout << "Pushing Real Time Input" << std::endl;
+      // std::cout << "Pushing Real Time Input" << std::endl;
       commands.Push(action_binding_[pair.second]);
     }
   }

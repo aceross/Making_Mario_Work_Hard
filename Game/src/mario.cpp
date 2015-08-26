@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../include/mario.hpp"
+#include "../include/navigation_manager.hpp"
 #include "../include/resource_manager.hpp"
 #include "../include/data_table.hpp"
 #include "../include/command_queue.hpp"
