@@ -36,6 +36,7 @@ class Level : private sf::NonCopyable {
   void draw();
 
   CommandQueue& GetCommandQueue();
+  TileMap& GetTileMap();
 
   bool HasActivePlayer() const;
   bool HasReachedEnd() const;

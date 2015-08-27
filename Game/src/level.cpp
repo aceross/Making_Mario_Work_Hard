@@ -7,6 +7,8 @@
 #include <limits>
 #include <set>
 #include <memory>
+// #include <thread>
+// #include <chrono>
 
 #include "../include/level.hpp"
 
@@ -42,13 +44,39 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
-    // player_sprite_->move(0, 10);
-    // std::cout << "Command Executed" << std::endl;
+    // // player_sprite_->move(0, 10);
+    // sf::Vector2f position;
+    //
+    // if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
+    //   position = player_mario_->navigator_.start_gadget_actions_.front();
+    //   player_mario_->move(position);
+    //   player_mario_->navigator_.start_gadget_actions_.pop();
+    //   std::cout << "Player update" << std::endl;
+    //   // sf::sleep(sf::seconds(2));
+    //   // waiting_ = true;
+    // } else {
+    //   // finish_ = true;
+    //   std::cout << "Done" << std::endl;
+    // }
+    std::cout << "Command Executed" << std::endl;
   }
+
+  // sf::Vector2f position;
+  //
+  // if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
+  //   position = player_mario_->navigator_.start_gadget_actions_.front();
+  //   player_mario_->move(position);
+  //   player_mario_->navigator_.start_gadget_actions_.pop();
+  //   std::cout << "Player update" << std::endl;
+  //   // sf::sleep(sf::seconds(2));
+  //   // waiting_ = true;
+  // } else {
+  //   // finish_ = true;
+  //   std::cout << "Done" << std::endl;
+  // }
 
   // Collision detection and response (may destroy entities)
   // HandleCollisions();
-
   // Regular update step, adapt position (correct if outside view)
   scene_graph_.Update(delta_time, command_queue_);
 }
@@ -57,6 +85,7 @@ void Level::draw() {
   // draw the main view level
   target_.setView(level_view_);
   target_.draw(scene_graph_);
+  // target_.draw(player_mario_->sprite_);
 
   // draw the mini map view
   target_.setView(mini_map_);
@@ -76,8 +105,7 @@ void Level::LoadTextures() {
 void Level::BuildScene() {
   // Initialise the different layers
   for (std::size_t i = 0; i < LayerCount; ++i) {
-    Category::Type category = (i == Foreground) ?
-                              Category::SceneForegroundLayer : Category::None;
+    Category::Type category = Category::None;
     SceneNode::Ptr layer(new SceneNode(category));
     scene_layers_[i] = layer.get();
     scene_graph_.AttachChild(std::move(layer));
@@ -87,6 +115,7 @@ void Level::BuildScene() {
   zchaff_manager_.LoadInstance();
   // Read in the tile map
   tile_map_.InitialiseMap(zchaff_manager_);
+  std::cout << "Tilemap Initialised in LEVEL" << std::endl;
 
   std::unique_ptr<MapNode> map_node(new MapNode());
   map_node->tile_map_.InitialiseMap(zchaff_manager_);
@@ -95,7 +124,7 @@ void Level::BuildScene() {
   // Add player sprite
   std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
   player_mario_ = player.get();
-  player_mario_->InitialiseLevelNavigator(tile_map_);
+  // player_mario_->InitialiseLevelNavigator(tile_map_);
 
 
   player_mario_->setPosition(0, 0);
@@ -160,4 +189,8 @@ void Level::HandleCollisions() {
   //   }
   // }
 
+}
+
+TileMap& Level::GetTileMap() {
+  return tile_map_;
 }

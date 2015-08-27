@@ -46,8 +46,8 @@ class Mario : public Entity {
   Type         type_;
   // sf::Sprite   sprite_;
   sf::Vector2i location_;
+  bool waiting_;
 
-  //
   // int clauses_true_;
   // int clauses_false_;
 

@@ -3,6 +3,8 @@
 #ifndef NAVIGATION_MANAGER_HPP
 #define NAVIGATION_MANAGER_HPP
 
+#include <vector>
+
 // #include "../include/map_chunk_manager.hpp"
 #include "../include/tile_map.hpp"
 #include "../include/command_queue.hpp"
@@ -10,13 +12,42 @@
 class NavigationManager {
  public:
   NavigationManager();
-  NavigationManager(TileMap tm);
-  void InitialiseQueues();
-  void GetTileMap(TileMap tm);
- private:
-  // MapChunkManager chunk_manager_;
-  TileMap tile_map_;
 
+  void GetTileMap(TileMap tm);
+  void InitialiseAction();
+  void InitialiseQueues();
+
+  void InitStartQueue();
+  void InitVariableQueue();
+  void InitWarpQueue();
+  void InitClauseQueue();
+  void InitCheckInQueue();
+  void InitCheckoutQueue();
+  void InitFinishQueue();
+
+  std::vector<std::queue< Command::Action > > solution_queue_;
+  std::queue<Command::Action> start_gadget_actions_;
+ private:
+  TileMap tile_map_;
+  int current_variable_;
+  unsigned int current_clause_;
+
+private:
+  sf::Vector2f right_move_;
+  sf::Vector2f left_move_;
+  sf::Vector2f jump_move_;
+  sf::Vector2f fall_move_;
+
+ private:
+  // std::queue<sf::Vector2f> start_gadget_actions_;
+  // std::queue<actions> variable_gadget_actions_;
+  // std::queue<actions> warp_gadget_actions_;
+  // std::queue<actions> clause_gadget_actions_;
+  // std::queue<actions> checkin_gadget_actions_;
+  // std::queue<actions> checkout_gadget_actions_;
+  // std::queue<actions> finish_gadget_actions_;
+
+private:
   // location boolean values
   bool in_start_gadget_;
   bool in_variable_gadget_;

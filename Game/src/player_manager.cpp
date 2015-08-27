@@ -18,7 +18,7 @@ struct MarioMover {
 
   void operator() (Mario& mario, sf::Time) const {
     mario.MoveMario(location_update);
-    mario.move(location_update);
+    // mario.move(location_update);
   }
 
   sf::Vector2f location_update;
@@ -38,7 +38,7 @@ PlayerManager::PlayerManager()
 
   // Assign all categories to player
   for (auto& pair : action_binding_) {
-    pair.second.category_ = Category::PlayerSprite;
+    pair.second.category_ = Category::MarioPlayer;
   }
 }
 
@@ -110,4 +110,8 @@ bool PlayerManager::IsRealtimeAction(Action action) {
     default:
       return false;
   }
+}
+
+void PlayerManager::SetTileMap(TileMap tm) {
+  tile_map_ = tm;
 }

@@ -4,6 +4,8 @@
 #include <stack>
 #include <iostream>
 #include <string>
+#include <thread>
+#include <chrono>
 
 #include "../include/game_state_manager.hpp"
 #include "../include/text_utility.hpp"
@@ -57,11 +59,11 @@ void GameStateManager::Run() {
       ProcessInputs();
       Update(TimePerFrame);
       if (states_.IsEmpty()) { window_.close(); }
+      // std::this_thread::sleep_for (std::chrono::seconds(1));
     }
 
     UpdateStatistics(delta_time);
     Render();
-    // sf::sleep(sf::microseconds(1));
   }
   std::cout << "Quitting the game..." << std::endl;
 }

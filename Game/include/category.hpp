@@ -7,8 +7,7 @@
 namespace Category {
   enum Type {
     None                 = 0,
-    SceneForegroundLayer = 1 << 0,
-    PlayerSprite         = 1 << 1,
+    MarioPlayer          = 1 << 0
   };
 }
 

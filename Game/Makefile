@@ -46,17 +46,16 @@ INC      := -I include
 
 # links the *.o objects together along with the necessary libraries
 $(TARGET): $(OBJECTS)
-	@echo " ${TASK_COLOUR}Linking...${NO_COLOUR}"
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB) $(LDFLAGS)
+	@echo "${TASK_COLOUR}[Linking]${NO_COLOUR}"
+	@echo "     $(CC) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB) $(LDFLAGS)
 
 # makes the build directory with the *.o objects
-$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT);
 	@mkdir -p $(BUILDDIR) $(BUILDDIR)/pugixml
-	@echo "$(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
-###	@$(BUILD_CMD)
+	@$(BUILD_CMD) $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
-	@echo "${TASK_COLOUR} Cleaning...${NO_COLOUR}"
+	@echo "${TASK_COLOUR}[Cleaning]${NO_COLOUR}"
 	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
 
 .PHONY: clean

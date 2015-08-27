@@ -5,6 +5,8 @@
 
 #include <cmath>
 #include <vector>
+// #include <thread>
+// #include <chrono>
 
 #include "../include/mario.hpp"
 #include "../include/resource_manager.hpp"
@@ -21,6 +23,7 @@ Mario::Mario(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
 , navigator_()
 , type_(type)
+, waiting_(false)
 {
   // navigator_
 }
@@ -44,21 +47,37 @@ void Mario::UpdateLocation(int x, int y) {
 
 void Mario::DrawCurrent(sf::RenderTarget &target,
                          sf::RenderStates states) const {
+
   target.draw(sprite_, states);
 }
 
 void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
   // Update texts and animations
   // UpdateTexts();
-  UpdateAnimation();
-
-  // Update enemy movement pattern; apply velocity
-  // UpdateMovementPattern(delta_time);
-  // Entity::UpdateCurrent(delta_time, commands);
+  // UpdateAnimation();
+  // std::queue<sf::Vector2f> = navigator_.solution_queue_.pop_back()
+  // sf::Vector2f movement = navigator_.solution_queue_.pop_back()
+  //
+  // sprite_.move(navigator_.start_gadget_actions_.pop());
+  // sprite_.move(const Vector2f &offset)
+  // if (!waiting_) {
+  //   if (!navigator_.start_gadget_actions_.empty()) {
+  //     sf::Vector2f position_ = navigator_.start_gadget_actions_.front();
+  //     // move(position_);
+  //     commands.Push(move(position_));
+  //     navigator_.start_gadget_actions_.pop();
+  //     std::cout << "Player update" << std::endl;
+  //     waiting_ = true;
+  //   } else {
+  //     // finish_ = true;
+  //     std::cout << "Done" << std::endl;
+  //   }
+  //   waiting_ = false;
+  // }
 }
 
 unsigned int Mario::GetCategory() const {
-  return Category::PlayerSprite;
+  return Category::MarioPlayer;
 }
 
 sf::FloatRect Mario::GetBoundingRect() const {
