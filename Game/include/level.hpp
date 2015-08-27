@@ -82,6 +82,8 @@ class Level : private sf::NonCopyable {
   float         movement_speed_;
   Mario*        player_mario_;
   ZChaffManager zchaff_manager_;
+
+  bool level_complete_;
 };
 
 #endif  // LEVEL_HPP

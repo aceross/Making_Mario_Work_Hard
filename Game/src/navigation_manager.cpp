@@ -3,7 +3,7 @@
 #include "../include/navigation_manager.hpp"
 
 NavigationManager::NavigationManager()
-: right_move_(sf::Vector2f(2.5, 0))
+: right_move_(sf::Vector2f(30, 0))
 , left_move_(sf::Vector2f(-16, 0))
 , jump_move_(sf::Vector2f(0, -16))
 , fall_move_(sf::Vector2f(0, 16))
@@ -37,7 +37,8 @@ void NavigationManager::InitialiseQueues() {
 }
 
 void NavigationManager::InitStartQueue() {
-  // for (int i = 0; i < 10; ++i) {
-  //   start_gadget_actions_.push();
-  // }
+  for (int i = 0; i < 10; ++i) {
+    start_gadget_actions_.push(right_move_);
+  }
+  start_gadget_actions_.push(jump_move_);
 }

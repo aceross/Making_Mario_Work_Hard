@@ -25,6 +25,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
                                                  level_view_.getSize().y / 2.f)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
+, level_complete_(false)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
@@ -42,38 +43,23 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 }
 
 void Level::Update(sf::Time delta_time) {
-  if (!command_queue_.IsEmpty()) {
-    scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
+  // if (!command_queue_.IsEmpty()) {
+    // scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
     // // player_sprite_->move(0, 10);
-    // sf::Vector2f position;
-    //
-    // if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
-    //   position = player_mario_->navigator_.start_gadget_actions_.front();
-    //   player_mario_->move(position);
-    //   player_mario_->navigator_.start_gadget_actions_.pop();
-    //   std::cout << "Player update" << std::endl;
-    //   // sf::sleep(sf::seconds(2));
-    //   // waiting_ = true;
-    // } else {
-    //   // finish_ = true;
-    //   std::cout << "Done" << std::endl;
-    // }
+
+  if (!level_complete_) {
+    sf::Vector2f position;
+    if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
+      position = player_mario_->navigator_.start_gadget_actions_.front();
+      player_mario_->move(position);
+      player_mario_->navigator_.start_gadget_actions_.pop();
+      std::cout << "Player update" << std::endl;
+    } else {
+      level_complete_ = true;
+      std::cout << "Done" << std::endl;
+    }
     std::cout << "Command Executed" << std::endl;
   }
-
-  // sf::Vector2f position;
-  //
-  // if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
-  //   position = player_mario_->navigator_.start_gadget_actions_.front();
-  //   player_mario_->move(position);
-  //   player_mario_->navigator_.start_gadget_actions_.pop();
-  //   std::cout << "Player update" << std::endl;
-  //   // sf::sleep(sf::seconds(2));
-  //   // waiting_ = true;
-  // } else {
-  //   // finish_ = true;
-  //   std::cout << "Done" << std::endl;
-  // }
 
   // Collision detection and response (may destroy entities)
   // HandleCollisions();
@@ -83,6 +69,7 @@ void Level::Update(sf::Time delta_time) {
 
 void Level::draw() {
   // draw the main view level
+  level_view_.setCenter(player_mario_->getPosition());
   target_.setView(level_view_);
   target_.draw(scene_graph_);
   // target_.draw(player_mario_->sprite_);

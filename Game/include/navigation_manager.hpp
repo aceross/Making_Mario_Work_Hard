@@ -25,8 +25,8 @@ class NavigationManager {
   void InitCheckoutQueue();
   void InitFinishQueue();
 
-  std::vector<std::queue< Command::Action > > solution_queue_;
-  std::queue<Command::Action> start_gadget_actions_;
+  std::vector<std::queue< sf::Vector2f > > solution_queue_;
+  std::queue<sf::Vector2f> start_gadget_actions_;
  private:
   TileMap tile_map_;
   int current_variable_;
