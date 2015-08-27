@@ -11,11 +11,7 @@
 \documentclass[11pt, a4paper, oneside]{report} % A4, 11pt font, one-sided
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc} %setlength{parskip}{0.7em}
-<<<<<<< HEAD
 \usepackage{bibentry}
-=======
-\usepackage{bibentry} nobibliography*
->>>>>>> collision
 \usepackage[margin= 1.3in]{geometry}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{epigraph}
@@ -27,13 +23,6 @@
 
 \begin{document}
 
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> collision
 % ------------------------------------------------------------------------------
 % TITLE PAGE
 % ------------------------------------------------------------------------------
@@ -55,15 +44,12 @@
         % \vfill
         \vspace{0.8cm}
 
-<<<<<<< HEAD
         MSc Thesis Project\\
         COMSM3201 MSc Project, Computer Science
-=======
+
         Research Review\\
         COMSM2202 Research Skills
 
->>>>>>> collision
-        \vspace{0.8cm}
         \vspace{0.8cm}
 
         % \includegraphics[width=0.4\textwidth]{university}
@@ -77,7 +63,6 @@
 \end{titlepage}
 
 
-<<<<<<< HEAD
 % ------------------------------------------------------------------------------
 % Executive Summary
 % ------------------------------------------------------------------------------
@@ -94,14 +79,6 @@ Blank at the moment
 
 Blank at the moment
 
-% ------------------------------------------------------------------------------
-% TABLE OF CONTENTS
-% ------------------------------------------------------------------------------
-
-\tableofcontents
-=======
-
-
 
 % ------------------------------------------------------------------------------
 % TABLE OF CONTENTS
@@ -109,9 +86,6 @@ Blank at the moment
 
 \tableofcontents
 
-
-
->>>>>>> collision
 
 
 % ------------------------------------------------------------------------------
@@ -120,18 +94,10 @@ Blank at the moment
 
 <<<<<<< HEAD
 \chapter{Aims and Objectives}
-=======
-\chapter{Introduction and scope}
->>>>>>> collision
-
 
 \epigraph{``The obvious objective of video games is to entertain people by
 surprising them with new experiences.''}{Shigeru Miyamoto}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> collision
 \section{Background and motivation}
 
 An NP-complete problem is one with a solution that can be \textit{verified}
@@ -184,7 +150,7 @@ to fulfil this aim, the research project will implement a game engine through
 <<<<<<< HEAD
 achieving the following objectives: \\
 =======
-achieving the following objectives: \\ 
+achieving the following objectives: \\
 >>>>>>> collision
 
 \begin{enumerate}
@@ -198,8 +164,6 @@ achieving the following objectives: \\
 
 \end{enumerate}
 
-
-<<<<<<< HEAD
 % \section{Scope of the research review}
 
 % As shown in the preceding section, the research being undertaken brings together
@@ -380,15 +344,15 @@ finding a solution but can have a solution verified in polynomial time
 
 The P vs NP problem refers to search problems to which there exists an efficient
 algorithm that given a solution to a given instance determines whether or not
-the solution is correct\cite{sipser2012introduction,Goldreich:2008,kendall2008su
-rvey,du2011theory}.\footnote{This is also sometimes described as the P vs NP
-Question in literature} Although any given solution to an NP-complete problem
-can be verified quickly (in polynomial time), there is no known efficient way to
-locate a solution in the first place. A distinguishing characteristic of of NP-
-complete problems is that there is no known efficient solution to them
-\cite{Goldreich:2008}. That is, the time required to solve the problem using any
-currently known algorithm increases very quickly as the size of the problem
-grows.
+the solution is correct\cite{sipser2012introduction,Goldreich:2008,
+kendall2008survey,du2011theory}.\footnote{This is also sometimes described as
+the P vs NP Question in literature} Although any given solution to an NP-
+complete problem can be verified quickly (in polynomial time), there is no known
+efficient way to locate a solution in the first place. A distinguishing
+characteristic of of NP- complete problems is that there is no known efficient
+solution to them \cite{Goldreich:2008}. That is, the time required to solve the
+problem using any currently known algorithm increases very quickly as the size
+of the problem grows.
 
 \begin{figure}[h!]
 
@@ -684,6 +648,27 @@ utilise highly aggressive restarts strategies, even below 20 backtracks, as it
 demonstrably lowers the solution time \cite{gomes2008satisfiability}.
 
 \end{enumerate}
+
+\subsection{Converting a formula for SAT Solver Input}
+
+The standard input into a SAT solver is a DIMACS CNF file.\footnote{The Center
+for Discrete Mathematics and Theoretical Computer Science (DIMACS) is a
+collaboration between Rutgers University, Princeton University, and the research
+firms AT&T, Bell Labs, Applied Communication Sciences, and NEC} The file itself
+has a specific format. 
+
+c example.cnf
+c
+p cnf 3 4
+ 1  2 -3 0 
+-2  3    0 
+-1       0 
+
+
+The \texttt{p} character indicates the problem line. On this line the SAT solver
+is given informationa about the instance such as the format, either CNF or DNF,
+and the variables  {} and the clauses (). th. The reader ends a the `0' and
+begins reading the next line until the end of file.
 
 
 \section{Chapter summary}
@@ -1055,9 +1040,6 @@ these levels/problem instances will be generated, explored in the next chapter.
 % CHP 4 --- LEVEL GENERATION
 %---------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-\chapter{Content generation}
-=======
 \chapter{Level generation}
 >>>>>>> collision
 
@@ -1568,10 +1550,13 @@ This provides a challenge when
 
 \section{Designing NP-hard levels}
 
-For the purposes of this project, the size of the levels are n X n, which
+% Review Aloupis and Forisek and others
+
+
+For the purposes of this project, the size of the levels are $n\times n$ , which
 means that the size is essentially unlimited.
 
-% Review Aloupis and Forisek
+
 
 % \section{Modifying the model in Aloupis \textit{et al}}
 
@@ -2013,17 +1998,11 @@ After the successful integration of software features, the literature review
 will benefit from identifying other possible classes of complexity that could be
 tested within the developed software.
 
->>>>>>> collision
 
 % ------------------------------------------------------------------------------
 % BIBLIOGRAPHY
 % ------------------------------------------------------------------------------
 
 \bibliographystyle{abbrv}
-<<<<<<< HEAD
-\bibliography{../ResearchReview/references.bib}
-=======
 \bibliography{references.bib}
->>>>>>> collision
-
 \end{document}

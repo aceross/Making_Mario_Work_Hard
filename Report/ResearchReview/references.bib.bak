@@ -251,7 +251,9 @@
   Author                   = {Dixon, Heidi E and Ginsberg, Matthew L and Luks, Eugene M and Parkes, Andrew J},
   Journal                  = {Journal of Artificial Intelligence Research},
   Year                     = {2004},
-  Pages                    = {481--534}
+  Pages                    = {481--534},
+
+  __markedentry            = {[awc:1]}
 }
 
 @Article{dixon2004generalizing,
@@ -589,6 +591,25 @@
   Year                     = {2013}
 }
 
+@InCollection{raey,
+  Title                    = {Zchaff2004: An Efficient SAT Solver},
+  Author                   = {Mahajan, YogeshS. and Fu, Zhaohui and Malik, Sharad},
+  Booktitle                = {Theory and Applications of Satisfiability Testing},
+  Publisher                = {Springer Berlin Heidelberg},
+  Year                     = {2005},
+  Editor                   = {Hoos, HolgerH. and Mitchell, DavidG.},
+  Pages                    = {360-375},
+  Series                   = {Lecture Notes in Computer Science},
+  Volume                   = {3542},
+
+  Doi                      = {10.1007/11527695_27},
+  ISBN                     = {978-3-540-27829-0},
+  Language                 = {English},
+  Owner                    = {awc},
+  Timestamp                = {2015.08.25},
+  Url                      = {http://dx.doi.org/10.1007/11527695_27}
+}
+
 @InCollection{marques1999impact,
   Title                    = {The impact of branching heuristics in propositional satisfiability algorithms},
   Author                   = {Marques-Silva, Joao},
@@ -832,6 +853,23 @@
   Year                     = {2010}
 }
 
+@Article{raey,
+  Title                    = {Visualizing SAT Instances and Runs of the DPLL Algorithm},
+  Author                   = {Sinz, Carsten},
+  Journal                  = {Journal of Automated Reasoning},
+  Year                     = {2007},
+  Number                   = {2},
+  Pages                    = {219-243},
+  Volume                   = {39},
+
+  Doi                      = {10.1007/s10817-007-9074-1},
+  ISSN                     = {0168-7433},
+  Keywords                 = {SAT instance; DPLL procedure},
+  Language                 = {English},
+  Publisher                = {Springer Netherlands},
+  Url                      = {http://dx.doi.org/10.1007/s10817-007-9074-1}
+}
+
 @Book{sipser2012introduction,
   Title                    = {Introduction to the Theory of Computation},
   Author                   = {Sipser, Michael},
@@ -853,6 +891,26 @@
   Doi                      = {10.1109/TCIAIG.2011.2158545},
   ISSN                     = {1943-068X},
   Keywords                 = {logic programming;answer set programming;domain-independent procedure;game content domains;game context;generative-content design problems;latent design space;procedural content generation;procedural content generator;reference evolutionary content generator;Aerospace electronics;Algorithm design and analysis;Concrete;Games;Generators;Programming;Syntactics;Answer set programming;constraint programming;game design;logic programming;procedural content generation}
+}
+
+@InProceedings{Smith:2008:FAP:1401843.1401858,
+  Title                    = {A Framework for Analysis of 2D Platformer Levels},
+  Author                   = {Smith, Gillian and Cha, Mee and Whitehead, Jim},
+  Booktitle                = {Proceedings of the 2008 ACM SIGGRAPH Symposium on Video Games},
+  Year                     = {2008},
+
+  Address                  = {New York, NY, USA},
+  Pages                    = {75--80},
+  Publisher                = {ACM},
+  Series                   = {Sandbox '08},
+
+  Acmid                    = {1401858},
+  Doi                      = {10.1145/1401843.1401858},
+  ISBN                     = {978-1-60558-173-6},
+  Keywords                 = {game analysis, game design, level design, platform games},
+  Location                 = {Los Angeles, California},
+  Numpages                 = {6},
+  Url                      = {http://doi.acm.org/10.1145/1401843.1401858}
 }
 
 @InProceedings{Smith:2008:FAP:1401843.1401858,
@@ -1108,6 +1166,14 @@
   Volume                   = {54},
 
   Publisher                = {Springer}
+}
+
+@InProceedings{weber2005sat,
+  Title                    = {A SAT-based Sudoku solver},
+  Author                   = {Weber, Tjark},
+  Booktitle                = {LPAR},
+  Year                     = {2005},
+  Pages                    = {11--15}
 }
 
 @Article{yampolskiy2011construction,

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.4.24)  2 AUG 2015 23:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.4.24)  25 AUG 2015 22:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -725,139 +725,164 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 3.
 [3
 
-])
+] [4])
 \tf@toc=\write4
 \openout4 = `thesis.toc'.
 
-[4]
+[5]
 Chapter 1.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 101.
+(Font)              <7> on input line 99.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 101.
+(Font)              <5> on input line 99.
+[6
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--150
-
- []
-
-[5
-
-] [6]
+] [7] [8]
 Chapter 2.
-[7
+[9
 
 ]
-
-LaTeX Warning: Citation `kendall2008su rvey' on page 8 undefined on input line 
-302.
-
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 303.
-<pnp.png, id=36, 642.4pt x 401.5pt>
+(Font)              <9> on input line 349.
+<pnp.png, id=42, 642.4pt x 401.5pt>
 File: pnp.png Graphic file (type png)
 <use pnp.png>
-Package pdftex.def Info: pnp.png used on input line 314.
+Package pdftex.def Info: pnp.png used on input line 360.
 (pdftex.def)             Requested size: 289.07733pt x 180.67332pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[8] [9 <Thesis/pnp.png>]
+[10] [11 <Thesis/pnp.png>]
 Chapter 3.
-[10
+[12
 
-] <dpll.png, id=52, 618.31pt x 398.48875pt>
+] <dpll.png, id=59, 618.31pt x 398.48875pt>
 File: dpll.png Graphic file (type png)
 <use dpll.png>
-Package pdftex.def Info: dpll.png used on input line 464.
+Package pdftex.def Info: dpll.png used on input line 510.
 (pdftex.def)             Requested size: 290.60574pt x 187.28973pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[11] [12 <Thesis/dpll.png>] [13] [14]
+[13] [14 <Thesis/dpll.png>]
+! Misplaced alignment tab character &.
+<argument> ...iversity, and the research firms AT&
+                                                  T, Bell Labs, Applied Comm...
+l.657 ... Applied Communication Sciences, and NEC}
+                                                   The file itself
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+[15] [16]
 Chapter 4.
-[15
+[17
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 685.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 752.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 685.
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 750--757
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 752.
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 817--824
 
  []
 
-<aloupis_nphardness.png, id=74, 1017.8025pt x 543.02875pt>
+<aloupis_nphardness.png, id=81, 1017.8025pt x 543.02875pt>
 File: aloupis_nphardness.png Graphic file (type png)
 <use aloupis_nphardness.png>
-Package pdftex.def Info: aloupis_nphardness.png used on input line 761.
+Package pdftex.def Info: aloupis_nphardness.png used on input line 828.
 (pdftex.def)             Requested size: 356.23622pt x 190.0629pt.
-[17 <Thesis/aloupis_nphardness.png>] [18]
+[19 <Thesis/aloupis_nphardness.png>] [20]
 Chapter 5.
-[19
+[21
 
-] [20]
-Overfull \hbox (0.9157pt too wide) in paragraph at lines 1115--1120
+] [22]
+Overfull \hbox (0.9157pt too wide) in paragraph at lines 1183--1188
 []\OT1/cmr/m/n/10.95 Search based gen-er-a-tion is a spe-cialised type of gener
 ate-and-test pro-ce-dure. Rather
  []
 
-<lvlgenmethods.png, id=88, 924.45375pt x 655.44875pt>
+<lvlgenmethods.png, id=94, 924.45375pt x 655.44875pt>
 File: lvlgenmethods.png Graphic file (type png)
 <use lvlgenmethods.png>
-Package pdftex.def Info: lvlgenmethods.png used on input line 1135.
+Package pdftex.def Info: lvlgenmethods.png used on input line 1203.
 (pdftex.def)             Requested size: 323.56366pt x 229.41049pt.
-[21 <Thesis/lvlgenmethods.png>] <lvlgen.png, id=92, 567.11874pt x 610.28pt>
+[23 <Thesis/lvlgenmethods.png>] <lvlgen.png, id=98, 567.11874pt x 610.28pt>
 File: lvlgen.png Graphic file (type png)
 <use lvlgen.png>
-Package pdftex.def Info: lvlgen.png used on input line 1170.
+Package pdftex.def Info: lvlgen.png used on input line 1238.
 (pdftex.def)             Requested size: 198.49452pt x 213.6012pt.
-[22 <Thesis/lvlgen.png>] [23]
+[24 <Thesis/lvlgen.png>] [25]
 Chapter 6.
-<fulllevel-text.png, id=99, 1155.31625pt x 650.43pt>
+<fulllevel-text.png, id=106, 1155.31625pt x 650.43pt>
 File: fulllevel-text.png Graphic file (type png)
 <use fulllevel-text.png>
-Package pdftex.def Info: fulllevel-text.png used on input line 1521.
+Package pdftex.def Info: fulllevel-text.png used on input line 1593.
 (pdftex.def)             Requested size: 288.82835pt x 162.6071pt.
-[24
+[26
 
- <Thesis/fulllevel-text.png>] <clause.png, id=105, 508.27252pt x 254.13626pt>
+ <Thesis/fulllevel-text.png>] <clause.png, id=112, 508.27252pt x 254.13626pt>
 File: clause.png Graphic file (type png)
 <use clause.png>
-Package pdftex.def Info: clause.png used on input line 1557.
+Package pdftex.def Info: clause.png used on input line 1629.
 (pdftex.def)             Requested size: 355.78835pt x 177.89417pt.
-<clause-explain.png, id=106, 508.27252pt x 254.13626pt>
+<clause-explain.png, id=113, 508.27252pt x 254.13626pt>
 File: clause-explain.png Graphic file (type png)
 <use clause-explain.png>
-Package pdftex.def Info: clause-explain.png used on input line 1558.
+Package pdftex.def Info: clause-explain.png used on input line 1630.
 (pdftex.def)             Requested size: 355.78835pt x 177.89417pt.
-[25 <Thesis/clause.png> <Thesis/clause-explain.png>] <check-out.png, id=112, 17
+[27 <Thesis/clause.png> <Thesis/clause-explain.png>] <check-out.png, id=119, 17
 3.64874pt x 157.58875pt>
 File: check-out.png Graphic file (type png)
 <use check-out.png>
-Package pdftex.def Info: check-out.png used on input line 1587.
+Package pdftex.def Info: check-out.png used on input line 1659.
 (pdftex.def)             Requested size: 208.37744pt x 189.10553pt.
-<finish.png, id=113, 321.2pt x 175.65625pt>
+<finish.png, id=120, 321.2pt x 175.65625pt>
 File: finish.png Graphic file (type png)
 <use finish.png>
-Package pdftex.def Info: finish.png used on input line 1600.
+Package pdftex.def Info: finish.png used on input line 1672.
 (pdftex.def)             Requested size: 321.19922pt x 175.6558pt.
-[26 <Thesis/check-out.png> <Thesis/finish.png>]
+[28 <Thesis/check-out.png> <Thesis/finish.png>]
 Chapter 7.
-[27
-
-] [28]
-Chapter 8.
 [29
+
+] [30]
+Chapter 8.
+[31
 
 ]
 Chapter 9.
-(Thesis/thesis.bbl [30
+[32
 
-] [31
+]
+Chapter 10.
+<diagram(2).png, id=139, 859.21pt x 921.4425pt>
+File: diagram(2).png Graphic file (type png)
+<use diagram(2).png>
+Package pdftex.def Info: diagram(2).png used on input line 1826.
+(pdftex.def)             Requested size: 257.76498pt x 276.43488pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[33
+
+] [34 <Thesis/diagram(2).png>] <running.png, id=147, 611.28375pt x 564.1075pt>
+File: running.png Graphic file (type png)
+<use running.png>
+Package pdftex.def Info: running.png used on input line 1881.
+(pdftex.def)             Requested size: 183.38654pt x 169.23355pt.
+[35 <Thesis/running.png>] [36]
+Chapter 11.
+[37
+
+] (Thesis/thesis.bbl [38] [39
 
 ]
 Underfull \hbox (badness 3000) in paragraph at lines 118--125
@@ -871,40 +896,38 @@ Underfull \hbox (badness 3503) in paragraph at lines 118--125
 ia . org / wiki / File : P _ np _ np-[]complete _
  []
 
-[32] [33] [34]
+[40] [41] [42]
 Underfull \hbox (badness 3635) in paragraph at lines 379--383
 []\OT1/cmr/m/n/10.95 H. Zhang.  Sato: An ef-fi-cient prepo-si-tional prover.  I
 n \OT1/cmr/m/it/10.95 Au-to-mated
  []
 
-) [35] (Thesis/thesis.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+) [43] (Thesis/thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 13316 strings out of 494523
- 260653 string characters out of 6171732
- 305991 words of memory out of 5000000
- 16366 multiletter control sequences out of 15000+600000
- 11226 words of font info for 39 fonts, out of 8000000 for 9000
+ 13329 strings out of 494523
+ 260851 string characters out of 6171732
+ 308016 words of memory out of 5000000
+ 16376 multiletter control sequences out of 15000+600000
+ 11585 words of font info for 40 fonts, out of 8000000 for 9000
  286 hyphenation exceptions out of 8191
  62i,8n,56p,503b,286s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmti9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
-0.pfb>
-Output written on Thesis/thesis.pdf (36 pages, 666052 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmtt10.pfb>
+Output written on Thesis/thesis.pdf (44 pages, 808678 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
- 117 compressed objects within 2 object streams
+ 224 PDF objects out of 1000 (max. 8388607)
+ 143 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 63 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 
