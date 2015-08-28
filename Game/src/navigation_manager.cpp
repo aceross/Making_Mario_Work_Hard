@@ -32,13 +32,13 @@ void NavigationManager::InitialiseQueues() {
   // InitCheckoutQueue();
   // InitFinishQueue();
   std::cout << "Queues Initialised" << std::endl;
-  solution_queue_.push_back(start_gadget_actions_);
+  // solution_queue_.push_back(start_gadget_actions_);
   std::cout << "Start Gadget Actions added" << std::endl;
 }
 
 void NavigationManager::InitStartQueue() {
-  for (int i = 0; i < 10; ++i) {
-    start_gadget_actions_.push(right_move_);
-  }
-  start_gadget_actions_.push(jump_move_);
+  // for (int i = 0; i < 10; ++i) {
+  //   start_gadget_actions_.push(right_move_);
+  // }
+  // start_gadget_actions_.push(jump_move_);
 }

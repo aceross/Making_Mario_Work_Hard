@@ -25,8 +25,8 @@ class NavigationManager {
   void InitCheckoutQueue();
   void InitFinishQueue();
 
-  std::vector<std::queue< sf::Vector2f > > solution_queue_;
-  std::queue<sf::Vector2f> start_gadget_actions_;
+  // std::vector<std::queue< sf::Vector2f > > solution_queue_;
+  // std::queue<sf::Vector2f> start_gadget_actions_;
  private:
   TileMap tile_map_;
   int current_variable_;
@@ -39,7 +39,7 @@ private:
   sf::Vector2f fall_move_;
 
  private:
-  // std::queue<sf::Vector2f> start_gadget_actions_;
+  CommandQueue start_gadget_actions_;
   // std::queue<actions> variable_gadget_actions_;
   // std::queue<actions> warp_gadget_actions_;
   // std::queue<actions> clause_gadget_actions_;

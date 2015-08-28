@@ -11,19 +11,15 @@ GameState::GameState(StateStack& stack, Context context)
   player_manager_.SetLevelStatus(PlayerManager::LevelRunning);
   player_manager_.SetTileMap(level_.GetTileMap());
   std::cout << "TileMap set in player_manager" << std::endl;
+
+  CommandQueue& commands = level_.GetCommandQueue();
+  player_manager_.InitStartQueue(commands);
+
   // music goes here if needed
 }
 
 void GameState::Draw() {
   level_.draw();
-  // bool test_running = true;
-  //
-  // do {
-  //   for (int i = 0; i < 5; ++i) {
-  //     std::cout << "Yolo" << std::endl;
-  //   }
-  //   test_running = false;
-  // } while (test_running);
 }
 
 bool GameState::Update(sf::Time delta_time) {

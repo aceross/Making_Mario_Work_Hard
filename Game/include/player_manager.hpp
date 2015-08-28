@@ -7,6 +7,7 @@
 #include <map>
 #include "command.hpp"
 #include "tile_map.hpp"
+#include "navigation_manager.hpp"
 
 class CommandQueue;
 
@@ -30,13 +31,11 @@ class PlayerManager {
   void HandleEvent(const sf::Event& event, CommandQueue& commands);
   void HandleRealtimeInput(CommandQueue& commands);
 
-  void AssignKey(Action action, sf::Keyboard::Key key);
-  sf::Keyboard::Key GetAssignedKey(Action action) const;
-
   void SetLevelStatus(LevelStatus status);
   LevelStatus GetLevelStatus() const;
 
   void SetTileMap(TileMap tm);
+  void InitStartQueue(CommandQueue& commands);
  // public:
  //  virtual sf::FloatRect GetBoundingRect() const;
 
@@ -47,7 +46,7 @@ class PlayerManager {
 
  private:
   void InitialiseQueues();
-  void InitStartQueue();
+
   void InitVariableQueue();
   void InitWarpQueue();
   void InitClauseQueue();
@@ -60,7 +59,8 @@ class PlayerManager {
   std::map<Action, Command>           action_binding_;
   LevelStatus                         current_level_status_;
 
-  TileMap tile_map_;
+  TileMap           tile_map_;
+  NavigationManager navigation_manager_;
 };
 
 #endif  // PLAYER_MANAGER_HPP

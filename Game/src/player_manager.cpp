@@ -39,6 +39,8 @@ PlayerManager::PlayerManager()
   for (auto& pair : action_binding_) {
     pair.second.category_ = Category::MarioPlayer;
   }
+
+  // Set solution queue initialisation
 }
 
 void PlayerManager::HandleEvent(const sf::Event& event,
@@ -89,27 +91,7 @@ void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
       commands.Push(action_binding_[pair.second]);
     }
   }
-}
-
-void PlayerManager::AssignKey(Action action, sf::Keyboard::Key key) {
-  // Remove all keys that already map to action
-  for (auto itr = key_binding_.begin(); itr != key_binding_.end(); ) {
-    if (itr->second == action)
-      key_binding_.erase(itr++);
-    else
-      ++itr;
-  }
-  // Insert new binding
-  key_binding_[key] = action;
-}
-
-sf::Keyboard::Key PlayerManager::GetAssignedKey(Action action) const {
-  for (auto pair : key_binding_) {
-    if (pair.second == action) {
-      return pair.first;
-    }
-  }
-  return sf::Keyboard::Unknown;
+  // InitStartQueue(commands);
 }
 
 void PlayerManager::SetLevelStatus(LevelStatus status) {
@@ -141,4 +123,10 @@ bool PlayerManager::IsRealtimeAction(Action action) {
 
 void PlayerManager::SetTileMap(TileMap tm) {
   tile_map_ = tm;
+}
+
+void PlayerManager::InitStartQueue(CommandQueue& commands) {
+  for (int i = 0; i < 1000; ++i) {
+    commands.Push(action_binding_[MoveRight]);
+  }
 }

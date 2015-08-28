@@ -40,25 +40,9 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 }
 
 void Level::Update(sf::Time delta_time) {
-  while (!command_queue_.IsEmpty()) {
+  if (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
-  // player_mario_->move();
-  // std::cout << "Mario position: " << player_mario_->sprite_.getPosition().y << std::endl;
-
-  // if (!level_complete_) {
-  //   sf::Vector2f position;
-  //   if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
-  //     position = player_mario_->navigator_.start_gadget_actions_.front();
-  //     player_mario_->move(position * delta_time.asSeconds());
-  //     player_mario_->navigator_.start_gadget_actions_.pop();
-  //     std::cout << "Player update" << std::endl;
-  //   } else {
-  //     level_complete_ = true;
-  //     std::cout << "Done" << std::endl;
-  //   }
-  //   std::cout << "Command Executed" << std::endl;
-  // }
 
   // Collision detection and response (may destroy entities)
   // HandleCollisions();

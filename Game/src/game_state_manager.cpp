@@ -17,7 +17,7 @@
 #include "../include/title_screen_state.hpp"
 #include "../include/state_identifiers.hpp"
 
-const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/60.f);
+const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/35.f);
 
 // GSM contructor initialises the font, texture
 GameStateManager::GameStateManager()
