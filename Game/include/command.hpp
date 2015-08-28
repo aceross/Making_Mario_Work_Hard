@@ -18,9 +18,20 @@ struct Command {
 
   Command();
 
+  enum Location {
+    StartGadget,
+    Warp,
+    VariableGadget,
+    Clause,
+    CheckIn,
+    CheckOut,
+    FinishGadget
+  };
+
   Action action_;
   unsigned int category_;
   unsigned int location_;
+  int var_assignment_;
   bool complemented_;
   bool gadget_finished_;
 };

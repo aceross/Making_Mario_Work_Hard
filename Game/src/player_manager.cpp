@@ -129,35 +129,38 @@ void PlayerManager::SetSolutionQueue(CommandQueue& commands) {
 }
 
 void PlayerManager::InitStartQueue(CommandQueue& commands) {
-  int assignment;
-  assignment = assigned_variables_.front();
+  current_variable_ = assigned_variables_.front();
   assigned_variables_.pop();
 
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
   for (int i = 0; i < 112; ++i) {
     Command c = action_binding_[MoveRight];
-    c.location_ = 1;
+    c.location_       = c.StartGadget;
+    c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 
   // some kind of jump
   for (int j = 0; j < 2; ++ j) {
     Command c = action_binding_[Down];
-    c.location_ = 1;
+    c.location_       = c.StartGadget;
+    c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 
   // Select the path based on the variable assignment
-  if (assignment < 0) {
+  if (current_variable_ < 0) {
     for (int i = 0; i < 24; ++i) {
       Command c = action_binding_[MoveRight];
-      c.location_ = 1;
+      c.location_       = c.StartGadget;
+      c.var_assignment_ = current_variable_;
       commands.Push(c);
     }
   } else {
     for (int i = 0; i < 24; ++i) {
       Command c = action_binding_[MoveLeft];
-      c.location_ = 1;
+      c.location_       = c.StartGadget;
+      c.var_assignment_ = current_variable_;
       commands.Push(c);
     }
   }
@@ -165,22 +168,38 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
   // fall
   for (int j = 0; j < 4; ++ j) {
     Command c   = action_binding_[Down];
-    c.location_ = 1;
+    c.location_       = c.StartGadget;
+    c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 
   InitWarpQueue(commands);
+  //
+  int var = var_manager_.GetNumVariables();
+  // for (int i = 0; i < var - 1; ++i) {
+    InitVariableQueue(commands);
+  // }
 }
 
-void PlayerManager::InitWarpQueue(CommandQueue &commands) {
-  // int assignment;
-  // assignment = assigned_variables_.front();
-  // assigned_variables_.pop();
-
+void PlayerManager::InitWarpQueue(CommandQueue& commands) {
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
   for (int i = 0; i < 112; ++i) {
     Command c = action_binding_[MoveRight];
-    c.location_ = 2;
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+}
+
+void PlayerManager::InitVariableQueue(CommandQueue& commands) {
+  current_variable_ = assigned_variables_.front();
+  assigned_variables_.pop();
+
+  // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
+  for (int i = 0; i < 1; ++i) {
+    Command c = action_binding_[MoveRight];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 

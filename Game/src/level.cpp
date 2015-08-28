@@ -24,12 +24,19 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , player_mario_(nullptr)
 , level_complete_(false)
 , display_solution(false)
+, in_start_gadget_(false)
+, in_variable_gadget_(false)
 , in_warp_gadget_(false)
+, finished_warps_(false)
+, in_check_in_(false)
+, in_clause_gadget_(false)
+, in_check_out_(false)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
   // Start and load SAT solver
   zchaff_manager_.LoadInstance();
+  variable_managaer_ = zchaff_manager_.GetVarManager();
 
   // init level instance
   LoadTextures();
@@ -44,7 +51,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
     Command c = command_queue_.Front();
-    AdaptPlayerPosition(c.location_);
+    AdaptPlayerPosition(c.location_, c.var_assignment_);
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
 
@@ -101,17 +108,41 @@ void Level::BuildScene() {
   scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 
-void Level::AdaptPlayerPosition(unsigned int location) {
+void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
   switch (location) {
-    case 1:
+    case StartGadget:
       break;
-    case 2:
+    case Warp:
       if (!in_warp_gadget_) {
-        mario_position_    = player_mario_->getPosition();
-        mario_position_.x += 100;
-        player_mario_->setPosition(mario_position_);
+        mario_position_ = player_mario_->getPosition();
+        if (current_var < 0) {
+          mario_position_.x += 100;
+          player_mario_->setPosition(mario_position_);
+        } else {
+          mario_position_.x += 200;
+          player_mario_->setPosition(mario_position_);
+        }
         in_warp_gadget_ = true;
       }
+      break;
+    case VariableGadget:
+    if (!in_variable_gadget_) {
+      in_warp_gadget_ = false;
+      mario_position_ = player_mario_->getPosition();
+      sf::Vector2f variable_adjustment(110, 215);
+      variable_adjustment.y = variable_adjustment.y * abs(current_var);
+      mario_position_ += variable_adjustment;
+      player_mario_->setPosition(variable_adjustment);
+      in_variable_gadget_ = true;
+    }
+      break;
+    case Clause:
+      break;
+    case CheckIn:
+      break;
+    case CheckOut:
+      break;
+    case FinishGadget:
       break;
     default:
       std::cout << "WTF" << std::endl;

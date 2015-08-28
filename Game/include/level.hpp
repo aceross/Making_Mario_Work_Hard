@@ -29,6 +29,16 @@ class RenderTarget;
 
 class Level : private sf::NonCopyable {
  public:
+  enum Location {
+     StartGadget,
+     Warp,
+     VariableGadget,
+     Clause,
+     CheckIn,
+     CheckOut,
+     FinishGadget
+  };
+
   Level(sf::RenderTarget& output_target, FontHolder& fonts);
   void Update(sf::Time delta_time);
   void draw();
@@ -42,7 +52,7 @@ class Level : private sf::NonCopyable {
 
  private:
   void LoadTextures();
-  void AdaptPlayerPosition(unsigned location);
+  void AdaptPlayerPosition(unsigned int location, int current_var);
   // void AdaptPlayerVelocity();
   void HandleCollisions();
 
@@ -60,39 +70,30 @@ class Level : private sf::NonCopyable {
  private:
   enum Layer { Background, Foreground, LayerCount };
 
-  // struct SpawnPoint {
-  //   SpawnPoint(Mario::Type type, float x, float y)
-  //   : type(type)
-  //   , x(x)
-  //   , y(y)
-  //   {}
-  //
-  //   Mario::Type type;
-  //   float x;
-  //   float y;
-  // };
-
  private:
-  sf::RenderTarget&  target_;
-  sf::RenderTexture  scene_texture_;
-  sf::View           level_view_;
-  sf::View           mini_map_;
-  TextureHolder      textures_;
-  FontHolder&        fonts_;
+  sf ::RenderTarget& target_;
+  sf ::RenderTexture scene_texture_;
+  sf ::View level_view_;
+  sf ::View mini_map_;
+  TextureHolder textures_;
+  FontHolder& fonts_;
 
-  // tmx::MapLoader map_loader_;
   TileMap tile_map_;
-  sf::Text test_;
+  sf ::Text test_;
 
-  SceneNode                          scene_graph_;
+  SceneNode scene_graph_;
   std::array<SceneNode*, LayerCount> scene_layers_;
-  CommandQueue                       command_queue_;
+  CommandQueue command_queue_;
 
-  sf::FloatRect level_bounds_;
-  sf::Vector2f  mario_position_;
-  float         movement_speed_;
-  Mario*        player_mario_;
-  ZChaffManager zchaff_manager_;
+  sf ::FloatRect  level_bounds_;
+  sf ::Vector2f   mario_position_;
+  sf ::Vector2f   return_position_;
+  float           movement_speed_;
+  Mario*          player_mario_;
+
+  ZChaffManager   zchaff_manager_;
+  VariableManager variable_managaer_;
+  std::queue<int> assigned_variables_;
 
   bool level_complete_;
   bool display_solution;

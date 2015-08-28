@@ -66,6 +66,7 @@ class PlayerManager {
   VariableManager   var_manager_;
   NavigationManager navigation_manager_;
   std::queue<int>   assigned_variables_;
+  int               current_variable_;
 
 private:
   // location boolean values
