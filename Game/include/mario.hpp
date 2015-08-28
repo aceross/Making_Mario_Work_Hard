@@ -25,9 +25,11 @@ class Mario : public Entity {
   // virtual void          Remove();
   float GetSpeed() const;
 
-  sf::Vector2i GetLocation();
+  sf::Vector2f GetLocation();
   void UpdateLocation(int x, int y);
-  void UpdateLocation(sf::Vector2i location_update);
+  void UpdateLocation(sf::Vector2f location_update);
+  // void MoveMario(sf::Vector2f location_update);
+
   sf::Sprite   sprite_;
 
   void InitialiseLevelNavigator(TileMap tm);
@@ -45,7 +47,7 @@ class Mario : public Entity {
  private:
   Type         type_;
   // sf::Sprite   sprite_;
-  sf::Vector2i location_;
+  sf::Vector2f location_;
   bool waiting_;
 
   // int clauses_true_;

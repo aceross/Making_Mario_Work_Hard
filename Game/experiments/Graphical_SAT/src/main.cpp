@@ -4,8 +4,14 @@
 #include "../include/game.hpp"
 
 int main(int argc, char* argv[]) {
-  Game game;
+  try {
+    Game game;
 
-  game.Run();
+    game.Run();
+    std::cout << "...Exiting program..." << std::endl;
+  } catch (std::exception& e) {
+    std::cout << "\nEXCEPTION: " << e.what() << std::endl;
+  }
+
   return 0;
 }

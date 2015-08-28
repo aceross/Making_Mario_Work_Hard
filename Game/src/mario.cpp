@@ -12,6 +12,7 @@
 #include "../include/resource_manager.hpp"
 #include "../include/data_table.hpp"
 #include "../include/command_queue.hpp"
+#include "../include/command.hpp"
 
 using namespace std::placeholders;
 
@@ -32,11 +33,11 @@ float Mario::GetSpeed() const {
   return Table[type_].speed;
 }
 
-sf::Vector2i Mario::GetLocation() {
+sf::Vector2f Mario::GetLocation() {
   return location_;
 }
 
-void Mario::UpdateLocation(sf::Vector2i location_update) {
+void Mario::UpdateLocation(sf::Vector2f location_update) {
   location_ += location_update;
 }
 
@@ -52,6 +53,9 @@ void Mario::DrawCurrent(sf::RenderTarget &target,
 }
 
 void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
+  // Command command;
+  // command = commands.Pop();
+
   // Update texts and animations
   // UpdateTexts();
   // UpdateAnimation();

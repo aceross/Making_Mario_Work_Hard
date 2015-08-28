@@ -84,6 +84,7 @@ class Level : private sf::NonCopyable {
   ZChaffManager zchaff_manager_;
 
   bool level_complete_;
+  bool display_solution;
 };
 
 #endif  // LEVEL_HPP

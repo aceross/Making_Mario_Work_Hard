@@ -26,15 +26,13 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
 , level_complete_(false)
+, display_solution(false)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
   // init level instance
   LoadTextures();
   BuildScene();
-
-  //
-
 
   // Prepare the main view and the mini-map
   level_view_.setCenter(player_mario_->getPosition());
@@ -43,23 +41,23 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 }
 
 void Level::Update(sf::Time delta_time) {
-  // if (!command_queue_.IsEmpty()) {
-    // scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
-    // // player_sprite_->move(0, 10);
-
-  if (!level_complete_) {
-    sf::Vector2f position;
-    if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
-      position = player_mario_->navigator_.start_gadget_actions_.front();
-      player_mario_->move(position);
-      player_mario_->navigator_.start_gadget_actions_.pop();
-      std::cout << "Player update" << std::endl;
-    } else {
-      level_complete_ = true;
-      std::cout << "Done" << std::endl;
-    }
-    std::cout << "Command Executed" << std::endl;
+  while (!command_queue_.IsEmpty()) {
+    scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
+
+  // if (!level_complete_) {
+  //   sf::Vector2f position;
+  //   if (!player_mario_->navigator_.start_gadget_actions_.empty()) {
+  //     position = player_mario_->navigator_.start_gadget_actions_.front();
+  //     player_mario_->move(position * delta_time.asSeconds());
+  //     player_mario_->navigator_.start_gadget_actions_.pop();
+  //     std::cout << "Player update" << std::endl;
+  //   } else {
+  //     level_complete_ = true;
+  //     std::cout << "Done" << std::endl;
+  //   }
+  //   std::cout << "Command Executed" << std::endl;
+  // }
 
   // Collision detection and response (may destroy entities)
   // HandleCollisions();
@@ -72,7 +70,6 @@ void Level::draw() {
   level_view_.setCenter(player_mario_->getPosition());
   target_.setView(level_view_);
   target_.draw(scene_graph_);
-  // target_.draw(player_mario_->sprite_);
 
   // draw the mini map view
   target_.setView(mini_map_);

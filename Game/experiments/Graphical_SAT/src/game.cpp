@@ -13,13 +13,13 @@ Game::Game()
 : solution_displayed_(false)
 , not_satisfiable_(false)
 {
-  // InitialiseWindow();
+  InitialiseWindow();
   // LoadAssets();
   SAT_manager_ = SAT_InitManager();
 
   // Text writing test
   // ReadTextFile();
-  AppendTextFile();
+  // AppendTextFile();
 }
 
 void Game::InitialiseWindow() {

@@ -9,14 +9,21 @@ GameState::GameState(StateStack& stack, Context context)
 , player_manager_(*context.player_manager_)
 {
   player_manager_.SetLevelStatus(PlayerManager::LevelRunning);
-  // player_manager_.SetTileMap(level_.GetTileMap());
-  // std::cout << "TileMap set in player_manager" << std::endl;
+  player_manager_.SetTileMap(level_.GetTileMap());
+  std::cout << "TileMap set in player_manager" << std::endl;
   // music goes here if needed
 }
 
 void GameState::Draw() {
   level_.draw();
-  // sf::sleep(sf::seconds(1));
+  bool test_running = true;
+
+  do {
+    for (int i = 0; i < 5; ++i) {
+      std::cout << "Yolo" << std::endl;
+    }
+    test_running = false;
+  } while (test_running);
 }
 
 bool GameState::Update(sf::Time delta_time) {

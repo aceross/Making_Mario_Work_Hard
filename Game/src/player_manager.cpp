@@ -17,9 +17,7 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    mario.MoveMario(location_update * mario.GetSpeed());
-    // mario.move(location_update);
-
+    mario.UpdateLocation(location_update);
   }
 
   sf::Vector2f location_update;

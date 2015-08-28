@@ -59,7 +59,6 @@ void GameStateManager::Run() {
       ProcessInputs();
       Update(TimePerFrame);
       if (states_.IsEmpty()) { window_.close(); }
-      // std::this_thread::sleep_for (std::chrono::seconds(1));
     }
 
     UpdateStatistics(delta_time);
