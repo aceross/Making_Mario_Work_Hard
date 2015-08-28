@@ -9,6 +9,7 @@
 #include <set>
 
 #include "../include/scene_node.hpp"
+#include "../include/command.hpp"
 
 
 SceneNode::SceneNode(Category::Type category)
@@ -105,6 +106,9 @@ unsigned int SceneNode::GetCategory() const {
 }
 
 void SceneNode::OnCommand(const Command& command, sf::Time delta_time) {
+  if (command.category_ & GetCategory()) {
+    command.action_(*this, delta_time);
+  }
   // Command current node, if category matches
   for (Ptr& child : children_) {
     child->OnCommand(command, delta_time);

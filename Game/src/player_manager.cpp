@@ -17,8 +17,7 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    mario.MoveMario(location_update);
-    // mario.UpdateLocation(location_update);
+    mario.move(location_update);
   }
 
   sf::Vector2f location_update;
@@ -82,7 +81,7 @@ void PlayerManager::HandleEvent(const sf::Event& event,
 }
 
 void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
-  // Traverse all assigned keys and check if they are pressed
+  // // Traverse all assigned keys and check if they are pressed
   for (auto pair : key_binding_) {
     // If key is pressed, lookup action and trigger corresponding command
     if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second)) {
@@ -122,8 +121,8 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 }
 
 void PlayerManager::InitialiseActions() {
-  const float location_update = 8.5f;
-  action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(+location_update, 0));
+  const float location_update = 2.5f;
+  action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-location_update, 0));
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
   action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
 }
