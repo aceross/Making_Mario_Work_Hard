@@ -70,14 +70,12 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 // Prints the tilemap in the terminal
 void TileMap::PrintMap() {
-  // std::cout << "t_map size in print: " << t_map_.size() << std::endl;
   for (std::vector<std::vector<int>>::size_type i = 0; i < t_map_.size(); ++i) {
     for (std::vector<int>::size_type j = 0; j < t_map_[i].size(); ++j) {
       // std::cout << t_map_[i][j].GetTileValue() << ' ';
     }
     std::cout << std::endl;
   }
-  // std::cout << "t_map size in print: " << t_map_.size() << std::endl;
 }
 
 void TileMap::InitialiseMap(ZChaffManager zchaff_manager) {
@@ -85,7 +83,6 @@ void TileMap::InitialiseMap(ZChaffManager zchaff_manager) {
   // PrintMap();
   SetSATParameters(zchaff_manager);
   ChunkToTileMap();
-  // LoadMap("resources/gfx/tile_set.png", sf::Vector2u(16, 16));
   if (!LoadMap("resources/gfx/tile_set.png", sf::Vector2u(16, 16))) {
     std::cerr << "Error loading map graphics" << std::endl;
   }
@@ -95,17 +92,15 @@ void TileMap::InitialiseMap(ZChaffManager zchaff_manager) {
 /* Get the variables and clauses from the SAT solver
 ------------------------------------------------------------------------------*/
 void TileMap::SetSATParameters(ZChaffManager zchaff_manager) {
-  num_clauses_     = zchaff_manager.GetNumClauses();
-  num_variables_   = zchaff_manager.GetNumVariables();
+  num_clauses_       = zchaff_manager.GetNumClauses();
+  num_variables_     = zchaff_manager.GetNumVariables();
 
   // the warp gadget has clauses (num_clauses) entry and exit (+ 2)
   // each variable has two literals (e.g. x and ¬x)
   // therefore need two warp gadgets for each literal (* 2)
-  num_warp_gadgets = (num_variables_ + 2) * 2;
-
+  num_warp_gadgets   = (num_variables_ + 2) * 2;
   chunk_map_rows_    = SetChunkMapRows();
   chunk_map_columns_ = SetChunkMapColumns();
-
   CreateChunkMap(num_variables_, num_clauses_);
 }
 

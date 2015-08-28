@@ -41,6 +41,7 @@ PlayerManager::PlayerManager()
   }
 
   // Set solution queue initialisation
+  // SetSolutionQueue();
 }
 
 void PlayerManager::HandleEvent(const sf::Event& event,
@@ -52,34 +53,6 @@ void PlayerManager::HandleEvent(const sf::Event& event,
       commands.Push(action_binding_[found->second]);
     }
   }
-  // sf::Vector2f location_update;
-  // switch (event.type) {
-  //   case sf::Event::KeyPressed:
-  //
-  //     // Manual movement
-  //     if (event.key.code == sf::Keyboard::Left) {
-  //       location_update.x += 5;
-  //       std::cout << "LEFT" << std::endl;
-  //     }
-  //     if (event.key.code == sf::Keyboard::Right) {
-  //       location_update.x -= 5;
-  //       std::cout << "RIGHT" << std::endl;
-  //     }
-  //     if (event.key.code == sf::Keyboard::Up) {
-  //       location_update.y += 5;
-  //       std::cout << "UP" << std::endl;
-  //     }
-  //     if (event.key.code == sf::Keyboard::Down) {
-  //       location_update.y -= 5;
-  //       std::cout << "DOWN" << std::endl;
-  //     }
-  //     if (event.key.code == sf::Keyboard::Space) {
-  //       std::cout << "SPACE" << std::endl;
-  //     }
-  //     break;
-  //   default: break;
-  // }
-  // mario.UpdateLocation(location_update);
 }
 
 void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
@@ -91,7 +64,6 @@ void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
       commands.Push(action_binding_[pair.second]);
     }
   }
-  // InitStartQueue(commands);
 }
 
 void PlayerManager::SetLevelStatus(LevelStatus status) {
@@ -103,7 +75,7 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 }
 
 void PlayerManager::InitialiseActions() {
-  const float location_update = 2.5f;
+  const float location_update = 2.f;
   action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-location_update, 0));
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
   action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
@@ -125,8 +97,17 @@ void PlayerManager::SetTileMap(TileMap tm) {
   tile_map_ = tm;
 }
 
+void PlayerManager::SetVariableManager(VariableManager var_manager) {
+  var_manager_ = var_manager;
+}
+
+void PlayerManager::SetSolutionQueue(CommandQueue& commands) {
+  InitStartQueue(commands);
+}
+
 void PlayerManager::InitStartQueue(CommandQueue& commands) {
-  for (int i = 0; i < 1000; ++i) {
+  // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
+  for (int i = 0; i < 64; ++i) {
     commands.Push(action_binding_[MoveRight]);
   }
 }

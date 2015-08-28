@@ -24,8 +24,11 @@ class TileMap : public sf::Sprite {
   void InitialiseMap(ZChaffManager zchaff_manager);
   void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+  
+
   //test function
   void CreateChunkMap(unsigned int var, unsigned int clause);
+
   std::vector< std::vector<std::string> > test_map_;
 
   sf::VertexArray vertices_;

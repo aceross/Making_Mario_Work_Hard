@@ -21,13 +21,15 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
-, start_position_(0, 0)
+, start_position_(0, 32)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
 , level_complete_(false)
 , display_solution(false)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
+  // Start and load SAT solver
+  zchaff_manager_.LoadInstance();
 
   // init level instance
   LoadTextures();
@@ -80,8 +82,6 @@ void Level::BuildScene() {
     scene_graph_.AttachChild(std::move(layer));
   }
 
-  // Start and load SAT solver
-  zchaff_manager_.LoadInstance();
   // Read in the tile map
   tile_map_.InitialiseMap(zchaff_manager_);
   std::cout << "Tilemap Initialised in LEVEL" << std::endl;
@@ -93,73 +93,18 @@ void Level::BuildScene() {
   // Add player sprite
   std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
   player_mario_ = player.get();
-  // player_mario_->InitialiseLevelNavigator(tile_map_);
-
-
   player_mario_->setPosition(start_position_);
   scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 
-void Level::AdaptPlayerPosition() {
-  // Keep player's position inside the screen bounds,
-  // at least border_distance units from the border
-  // sf::FloatRect view_bounds(level_view_.getCenter() - level_view_.getSize() /
-  //                                                   2.f, level_view_.getSize());
-  // const float border_distance = 40.f;
+void Level::AdaptPlayerPosition() {}
 
-  sf::Vector2f position = player_mario_->getPosition();
-  // printf("First postion x = %d y = %d\n", position.x, position.y);
-  // position.x = std::max(position.x, view_bounds.left + border_distance);
-  // position.x = std::min(position.x, view_bounds.left + view_bounds.width - border_distance);
-  // position.y = std::max(position.y, view_bounds.top + border_distance);
-  // position.y = std::min(position.y, view_bounds.top + view_bounds.height - border_distance);
-  player_mario_->setPosition(position);
-  // sf::Vector2i location_update = static_cast<sf::Vector2i>(position);
-  // printf("location_update x = %d y = %d\n", position.x, position.y);
-  // player_sprite_->UpdateLocation(position);
-}
-
-void Level::HandleCollisions() {
-  // std::set<SceneNode::Pair> collision_pairs;
-
-  // scene_graph_.CheckSceneCollision(scene_graph_, collision_pairs);
-  //
-  // for (SceneNode::Pair pair : collision_pairs) {
-  //   if (matchesCategories(pair, Category::Player, Category::EnemyAircraft))
-  //   {
-  //     auto& player = static_cast<Aircraft&>(*pair.first);
-  //     auto& enemy = static_cast<Aircraft&>(*pair.second);
-  //
-  //     // Collision: Player damage = enemy's remaining HP
-  //     player_sprite_.damage(enemy.getHitpoints());
-  //     enemy.destroy();
-  //   }
-  //
-  //   else if (matchesCategories(pair, Category::PlayerAircraft, Category::Pickup))
-  //   {
-  //     auto& player = static_cast<Aircraft&>(*pair.first);
-  //     auto& pickup = static_cast<Pickup&>(*pair.second);
-  //
-  //     // Apply pickup effect to player, destroy projectile
-  //     pickup.apply(player);
-  //     pickup.destroy();
-  //     player.playLocalSound(mCommandQueue, SoundEffect::CollectPickup);
-  //   }
-  //
-  //   else if (matchesCategories(pair, Category::EnemyAircraft, Category::AlliedProjectile)
-  //       || matchesCategories(pair, Category::PlayerAircraft, Category::EnemyProjectile))
-  //   {
-  //     auto& aircraft = static_cast<Aircraft&>(*pair.first);
-  //     auto& projectile = static_cast<Projectile&>(*pair.second);
-  //
-  //     // Apply projectile damage to aircraft, destroy projectile
-  //     aircraft.damage(projectile.getDamage());
-  //     projectile.destroy();
-  //   }
-  // }
-
-}
+void Level::HandleCollisions() {}
 
 TileMap& Level::GetTileMap() {
   return tile_map_;
+}
+
+VariableManager Level::GetVarManager() {
+  return zchaff_manager_.GetVarManager();
 }

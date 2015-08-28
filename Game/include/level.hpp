@@ -35,6 +35,7 @@ class Level : private sf::NonCopyable {
 
   CommandQueue& GetCommandQueue();
   TileMap& GetTileMap();
+  VariableManager GetVarManager();
 
   bool HasActivePlayer() const;
   bool HasReachedEnd() const;

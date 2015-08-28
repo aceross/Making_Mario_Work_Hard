@@ -5,9 +5,11 @@
 
 #include <SFML/Window/Event.hpp>
 #include <map>
+#include <vector>
 #include "command.hpp"
 #include "tile_map.hpp"
 #include "navigation_manager.hpp"
+#include "variable_manager.hpp"
 
 class CommandQueue;
 
@@ -35,7 +37,8 @@ class PlayerManager {
   LevelStatus GetLevelStatus() const;
 
   void SetTileMap(TileMap tm);
-  void InitStartQueue(CommandQueue& commands);
+  void SetSolutionQueue(CommandQueue& commands);
+  void SetVariableManager(VariableManager var_manager);
  // public:
  //  virtual sf::FloatRect GetBoundingRect() const;
 
@@ -43,10 +46,9 @@ class PlayerManager {
   void InitialiseActions();
   static bool IsRealtimeAction(Action action);
 
-
  private:
-  void InitialiseQueues();
-
+  void SetVariableAssignments();
+  void InitStartQueue(CommandQueue& commands);
   void InitVariableQueue();
   void InitWarpQueue();
   void InitClauseQueue();
@@ -60,7 +62,9 @@ class PlayerManager {
   LevelStatus                         current_level_status_;
 
   TileMap           tile_map_;
+  VariableManager   var_manager_;
   NavigationManager navigation_manager_;
+  std::vector<int>  assigned_variables_;
 };
 
 #endif  // PLAYER_MANAGER_HPP

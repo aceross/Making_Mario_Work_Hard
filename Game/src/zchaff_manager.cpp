@@ -199,6 +199,10 @@ void ZChaffManager::Solve() {
   PrintSolution();
 }
 
+VariableManager ZChaffManager::GetVarManager() {
+  return var_manager_;
+}
+
 void ZChaffManager::PrintSolution() {
   std::cout << std::endl;
   std::cout << "===== SOLUTION =====" << std::endl;
