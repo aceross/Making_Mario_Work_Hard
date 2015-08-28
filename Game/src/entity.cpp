@@ -22,15 +22,6 @@ void Entity::Destroy() {
   hit_points_ = 0;
 }
 
-void Entity::MoveMario(float move_x, float move_y) {
-  movement_.x += move_x;
-  movement_.y += move_y;
-}
-
-void Entity::MoveMario(sf::Vector2f movement) {
-  movement_ += movement;
-}
-
 void Entity::Remove() {
   Destroy();
 }
