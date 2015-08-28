@@ -17,7 +17,8 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    mario.UpdateLocation(location_update);
+    mario.setPosition(location_update);
+    // mario.UpdateLocation(location_update);
   }
 
   sf::Vector2f location_update;
@@ -50,6 +51,34 @@ void PlayerManager::HandleEvent(const sf::Event& event,
       commands.Push(action_binding_[found->second]);
     }
   }
+  // sf::Vector2f location_update;
+  // switch (event.type) {
+  //   case sf::Event::KeyPressed:
+  //
+  //     // Manual movement
+  //     if (event.key.code == sf::Keyboard::Left) {
+  //       location_update.x += 5;
+  //       std::cout << "LEFT" << std::endl;
+  //     }
+  //     if (event.key.code == sf::Keyboard::Right) {
+  //       location_update.x -= 5;
+  //       std::cout << "RIGHT" << std::endl;
+  //     }
+  //     if (event.key.code == sf::Keyboard::Up) {
+  //       location_update.y += 5;
+  //       std::cout << "UP" << std::endl;
+  //     }
+  //     if (event.key.code == sf::Keyboard::Down) {
+  //       location_update.y -= 5;
+  //       std::cout << "DOWN" << std::endl;
+  //     }
+  //     if (event.key.code == sf::Keyboard::Space) {
+  //       std::cout << "SPACE" << std::endl;
+  //     }
+  //     break;
+  //   default: break;
+  // }
+  // mario.UpdateLocation(location_update);
 }
 
 void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
@@ -57,7 +86,7 @@ void PlayerManager::HandleRealtimeInput(CommandQueue& commands) {
   for (auto pair : key_binding_) {
     // If key is pressed, lookup action and trigger corresponding command
     if (sf::Keyboard::isKeyPressed(pair.first) && IsRealtimeAction(pair.second)) {
-      std::cout << "Pushing Real Time Input" << std::endl;
+      // std::cout << "Pushing Real Time Input" << std::endl;
       commands.Push(action_binding_[pair.second]);
     }
   }
@@ -93,10 +122,10 @@ PlayerManager::LevelStatus PlayerManager::GetLevelStatus() const {
 }
 
 void PlayerManager::InitialiseActions() {
-  const float movement_speed = 2.5f;
-  action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-movement_speed, 0));
-  action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+movement_speed, 0));
-  action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -movement_speed));
+  const float location_update = 8.5f;
+  action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(+location_update, 0));
+  action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
+  action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {
@@ -104,7 +133,6 @@ bool PlayerManager::IsRealtimeAction(Action action) {
     case MoveLeft:
     case MoveRight:
     case Jump:
-      std::cout << "I'm a real time action" << std::endl;
       return true;
 
     default:

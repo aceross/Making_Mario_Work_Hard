@@ -16,14 +16,14 @@ GameState::GameState(StateStack& stack, Context context)
 
 void GameState::Draw() {
   level_.draw();
-  bool test_running = true;
-
-  do {
-    for (int i = 0; i < 5; ++i) {
-      std::cout << "Yolo" << std::endl;
-    }
-    test_running = false;
-  } while (test_running);
+  // bool test_running = true;
+  //
+  // do {
+  //   for (int i = 0; i < 5; ++i) {
+  //     std::cout << "Yolo" << std::endl;
+  //   }
+  //   test_running = false;
+  // } while (test_running);
 }
 
 bool GameState::Update(sf::Time delta_time) {
@@ -46,5 +46,6 @@ bool GameState::HandleEvent(const sf::Event &event) {
     RequestStackPush(States::Pause);
   }
 
+  // HandleInput(event);
   return true;
 }

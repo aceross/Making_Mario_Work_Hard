@@ -30,7 +30,7 @@ class Mario : public Entity {
   void UpdateLocation(sf::Vector2f location_update);
   // void MoveMario(sf::Vector2f location_update);
 
-  sf::Sprite   sprite_;
+  // sf::Sprite   sprite_;
 
   void InitialiseLevelNavigator(TileMap tm);
 
@@ -46,7 +46,7 @@ class Mario : public Entity {
 
  private:
   Type         type_;
-  // sf::Sprite   sprite_;
+  sf::Sprite   sprite_;
   sf::Vector2f location_;
   bool waiting_;
 

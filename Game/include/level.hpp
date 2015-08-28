@@ -61,6 +61,18 @@ class Level : private sf::NonCopyable {
  private:
   enum Layer { Background, Foreground, LayerCount };
 
+  // struct SpawnPoint {
+  //   SpawnPoint(Mario::Type type, float x, float y)
+  //   : type(type)
+  //   , x(x)
+  //   , y(y)
+  //   {}
+  //
+  //   Mario::Type type;
+  //   float x;
+  //   float y;
+  // };
+
  private:
   sf::RenderTarget&  target_;
   sf::RenderTexture  scene_texture_;

@@ -21,8 +21,9 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
-, start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
-                                                 level_view_.getSize().y / 2.f)
+// , start_position_(level_view_.getSize().x / 2.f, level_bounds_.height -
+//                                                  level_view_.getSize().y / 2.f)
+, start_position_(0, 0)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
 , level_complete_(false)
@@ -44,6 +45,7 @@ void Level::Update(sf::Time delta_time) {
   while (!command_queue_.IsEmpty()) {
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
+  // std::cout << "Mario position: " << player_mario_->sprite_.getPosition().y << std::endl;
 
   // if (!level_complete_) {
   //   sf::Vector2f position;
@@ -111,7 +113,7 @@ void Level::BuildScene() {
   // player_mario_->InitialiseLevelNavigator(tile_map_);
 
 
-  player_mario_->setPosition(0, 0);
+  player_mario_->setPosition(start_position_);
   scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 

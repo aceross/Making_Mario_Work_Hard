@@ -53,6 +53,9 @@ void Mario::DrawCurrent(sf::RenderTarget &target,
 }
 
 void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
+
+  
+
   // Command command;
   // command = commands.Pop();
 
