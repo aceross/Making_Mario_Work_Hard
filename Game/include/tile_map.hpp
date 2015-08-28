@@ -23,8 +23,8 @@ class TileMap : public sf::Sprite {
   bool LoadMap(const std::string& tileset, sf::Vector2u tileSize);
   void InitialiseMap(ZChaffManager zchaff_manager);
   void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-  
+  unsigned int GetTileMapHeight();
+  unsigned int GetTileMapWidth();
 
   //test function
   void CreateChunkMap(unsigned int var, unsigned int clause);

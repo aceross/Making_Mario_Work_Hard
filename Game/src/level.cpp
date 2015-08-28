@@ -19,16 +19,17 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
-, start_position_(0, 32)
+, mario_position_(0, 32)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
 , level_complete_(false)
 , display_solution(false)
+, in_warp_gadget_(false)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
+
   // Start and load SAT solver
   zchaff_manager_.LoadInstance();
-  std::cout << "ZChaff Manager Instance Loaded in TileMap" << std::endl;
 
   // init level instance
   LoadTextures();
@@ -42,12 +43,14 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 
 void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
+    Command c = command_queue_.Front();
+    AdaptPlayerPosition(c.location_);
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
 
-  // Collision detection and response (may destroy entities)
-  // HandleCollisions();
-  // Regular update step, adapt position (correct if outside view)
+  // Collision detection and response
+  HandleCollisions();
+  // Update scene graph and child layers
   scene_graph_.Update(delta_time, command_queue_);
 }
 
@@ -83,22 +86,41 @@ void Level::BuildScene() {
 
   // Read in the tile map
   tile_map_.InitialiseMap(zchaff_manager_);
-  std::cout << "Tilemap Initialised in LEVEL" << std::endl;
 
   std::unique_ptr<MapNode> map_node(new MapNode());
   map_node->tile_map_.InitialiseMap(zchaff_manager_);
   scene_layers_[Background]->AttachChild(std::move(map_node));
 
+  // Add world Objects
+
+
   // Add player sprite
   std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
   player_mario_ = player.get();
-  player_mario_->setPosition(start_position_);
+  player_mario_->setPosition(mario_position_);
   scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 
-void Level::AdaptPlayerPosition() {}
+void Level::AdaptPlayerPosition(unsigned int location) {
+  switch (location) {
+    case 1:
+      break;
+    case 2:
+      if (!in_warp_gadget_) {
+        mario_position_    = player_mario_->getPosition();
+        mario_position_.x += 100;
+        player_mario_->setPosition(mario_position_);
+        in_warp_gadget_ = true;
+      }
+      break;
+    default:
+      std::cout << "WTF" << std::endl;
+  }
+}
 
-void Level::HandleCollisions() {}
+void Level::HandleCollisions() {
+  // for (int i = 0; i < tile_map)
+}
 
 TileMap& Level::GetTileMap() {
   return tile_map_;

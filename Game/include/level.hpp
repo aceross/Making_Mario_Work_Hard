@@ -42,7 +42,7 @@ class Level : private sf::NonCopyable {
 
  private:
   void LoadTextures();
-  void AdaptPlayerPosition();
+  void AdaptPlayerPosition(unsigned location);
   // void AdaptPlayerVelocity();
   void HandleCollisions();
 
@@ -89,13 +89,29 @@ class Level : private sf::NonCopyable {
   CommandQueue                       command_queue_;
 
   sf::FloatRect level_bounds_;
-  sf::Vector2f  start_position_;
+  sf::Vector2f  mario_position_;
   float         movement_speed_;
   Mario*        player_mario_;
   ZChaffManager zchaff_manager_;
 
   bool level_complete_;
   bool display_solution;
+
+  bool gadget_finished_;
+
+  bool in_start_gadget_;
+  bool in_variable_gadget_;
+  bool in_warp_gadget_;
+  bool finished_warps_;
+  bool no_warp_gadgets_;
+  bool in_check_in_;
+  bool in_clause_gadget_;
+  bool in_check_out_;
+  bool in_finish_;
+
+  unsigned int completed_warp_gadgets_;
+  unsigned int completed_clause_literals_;
+  unsigned int completed_warp_pipes_;
 };
 
 #endif  // LEVEL_HPP

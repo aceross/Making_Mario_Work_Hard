@@ -50,12 +50,12 @@ class PlayerManager {
  private:
   void SetVariableAssignments();
   void InitStartQueue(CommandQueue& commands);
-  void InitVariableQueue();
-  void InitWarpQueue();
-  void InitClauseQueue();
-  void InitCheckInQueue();
-  void InitCheckoutQueue();
-  void InitFinishQueue();
+  void InitVariableQueue(CommandQueue& commands);
+  void InitWarpQueue(CommandQueue& commands);
+  void InitClauseQueue(CommandQueue& commands);
+  void InitCheckInQueue(CommandQueue& commands);
+  void InitCheckoutQueue(CommandQueue& commands);
+  void InitFinishQueue(CommandQueue& commands);
 
  private:
   std::map<sf::Keyboard::Key, Action> key_binding_;
@@ -66,6 +66,18 @@ class PlayerManager {
   VariableManager   var_manager_;
   NavigationManager navigation_manager_;
   std::queue<int>   assigned_variables_;
+
+private:
+  // location boolean values
+  bool in_start_gadget_;
+  bool in_variable_gadget_;
+  bool in_warp_gadget_;
+  bool finished_warps_;
+  bool no_warp_gadgets_;
+  bool in_check_in_;
+  bool in_clause_gadget_;
+  bool in_check_out_;
+  bool in_finish_;
 };
 
 #endif  // PLAYER_MANAGER_HPP

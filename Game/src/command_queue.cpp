@@ -13,6 +13,11 @@ Command CommandQueue::Pop() {
   return command;
 }
 
+Command CommandQueue::Front() {
+  Command command = queue_.front();
+  return command;
+}
+
 bool CommandQueue::IsEmpty() const {
   return queue_.empty();
 }

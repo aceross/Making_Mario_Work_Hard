@@ -22,7 +22,6 @@ class Mario : public Entity {
 
   virtual unsigned int  GetCategory() const;
   virtual sf::FloatRect GetBoundingRect() const;
-  // virtual void          Remove();
   float GetSpeed() const;
 
   sf::Vector2f GetLocation();

@@ -25,6 +25,8 @@ struct MarioMover {
 
 PlayerManager::PlayerManager()
 : current_level_status_(LevelRunning)
+, in_start_gadget_(true)
+, in_variable_gadget_(false)
 {
   std::cout << "Setting intitial key bindings" << std::endl;
   // Set initial key bindings
@@ -133,26 +135,53 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
 
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
   for (int i = 0; i < 112; ++i) {
-    commands.Push(action_binding_[MoveRight]);
+    Command c = action_binding_[MoveRight];
+    c.location_ = 1;
+    commands.Push(c);
   }
+
   // some kind of jump
   for (int j = 0; j < 2; ++ j) {
-    commands.Push(action_binding_[Down]);
+    Command c = action_binding_[Down];
+    c.location_ = 1;
+    commands.Push(c);
   }
 
   // Select the path based on the variable assignment
   if (assignment < 0) {
     for (int i = 0; i < 24; ++i) {
-      commands.Push(action_binding_[MoveRight]);
+      Command c = action_binding_[MoveRight];
+      c.location_ = 1;
+      commands.Push(c);
     }
   } else {
     for (int i = 0; i < 24; ++i) {
-      commands.Push(action_binding_[MoveLeft]);
+      Command c = action_binding_[MoveLeft];
+      c.location_ = 1;
+      commands.Push(c);
     }
   }
 
   // fall
   for (int j = 0; j < 4; ++ j) {
-    commands.Push(action_binding_[Down]);
+    Command c   = action_binding_[Down];
+    c.location_ = 1;
+    commands.Push(c);
   }
+
+  InitWarpQueue(commands);
+}
+
+void PlayerManager::InitWarpQueue(CommandQueue &commands) {
+  // int assignment;
+  // assignment = assigned_variables_.front();
+  // assigned_variables_.pop();
+
+  // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
+  for (int i = 0; i < 112; ++i) {
+    Command c = action_binding_[MoveRight];
+    c.location_ = 2;
+    commands.Push(c);
+  }
+
 }

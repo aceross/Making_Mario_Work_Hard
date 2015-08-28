@@ -20,6 +20,9 @@ struct Command {
 
   Action action_;
   unsigned int category_;
+  unsigned int location_;
+  bool complemented_;
+  bool gadget_finished_;
 };
 
 template <typename GameObject, typename Function>

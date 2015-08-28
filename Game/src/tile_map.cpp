@@ -398,3 +398,12 @@ void TileMap::SetParameters(std::string filepath) {
   printf("Map values successfully inserted!\n");
   mapfile.close();
 }
+
+
+unsigned int TileMap::GetTileMapHeight() {
+  return tilemap_height_;
+}
+
+unsigned int TileMap::GetTileMapWidth() {
+  return tilemap_width_;
+}

@@ -20,7 +20,6 @@ class GameState : public State {
   virtual bool HandleEvent(const sf::Event& event);
 
  private:
-  // ZChaffManager  zchaff_manager_;
   Level          level_;
   PlayerManager& player_manager_;
 };

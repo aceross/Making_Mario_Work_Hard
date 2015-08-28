@@ -11,6 +11,7 @@ class MapNode : public SceneNode {
   MapNode();
 
  private:
+  void GenerateMap();
   virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
  public:

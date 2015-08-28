@@ -9,15 +9,6 @@ GameState::GameState(StateStack& stack, Context context)
 , player_manager_(*context.player_manager_)
 {
   player_manager_.SetLevelStatus(PlayerManager::LevelRunning);
-
-  // player_manager_.SetTileMap(level_.GetTileMap());
-  // player_manager_.SetVariableManager(level_.GetVarManager());
-  // std::cout << "TileMap and VarManager set in player_manager" << std::endl;
-  //
-  // // Set Solition queue
-  // CommandQueue& commands = level_.GetCommandQueue();
-  // player_manager_.SetSolutionQueue(commands);
-
   // music goes here if needed
 }
 
