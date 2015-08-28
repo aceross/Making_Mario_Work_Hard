@@ -9,9 +9,6 @@
 class Entity : public SceneNode {
  public:
   Entity();
-  // sf::Vector2f GetVelocity() const;
-  // void SetVelocity(float vx, float vy);
-  // void SetVeloctity(sf::Vector2f velocity);
   int GetHitPoints() const;
   void Damage(int points);
   void Destroy();
@@ -21,7 +18,7 @@ class Entity : public SceneNode {
   virtual bool IsDestroyed() const;
 
  protected:
-  using SceneNode::UpdateCurrent;
+  // using SceneNode::UpdateCurrent;
   virtual void UpdateCurrent(sf::Time delta_time, CommandQueue& commands);
 private:
   sf::Vector2f movement_;

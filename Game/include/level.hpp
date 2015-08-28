@@ -11,8 +11,6 @@
 #include <array>
 #include <queue>
 
-#include "tmx/MapLoader.h"
-
 #include "resource_manager.hpp"
 #include "resource_identifiers.hpp"
 #include "sprite_node.hpp"

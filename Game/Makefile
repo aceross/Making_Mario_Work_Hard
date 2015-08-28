@@ -39,8 +39,7 @@ SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS   := -std=c++11 -stdlib=libstdc++ -pedantic
-LIB      := -lsfml-graphics -lsfml-window -lsfml-system -lBox2D -lstdc++ -lz \
-            -lsat
+LIB      := -lsfml-graphics -lsfml-window -lsfml-system -lstdc++ -lsat
 LDFLAGS  := -L./lib/zchaff
 INC      := -I include
 
@@ -51,7 +50,7 @@ $(TARGET): $(OBJECTS)
 
 # makes the build directory with the *.o objects
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT);
-	@mkdir -p $(BUILDDIR) $(BUILDDIR)/pugixml
+	@mkdir -p $(BUILDDIR)
 	@$(BUILD_CMD) $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:

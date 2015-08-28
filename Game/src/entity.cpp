@@ -1,6 +1,7 @@
 // Copyright 2015, Aaron Ceross
 
 #include <string>
+#include <iostream>
 #include "../include/entity.hpp"
 
 Entity::Entity()
@@ -39,5 +40,5 @@ bool Entity::IsDestroyed() const {
 }
 
 void Entity::UpdateCurrent(sf::Time delta_time, CommandQueue &commands) {
-  move(movement_);
+  move(movement_ * delta_time.asSeconds());
 }
