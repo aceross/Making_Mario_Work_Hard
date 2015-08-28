@@ -10,13 +10,13 @@ GameState::GameState(StateStack& stack, Context context)
 {
   player_manager_.SetLevelStatus(PlayerManager::LevelRunning);
 
-  player_manager_.SetTileMap(level_.GetTileMap());
-  player_manager_.SetVariableManager(level_.GetVarManager());
-  std::cout << "TileMap set in player_manager" << std::endl;
-
-  // Set Solition queue
-  CommandQueue& commands = level_.GetCommandQueue();
-  player_manager_.SetSolutionQueue(commands);
+  // player_manager_.SetTileMap(level_.GetTileMap());
+  // player_manager_.SetVariableManager(level_.GetVarManager());
+  // std::cout << "TileMap and VarManager set in player_manager" << std::endl;
+  //
+  // // Set Solition queue
+  // CommandQueue& commands = level_.GetCommandQueue();
+  // player_manager_.SetSolutionQueue(commands);
 
   // music goes here if needed
 }
@@ -39,12 +39,23 @@ bool GameState::HandleEvent(const sf::Event &event) {
   CommandQueue& commands = level_.GetCommandQueue();
   player_manager_.HandleEvent(event, commands);
 
-  // Escape pressed, trigger the pause screen
+  // Escape pressed, go the pause screen
   if (event.type == sf::Event::KeyPressed &&
                     event.key.code == sf::Keyboard::Escape) {
     RequestStackPush(States::Pause);
   }
 
-  // HandleInput(event);
+  // Enter/Return pressed, solve level instance
+  if (event.type == sf::Event::KeyPressed &&
+                    event.key.code == sf::Keyboard::Return) {
+    player_manager_.SetTileMap(level_.GetTileMap());
+    player_manager_.SetVariableManager(level_.GetVarManager());
+    std::cout << "TileMap and VarManager set in player_manager" << std::endl;
+
+    // Set Solition queue
+    CommandQueue& commands = level_.GetCommandQueue();
+    player_manager_.SetSolutionQueue(commands);
+  }
+
   return true;
 }

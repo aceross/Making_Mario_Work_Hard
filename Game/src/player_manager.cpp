@@ -31,6 +31,7 @@ PlayerManager::PlayerManager()
   key_binding_[sf::Keyboard::Left]  = MoveLeft;
   key_binding_[sf::Keyboard::Right] = MoveRight;
   key_binding_[sf::Keyboard::Space] = Jump;
+  key_binding_[sf::Keyboard::Down]  = Down;
 
   // Set initial action bindings
   InitialiseActions();
@@ -39,9 +40,32 @@ PlayerManager::PlayerManager()
   for (auto& pair : action_binding_) {
     pair.second.category_ = Category::MarioPlayer;
   }
+}
 
-  // Set solution queue initialisation
-  // SetSolutionQueue();
+void PlayerManager::SetVariableManager(VariableManager var_manager) {
+  var_manager_ = var_manager;
+}
+
+void PlayerManager::SetVariableAssignments() {
+  unsigned int variables = var_manager_.GetNumVariables();
+  int temp;
+
+  for (int i = 0; i < variables; ++i) {
+    temp = var_manager_.variable_list_[i].GetFinalValue();
+    assigned_variables_.push(temp);
+  }
+
+  // test
+  // for (int i = 0; i < variables; ++i) {
+  //   temp = assigned_variables_.front();
+  //   std::cout << "Final Variable " << i + 1 << ": " << temp << std::endl;
+  //   assigned_variables_.pop();
+  // }
+
+}
+
+void PlayerManager::SetTileMap(TileMap tm) {
+  tile_map_ = tm;
 }
 
 void PlayerManager::HandleEvent(const sf::Event& event,
@@ -79,6 +103,7 @@ void PlayerManager::InitialiseActions() {
   action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-location_update, 0));
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
   action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
+  action_binding_[Down].action_      = DerivedAction<Mario>(MarioMover(0, +16));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {
@@ -86,6 +111,7 @@ bool PlayerManager::IsRealtimeAction(Action action) {
     case MoveLeft:
     case MoveRight:
     case Jump:
+    case Down:
       return true;
 
     default:
@@ -93,21 +119,40 @@ bool PlayerManager::IsRealtimeAction(Action action) {
   }
 }
 
-void PlayerManager::SetTileMap(TileMap tm) {
-  tile_map_ = tm;
-}
-
-void PlayerManager::SetVariableManager(VariableManager var_manager) {
-  var_manager_ = var_manager;
-}
-
 void PlayerManager::SetSolutionQueue(CommandQueue& commands) {
+  // Set solution queue initialisation
+  SetVariableAssignments();
+
   InitStartQueue(commands);
 }
 
 void PlayerManager::InitStartQueue(CommandQueue& commands) {
+  int assignment;
+  assignment = assigned_variables_.front();
+  assigned_variables_.pop();
+
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
-  for (int i = 0; i < 64; ++i) {
+  for (int i = 0; i < 112; ++i) {
     commands.Push(action_binding_[MoveRight]);
+  }
+  // some kind of jump
+  for (int j = 0; j < 2; ++ j) {
+    commands.Push(action_binding_[Down]);
+  }
+
+  // Select the path based on the variable assignment
+  if (assignment < 0) {
+    for (int i = 0; i < 24; ++i) {
+      commands.Push(action_binding_[MoveRight]);
+    }
+  } else {
+    for (int i = 0; i < 24; ++i) {
+      commands.Push(action_binding_[MoveLeft]);
+    }
+  }
+
+  // fall
+  for (int j = 0; j < 4; ++ j) {
+    commands.Push(action_binding_[Down]);
   }
 }

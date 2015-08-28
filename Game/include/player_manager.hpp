@@ -5,7 +5,7 @@
 
 #include <SFML/Window/Event.hpp>
 #include <map>
-#include <vector>
+#include <queue>
 #include "command.hpp"
 #include "tile_map.hpp"
 #include "navigation_manager.hpp"
@@ -19,6 +19,7 @@ class PlayerManager {
     MoveLeft,
     MoveRight,
     Jump,
+    Down,
     ActionCount
   };
 
@@ -64,7 +65,7 @@ class PlayerManager {
   TileMap           tile_map_;
   VariableManager   var_manager_;
   NavigationManager navigation_manager_;
-  std::vector<int>  assigned_variables_;
+  std::queue<int>   assigned_variables_;
 };
 
 #endif  // PLAYER_MANAGER_HPP

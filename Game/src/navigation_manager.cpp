@@ -15,7 +15,7 @@ NavigationManager::NavigationManager()
 , in_check_out_(false)
 , in_finish_(false)
 {
-  std::cout << "Navigation manager set" << std::endl;
+  // std::cout << "Navigation manager set" << std::endl;
   InitialiseQueues();
 }
 
@@ -31,9 +31,9 @@ void NavigationManager::InitialiseQueues() {
   // InitCheckInQueue();
   // InitCheckoutQueue();
   // InitFinishQueue();
-  std::cout << "Queues Initialised" << std::endl;
+  // std::cout << "Queues Initialised" << std::endl;
   // solution_queue_.push_back(start_gadget_actions_);
-  std::cout << "Start Gadget Actions added" << std::endl;
+  // std::cout << "Start Gadget Actions added" << std::endl;
 }
 
 void NavigationManager::InitStartQueue() {

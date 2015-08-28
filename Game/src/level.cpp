@@ -7,8 +7,6 @@
 #include <limits>
 #include <set>
 #include <memory>
-// #include <thread>
-// #include <chrono>
 
 #include "../include/level.hpp"
 
@@ -30,6 +28,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
   // Start and load SAT solver
   zchaff_manager_.LoadInstance();
+  std::cout << "ZChaff Manager Instance Loaded in TileMap" << std::endl;
 
   // init level instance
   LoadTextures();
