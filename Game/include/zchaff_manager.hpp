@@ -33,7 +33,7 @@ class ZChaffManager {
   ~ZChaffManager();
   void LoadInstance();
   VariableManager GetVarManager();
-  void GetLiterals(int clause_index, int* literals);
+  void SetLiterals(int clause_index, int* literals);
 
   unsigned int GetNumVariables();
   unsigned int GetNumClauses();

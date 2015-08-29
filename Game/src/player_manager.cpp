@@ -177,41 +177,56 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
 
   InitWarpQueue(commands);
 
-  // int var = var_manager_.GetNumVariables();
-  // for (int i = 0; i < var - 1; ++i) {
-  //   InitVariableQueue(commands);
-  // }
+  int var = var_manager_.GetNumVariables();
+  std::cout << "Vars - 1 : " << var -1 << std::endl;
+  for (int i = 0; i < var - 1; ++i) {
+    InitVariableQueue(commands);
+  }
 }
 
 void PlayerManager::InitWarpQueue(CommandQueue& commands) {
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
   // pause
-  for (int j = 0; j < 6; ++ j) {
+  for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
-    c.location_       = c.Warp;
+    c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 
   for (int i = 0; i < 8; ++i) {
     Command c = action_binding_[MoveRight];
-    c.location_       = c.Warp;
+    c.location_       = c.WarpEntry;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
   for (int i = 0; i < 2; ++i) {
     Command c = action_binding_[Down];
-    c.location_       = c.Warp;
+    c.location_       = c.WarpEntry;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
   for (int i = 0; i < 16; ++i) {
     Command c = action_binding_[MoveRight];
-    c.location_       = c.Warp;
+    c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 }
+
+void PlayerManager::WarpAction(CommandQueue& commands) {}
 
 void PlayerManager::InitVariableQueue(CommandQueue& commands) {
   current_variable_ = assigned_variables_.front();

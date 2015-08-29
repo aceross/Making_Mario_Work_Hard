@@ -20,7 +20,9 @@ struct Command {
 
   enum Location {
     StartGadget,
+    WarpEntry,
     Warp,
+    WarpExit,
     VariableGadget,
     Clause,
     CheckIn,

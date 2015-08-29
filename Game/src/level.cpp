@@ -31,12 +31,13 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , in_check_in_(false)
 , in_clause_gadget_(false)
 , in_check_out_(false)
+, current_clause_(0)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
 
   // Start and load SAT solver
   zchaff_manager_.LoadInstance();
-  variable_managaer_ = zchaff_manager_.GetVarManager();
+  variable_manager_ = zchaff_manager_.GetVarManager();
 
   // init level instance
   LoadTextures();
@@ -115,21 +116,32 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
   switch (location) {
     case StartGadget:
       break;
-    case Warp:
+    case WarpEntry:
       if (!in_warp_gadget_) {
+        float variable_adjustment(16);
         mario_position_ = player_mario_->getPosition();
         if (current_var < 0) {
-          mario_position_.x += 400;
-          player_mario_->setPosition(mario_position_);
+          mario_position_.x += 415;
+          mario_position_.y -= variable_adjustment * abs(current_var - 1) - 16;
         } else {
           mario_position_.x += 192;
+          mario_position_.y -= variable_adjustment * abs(current_var - 1);
         }
-        mario_position_.y -= 16;
+        // mario_position_.y -= round(variable_adjustment * abs(current_var - 1);
         player_mario_->setPosition(mario_position_);
+        std::cout << "Current Var : " << current_var << std::endl;
+        std::cout << "Mario x: " << mario_position_.x << std::endl;
+        std::cout << "Mario y: " << mario_position_.y << std::endl;
         in_warp_gadget_     = true;
         in_start_gadget_    = false;
         in_variable_gadget_ = false;
       }
+      break;
+    case Warp:
+      current_clause_ = GetClauseLocation(current_var) + 1;
+      std::cout << "current clause" << current_clause_ << std::endl;
+      break;
+    case WarpExit:
       break;
     case VariableGadget:
       if (!in_variable_gadget_) {
@@ -137,9 +149,10 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
         mario_position_ = player_mario_->getPosition();
         sf::Vector2f variable_adjustment(110, 223);
         mario_position_.x  = 110;
-        if (current_var > 2 ) {
-          variable_adjustment.y = (variable_adjustment.y *
-                                   abs(current_var - 1)) - 16;
+        if (abs(current_var) > 2 ) {
+          // Subtract one from current_var because
+          variable_adjustment.y = variable_adjustment.y *
+                                   abs(current_var - 1) - 16;
         }
         mario_position_.y  = variable_adjustment.y;
         player_mario_->setPosition(mario_position_);
@@ -165,6 +178,22 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
     default:
       std::cout << "WTF" << std::endl;
   }
+}
+
+int Level::GetClauseLocation(int current_var) {
+  int num_clauses = variable_manager_.GetNumClauses();
+  int num_vars    = variable_manager_.GetNumVariables();
+  int clause;
+  for (int i = 0; i < num_clauses; ++i) {
+    for (int j = 0; j < num_vars; ++j) {
+      int literal = variable_manager_.clauses_[i][j];
+      if (current_var == literal && current_clause_ < num_clauses) {
+        clause = i;
+        break;
+      }
+    }
+  }
+  return clause;
 }
 
 void Level::HandleCollisions() {

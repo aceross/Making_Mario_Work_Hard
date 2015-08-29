@@ -118,7 +118,7 @@ void ZChaffManager::ReadSATFile() {
   var_manager_.LoadVariables(SAT_manager_);
 }
 
-void ZChaffManager::GetLiterals(int clause_index, int* literals) {
+void ZChaffManager::SetLiterals(int clause_index, int* literals) {
   int num_literals;
   num_literals = SAT_GetClauseNumLits(SAT_manager_, clause_index);
 
@@ -172,6 +172,7 @@ void ZChaffManager::GetClauses() {
       }
       std::cout << "True literal =  " << true_literal << std::endl;
       var_manager_.clauses_[i][j] = true_literal;
+      var_manager_.SetLiteralLocations(true_literal);
     }
 
     clause_index = SAT_GetNextClause(SAT_manager_, clause_index);

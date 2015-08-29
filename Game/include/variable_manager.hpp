@@ -15,6 +15,7 @@ class VariableManager {
   void LoadVariables(SAT_Manager SAT_manager);
   void SetNumVariables(int num_var);
   void SetFinalVarValues(int final_value);
+  void SetLiteralLocations(int true_literal);
 
   unsigned int GetNumVariables();
   unsigned int GetNumClauses();
@@ -24,8 +25,10 @@ class VariableManager {
 
   std::vector<VariableObject> variable_list_;
   std::vector<std::vector< int > > clauses_;
+  std::vector<std::vector< int > > locations_;
 
  private:
+  bool IsUniqueLit(int true_literal);
   unsigned int num_vars_;
   unsigned int num_clauses_;
 };

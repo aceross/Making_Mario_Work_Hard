@@ -31,7 +31,9 @@ class Level : private sf::NonCopyable {
  public:
   enum Location {
      StartGadget,
+     WarpEntry,
      Warp,
+     WarpExit,
      VariableGadget,
      Clause,
      CheckIn,
@@ -67,6 +69,8 @@ class Level : private sf::NonCopyable {
   sf::FloatRect GetViewBounds() const;
   sf::FloatRect GetPlayBounds() const;
 
+  int GetClauseLocation(int current_var);
+
  private:
   enum Layer { Background, Foreground, LayerCount };
 
@@ -92,7 +96,7 @@ class Level : private sf::NonCopyable {
   Mario*          player_mario_;
 
   ZChaffManager   zchaff_manager_;
-  VariableManager variable_managaer_;
+  VariableManager variable_manager_;
   std::queue<int> assigned_variables_;
 
   bool level_complete_;
@@ -110,8 +114,10 @@ class Level : private sf::NonCopyable {
   bool in_check_out_;
   bool in_finish_;
 
+  int current_clause_;
+
   unsigned int completed_warp_gadgets_;
-  unsigned int completed_clause_literals_;
+  unsigned int completed_clauses_;
   unsigned int completed_warp_pipes_;
 };
 
