@@ -176,27 +176,37 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
   }
 
   InitWarpQueue(commands);
-  //
+
   // int var = var_manager_.GetNumVariables();
   // for (int i = 0; i < var - 1; ++i) {
-  InitVariableQueue(commands);
-  InitVariableQueue(commands);
-  // InitCheckInQueue(commands);
+  //   InitVariableQueue(commands);
   // }
 }
 
 void PlayerManager::InitWarpQueue(CommandQueue& commands) {
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
-  for (int i = 0; i < 95; ++i) {
-    Command c = action_binding_[MoveRight];
+  // pause
+  for (int j = 0; j < 6; ++ j) {
+    Command c         = action_binding_[Wait];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 
-  // pause
-  for (int j = 0; j < 10; ++ j) {
-    Command c         = action_binding_[Wait];
+  for (int i = 0; i < 8; ++i) {
+    Command c = action_binding_[MoveRight];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int i = 0; i < 2; ++i) {
+    Command c = action_binding_[Down];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int i = 0; i < 16; ++i) {
+    Command c = action_binding_[MoveRight];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     commands.Push(c);

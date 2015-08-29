@@ -119,12 +119,13 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       if (!in_warp_gadget_) {
         mario_position_ = player_mario_->getPosition();
         if (current_var < 0) {
-          mario_position_.x += 100;
+          mario_position_.x += 400;
           player_mario_->setPosition(mario_position_);
         } else {
-          mario_position_.x += 200;
-          player_mario_->setPosition(mario_position_);
+          mario_position_.x += 192;
         }
+        mario_position_.y -= 16;
+        player_mario_->setPosition(mario_position_);
         in_warp_gadget_     = true;
         in_start_gadget_    = false;
         in_variable_gadget_ = false;
@@ -134,16 +135,13 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       if (!in_variable_gadget_) {
         in_warp_gadget_ = false;
         mario_position_ = player_mario_->getPosition();
-        std::cout << "MarPosy  : " << mario_position_.y << std::endl;
         sf::Vector2f variable_adjustment(110, 223);
-        std::cout << "Current var abs: " << abs(current_var - 1) << std::endl;
         mario_position_.x  = 110;
         if (current_var > 2 ) {
           variable_adjustment.y = (variable_adjustment.y *
-                                   abs(current_var - 1)) - 16; 
+                                   abs(current_var - 1)) - 16;
         }
         mario_position_.y  = variable_adjustment.y;
-        std::cout << "After abs, MarPosy  : " << mario_position_.y << std::endl;
         player_mario_->setPosition(mario_position_);
         in_variable_gadget_ = true;
       }
