@@ -158,7 +158,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
     }
   } else {
     for (int i = 0; i < 24; ++i) {
-      Command c = action_binding_[MoveLeft];
+      Command c         = action_binding_[MoveLeft];
       c.location_       = c.StartGadget;
       c.var_assignment_ = current_variable_;
       commands.Push(c);
@@ -167,7 +167,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
 
   // fall
   for (int j = 0; j < 4; ++ j) {
-    Command c   = action_binding_[Down];
+    Command c         = action_binding_[Down];
     c.location_       = c.StartGadget;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
@@ -175,9 +175,11 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
 
   InitWarpQueue(commands);
   //
-  int var = var_manager_.GetNumVariables();
+  // int var = var_manager_.GetNumVariables();
   // for (int i = 0; i < var - 1; ++i) {
-    InitVariableQueue(commands);
+  InitVariableQueue(commands);
+  InitVariableQueue(commands);
+  // InitCheckInQueue(commands);
   // }
 }
 
@@ -196,11 +198,18 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
   assigned_variables_.pop();
 
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
-  for (int i = 0; i < 1; ++i) {
+  // for (int i = 0; i < 25; ++i) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
-  }
+  // }
 
+}
+
+void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
+  Command c         = action_binding_[Jump];
+  c.location_       = c.CheckIn;
+  // c.var_assignment_ = current_variable_;
+  commands.Push(c);
 }

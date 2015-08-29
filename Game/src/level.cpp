@@ -126,19 +126,28 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       }
       break;
     case VariableGadget:
-    if (!in_variable_gadget_) {
-      in_warp_gadget_ = false;
-      mario_position_ = player_mario_->getPosition();
-      sf::Vector2f variable_adjustment(110, 215);
-      variable_adjustment.y = variable_adjustment.y * abs(current_var);
-      mario_position_ += variable_adjustment;
-      player_mario_->setPosition(variable_adjustment);
-      in_variable_gadget_ = true;
-    }
+      if (!in_variable_gadget_) {
+        in_warp_gadget_ = false;
+        mario_position_ = player_mario_->getPosition();
+        sf::Vector2f variable_adjustment(110, 215);
+        std::cout << "Current var abs: " << abs(current_var) << std::endl;
+        mario_position_.x  = 110;
+        mario_position_.y += variable_adjustment.y;
+        player_mario_->setPosition(mario_position_);
+        // in_variable_gadget_ = true;
+      }
       break;
     case Clause:
       break;
     case CheckIn:
+      if (!in_check_in_) {
+        in_variable_gadget_ = false;
+        mario_position_ = player_mario_->getPosition();
+        sf::Vector2f variable_adjustment(110, 215);
+        mario_position_ += variable_adjustment;
+        player_mario_->setPosition(mario_position_);
+        in_check_in_ = true;
+      }
       break;
     case CheckOut:
       break;
