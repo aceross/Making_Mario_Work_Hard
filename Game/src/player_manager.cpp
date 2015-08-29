@@ -56,14 +56,6 @@ void PlayerManager::SetVariableAssignments() {
     temp = var_manager_.variable_list_[i].GetFinalValue();
     assigned_variables_.push(temp);
   }
-
-  // test
-  // for (int i = 0; i < variables; ++i) {
-  //   temp = assigned_variables_.front();
-  //   std::cout << "Final Variable " << i + 1 << ": " << temp << std::endl;
-  //   assigned_variables_.pop();
-  // }
-
 }
 
 void PlayerManager::SetTileMap(TileMap tm) {
