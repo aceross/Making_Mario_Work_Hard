@@ -20,6 +20,7 @@ class PlayerManager {
     MoveRight,
     Jump,
     Down,
+    Wait,
     ActionCount
   };
 

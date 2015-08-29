@@ -106,6 +106,7 @@ void PlayerManager::InitialiseActions() {
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
   action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
   action_binding_[Down].action_      = DerivedAction<Mario>(MarioMover(0, +16));
+  action_binding_[Wait].action_      = DerivedAction<Mario>(MarioMover(0, 0));
 }
 
 bool PlayerManager::IsRealtimeAction(Action action) {
@@ -173,6 +174,14 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
+  // pause
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.StartGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
   InitWarpQueue(commands);
   //
   // int var = var_manager_.GetNumVariables();
@@ -191,6 +200,14 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
+  // pause
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
 }
 
 void PlayerManager::InitVariableQueue(CommandQueue& commands) {
@@ -204,6 +221,14 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   // }
+
+  // pause
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
 
 }
 
