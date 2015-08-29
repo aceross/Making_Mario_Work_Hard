@@ -38,12 +38,18 @@ sf::Vector2f Mario::GetLocation() {
 }
 
 void Mario::UpdateLocation(sf::Vector2f location_update) {
+  move(location_update);
   location_ += location_update;
 }
 
 void Mario::UpdateLocation(int x, int y) {
   location_.x += x;
   location_.y += y;
+  move(x, y);
+}
+
+void Mario::HandleCollision() {
+  
 }
 
 void Mario::DrawCurrent(sf::RenderTarget &target,
@@ -53,34 +59,6 @@ void Mario::DrawCurrent(sf::RenderTarget &target,
 }
 
 void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
-
-
-
-  // Command command;
-  // command = commands.Pop();
-
-  // Update texts and animations
-  // UpdateTexts();
-  // UpdateAnimation();
-  // std::queue<sf::Vector2f> = navigator_.solution_queue_.pop_back()
-  // sf::Vector2f movement = navigator_.solution_queue_.pop_back()
-  //
-  // sprite_.move(navigator_.start_gadget_actions_.pop());
-  // sprite_.move(const Vector2f &offset)
-  // if (!waiting_) {
-  //   if (!navigator_.start_gadget_actions_.empty()) {
-  //     sf::Vector2f position_ = navigator_.start_gadget_actions_.front();
-  //     // move(position_);
-  //     commands.Push(move(position_));
-  //     navigator_.start_gadget_actions_.pop();
-  //     std::cout << "Player update" << std::endl;
-  //     waiting_ = true;
-  //   } else {
-  //     // finish_ = true;
-  //     std::cout << "Done" << std::endl;
-  //   }
-  //   waiting_ = false;
-  // }
 }
 
 unsigned int Mario::GetCategory() const {
@@ -89,6 +67,10 @@ unsigned int Mario::GetCategory() const {
 
 sf::FloatRect Mario::GetBoundingRect() const {
   return GetWorldTransform().transformRect(sprite_.getGlobalBounds());
+}
+
+void Mario::MoveMario(sf::Vector2f location_update) {
+  move(location_update);
 }
 
 // May need to update as Jump animation and Walk animation

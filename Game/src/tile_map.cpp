@@ -407,3 +407,7 @@ unsigned int TileMap::GetTileMapHeight() {
 unsigned int TileMap::GetTileMapWidth() {
   return tilemap_width_;
 }
+
+unsigned int TileMap::GetTileValue(int row_location, int column_location) {
+  return t_map_[row_location][column_location].GetTileValue();
+}

@@ -25,6 +25,7 @@ class TileMap : public sf::Sprite {
   void draw(sf::RenderTarget& target, sf::RenderStates states) const;
   unsigned int GetTileMapHeight();
   unsigned int GetTileMapWidth();
+  unsigned int GetTileValue(int row_location, int column_location);
 
   //test function
   void CreateChunkMap(unsigned int var, unsigned int clause);

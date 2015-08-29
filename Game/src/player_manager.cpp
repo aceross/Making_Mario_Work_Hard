@@ -17,7 +17,8 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    mario.move(location_update);
+    // mario.move(location_update);
+    mario.UpdateLocation(location_update);
   }
 
   sf::Vector2f location_update;
@@ -97,7 +98,7 @@ void PlayerManager::InitialiseActions() {
   action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-location_update, 0));
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
   action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
-  action_binding_[Down].action_      = DerivedAction<Mario>(MarioMover(0, +16));
+  action_binding_[Down].action_      = DerivedAction<Mario>(MarioMover(0, +16.f));
   action_binding_[Wait].action_      = DerivedAction<Mario>(MarioMover(0, 0));
 }
 
@@ -186,7 +187,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
 
 void PlayerManager::InitWarpQueue(CommandQueue& commands) {
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
-  for (int i = 0; i < 112; ++i) {
+  for (int i = 0; i < 95; ++i) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
@@ -207,14 +208,22 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
   assigned_variables_.pop();
 
   // 1 tile move = 8 moves e.g. 8 tiles = 64 moves
-  // for (int i = 0; i < 25; ++i) {
-    Command c = action_binding_[MoveRight];
+  for (int i = 0; i < 8; ++i) {
+    Command c         = action_binding_[MoveRight];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
-  // }
+  }
 
-  // pause
+  // fall
+  for (int j = 0; j < 2; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  // wait
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.VariableGadget;
@@ -222,6 +231,83 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
+  for (int i = 0; i < 50; ++i) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 1; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  // wait
+  for (int j = 0; j < 6; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  // Select the path based on the variable assignment
+  if (current_variable_ < 0) {
+    for (int i = 0; i < 24; ++i) {
+      Command c = action_binding_[MoveRight];
+      c.location_       = c.VariableGadget;
+      c.var_assignment_ = current_variable_;
+      commands.Push(c);
+    }
+    // wait
+    for (int j = 0; j < 10; ++ j) {
+      Command c         = action_binding_[Wait];
+      c.location_       = c.VariableGadget;
+      c.var_assignment_ = current_variable_;
+      commands.Push(c);
+    }
+  } else {
+    for (int i = 0; i < 24; ++i) {
+      Command c         = action_binding_[MoveLeft];
+      c.location_       = c.VariableGadget;
+      c.var_assignment_ = current_variable_;
+      commands.Push(c);
+    }
+    // wait
+    for (int j = 0; j < 10; ++ j) {
+      Command c         = action_binding_[Wait];
+      c.location_       = c.VariableGadget;
+      c.var_assignment_ = current_variable_;
+      commands.Push(c);
+    }
+  }
+
+  // wait
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  // fall
+  for (int j = 0; j < 5; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  // wait
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.VariableGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  InitWarpQueue(commands);
 }
 
 void PlayerManager::InitCheckInQueue(CommandQueue &commands) {

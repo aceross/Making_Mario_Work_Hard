@@ -108,6 +108,9 @@ void Level::BuildScene() {
   scene_layers_[Foreground]->AttachChild(std::move(player));
 }
 
+// AdaptPlayerPosition checks the location origin of the command and current var
+// The appropriate actions and boolean assignments are made to display
+// in the level.
 void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
   switch (location) {
     case StartGadget:
@@ -122,19 +125,27 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
           mario_position_.x += 200;
           player_mario_->setPosition(mario_position_);
         }
-        in_warp_gadget_ = true;
+        in_warp_gadget_     = true;
+        in_start_gadget_    = false;
+        in_variable_gadget_ = false;
       }
       break;
     case VariableGadget:
       if (!in_variable_gadget_) {
         in_warp_gadget_ = false;
         mario_position_ = player_mario_->getPosition();
-        sf::Vector2f variable_adjustment(110, 215);
-        std::cout << "Current var abs: " << abs(current_var) << std::endl;
+        std::cout << "MarPosy  : " << mario_position_.y << std::endl;
+        sf::Vector2f variable_adjustment(110, 223);
+        std::cout << "Current var abs: " << abs(current_var - 1) << std::endl;
         mario_position_.x  = 110;
-        mario_position_.y += variable_adjustment.y;
+        if (current_var > 2 ) {
+          variable_adjustment.y = (variable_adjustment.y *
+                                   abs(current_var - 1)) - 16; 
+        }
+        mario_position_.y  = variable_adjustment.y;
+        std::cout << "After abs, MarPosy  : " << mario_position_.y << std::endl;
         player_mario_->setPosition(mario_position_);
-        // in_variable_gadget_ = true;
+        in_variable_gadget_ = true;
       }
       break;
     case Clause:
@@ -159,7 +170,20 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
 }
 
 void Level::HandleCollisions() {
-  // for (int i = 0; i < tile_map)
+  // if (player_mario_->)
+  // unsigned int height  = tile_map_.GetTileMapHeight();
+  // unsigned int width   = tile_map_.GetTileMapWidth();
+  //
+  // for (int i = 0; i < height; ++i) {
+  //   for (int j = 0; j < width; ++j) {
+  //     int current_tile = tile_map_.GetTileValue(i, j);
+  //     sf::Vector2f tile_location(i * 16, j * 16);
+  //     if (current_tile != 30 && ((mario_position_.x > tile_location.x))) {
+  //       mario_position_.x = tile_l
+  //
+  //     }
+  //   }
+  // }
 }
 
 TileMap& Level::GetTileMap() {

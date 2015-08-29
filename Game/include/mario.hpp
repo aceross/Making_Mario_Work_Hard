@@ -27,6 +27,7 @@ class Mario : public Entity {
   sf::Vector2f GetLocation();
   void UpdateLocation(int x, int y);
   void UpdateLocation(sf::Vector2f location_update);
+  void MoveMario(sf::Vector2f location_update);
   // void MoveMario(sf::Vector2f location_update);
 
   // sf::Sprite   sprite_;
@@ -42,6 +43,7 @@ class Mario : public Entity {
   // void UpdateMovementPattern(sf::Time delta_time);
   // void UpdateTexts();
   void UpdateAnimation();
+  void HandleCollision();
 
  private:
   Type         type_;
