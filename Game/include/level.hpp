@@ -54,7 +54,8 @@ class Level : private sf::NonCopyable {
 
  private:
   void LoadTextures();
-  void AdaptPlayerPosition(unsigned int location, int current_var);
+  void AdaptPlayerPosition(unsigned int location, int current_var,
+                           int current_clause);
   // void AdaptPlayerVelocity();
   void HandleCollisions();
 

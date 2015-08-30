@@ -61,7 +61,7 @@ void MapChunkManager::InitClause() {
   clause_.name_         = "clause_gadget";
   clause_.file_path_    = "resources/maps/level_chunks/clause.map";
   clause_.chunk_height_ = 19;
-  clause_.chunk_width_  = 27;
+  clause_.chunk_width_  = 28;
 }
 
 void MapChunkManager::InitFinishGadget() {

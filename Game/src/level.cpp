@@ -46,14 +46,14 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 
   // Prepare the main view and the mini-map
   level_view_.setCenter(player_mario_->getPosition());
-  level_view_.zoom(0.57f);
+  // level_view_.zoom(0.57f);
   mini_map_.setViewport(sf::FloatRect(0.72f, 0, 0.23f, 0.23f));
 }
 
 void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
     Command c = command_queue_.Front();
-    AdaptPlayerPosition(c.location_, c.var_assignment_);
+    AdaptPlayerPosition(c.location_, c.var_assignment_, c.current_clause_);
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
 
@@ -113,7 +113,8 @@ void Level::BuildScene() {
 // AdaptPlayerPosition checks the location origin of the command and current var
 // The appropriate actions and boolean assignments are made to display
 // in the level.
-void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
+void Level::AdaptPlayerPosition(unsigned int location, int current_var,
+                                int current_clause) {
   switch (location) {
     case StartGadget:
       break;
@@ -144,8 +145,8 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       break;
     case VariableGadget:
       if (!in_variable_gadget_) {
-        current_clause_ = 0;
-        in_warp_gadget_ = false;
+        in_warp_gadget_   = false;
+        in_clause_gadget_ = false;
         mario_position_ = player_mario_->getPosition();
         sf::Vector2f variable_adjustment(110, 223);
         mario_position_.x  = 110;
@@ -160,13 +161,32 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
         in_variable_gadget_ = true;
       }
       break;
+    // TIMES 8 NOT 16 !!!!!
     case Clause:
+      if (!in_clause_gadget_) {
+        return_position_  = player_mario_->getPosition();
+        in_clause_gadget_ = true;
+        current_clause_   = current_clause;
+        // 224 656 1104
+        int vars    = variable_manager_.GetNumVariables();
+        sf::Vector2f clause_adjustment(0, 104 * (vars - 1));
+        if (current_clause_ == 0) { clause_adjustment.x += 224; }
+        if (current_clause_ == 1) { clause_adjustment.x += 656; }
+        if (current_clause_ == 3) { clause_adjustment.x += 1104;}
+        clause_adjustment.x += 114 * abs(current_var - 1);
+        clause_adjustment.y = clause_adjustment.y * (vars) + 48;
+        player_mario_->setPosition(clause_adjustment);
+      } else {
+        player_mario_->setPosition(return_position_);
+        in_clause_gadget_ = false;
+      }
+      break;
     case CheckIn:
       if (!in_check_in_) {
         in_variable_gadget_ = false;
         mario_position_ = player_mario_->getPosition();
-        sf::Vector2f variable_adjustment(110, 215);
-        mario_position_ += variable_adjustment;
+        sf::Vector2f check_in_adjustment(110, 215);
+        mario_position_ += check_in_adjustment;
         player_mario_->setPosition(mario_position_);
         in_check_in_ = true;
       }

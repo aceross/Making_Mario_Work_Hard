@@ -324,7 +324,7 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     commands.Push(c);
   }
 
-  int total_clauses      = var_manager_.GetNumClauses();
+  // int total_clauses      = var_manager_.GetNumClauses();
   int num_target_clauses = GetNumClauseLocation(current_variable_);
   std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
   std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
@@ -335,6 +335,12 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
       if (target_clause == current_clause_) {
         std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
         InitClauseQueue(commands, target_clause);
+        // for (int i = 0; i < 24; ++i) {
+        //   Command c = action_binding_[MoveRight];
+        //   c.location_       = c.WarpEntry;
+        //   c.var_assignment_ = current_variable_;
+        //   commands.Push(c);
+        // }
       }
     }
   }
@@ -469,14 +475,69 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
 }
 
 void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
-  // for (int i = 0; i < 8; ++i) {
-  //   // std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
-  //   // std::cout << "Clause: "                << current_clause_ << std::endl;
-  //   Command c = action_binding_[Wait];
-  //   c.location_       = c.Clause;
-  //   c.var_assignment_ = current_variable_;
-  //   c.current_clause_ = target_clause;
-  //   commands.Push(c);
-  // }
+  std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
+  std::cout << "Clause: "                << current_clause_ << std::endl;
+
+  // Enter the clause variable
+  for (int i = 0; i < 1; ++i) {
+    Command c = action_binding_[Wait];
+    c.location_       = c.Clause;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 20; ++i) {
+    Command c = action_binding_[Wait];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
+  // Move from the Platform to the Koopa
+  for (int i = 0; i < 24; ++i) {
+    Command c         = action_binding_[MoveLeft];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 20; ++i) {
+    Command c = action_binding_[Wait];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
+  // Move back to the platform
+  for (int i = 0; i < 24; ++i) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
+  // Exit the clause
+  for (int i = 0; i < 1; ++i) {
+    Command c = action_binding_[Wait];
+    c.location_       = c.Clause;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 20; ++i) {
+    Command c = action_binding_[Wait];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
 
 }
