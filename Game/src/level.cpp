@@ -27,6 +27,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , in_start_gadget_(false)
 , in_variable_gadget_(false)
 , in_warp_gadget_(false)
+, warping_(false)
 , finished_warps_(false)
 , in_check_in_(false)
 , in_clause_gadget_(false)
@@ -133,22 +134,27 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
         }
         // mario_position_.y -= round(variable_adjustment * abs(current_var - 1);
         player_mario_->setPosition(mario_position_);
-        std::cout << "Current Var : " << current_var << std::endl;
-        std::cout << "Mario x: " << mario_position_.x << std::endl;
-        std::cout << "Mario y: " << mario_position_.y << std::endl;
+        std::cout << "WARP: Current Var : " << current_var << std::endl;
+        // std::cout << "Mario x: " << mario_position_.x << std::endl;
+        // std::cout << "Mario y: " << mario_position_.y << std::endl;
         in_warp_gadget_     = true;
         in_start_gadget_    = false;
         in_variable_gadget_ = false;
       }
       break;
     case Warp:
-      current_clause_ = GetClauseLocation(current_var);
-      std::cout << "current clause" << current_clause_ << std::endl;
+      // if (!warping_) {
+      //   return_position_ = player_mario_->getPosition();
+      //   current_clause_  = GetClauseLocation(current_var);
+      //   warping_ = true;
+      // }
+      // ++current_clause_;
       break;
     case WarpExit:
       break;
     case VariableGadget:
       if (!in_variable_gadget_) {
+        current_clause_ = 0;
         in_warp_gadget_ = false;
         mario_position_ = player_mario_->getPosition();
         sf::Vector2f variable_adjustment(110, 223);
@@ -165,7 +171,14 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       }
       break;
     case Clause:
-      break;
+      std::cout << "IN CLAUSE" << std::endl;
+      std::cout << "Current Var   : " << current_var << std::endl;
+      // std::cout << "Current Clause: " << current_clause_ + 1 << std::endl;
+      // if (!in_clause_gadget_) {
+      //   ++current_clause_;
+      // }
+      // in_warp_gadget_ = false;
+      // break;
     case CheckIn:
       if (!in_check_in_) {
         in_variable_gadget_ = false;
@@ -193,8 +206,8 @@ int Level::GetClauseLocation(int current_var) {
     for (int j = 0; j < num_vars; ++j) {
       int literal = variable_manager_.clauses_[i][j];
       if (current_var == literal && current_clause_ < num_clauses) {
-        std::cout << "Current Literal : "  << literal << std::endl;
-        std::cout << "Current Clause  : "  << i + 1 << std::endl;
+        // std::cout << "Current Literal : "  << literal << std::endl;
+        // std::cout << "Current Clause  : "  << i + 1 << std::endl;
         clause = i + 1;
         break;
       }
@@ -203,22 +216,7 @@ int Level::GetClauseLocation(int current_var) {
   return clause;
 }
 
-void Level::HandleCollisions() {
-  // if (player_mario_->)
-  // unsigned int height  = tile_map_.GetTileMapHeight();
-  // unsigned int width   = tile_map_.GetTileMapWidth();
-  //
-  // for (int i = 0; i < height; ++i) {
-  //   for (int j = 0; j < width; ++j) {
-  //     int current_tile = tile_map_.GetTileValue(i, j);
-  //     sf::Vector2f tile_location(i * 16, j * 16);
-  //     if (current_tile != 30 && ((mario_position_.x > tile_location.x))) {
-  //       mario_position_.x = tile_l
-  //
-  //     }
-  //   }
-  // }
-}
+void Level::HandleCollisions() {}
 
 TileMap& Level::GetTileMap() {
   return tile_map_;

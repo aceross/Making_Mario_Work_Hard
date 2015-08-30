@@ -53,20 +53,20 @@ void MapChunkManager::InitVariableChunk() {
 void MapChunkManager::InitCheckIn() {
   check_in_.name_         = "check_in";
   check_in_.file_path_    = "resources/maps/level_chunks/check_in_gadget.map";
-  check_in_.chunk_height_ = 18;
+  check_in_.chunk_height_ = 19;
   check_in_.chunk_width_  = 8;
 }
 
 void MapChunkManager::InitClause() {
   clause_.name_         = "clause_gadget";
   clause_.file_path_    = "resources/maps/level_chunks/clause.map";
-  clause_.chunk_height_ = 18;
+  clause_.chunk_height_ = 19;
   clause_.chunk_width_  = 27;
 }
 
 void MapChunkManager::InitFinishGadget() {
   finish_gadget_.name_         = "finish_gadget";
   finish_gadget_.file_path_    = "resources/maps/level_chunks/finish_gadget.map";
-  finish_gadget_.chunk_height_ = 18;
+  finish_gadget_.chunk_height_ = 19;
   finish_gadget_.chunk_width_  = 21;
 }

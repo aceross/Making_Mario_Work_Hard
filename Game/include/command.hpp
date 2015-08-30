@@ -34,6 +34,7 @@ struct Command {
   unsigned int category_;
   unsigned int location_;
   int var_assignment_;
+  int current_clause_;
   bool complemented_;
   bool gadget_finished_;
 };

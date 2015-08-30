@@ -107,6 +107,7 @@ class Level : private sf::NonCopyable {
   bool in_start_gadget_;
   bool in_variable_gadget_;
   bool in_warp_gadget_;
+  bool warping_;
   bool finished_warps_;
   bool no_warp_gadgets_;
   bool in_check_in_;

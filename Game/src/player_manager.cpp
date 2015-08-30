@@ -26,6 +26,7 @@ struct MarioMover {
 
 PlayerManager::PlayerManager()
 : current_level_status_(LevelRunning)
+, current_clause_(0)
 , in_start_gadget_(true)
 , in_variable_gadget_(false)
 {
@@ -74,13 +75,13 @@ void PlayerManager::PrintLocation() {
 }
 
 int PlayerManager::GetNumClauseLocation(int current_var) {
-  std::cout << std::endl;
+  // std::cout << std::endl;
   int num_clauses;
 
   num_clauses = location_map_[abs(current_var)-1].size();
-  std::cout << "Current var = " << current_var << std::endl;
-  std::cout << "Number of clauses = " << num_clauses << std::endl;
-  std::cout << "Clauses: " << std::endl;
+  // std::cout << "Current var = " << current_var << std::endl;
+  // std::cout << "Number of clauses = " << num_clauses << std::endl;
+  // std::cout << "Clauses: " << std::endl;
   for (int i = 0; i < num_clauses; ++i) {
     std::cout << location_map_[abs(current_var)-1][i] + 1 << std::endl;
   }
@@ -235,6 +236,9 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
   for (int i = 0; i < var - 1; ++i) {
     InitVariableQueue(commands);
   }
+
+  // End Sequence
+  // code
 }
 
 void PlayerManager::InitWarpQueue(CommandQueue& commands) {
@@ -278,14 +282,55 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
-  int i = GetNumClauseLocation(current_variable_);
-  std::cout << "i = " << i << std::endl;
+  // first move to pipe
+  // WarpAction(commands);
 
+
+  int num_clauses = var_manager_.GetNumClauses();
+  for (int i = 0; i < num_clauses; ++i) {
+    WarpAction(commands);
+    current_clause_ = i;
+  }
+  current_clause_ = 0;
+  // Warp exit
+  // if clauses < num clauses
+  // do a jump across action
+  // exit
 }
 
 void PlayerManager::WarpAction(CommandQueue& commands) {
+  // int total_clauses   = var_manager_.GetNumClauses();
+  int num_target_clauses = GetNumClauseLocation(current_variable_);
+  std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
+  std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
+
+  for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
+    for (int j = 0; j < num_target_clauses; ++j) {
+      int target_clause = location_map_[abs(current_variable_) - 1][j];
+      if (target_clause == current_clause_) {
+        std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
+        InitClauseQueue(commands, target_clause);
+      }
+    }
+  }
+
   for (int i = 0; i < 16; ++i) {
     Command c = action_binding_[MoveRight];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
@@ -404,4 +449,17 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
   c.location_       = c.CheckIn;
   // c.var_assignment_ = current_variable_;
   commands.Push(c);
+}
+
+void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
+  for (int i = 0; i < 8; ++i) {
+    std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
+    std::cout << "Clause: "                << current_clause_ << std::endl;
+    Command c = action_binding_[Wait];
+    c.location_       = c.Clause;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    commands.Push(c);
+  }
+
 }

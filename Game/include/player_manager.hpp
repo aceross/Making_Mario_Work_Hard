@@ -55,7 +55,7 @@ class PlayerManager {
   void InitVariableQueue(CommandQueue& commands);
   void InitWarpQueue(CommandQueue& commands);
   void WarpAction(CommandQueue& commands);
-  void InitClauseQueue(CommandQueue& commands);
+  void InitClauseQueue(CommandQueue& commands, int target_clause);
   void InitCheckInQueue(CommandQueue& commands);
   void InitCheckoutQueue(CommandQueue& commands);
   void InitFinishQueue(CommandQueue& commands);
@@ -73,6 +73,7 @@ class PlayerManager {
   NavigationManager navigation_manager_;
   std::queue<int>   assigned_variables_;
   int               current_variable_;
+  int               current_clause_;
   std::vector< std::vector<int> > location_map_;
 
 private:
