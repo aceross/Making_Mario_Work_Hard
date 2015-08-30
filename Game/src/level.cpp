@@ -71,6 +71,7 @@ void Level::draw() {
   // draw the mini map view
   target_.setView(mini_map_);
   target_.draw(scene_graph_);
+  target_.draw(tile_map_);
 }
 
 CommandQueue& Level::GetCommandQueue() {
@@ -94,7 +95,6 @@ void Level::BuildScene() {
 
   // Read in the tile map
   tile_map_.InitialiseMap(zchaff_manager_);
-
   std::unique_ptr<MapNode> map_node(new MapNode());
   map_node->tile_map_.InitialiseMap(zchaff_manager_);
   scene_layers_[Background]->AttachChild(std::move(map_node));
@@ -125,7 +125,11 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
           mario_position_.y -= variable_adjustment * abs(current_var - 1) - 16;
         } else {
           mario_position_.x += 192;
-          mario_position_.y -= variable_adjustment * abs(current_var - 1);
+          if (current_var > 1) {
+            mario_position_.y -= variable_adjustment * abs(current_var) - 16;
+          } else {
+            mario_position_.y -= variable_adjustment * abs(current_var);
+          }
         }
         // mario_position_.y -= round(variable_adjustment * abs(current_var - 1);
         player_mario_->setPosition(mario_position_);
@@ -138,7 +142,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       }
       break;
     case Warp:
-      current_clause_ = GetClauseLocation(current_var) + 1;
+      current_clause_ = GetClauseLocation(current_var);
       std::cout << "current clause" << current_clause_ << std::endl;
       break;
     case WarpExit:
@@ -150,7 +154,8 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
         sf::Vector2f variable_adjustment(110, 223);
         mario_position_.x  = 110;
         if (abs(current_var) > 2 ) {
-          // Subtract one from current_var because
+          // Subtract one from current_var because the Start Gadget counts
+          // as one variable.
           variable_adjustment.y = variable_adjustment.y *
                                    abs(current_var - 1) - 16;
         }
@@ -188,7 +193,9 @@ int Level::GetClauseLocation(int current_var) {
     for (int j = 0; j < num_vars; ++j) {
       int literal = variable_manager_.clauses_[i][j];
       if (current_var == literal && current_clause_ < num_clauses) {
-        clause = i;
+        std::cout << "Current Literal : "  << literal << std::endl;
+        std::cout << "Current Clause  : "  << i + 1 << std::endl;
+        clause = i + 1;
         break;
       }
     }

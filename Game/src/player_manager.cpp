@@ -56,8 +56,31 @@ void PlayerManager::SetVariableAssignments() {
   for (int i = 0; i < variables; ++i) {
     temp = var_manager_.variable_list_[i].GetFinalValue();
     assigned_variables_.push(temp);
+    SetAssignmentLocation(temp);
+  }
+
+
+}
+
+void PlayerManager::SetAssignmentLocation(int current_var) {
+  std::cout << std::endl;
+  int num_clauses = var_manager_.GetNumClauses();
+  int num_vars    = var_manager_.GetNumVariables();
+  int clause = 0;
+  for (int i = 0; i < num_clauses; ++i) {
+    for (int j = 0; j < num_vars; ++j) {
+      int literal = var_manager_.clauses_[i][j];
+      std::cout << "Current Literal : "  << literal << std::endl;
+      if (current_var == literal) {
+        // std::cout << "Current Literal : "  << literal << std::endl;
+        std::cout << "Current Clause  : "  << i+ 1 << std::endl;
+      }
+      std::cout << std::endl;
+    }
+    clause = i;
   }
 }
+
 
 void PlayerManager::SetTileMap(TileMap tm) {
   tile_map_ = tm;
@@ -224,9 +247,17 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
 }
 
-void PlayerManager::WarpAction(CommandQueue& commands) {}
+void PlayerManager::WarpAction(CommandQueue& commands) {
+  for (int i = 0; i < 16; ++i) {
+    Command c = action_binding_[MoveRight];
+    c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+}
 
 void PlayerManager::InitVariableQueue(CommandQueue& commands) {
   current_variable_ = assigned_variables_.front();

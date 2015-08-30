@@ -50,6 +50,7 @@ class PlayerManager {
 
  private:
   void SetVariableAssignments();
+  void SetAssignmentLocation(int current_var);
   void InitStartQueue(CommandQueue& commands);
   void InitVariableQueue(CommandQueue& commands);
   void InitWarpQueue(CommandQueue& commands);
