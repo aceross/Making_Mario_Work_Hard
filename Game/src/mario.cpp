@@ -49,7 +49,7 @@ void Mario::UpdateLocation(int x, int y) {
 }
 
 void Mario::HandleCollision() {
-  
+
 }
 
 void Mario::DrawCurrent(sf::RenderTarget &target,

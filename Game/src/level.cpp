@@ -132,23 +132,13 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
             mario_position_.y -= variable_adjustment * abs(current_var);
           }
         }
-        // mario_position_.y -= round(variable_adjustment * abs(current_var - 1);
         player_mario_->setPosition(mario_position_);
-        std::cout << "WARP: Current Var : " << current_var << std::endl;
-        // std::cout << "Mario x: " << mario_position_.x << std::endl;
-        // std::cout << "Mario y: " << mario_position_.y << std::endl;
         in_warp_gadget_     = true;
         in_start_gadget_    = false;
         in_variable_gadget_ = false;
       }
       break;
     case Warp:
-      // if (!warping_) {
-      //   return_position_ = player_mario_->getPosition();
-      //   current_clause_  = GetClauseLocation(current_var);
-      //   warping_ = true;
-      // }
-      // ++current_clause_;
       break;
     case WarpExit:
       break;
@@ -162,8 +152,9 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
         if (abs(current_var) > 2 ) {
           // Subtract one from current_var because the Start Gadget counts
           // as one variable.
-          variable_adjustment.y = variable_adjustment.y *
-                                   abs(current_var - 1) - 16;
+          variable_adjustment.y = floor(variable_adjustment.y *
+                                   abs(current_var - 1) - 16) + 1;
+                                   std::cout << "Variable adj y " <<  variable_adjustment.y << std::endl;
         }
         mario_position_.y  = variable_adjustment.y;
         player_mario_->setPosition(mario_position_);
@@ -171,14 +162,6 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
       }
       break;
     case Clause:
-      std::cout << "IN CLAUSE" << std::endl;
-      std::cout << "Current Var   : " << current_var << std::endl;
-      // std::cout << "Current Clause: " << current_clause_ + 1 << std::endl;
-      // if (!in_clause_gadget_) {
-      //   ++current_clause_;
-      // }
-      // in_warp_gadget_ = false;
-      // break;
     case CheckIn:
       if (!in_check_in_) {
         in_variable_gadget_ = false;

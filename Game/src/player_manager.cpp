@@ -17,8 +17,8 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    // mario.move(location_update);
-    mario.UpdateLocation(location_update);
+    mario.move(location_update);
+    // mario.UpdateLocation(location_update);
   }
 
   sf::Vector2f location_update;
@@ -251,30 +251,39 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
+  // Step to the right 1 tile
   for (int i = 0; i < 8; ++i) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
+  // Wait
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
+  // Fall to the ledge
   for (int i = 0; i < 2; ++i) {
     Command c = action_binding_[Down];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
+  // Wait
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
+  // Move Right two tiles
   for (int i = 0; i < 16; ++i) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.WarpEntry;
@@ -282,14 +291,11 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
-  // first move to pipe
-  // WarpAction(commands);
-
-
   int num_clauses = var_manager_.GetNumClauses();
   for (int i = 0; i < num_clauses; ++i) {
     WarpAction(commands);
     current_clause_ = i;
+    std::cout << "Current clause in WA loop: " << current_clause_ << std::endl;
   }
   current_clause_ = 0;
   // Warp exit
@@ -299,22 +305,29 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
 }
 
 void PlayerManager::WarpAction(CommandQueue& commands) {
+  // for (int i = 0; i < 16; ++i) {
+  //   Command c = action_binding_[MoveRight];
+  //   c.location_       = c.WarpEntry;
+  //   c.var_assignment_ = current_variable_;
+  //   commands.Push(c);
+  //}
+
   // int total_clauses   = var_manager_.GetNumClauses();
-  int num_target_clauses = GetNumClauseLocation(current_variable_);
+  // int num_target_clauses = GetNumClauseLocation(current_variable_);
   std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
   std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
 
-  for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
-    for (int j = 0; j < num_target_clauses; ++j) {
-      int target_clause = location_map_[abs(current_variable_) - 1][j];
-      if (target_clause == current_clause_) {
-        std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
-        InitClauseQueue(commands, target_clause);
-      }
-    }
-  }
+  // for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
+  //   for (int j = 0; j < num_target_clauses; ++j) {
+  //     int target_clause = location_map_[abs(current_variable_) - 1][j];
+  //     if (target_clause == current_clause_) {
+  //       std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
+  //       InitClauseQueue(commands, target_clause);
+  //     }
+  //   }
+  // }
 
-  for (int i = 0; i < 16; ++i) {
+  for (int i = 0; i < 20; ++i) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
@@ -453,8 +466,8 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
 
 void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
   for (int i = 0; i < 8; ++i) {
-    std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
-    std::cout << "Clause: "                << current_clause_ << std::endl;
+    // std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
+    // std::cout << "Clause: "                << current_clause_ << std::endl;
     Command c = action_binding_[Wait];
     c.location_       = c.Clause;
     c.var_assignment_ = current_variable_;
