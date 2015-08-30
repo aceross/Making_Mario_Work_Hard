@@ -73,6 +73,21 @@ void PlayerManager::PrintLocation() {
   }
 }
 
+int PlayerManager::GetNumClauseLocation(int current_var) {
+  std::cout << std::endl;
+  int num_clauses;
+
+  num_clauses = location_map_[abs(current_var)-1].size();
+  std::cout << "Current var = " << current_var << std::endl;
+  std::cout << "Number of clauses = " << num_clauses << std::endl;
+  std::cout << "Clauses: " << std::endl;
+  for (int i = 0; i < num_clauses; ++i) {
+    std::cout << location_map_[abs(current_var)-1][i] + 1 << std::endl;
+  }
+
+  return num_clauses;
+}
+
 void PlayerManager::SetAssignmentLocation(int current_var) {
   // std::cout << std::endl;
   std::vector<int> var_index;
@@ -262,6 +277,9 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
+
+  int i = GetNumClauseLocation(current_variable_);
+  std::cout << "i = " << i << std::endl;
 
 }
 

@@ -61,6 +61,7 @@ class PlayerManager {
   void InitFinishQueue(CommandQueue& commands);
 
   void PrintLocation();
+  int GetNumClauseLocation(int current_var);
 
  private:
   std::map<sf::Keyboard::Key, Action> key_binding_;
