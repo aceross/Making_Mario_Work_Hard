@@ -283,9 +283,8 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
-  // Move Right two tiles
-  for (int i = 0; i < 16; ++i) {
-    Command c = action_binding_[MoveRight];
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
@@ -297,43 +296,48 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     current_clause_ = i;
     std::cout << "Current clause in WA loop: " << current_clause_ << std::endl;
   }
+
   current_clause_ = 0;
+
   // Warp exit
-  // if clauses < num clauses
-  // do a jump across action
-  // exit
 }
 
 void PlayerManager::WarpAction(CommandQueue& commands) {
-  // for (int i = 0; i < 16; ++i) {
-  //   Command c = action_binding_[MoveRight];
-  //   c.location_       = c.WarpEntry;
-  //   c.var_assignment_ = current_variable_;
-  //   commands.Push(c);
-  //}
-
-  // int total_clauses   = var_manager_.GetNumClauses();
-  // int num_target_clauses = GetNumClauseLocation(current_variable_);
-  std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
-  std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
-
-  // for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
-  //   for (int j = 0; j < num_target_clauses; ++j) {
-  //     int target_clause = location_map_[abs(current_variable_) - 1][j];
-  //     if (target_clause == current_clause_) {
-  //       std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
-  //       InitClauseQueue(commands, target_clause);
-  //     }
-  //   }
-  // }
-
-  for (int i = 0; i < 20; ++i) {
-    Command c = action_binding_[MoveRight];
-    c.location_       = c.Warp;
+  for (int j = 0; j < 20; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
 
+  for (int i = 0; i < 24; ++i) {
+    Command c = action_binding_[MoveRight];
+    c.location_       = c.WarpEntry;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 10; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.WarpEntry;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  int total_clauses      = var_manager_.GetNumClauses();
+  int num_target_clauses = GetNumClauseLocation(current_variable_);
+  std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
+  std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
+
+  for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
+    for (int j = 0; j < num_target_clauses; ++j) {
+      int target_clause = location_map_[abs(current_variable_) - 1][j];
+      if (target_clause == current_clause_) {
+        std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
+        InitClauseQueue(commands, target_clause);
+      }
+    }
+  }
 
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
@@ -465,14 +469,14 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
 }
 
 void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
-  for (int i = 0; i < 8; ++i) {
-    // std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
-    // std::cout << "Clause: "                << current_clause_ << std::endl;
-    Command c = action_binding_[Wait];
-    c.location_       = c.Clause;
-    c.var_assignment_ = current_variable_;
-    c.current_clause_ = target_clause;
-    commands.Push(c);
-  }
+  // for (int i = 0; i < 8; ++i) {
+  //   // std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
+  //   // std::cout << "Clause: "                << current_clause_ << std::endl;
+  //   Command c = action_binding_[Wait];
+  //   c.location_       = c.Clause;
+  //   c.var_assignment_ = current_variable_;
+  //   c.current_clause_ = target_clause;
+  //   commands.Push(c);
+  // }
 
 }

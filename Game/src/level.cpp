@@ -122,7 +122,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
         float variable_adjustment(16);
         mario_position_ = player_mario_->getPosition();
         if (current_var < 0) {
-          mario_position_.x += 415;
+          mario_position_.x += 380;
           mario_position_.y -= variable_adjustment * abs(current_var - 1) - 16;
         } else {
           mario_position_.x += 192;
@@ -154,7 +154,6 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var) {
           // as one variable.
           variable_adjustment.y = floor(variable_adjustment.y *
                                    abs(current_var - 1) - 16) + 1;
-                                   std::cout << "Variable adj y " <<  variable_adjustment.y << std::endl;
         }
         mario_position_.y  = variable_adjustment.y;
         player_mario_->setPosition(mario_position_);

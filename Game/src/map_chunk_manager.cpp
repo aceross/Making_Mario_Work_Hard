@@ -26,14 +26,14 @@ void MapChunkManager::InitWarpStart() {
   warp_start_.name_         = "warp_start";
   warp_start_.file_path_    = "resources/maps/level_chunks/start_warp_chunk.map";
   warp_start_.chunk_height_ = 13;
-  warp_start_.chunk_width_  = 4;
+  warp_start_.chunk_width_  = 5;
 }
 
 void MapChunkManager::InitWarpPipe() {
   warp_pipe_.name_         = "warp";
   warp_pipe_.file_path_    = "resources/maps/level_chunks/warp.map";
   warp_pipe_.chunk_height_ = 13;
-  warp_pipe_.chunk_width_  = 4;
+  warp_pipe_.chunk_width_  = 3;
 }
 
 void MapChunkManager::InitWarpEnd() {
