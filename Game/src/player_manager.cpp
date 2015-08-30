@@ -59,28 +59,43 @@ void PlayerManager::SetVariableAssignments() {
     SetAssignmentLocation(temp);
   }
 
-
+  // PrintLocation();
 }
 
-void PlayerManager::SetAssignmentLocation(int current_var) {
-  std::cout << std::endl;
-  int num_clauses = var_manager_.GetNumClauses();
-  int num_vars    = var_manager_.GetNumVariables();
-  int clause = 0;
-  for (int i = 0; i < num_clauses; ++i) {
-    for (int j = 0; j < num_vars; ++j) {
-      int literal = var_manager_.clauses_[i][j];
-      std::cout << "Current Literal : "  << literal << std::endl;
-      if (current_var == literal) {
-        // std::cout << "Current Literal : "  << literal << std::endl;
-        std::cout << "Current Clause  : "  << i+ 1 << std::endl;
-      }
-      std::cout << std::endl;
+void PlayerManager::PrintLocation() {
+  // Print it to test
+  for (int i = 0; i < 3; i++) {
+    std::cout << "var : " << i + 1 << " ";
+    for (int j = 0; j < location_map_[i].size(); ++j) {
+      std::cout << "Clause: " << location_map_[i][j] + 1;
     }
-    clause = i;
+    std::cout << std::endl;
   }
 }
 
+void PlayerManager::SetAssignmentLocation(int current_var) {
+  // std::cout << std::endl;
+  std::vector<int> var_index;
+
+  int num_clauses = var_manager_.GetNumClauses();
+  int num_vars    = var_manager_.GetNumVariables();
+
+  for (int i = 0; i < num_clauses; ++i) {
+    for (int j = 0; j < num_vars; ++j) {
+      int literal = var_manager_.clauses_[i][j];
+      if (current_var == literal) {
+        // std::cout << "Current Literal : "  << literal << std::endl;
+        // std::cout << "Current Clause  : "  << i+ 1 << std::endl;
+        var_index.push_back(i);
+        // std::cout << "...Pushing Clause" << std::endl;
+      }
+    }
+  }
+
+  location_map_.push_back(var_index);
+  // std::cout << "Push to Map" << std::endl;
+  // std::cout << std::endl;
+}
 
 void PlayerManager::SetTileMap(TileMap tm) {
   tile_map_ = tm;

@@ -60,6 +60,8 @@ class PlayerManager {
   void InitCheckoutQueue(CommandQueue& commands);
   void InitFinishQueue(CommandQueue& commands);
 
+  void PrintLocation();
+
  private:
   std::map<sf::Keyboard::Key, Action> key_binding_;
   std::map<Action, Command>           action_binding_;
@@ -70,6 +72,7 @@ class PlayerManager {
   NavigationManager navigation_manager_;
   std::queue<int>   assigned_variables_;
   int               current_variable_;
+  std::vector< std::vector<int> > location_map_;
 
 private:
   // location boolean values
