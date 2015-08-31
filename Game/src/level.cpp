@@ -166,17 +166,17 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       if (!in_clause_gadget_) {
         return_position_  = player_mario_->getPosition();
         in_clause_gadget_ = true;
-        std::cout << "Level current clause_:  " << current_clause_ << std::endl;
+        // std::cout << "Level current clause_:  " << current_clause_ << std::endl;
         current_clause_   = current_clause;
-        std::cout << "INLEVEL Current clause:  " << current_clause << std::endl;
-        std::cout << "Level current clause_:  " << current_clause_ << std::endl;
+        // std::cout << "INLEVEL Current clause:  " << current_clause << std::endl;
+        // std::cout << "Level current clause_:  " << current_clause_ << std::endl;
         // 224 656 1104
         int vars    = variable_manager_.GetNumVariables();
         sf::Vector2f clause_adjustment(0, 104 * (vars - 1));
         if (current_clause_ == 0) { clause_adjustment.x += 224; }
         if (current_clause_ == 1) { clause_adjustment.x += 656; }
         if (current_clause_ == 2) { clause_adjustment.x += 1104;}
-        clause_adjustment.x += 114 * abs(current_var - 1);
+        // clause_adjustment.x += 112 * abs(current_var - 1);
         clause_adjustment.y = clause_adjustment.y * (vars) + 48;
         player_mario_->setPosition(clause_adjustment);
       } else {
