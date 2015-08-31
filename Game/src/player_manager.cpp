@@ -18,7 +18,6 @@ struct MarioMover {
 
   void operator() (Mario& mario, sf::Time) const {
     mario.move(location_update);
-    // mario.UpdateLocation(location_update);
   }
 
   sf::Vector2f location_update;
@@ -292,13 +291,12 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
 
   int num_clauses = var_manager_.GetNumClauses();
   for (int i = 0; i < num_clauses; ++i) {
-    WarpAction(commands);
     current_clause_ = i;
     std::cout << "Current clause in WA loop: " << current_clause_ << std::endl;
+    WarpAction(commands);
   }
 
   current_clause_ = 0;
-
   // Warp exit
 }
 
@@ -325,25 +323,30 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
   }
 
   // int total_clauses      = var_manager_.GetNumClauses();
-  int num_target_clauses = GetNumClauseLocation(current_variable_);
+  // int num_target_clauses = GetNumClauseLocation(current_variable_);
   std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
   std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
+  std::cout << "Location map size: " << location_map_[abs(current_variable_) - 1].size() << std::endl;
 
   for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
-    for (int j = 0; j < num_target_clauses; ++j) {
-      int target_clause = location_map_[abs(current_variable_) - 1][j];
+    // for (int j = 0; j < num_target_clauses; ++j) {
+      int target_clause = location_map_[abs(current_variable_) - 1][i];
       if (target_clause == current_clause_) {
         std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
+        std::cout << "Target clause: " << target_clause << std::endl;
+        std::cout << "Current clause: " << current_clause_ << std::endl;
         InitClauseQueue(commands, target_clause);
-        // for (int i = 0; i < 24; ++i) {
-        //   Command c = action_binding_[MoveRight];
-        //   c.location_       = c.WarpEntry;
-        //   c.var_assignment_ = current_variable_;
-        //   commands.Push(c);
-        // }
-      }
+        break;
+      // }
     }
   }
+
+  // for (int i = 0; i < 24; ++i) {
+  //   Command c = action_binding_[MoveRight];
+  //   c.location_       = c.WarpEntry;
+  //   c.var_assignment_ = current_variable_;
+  //   commands.Push(c);
+  // }
 
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
@@ -538,6 +541,5 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.current_clause_ = target_clause;
     commands.Push(c);
   }
-
 
 }
