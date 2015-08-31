@@ -129,10 +129,10 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         } else {
           // 192 from 12 * 16
           mario_position_.x += 192;
-
         }
         if (current_var > 1) {
-          mario_position_.y -= (variable_adjustment * abs(current_var)) - (16 * (abs(current_var) - 2));
+          mario_position_.y -= (variable_adjustment * abs(current_var)) -
+                               (16 * (abs(current_var) - 2));
         } else {
             mario_position_.y -= (variable_adjustment * abs(current_var));
         }
@@ -172,7 +172,9 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         in_clause_gadget_ = true;
         current_clause_   = current_clause;
         int vars          = variable_manager_.GetNumVariables();
-        sf::Vector2f clause_adjustment(0, 104 * (vars - 1));
+        // Var gadgets are 14 tiles; 14 * 16 = 208
+        // Multiply by amounts of variables to get to gadget clause on y-axis
+        sf::Vector2f clause_adjustment(0, (208  * vars));
         // the tiles are 14 to the first landing point multiple by TIlE_SIZE
         // for the next clause add 432 -- > 27 (width of clause) * 16
         // adjust when moving to next clause -> add 16 * current clause
@@ -180,9 +182,9 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
                                       (TILE_SIZE * current_clause_));
         // adjust for variable location
         // the ledges are 9 tiles away from each other
-        // Multiply by var - 1, as first one is done and adjust by TILE_SIZE
+        // Multiply by (var - 1), as first one is done and adjust by TILE_SIZE
         clause_adjustment.x += (9 * (abs(current_var) - 1)) * TILE_SIZE;
-        clause_adjustment.y = clause_adjustment.y * (vars) + (TILE_SIZE * vars);
+        clause_adjustment.y  = clause_adjustment.y + (TILE_SIZE * 3);
         player_mario_->setPosition(clause_adjustment);
       } else {
         player_mario_->setPosition(return_position_);
