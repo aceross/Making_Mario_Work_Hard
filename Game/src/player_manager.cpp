@@ -22,7 +22,7 @@ struct MarioMover {
 
   sf::Vector2f location_update;
 };
-
+//
 PlayerManager::PlayerManager()
 : current_level_status_(LevelRunning)
 , current_clause_(0)
