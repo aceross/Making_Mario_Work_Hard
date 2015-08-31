@@ -120,19 +120,23 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       break;
     case WarpEntry:
       if (!in_warp_gadget_) {
+        int cl = variable_manager_.GetNumClauses();
         int variable_adjustment(16);
         mario_position_ = player_mario_->getPosition();
         if (current_var < 0) {
-          mario_position_.x += 380;
-          mario_position_.y -= variable_adjustment * abs(current_var - 1) - 16;
+          mario_position_.x += (15 + (cl * 3)) * TILE_SIZE;
+          // mario_position_.y -= variable_adjustment * ((abs(current_var)) );
         } else {
+          // 192 from 12 * 16
           mario_position_.x += 192;
-          if (current_var > 1) {
-            mario_position_.y -= variable_adjustment * abs(current_var) - 16;
-          } else {
-            mario_position_.y -= variable_adjustment * abs(current_var);
-          }
+
         }
+        if (current_var > 1) {
+          mario_position_.y -= (variable_adjustment * abs(current_var)) - (16 * (abs(current_var) - 2));
+        } else {
+            mario_position_.y -= (variable_adjustment * abs(current_var));
+        }
+
         player_mario_->setPosition(mario_position_);
         in_warp_gadget_     = true;
         in_start_gadget_    = false;
@@ -150,11 +154,12 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         mario_position_ = player_mario_->getPosition();
         sf::Vector2f variable_adjustment(110, 223);
         mario_position_.x  = 110;
-        if (abs(current_var) > 2 ) {
+        if (abs(current_var) > 1 ) {
           // Subtract one from current_var because the Start Gadget counts
           // as one variable.
-          variable_adjustment.y = floor(variable_adjustment.y *
-                                   abs(current_var - 1) - 16) + 1;
+          variable_adjustment.y = (floor(variable_adjustment.y *
+                                   (abs(current_var) - 1))) -
+                                   (16 * ((abs(current_var)-2)));
         }
         mario_position_.y  = variable_adjustment.y;
         player_mario_->setPosition(mario_position_);

@@ -1,7 +1,7 @@
 // Copyright 2015, Aaron Ceross
 
-#ifndef MENU_STATE_HPP
-#define MENU_STATE_HPP
+#ifndef INPUT_STATE_HPP
+#define INPUT_STATE_HPP
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -10,9 +10,9 @@
 
 #include "state.hpp"
 
-class MenuState : public State {
+class InputState : public State {
  public:
-  MenuState(StateStack& stack, Context context);
+  InputState(StateStack& stack, Context context);
 
   virtual void Draw();
   virtual bool Update(sf::Time dt);
@@ -21,7 +21,6 @@ class MenuState : public State {
   void UpdateOptionText();
 
  private:
-  // Select Pre-Made, Input, Exit
   enum OptionNames { Play, Exit };
 
  private:
@@ -31,4 +30,4 @@ class MenuState : public State {
   std::size_t        options_index_;
 };
 
-#endif  // MENU_STATE_HPP
+#endif  // INPUT_STATE_HPP
