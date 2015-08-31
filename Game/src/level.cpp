@@ -176,7 +176,10 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         if (current_clause_ == 0) { clause_adjustment.x += 224; }
         if (current_clause_ == 1) { clause_adjustment.x += 656; }
         if (current_clause_ == 2) { clause_adjustment.x += 1104;}
-        // clause_adjustment.x += 112 * abs(current_var - 1);
+        //104
+        // account for variable
+        clause_adjustment.x += 50 * abs(current_var - 1);
+        // std::cout << "Cl adj for  " << abs(current_var) << ": " << 104 * abs(current_var) << std::endl;
         clause_adjustment.y = clause_adjustment.y * (vars) + 48;
         player_mario_->setPosition(clause_adjustment);
       } else {
