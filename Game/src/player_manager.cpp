@@ -292,7 +292,6 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
   int num_clauses = var_manager_.GetNumClauses();
   for (int i = 0; i < num_clauses; ++i) {
     current_clause_ = i;
-    std::cout << "Current clause in WA loop: " << current_clause_ << std::endl;
     WarpAction(commands);
   }
 
@@ -322,31 +321,14 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     commands.Push(c);
   }
 
-  // int total_clauses      = var_manager_.GetNumClauses();
-  // int num_target_clauses = GetNumClauseLocation(current_variable_);
-  std::cout << "Current Variable at WA: " << current_variable_ << std::endl;
-  std::cout << "Current ABS Variable at WA: " << abs(current_variable_) << std::endl;
-  std::cout << "Location map size: " << location_map_[abs(current_variable_) - 1].size() << std::endl;
-
   for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
     // for (int j = 0; j < num_target_clauses; ++j) {
       int target_clause = location_map_[abs(current_variable_) - 1][i];
       if (target_clause == current_clause_) {
-        std::cout << "CVar : " << current_variable_ << " going to Clause Init" << std::endl;
-        std::cout << "Target clause: " << target_clause << std::endl;
-        std::cout << "Current clause: " << current_clause_ << std::endl;
         InitClauseQueue(commands, target_clause);
         break;
-      // }
     }
   }
-
-  // for (int i = 0; i < 24; ++i) {
-  //   Command c = action_binding_[MoveRight];
-  //   c.location_       = c.WarpEntry;
-  //   c.var_assignment_ = current_variable_;
-  //   commands.Push(c);
-  // }
 
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];

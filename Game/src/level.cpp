@@ -161,7 +161,6 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         in_variable_gadget_ = true;
       }
       break;
-    // TIMES 8 NOT 16 !!!!!
     case Clause:
       if (!in_clause_gadget_) {
         return_position_  = player_mario_->getPosition();
@@ -175,9 +174,9 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         clause_adjustment.x += 224 + ((432 * current_clause_) +
                                       (TILE_SIZE * current_clause_));
         // adjust for variable location
+        // the ledges are 9 tiles away from each other
+        // Multiply by var - 1, as first one is done and adjust by TILE_SIZE
         clause_adjustment.x += (9 * (abs(current_var) - 1)) * TILE_SIZE;
-
-        std::cout << "Current var:   " << abs(current_var) << ": " << clause_adjustment.x << std::endl;
         clause_adjustment.y = clause_adjustment.y * (vars) + (TILE_SIZE * vars);
         player_mario_->setPosition(clause_adjustment);
       } else {
@@ -200,7 +199,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
     case FinishGadget:
       break;
     default:
-      std::cout << "WTF" << std::endl;
+      std::cout << "Something has gone incredibly wrong" << std::endl;
   }
 }
 
@@ -212,8 +211,6 @@ int Level::GetClauseLocation(int current_var) {
     for (int j = 0; j < num_vars; ++j) {
       int literal = variable_manager_.clauses_[i][j];
       if (current_var == literal && current_clause_ < num_clauses) {
-        // std::cout << "Current Literal : "  << literal << std::endl;
-        // std::cout << "Current Clause  : "  << i + 1 << std::endl;
         clause = i + 1;
         break;
       }
