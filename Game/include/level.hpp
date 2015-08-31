@@ -22,6 +22,7 @@
 #include "zchaff_manager.hpp"
 #include "tile_map.hpp"
 
+#define TILE_SIZE 16
 // Forward declaration
 namespace sf {
 class RenderTarget;

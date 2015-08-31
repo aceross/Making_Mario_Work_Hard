@@ -120,7 +120,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       break;
     case WarpEntry:
       if (!in_warp_gadget_) {
-        float variable_adjustment(16);
+        int variable_adjustment(16);
         mario_position_ = player_mario_->getPosition();
         if (current_var < 0) {
           mario_position_.x += 380;
@@ -166,21 +166,19 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       if (!in_clause_gadget_) {
         return_position_  = player_mario_->getPosition();
         in_clause_gadget_ = true;
-        // std::cout << "Level current clause_:  " << current_clause_ << std::endl;
         current_clause_   = current_clause;
-        // std::cout << "INLEVEL Current clause:  " << current_clause << std::endl;
-        // std::cout << "Level current clause_:  " << current_clause_ << std::endl;
-        // 224 656 1104
-        int vars    = variable_manager_.GetNumVariables();
+        int vars          = variable_manager_.GetNumVariables();
         sf::Vector2f clause_adjustment(0, 104 * (vars - 1));
-        if (current_clause_ == 0) { clause_adjustment.x += 224; }
-        if (current_clause_ == 1) { clause_adjustment.x += 656; }
-        if (current_clause_ == 2) { clause_adjustment.x += 1104;}
-        //104
-        // account for variable
-        clause_adjustment.x += 50 * abs(current_var - 1);
-        // std::cout << "Cl adj for  " << abs(current_var) << ": " << 104 * abs(current_var) << std::endl;
-        clause_adjustment.y = clause_adjustment.y * (vars) + 48;
+        // the tiles are 14 to the first landing point multiple by TIlE_SIZE
+        // for the next clause add 432 -- > 27 (width of clause) * 16
+        // adjust when moving to next clause -> add 16 * current clause
+        clause_adjustment.x += 224 + ((432 * current_clause_) +
+                                      (TILE_SIZE * current_clause_));
+        // adjust for variable location
+        clause_adjustment.x += (9 * (abs(current_var) - 1)) * TILE_SIZE;
+
+        std::cout << "Current var:   " << abs(current_var) << ": " << clause_adjustment.x << std::endl;
+        clause_adjustment.y = clause_adjustment.y * (vars) + (TILE_SIZE * vars);
         player_mario_->setPosition(clause_adjustment);
       } else {
         player_mario_->setPosition(return_position_);
