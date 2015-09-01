@@ -12,6 +12,7 @@ PauseState::PauseState(StateStack& stack, Context context)
 : State(stack, context)
 , background_sprite_()
 , paused_text_()
+, instruction_text_()
 {
   sf::Font&    font = context.fonts_->Get(Fonts::Main);
   sf::Vector2f window_size(context.window_->getSize());
@@ -22,6 +23,13 @@ PauseState::PauseState(StateStack& stack, Context context)
   CentreOrigin(paused_text_);
 
   paused_text_.setPosition(0.5f * window_size.x, 0.4f * window_size.y);
+
+  instruction_text_.setFont(font);
+  instruction_text_.setString("Press 'R' to resume or 'M' for menu.");
+  instruction_text_.setCharacterSize(20);
+  CentreOrigin(instruction_text_);
+
+  instruction_text_.setPosition(0.5f * window_size.x, (0.4f * window_size.y) - 50.f);
 }
 
 void PauseState::Draw() {
@@ -34,6 +42,7 @@ void PauseState::Draw() {
 
   window.draw(background_shape);
   window.draw(paused_text_);
+  window.draw(instruction_text_);
 }
 
 bool PauseState::Update(sf::Time) {
@@ -41,6 +50,29 @@ bool PauseState::Update(sf::Time) {
 }
 
 bool PauseState::HandleEvent(const sf::Event& event) {
-  // mGUIContainer.handleEvent(event);
-  return false;
+  if (event.type != sf::Event::KeyPressed) {
+    return false;
+  }
+
+  if (event.key.code == sf::Keyboard::R) {
+    RequestStackPop();
+  } else if (event.key.code == sf::Keyboard::M) {
+    RequestStackPop();
+    RequestStackPop();
+    RequestStackPush(States::Select);
+  }
+  return true;
+
+}
+
+void PauseState::UpdateOptionText() {
+  if (options_.empty())
+    return;
+
+  // White all texts
+  for (sf::Text& text : options_)
+    text.setColor(sf::Color::White);
+
+  // Yellow the selected text
+  options_[options_index_].setColor(sf::Color::Yellow);
 }

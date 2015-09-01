@@ -76,7 +76,7 @@ bool InputState::GetInput(const sf::Event &event) {
     if (event.type == sf::Event::TextEntered) {
       if (event.text.unicode < 128) {
         std::cout << "ASCII character typed: "  << static_cast<char>(event.text.unicode) << std::endl;
-        inputting_vars_ = false
+        inputting_vars_ = false;
         return true;
       }
     }
