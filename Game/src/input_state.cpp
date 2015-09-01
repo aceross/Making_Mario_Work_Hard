@@ -52,7 +52,8 @@ bool InputState::Update(sf::Time) {
 }
 
 bool InputState::HandleEvent(const sf::Event& event) {
-  if (event.type != sf::Event::KeyPressed) {
+  if (event.type != sf::Event::KeyPressed ||
+      event.type != sf::Event::TextEntered) {
     return false;
   }
 

@@ -76,6 +76,8 @@ class PlayerManager {
   int               current_clause_;
   std::vector< std::vector<int> > location_map_;
 
+  std::string SAT_instance_file_;
+
 private:
   // location boolean values
   bool in_start_gadget_;

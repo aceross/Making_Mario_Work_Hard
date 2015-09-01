@@ -16,6 +16,7 @@
 #include "resource_identifiers.hpp"
 #include "state_stack.hpp"
 #include "player_manager.hpp"
+#include "mapfile_handler.hpp"
 #include "../lib/zchaff/SAT.h"
 
 // Values for the game window
@@ -49,8 +50,9 @@ class GameStateManager {
 
   static const sf::Time TimePerFrame;
 
-  static const int tileSize = 16;
-  bool game_over_           = false;
+  bool game_over_;
+  bool has_mapfile_;
+  MapfileHandler mapfile_handler_;
 
  public:
   GameStateManager();

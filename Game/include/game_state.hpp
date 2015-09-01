@@ -9,7 +9,6 @@
 #include "state.hpp"
 #include "level.hpp"
 #include "player_manager.hpp"
-// #include "zchaff_manager.hpp"
 
 class GameState : public State {
  public:

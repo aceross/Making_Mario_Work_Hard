@@ -12,6 +12,7 @@
 #include "../include/game_state.hpp"
 #include "../include/state.hpp"
 #include "../include/menu_state.hpp"
+#include "../include/instance_selection.hpp"
 #include "../include/pause_state.hpp"
 #include "../include/input_state.hpp"
 #include "../include/level.hpp"
@@ -31,6 +32,9 @@ GameStateManager::GameStateManager()
 , stats_text_()
 , stats_update_time_()
 , stats_num_frames_(0)
+, game_over_(false)
+, has_mapfile_(false)
+, mapfile_handler_()
 {
   window_.setKeyRepeatEnabled(false);
   window_.setVerticalSyncEnabled(true);
@@ -109,6 +113,7 @@ void GameStateManager::Update(sf::Time delta_time) {
 void GameStateManager::RegisterStates() {
   states_.RegisterState<TitleScreenState>(States::Title);
   states_.RegisterState<MenuState>(States::Menu);
+  states_.RegisterState<InstanceSelection>(States::Select);
   states_.RegisterState<InputState>(States::Input);
   states_.RegisterState<GameState>(States::Game);
   states_.RegisterState<PauseState>(States::Pause);

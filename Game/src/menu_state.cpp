@@ -67,7 +67,8 @@ bool MenuState::HandleEvent(const sf::Event& event) {
   if (event.key.code == sf::Keyboard::Return) {
     if (options_index_ == SelectInstance) {
       RequestStackPop();
-      RequestStackPush(States::Game);
+      RequestStackPush(States::Select);
+      // RequestStackPush(States::Game);
     } else if (options_index_ == InputInstance) {
       RequestStackPop();
       RequestStackPush(States::Input);
