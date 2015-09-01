@@ -71,28 +71,34 @@ bool InputState::Update(sf::Time) {
   return true;
 }
 
+bool InputState::GetInput(const sf::Event &event) {
+  while (inputting_vars_) {
+    if (event.type == sf::Event::TextEntered) {
+      if (event.text.unicode < 128) {
+        std::cout << "ASCII character typed: "  << static_cast<char>(event.text.unicode) << std::endl;
+        inputting_vars_ = false
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 bool InputState::HandleEvent(const sf::Event& event) {
   if (event.type != sf::Event::KeyPressed) {
     return false;
   }
 
-  if (event.type == sf::Event::TextEntered) {
-    if (event.text.unicode < 128) {
-      std::cout << "ASCII character typed: "
-      << static_cast<char>(event.text.unicode) << std::endl;
-    }
-  }
-
   if (event.key.code == sf::Keyboard::Return) {
     if (options_index_ == Create) {
       inputting_vars_ = true;
-      // RequestStackPop();
-      // RequestStackPush(States::Game);
+      GetInput(event);
     } else if (options_index_ == Restart) {
       RequestStackPop();
       RequestStackPush(States::Input);
-    } else if (options_index_ == Exit) {
+    } else if (options_index_ == Return) {
       RequestStackPop();
+      RequestStackPush(States::Menu);
     }
   } else if (event.key.code == sf::Keyboard::Up) {
     // Decrement and wrap-around

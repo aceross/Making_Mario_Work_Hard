@@ -19,9 +19,10 @@ class InputState : public State {
   virtual bool HandleEvent(const sf::Event& event);
 
   void UpdateOptionText();
+  bool GetInput(const sf::Event& event);
 
  private:
-  enum OptionNames { Create, Restart, Exit };
+  enum OptionNames { Create, Restart, Return };
 
  private:
   sf::Sprite background_sprite_;
