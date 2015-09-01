@@ -16,6 +16,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{epigraph}
 \usepackage{graphicx}
+\usepackage{listings}
 \usepackage{url}
 \usepackage[nottoc]{tocbibind}
 
@@ -115,16 +116,13 @@ video game medium as a teaching tool to visualise and demonstrate concepts in
 computational complexity. This could be achieved through the evaluation of
 different instances of SAT in a video game setting.\@
 
-<<<<<<< HEAD
+
 Computer science and mathematics can be quite daunting subjects for new students
 and quite often the concepts may not be clear. The utilisation of video games as
 a medium to introduce the topic and concepts could be
 
 There are several challanges that need to be addressed in order for this method
 to be feasible.
-
-=======
->>>>>>> collision
 
 \section{Research aims and objectives}
 
@@ -243,7 +241,7 @@ in Chapter 3 on Boolean Satisfiability problems and SAT solving software. In
 addition to explaining the major features of SAT solvers, the chapter also
 identifies SAT solvers which had been considered during the project's
 development.
-=======
+
 \section{Structure of the research review}
 
 The research review is structured in a way that allows for in-depth look at the
@@ -651,24 +649,36 @@ demonstrably lowers the solution time \cite{gomes2008satisfiability}.
 
 \subsection{Converting a formula for SAT Solver Input}
 
-The standard input into a SAT solver is a DIMACS CNF file.\footnote{The Center
-for Discrete Mathematics and Theoretical Computer Science (DIMACS) is a
-collaboration between Rutgers University, Princeton University, and the research
-firms AT&T, Bell Labs, Applied Communication Sciences, and NEC} The file itself
-has a specific format.
-
-c example.cnf
-c
-p cnf 3 4
- 1  2 -3 0
--2  3    0
--1       0
+The SAT instance must be read by the SAT solver. The standard input into a SAT
+solver is a DIMACS CNF file\cite{DimacsSatFormat}. The file has a specified format which allows the a formula to be input into the solver. Consider the following example:
 
 
-The \texttt{p} character indicates the problem line. On this line the SAT solver
-is given informationa about the instance such as the format, either CNF or DNF,
-and the variables  {} and the clauses (). th. The reader ends a the `0' and
-begins reading the next line until the end of file.
+
+% % \footnote{DIMACS is % the
+% Center for Discrete Mathematics and Theoretical Computer Science, a %
+% collaborative effort between the Rutgers and Princeton Universities and research
+% % laboratories from industry such as telecommunications giant AT&T}
+                      \begin{lstlisting}
+
+                        c example.cnf
+                        c
+                        p cnf 3 3
+                         1  2 -3 0
+                        -2  3  1 0
+                        -1 -2  3 0
+                      \end{lstlisting}
+
+The \texttt{c} character is a comment indicator and will not be read by the SAT
+solver. The SAT solver begins reading from the \texttt{p} character, which
+indicates the problem line. On this line the SAT solver is given information
+about the instance such as the format, in this case CNF, and the variables.   {}
+and the clauses (). th. The reader ends a the `0' and begins reading the next
+line until the end of file.
+
+There are other formats available in a DIMACS satisfiability file, which includ
+the \texttt{sat} indicator instead of CNF\cite{DimacsSatFormat}. These other
+formats were not explored during this project as the CNF format fulfilled the
+project specification and was able to be rapidly deployed.
 
 
 \section{Chapter summary}
@@ -685,8 +695,6 @@ al. \cite{brummayer2010automated} developed `fuzz testing' techniques which
 allow for debugging errors in larger SAT instances. These techniques are useful
 in ensuring the scalability of the SAT solver when attempting to solve large
 levels.
-
-
 
 
 % ------------------------------------------------------------------------------
@@ -1541,9 +1549,9 @@ established. In this chapter, the focus will be on designing a playable level
 that incorporates those elements.
 
 In previous literature, the level design has focused on the gadgets that
-correspond to 3SAT reductions in order to prove that the game is in
-fact NP-hard.. In these models, the actual gameplay is
-generalised and left-otherwise unaddressed.
+correspond to 3SAT reductions in order to prove that the game is in fact NP-
+hard. In these models, the actual gameplay is generalised and left-otherwise
+unaddressed.
 
 This provides a challenge when
 
@@ -1709,11 +1717,11 @@ Compiler Collection (gcc). Instructions to switch the makefile to gcc rather
 than clang++ are contained in the wiki as well as the comments within the
 project's makefile.
 
-The coding style used for the development was the Google C++ style guide. The
-intention is that this research will continue to be developed after this
-project's completion and  that future work may be continued on the same code
-base. This particular style guide was chosen because it is widely available and
-provides good references.
+The coding style used for the development was the Google C++ style guide
+\cite{googlecpp}. The intention is that this research will continue to be
+developed after this project's completion and  that future work may be continued
+on the same code base. This particular style guide was chosen because it is
+widely available and provides good references.
 
 \section{Basic game engine mechanics}
 

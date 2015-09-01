@@ -172,7 +172,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         in_clause_gadget_ = true;
         current_clause_   = current_clause;
         int vars          = variable_manager_.GetNumVariables();
-        // Var gadgets are 14 tiles; 14 * 16 = 208
+        // Var gadgets are 14 tiles across; 14 * 16 = 208
         // Multiply by amounts of variables to get to gadget clause on y-axis
         sf::Vector2f clause_adjustment(0, (208  * vars));
         // the tiles are 14 to the first landing point multiple by TIlE_SIZE

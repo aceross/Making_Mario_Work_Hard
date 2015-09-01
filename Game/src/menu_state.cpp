@@ -18,18 +18,27 @@ MenuState::MenuState(StateStack& stack, Context context)
   // background_sprite_.setTexture(texture);
 
   // A simple menu demonstration
-  sf::Text play_option;
-  play_option.setFont(font);
-  play_option.setString("Play");
-  CentreOrigin(play_option);
-  play_option.setPosition(context.window_->getView().getSize() / 2.f);
-  options_.push_back(play_option);
+  sf::Text select_instance_option;
+  select_instance_option.setFont(font);
+  select_instance_option.setString("Select Instance");
+  CentreOrigin(select_instance_option);
+  select_instance_option.setPosition(context.window_->getView().getSize() / 2.f);
+  options_.push_back(select_instance_option);
+
+  sf::Text input_option;
+  input_option.setFont(font);
+  input_option.setString("Input Instance");
+  CentreOrigin(input_option);
+  input_option.setPosition(select_instance_option.getPosition() +
+                           sf::Vector2f(0.f, 30.f));
+  options_.push_back(input_option);
 
   sf::Text exit_option;
   exit_option.setFont(font);
   exit_option.setString("Quit");
   CentreOrigin(exit_option);
-  exit_option.setPosition(play_option.getPosition() + sf::Vector2f(0.f, 30.f));
+  exit_option.setPosition(select_instance_option.getPosition() +
+                          sf::Vector2f(0.f, 60.f));
   options_.push_back(exit_option);
 
   UpdateOptionText();
@@ -56,9 +65,12 @@ bool MenuState::HandleEvent(const sf::Event& event) {
   }
 
   if (event.key.code == sf::Keyboard::Return) {
-    if (options_index_ == Play) {
+    if (options_index_ == SelectInstance) {
       RequestStackPop();
       RequestStackPush(States::Game);
+    } else if (options_index_ == InputInstance) {
+      RequestStackPop();
+      RequestStackPush(States::Input);
     } else if (options_index_ == Exit) {
       RequestStackPop();
     }

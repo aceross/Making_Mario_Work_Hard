@@ -27,7 +27,7 @@ void ZChaffManager::ReadSATFile() {
   int line_num = 0;
 
   // File to be read
-  std::string filename = "resources/SAT_instances/simple.cnf";
+  std::string filename = "resources/SAT_instances/3SAT_Mario_Ben.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {

@@ -22,13 +22,14 @@ class MenuState : public State {
 
  private:
   // Select Pre-Made, Input, Exit
-  enum OptionNames { Play, Exit };
+  enum OptionNames { SelectInstance, InputInstance, Exit };
 
  private:
   sf::Sprite background_sprite_;
 
   std::vector<sf::Text>  options_;
-  std::size_t        options_index_;
+  std::vector<sf::Text>  instance_options_;
+  std::size_t            options_index_;
 };
 
 #endif  // MENU_STATE_HPP

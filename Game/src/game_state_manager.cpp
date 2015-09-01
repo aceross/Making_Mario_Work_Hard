@@ -13,6 +13,7 @@
 #include "../include/state.hpp"
 #include "../include/menu_state.hpp"
 #include "../include/pause_state.hpp"
+#include "../include/input_state.hpp"
 #include "../include/level.hpp"
 #include "../include/title_screen_state.hpp"
 #include "../include/state_identifiers.hpp"
@@ -108,6 +109,7 @@ void GameStateManager::Update(sf::Time delta_time) {
 void GameStateManager::RegisterStates() {
   states_.RegisterState<TitleScreenState>(States::Title);
   states_.RegisterState<MenuState>(States::Menu);
+  states_.RegisterState<InputState>(States::Input);
   states_.RegisterState<GameState>(States::Game);
   states_.RegisterState<PauseState>(States::Pause);
 }

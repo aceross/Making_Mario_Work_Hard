@@ -470,6 +470,15 @@
   Url                      = {http://doi.acm.org/10.1145/2422956.2422957}
 }
 
+@Electronic{googlecpp,
+  Title                    = {Google C++ Style Guide},
+  Author                   = {Google Inc},
+  Url                      = {https://google-styleguide.googlecode.com/svn/trunk/cppguide.html},
+
+  Owner                    = {awc},
+  Timestamp                = {2015.08.31}
+}
+
 @InProceedings{jennings2010polymorph,
   Title                    = {Polymorph: dynamic difficulty adjustment through level generation},
   Author                   = {Jennings-Teats, Martin and Smith, Gillian and Wardrip-Fruin, Noah},
@@ -591,7 +600,7 @@
   Year                     = {2013}
 }
 
-@InCollection{raey,
+@InCollection{Mahajan2005,
   Title                    = {Zchaff2004: An Efficient SAT Solver},
   Author                   = {Mahajan, YogeshS. and Fu, Zhaohui and Malik, Sharad},
   Booktitle                = {Theory and Applications of Satisfiability Testing},
@@ -853,7 +862,7 @@
   Year                     = {2010}
 }
 
-@Article{raey,
+@Article{Sinz2007,
   Title                    = {Visualizing SAT Instances and Runs of the DPLL Algorithm},
   Author                   = {Sinz, Carsten},
   Journal                  = {Journal of Automated Reasoning},
@@ -891,26 +900,6 @@
   Doi                      = {10.1109/TCIAIG.2011.2158545},
   ISSN                     = {1943-068X},
   Keywords                 = {logic programming;answer set programming;domain-independent procedure;game content domains;game context;generative-content design problems;latent design space;procedural content generation;procedural content generator;reference evolutionary content generator;Aerospace electronics;Algorithm design and analysis;Concrete;Games;Generators;Programming;Syntactics;Answer set programming;constraint programming;game design;logic programming;procedural content generation}
-}
-
-@InProceedings{Smith:2008:FAP:1401843.1401858,
-  Title                    = {A Framework for Analysis of 2D Platformer Levels},
-  Author                   = {Smith, Gillian and Cha, Mee and Whitehead, Jim},
-  Booktitle                = {Proceedings of the 2008 ACM SIGGRAPH Symposium on Video Games},
-  Year                     = {2008},
-
-  Address                  = {New York, NY, USA},
-  Pages                    = {75--80},
-  Publisher                = {ACM},
-  Series                   = {Sandbox '08},
-
-  Acmid                    = {1401858},
-  Doi                      = {10.1145/1401843.1401858},
-  ISBN                     = {978-1-60558-173-6},
-  Keywords                 = {game analysis, game design, level design, platform games},
-  Location                 = {Los Angeles, California},
-  Numpages                 = {6},
-  Url                      = {http://doi.acm.org/10.1145/1401843.1401858}
 }
 
 @InProceedings{Smith:2008:FAP:1401843.1401858,

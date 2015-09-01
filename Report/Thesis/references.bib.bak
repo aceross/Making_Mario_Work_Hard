@@ -62,15 +62,6 @@
   Pages                    = {231--246}
 }
 
-@Misc{bacchus2005non,
-  Title                    = {A non-CNF DIMACS style},
-
-  Author                   = {Bacchus, Fahiem and Walsh, Toby},
-  Year                     = {2005},
-
-  Publisher                = {Technical report, http://www. satcompetition. org/2005/edimacs. pdf}
-}
-
 @PhdThesis{balyo2010solving,
   Title                    = {Solving Boolean satisfiability problems},
   Author                   = {Balyo, Tom{\'a}},
