@@ -21,6 +21,7 @@
 #include "mario.hpp"
 #include "zchaff_manager.hpp"
 #include "tile_map.hpp"
+#include "mapfile_handler.hpp"
 
 #define TILE_SIZE 16
 // Forward declaration
@@ -42,7 +43,7 @@ class Level : private sf::NonCopyable {
      FinishGadget
   };
 
-  Level(sf::RenderTarget& output_target, FontHolder& fonts);
+  Level(sf::RenderTarget& output_target, FontHolder& fonts, MapfileHandler& mapfile_handler);
   void Update(sf::Time delta_time);
   void draw();
 
@@ -83,6 +84,7 @@ class Level : private sf::NonCopyable {
   sf ::View mini_map_;
   TextureHolder textures_;
   FontHolder& fonts_;
+  MapfileHandler& mapfile_handler_;
 
   TileMap tile_map_;
   sf ::Text test_;

@@ -9,6 +9,7 @@
 
 #include "state_identifiers.hpp"
 #include "resource_identifiers.hpp"
+#include "mapfile_handler.hpp"
 
 namespace sf {
 class RenderWindow;
@@ -23,12 +24,14 @@ class State {
 
   struct Context {
     Context(sf::RenderWindow& window, TextureHolder& textures_,
-            FontHolder& fonts_, PlayerManager& player_manager);
+            FontHolder& fonts_, PlayerManager& player_manager,
+            MapfileHandler& mapfile_hander);
 
     sf::RenderWindow*  window_;
     TextureHolder*     textures_;
     FontHolder*        fonts_;
     PlayerManager*     player_manager_;
+    MapfileHandler*    mapfile_handler_;
   };
 
  public:
@@ -42,6 +45,7 @@ class State {
   void RequestStackPush(States::ID stateID);
   void RequestStackPop();
   void RequestStateClear();
+  void SetMapfile(std::string mapfile);
 
   Context GetContext() const;
 

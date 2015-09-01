@@ -10,12 +10,14 @@
 
 #include "../include/level.hpp"
 
-Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
+Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
+             MapfileHandler& mapfile_handler)
 : target_(output_target)
 , scene_texture_()
 , level_view_(output_target.getDefaultView())
 , textures_()
 , fonts_(fonts)
+, mapfile_handler_(mapfile_handler)
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
@@ -35,9 +37,9 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts)
 , current_clause_(0)
 {
   scene_texture_.create(target_.getSize().x, target_.getSize().y);
-
+  std::string mapfile = mapfile_handler_.GetMapfile();
   // Start and load SAT solver
-  zchaff_manager_.LoadInstance();
+  zchaff_manager_.LoadInstance(mapfile);
   variable_manager_ = zchaff_manager_.GetVarManager();
 
   // init level instance

@@ -5,7 +5,7 @@
 
 GameState::GameState(StateStack& stack, Context context)
 : State(stack, context)
-, level_(*context.window_, *context.fonts_)
+, level_(*context.window_, *context.fonts_, *context.mapfile_handler_)
 , player_manager_(*context.player_manager_)
 {
   player_manager_.SetLevelStatus(PlayerManager::LevelRunning);

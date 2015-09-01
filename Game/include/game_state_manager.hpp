@@ -40,8 +40,9 @@ class GameStateManager {
 
   FontHolder    font_;
   TextureHolder textures_;
-
   PlayerManager player_manager_;
+  MapfileHandler mapfile_handler_;
+
   StateStack    states_;
 
   sf::Text    stats_text_;
@@ -49,15 +50,11 @@ class GameStateManager {
   std::size_t stats_num_frames_;
 
   static const sf::Time TimePerFrame;
-
   bool game_over_;
-  bool has_mapfile_;
-  MapfileHandler mapfile_handler_;
 
  public:
   GameStateManager();
   ~GameStateManager();
-
   void Run();
 };
 

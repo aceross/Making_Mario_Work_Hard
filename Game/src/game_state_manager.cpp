@@ -21,20 +21,18 @@
 
 const sf::Time GameStateManager::TimePerFrame = sf::seconds(1.f/35.f);
 
-// GSM contructor initialises the font, texture
 GameStateManager::GameStateManager()
 : window_(sf::VideoMode(800, 600), "Making Mario Work Hard",
                                     sf::Style::Default)
 , font_()
 , textures_()
 , player_manager_()
-, states_(State::Context(window_, textures_, font_, player_manager_))
+, mapfile_handler_()
+, states_(State::Context(window_, textures_, font_, player_manager_, mapfile_handler_))
 , stats_text_()
 , stats_update_time_()
 , stats_num_frames_(0)
 , game_over_(false)
-, has_mapfile_(false)
-, mapfile_handler_()
 {
   window_.setKeyRepeatEnabled(false);
   window_.setVerticalSyncEnabled(true);
@@ -119,6 +117,4 @@ void GameStateManager::RegisterStates() {
   states_.RegisterState<PauseState>(States::Pause);
 }
 
-GameStateManager::~GameStateManager() {
-  // while (!states_.empty()) popState();
-}
+GameStateManager::~GameStateManager() {}

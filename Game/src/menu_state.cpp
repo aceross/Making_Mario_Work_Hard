@@ -13,7 +13,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 , options_index_(0)
 {
   // sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
-  sf::Font&    font    = context.fonts_->Get(Fonts::Main);
+  sf::Font& font = context.fonts_->Get(Fonts::Main);
 
   // background_sprite_.setTexture(texture);
 

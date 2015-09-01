@@ -5,11 +5,13 @@
 #include "../include/player_manager.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures,
-                        FontHolder& fonts, PlayerManager& player_manager)
+                        FontHolder& fonts, PlayerManager& player_manager,
+                        MapfileHandler& mapfile_handler)
 : window_(&window)
 , textures_(&textures)
 , fonts_(&fonts)
 , player_manager_(&player_manager)
+, mapfile_handler_(&mapfile_handler)
 {}
 
 State::State(StateStack& states, Context context)
@@ -33,4 +35,8 @@ void State::RequestStateClear() {
 
 State::Context State::GetContext() const {
   return context_;
+}
+
+void State::SetMapfile(std::string mapfile) {
+  context_.mapfile_handler_->SetMapfile(mapfile);
 }

@@ -14,11 +14,10 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
 , mapfile_handler_()
 {
   // sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
-  sf::Font&    font    = context.fonts_->Get(Fonts::Main);
-
+  sf::Font& font = context.fonts_->Get(Fonts::Main);
   // background_sprite_.setTexture(texture);
 
-  // A simple menu demonstration
+  // Map options
   sf::Text single_variable_option;
   single_variable_option.setFont(font);
   single_variable_option.setString("Single Variable");
@@ -91,24 +90,28 @@ bool InstanceSelection::HandleEvent(const sf::Event& event) {
 
   if (event.key.code == sf::Keyboard::Return) {
     if (options_index_ == Single) {
+      SetMapfile("resources/SAT_instances/single_variable.cnf");
       RequestStackPop();
       RequestStackPush(States::Game);
     } else if (options_index_ == Two) {
+      SetMapfile("resources/SAT_instances/simple.cnf");
       RequestStackPop();
       RequestStackPush(States::Game);
     } else if (options_index_ == Three) {
+      SetMapfile("resource/SAT_instances/3SAT_Mario_Ben.cnf");
       RequestStackPop();
       RequestStackPush(States::Game);
     } else if (options_index_ == Unsolve) {
+      SetMapfile("resources/SAT_instances/unsolved.cnf");
       RequestStackPop();
       RequestStackPush(States::Game);
     } else if (options_index_ == Menu) {
-    RequestStackPop();
-    RequestStackPush(States::Menu);
+      RequestStackPop();
+      RequestStackPush(States::Menu);
     } else if (options_index_ == Exit) {
       RequestStackPop();
     }
-  
+
   } else if (event.key.code == sf::Keyboard::Up) {
     // Decrement and wrap-around
     if (options_index_ > 0)

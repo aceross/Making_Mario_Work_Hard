@@ -10,13 +10,13 @@ ZChaffManager::ZChaffManager() {
   std::cout << "ZChaffManager: SAT Manager Initialised." << std::endl;
 }
 
-void ZChaffManager::LoadInstance() {
+void ZChaffManager::LoadInstance(std::string mapfile) {
   std::cout << "Loading SAT Instance" << std::endl;
-  ReadSATFile();
+  ReadSATFile(mapfile);
   Solve();
 }
 
-void ZChaffManager::ReadSATFile() {
+void ZChaffManager::ReadSATFile(std::string mapfile) {
   std::cout << std::endl;
   std::cout << "===== READING FILE ===== "<< std::endl;
 
@@ -27,7 +27,8 @@ void ZChaffManager::ReadSATFile() {
   int line_num = 0;
 
   // File to be read
-  std::string filename = "resources/SAT_instances/3SAT_Mario_Ben.cnf";
+  std::string filename = mapfile;
+  // std::string filename = "resources/SAT_instances/3SAT_Mario_Ben.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {

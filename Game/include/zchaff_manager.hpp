@@ -31,7 +31,7 @@ class ZChaffManager {
  public:
   ZChaffManager();
   ~ZChaffManager();
-  void LoadInstance();
+  void LoadInstance(std::string mapfile);
   VariableManager GetVarManager();
   void SetLiterals(int clause_index, int* literals);
 
@@ -39,7 +39,7 @@ class ZChaffManager {
   unsigned int GetNumClauses();
 
 private:
-  void ReadSATFile();
+  void ReadSATFile(std::string mapfile);
   void InitialiseClauseStructure();
   void GetClauses();
   void Solve();
