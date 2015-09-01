@@ -21,13 +21,16 @@ class InputState : public State {
   void UpdateOptionText();
 
  private:
-  enum OptionNames { Play, Exit };
+  enum OptionNames { Create, Restart, Exit };
 
  private:
   sf::Sprite background_sprite_;
 
   std::vector<sf::Text>  options_;
   std::size_t        options_index_;
+
+  bool inputting_vars_;
+  bool inputting_clauses_;
 };
 
 #endif  // INPUT_STATE_HPP

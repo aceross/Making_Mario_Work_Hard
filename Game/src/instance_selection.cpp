@@ -98,7 +98,7 @@ bool InstanceSelection::HandleEvent(const sf::Event& event) {
       RequestStackPop();
       RequestStackPush(States::Game);
     } else if (options_index_ == Three) {
-      SetMapfile("resource/SAT_instances/3SAT_Mario_Ben.cnf");
+      SetMapfile("resources/SAT_instances/3SAT_Mario_Ben.cnf");
       RequestStackPop();
       RequestStackPush(States::Game);
     } else if (options_index_ == Unsolve) {
