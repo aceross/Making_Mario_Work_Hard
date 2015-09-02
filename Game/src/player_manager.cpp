@@ -151,8 +151,8 @@ void PlayerManager::InitialiseActions() {
   const float location_update = 2.f;
   action_binding_[MoveLeft].action_  = DerivedAction<Mario>(MarioMover(-location_update, 0));
   action_binding_[MoveRight].action_ = DerivedAction<Mario>(MarioMover(+location_update, 0));
-  action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -location_update));
-  action_binding_[Down].action_      = DerivedAction<Mario>(MarioMover(0, +16.f));
+  action_binding_[Jump].action_      = DerivedAction<Mario>(MarioMover(0, -16));
+  action_binding_[Down].action_      = DerivedAction<Mario>(MarioMover(0, 16));
   action_binding_[Wait].action_      = DerivedAction<Mario>(MarioMover(0, 0));
 }
 
@@ -238,7 +238,13 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
   }
 
   // End Sequence
-  // code
+  InitCheckInQueue(commands);
+
+  int clauses = var_manager_.GetNumClauses();
+  for (int i = 0; i < clauses; ++i) {
+    InitCheckoutQueue(commands);
+  }
+  InitFinishQueue(commands);
 }
 
 void PlayerManager::InitWarpQueue(CommandQueue& commands) {
@@ -484,12 +490,6 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
   InitWarpQueue(commands);
 }
 
-void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
-  Command c         = action_binding_[Jump];
-  c.location_       = c.CheckIn;
-  // c.var_assignment_ = current_variable_;
-  commands.Push(c);
-}
 
 void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
   std::cout << "In Clause Gadget! Var: " << current_variable_ << std::endl;
@@ -556,4 +556,153 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     commands.Push(c);
   }
 
+}
+
+void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
+  for (int j = 0; j < 25; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 1; ++ j) {
+    Command c         = action_binding_[Jump];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 5; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 1; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 3; ++ j) {
+    Command c         = action_binding_[Jump];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 2; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 8; ++ j) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 2; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 16; ++ j) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 5; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 2; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 16; ++ j) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.CheckIn;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+}
+
+void PlayerManager::InitCheckoutQueue(CommandQueue &commands) {
+  for (int j = 0; j < 25; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckOut;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 224; ++ j) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.CheckOut;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 25; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.CheckOut;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+}
+
+void PlayerManager::InitFinishQueue(CommandQueue &commands) {
+  for (int j = 0; j < 25; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 56; ++i) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 3; ++ j) {
+    Command c         = action_binding_[Jump];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 3; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 18; ++i) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 3; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
 }

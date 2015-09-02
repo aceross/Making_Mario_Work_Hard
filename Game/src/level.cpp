@@ -195,11 +195,12 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       break;
     case CheckIn:
       if (!in_check_in_) {
+        int vars = variable_manager_.GetNumVariables();
         in_variable_gadget_ = false;
         mario_position_ = player_mario_->getPosition();
-        sf::Vector2f check_in_adjustment(110, 215);
-        mario_position_ += check_in_adjustment;
-        player_mario_->setPosition(mario_position_);
+        sf::Vector2f check_in_adjustment(TILE_SIZE * 2,
+                                        (208  * vars) + 15 * TILE_SIZE);
+        player_mario_->setPosition(check_in_adjustment);
         in_check_in_ = true;
       }
       break;
