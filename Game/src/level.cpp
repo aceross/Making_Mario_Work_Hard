@@ -116,21 +116,26 @@ void Level::BuildScene() {
 }
 
 void Level::AddWorldObjects() {
-  // int cl = variable_manager_.GetNumClauses();
-  // int vars          = variable_manager_.GetNumVariables();
-  // for (int i = 0; i < cl; ++i) {
-  //   for (int j = 0; j < vars; ++j) {
+  int cl = variable_manager_.GetNumClauses();
+  int vars          = variable_manager_.GetNumVariables();
+  for (int i = 0; i < vars; ++i) {
+    for (int j = 0; j < cl; ++j) {
       koopa_texture_.loadFromFile("resources/gfx/enemies.png",
-                                   sf::IntRect(330, 34, 16, 16));
+                                   sf::IntRect(160, 81, 16, 16));
       sf::Sprite koopa;
       koopa.setTexture(koopa_texture_);
-      // sf::Vector2f koopa_position(224 + ((432 * (cl + 1)) + (TILE_SIZE * (cl + 1))),
-      //                            (208  * vars) + TILE_SIZE * 5);
-      // koopa_position.x += (9 * (j)) * TILE_SIZE;
-      // koopa.setPosition(koopa_position);
+      sf::Vector2f koopa_position(160, (208  * vars) + (TILE_SIZE * 4));
+      std::cout << "cl: " << cl << std::endl;
+      koopa_position.x += ((432 * j) + (TILE_SIZE * j));
+      koopa_position.x += (9 * i) * TILE_SIZE;
+      // koopa_position.y  = koopa_position.y + (TILE_SIZE * 4);
+      std::cout << "Koopa Position : " << koopa_position.x << std::endl;
+      std::cout << "Koopa Position : " << koopa_position.y << std::endl;
+      std::cout << std::endl;
+      koopa.setPosition(koopa_position);
       koopa_list_.push_back(koopa);
- //   }
- // }
+   }
+ }
 }
 
 // AdaptPlayerPosition checks the location origin of the command and current var
