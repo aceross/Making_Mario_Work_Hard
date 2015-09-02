@@ -63,9 +63,7 @@ class Level : private sf::NonCopyable {
 
   void BuildScene();
 
-  void AddEnemies();
-  void AddSingleEnemy();
-  void SpawnEnemies();
+  void AddWorldObjects();
 
   void DestroyEntitiesOutsideView();
 
@@ -98,6 +96,10 @@ class Level : private sf::NonCopyable {
   sf ::Vector2f   return_position_;
   float           movement_speed_;
   Mario*          player_mario_;
+  // std::vector<std::vector<Mario*> > koopa_list_;
+  std::vector< sf::Sprite> koopa_list_;
+  sf::Texture koopa_texture_;
+  std::vector<sf::Sprite> brick_list_;
 
   ZChaffManager   zchaff_manager_;
   VariableManager variable_manager_;

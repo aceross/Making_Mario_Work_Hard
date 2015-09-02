@@ -23,17 +23,23 @@ std::vector<PlayerData> InitialisePlayerData() {
   data[Mario::SuperMario].texture_rect   = sf::IntRect(176, 0, 16, 32);
   data[Mario::SuperMario].has_animation_ = true;
 
-  // data[World::Wall].speed                = 2.5f;
-  // data[World::SmallMario].hit_points_    = 1;
-  // data[World::SmallMario].texture        = Textures::Mario;
-  // data[World::SmallMario].texture_rect   = sf::IntRect(176, 32, 16, 16);
-  // data[World::SmallMario].has_animation_ = false;
-  //
-  // data[World::SuperMario].speed          = 2.5f;
-  // data[World::SuperMario].hit_points_    = 1;
-  // data[World::SuperMario].texture        = Textures::Mario;
-  // data[World::SuperMario].texture_rect   = sf::IntRect(176, 32, 16, 16);
-  // data[World::SuperMario].has_animation_ = false;
+  data[Mario::Koopa].speed          = 2.5f;
+  data[Mario::Koopa].hit_points_    = 1;
+  data[Mario::Koopa].texture        = Textures::Koopa;
+  data[Mario::Koopa].texture_rect   = sf::IntRect(206, 30, 24, 24);
+  data[Mario::Koopa].has_animation_ = false;
+
+  data[Mario::Shell].speed          = 2.5f;
+  data[Mario::Shell].hit_points_    = 1;
+  data[Mario::Shell].texture        = Textures::Koopa;
+  data[Mario::Shell].texture_rect   = sf::IntRect(330, 34, 16, 16);
+  data[Mario::Shell].has_animation_ = false;
+
+  data[Mario::Brick].speed          = 2.5f;
+  data[Mario::Brick].hit_points_    = 1;
+  data[Mario::Brick].texture        = Textures::World;
+  data[Mario::Brick].texture_rect   = sf::IntRect(176, 32, 16, 16);
+  data[Mario::Brick].has_animation_ = false;
 
   return data;
 }

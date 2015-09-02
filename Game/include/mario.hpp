@@ -15,7 +15,7 @@
 
 class Mario : public Entity {
  public:
-  enum Type { SmallMario, SuperMario, TypeCount };
+  enum Type { SmallMario, SuperMario, Koopa, Shell, Brick, TypeCount };
 
  public:
   Mario(Type type, const TextureHolder& textures, const FontHolder& fonts);

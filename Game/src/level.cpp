@@ -24,6 +24,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
 , mario_position_(0, 32)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
+, koopa_texture_()
 , level_complete_(false)
 , display_solution(false)
 , in_start_gadget_(false)
@@ -71,6 +72,10 @@ void Level::draw() {
   target_.setView(level_view_);
   target_.draw(scene_graph_);
 
+  for (const sf::Sprite& koopa : koopa_list_) {
+    target_.draw(koopa);
+  }
+
   // draw the mini map view
   target_.setView(mini_map_);
   target_.draw(scene_graph_);
@@ -83,8 +88,6 @@ CommandQueue& Level::GetCommandQueue() {
 
 void Level::LoadTextures() {
   textures_.Load(Textures::Mario, "resources/gfx/mario_bros.png");
-  textures_.Load(Textures::Koopa, "resources/gfx/enemies.png");
-  textures_.Load(Textures::World, "resources/gfx/tile_set.png");
 }
 
 void Level::BuildScene() {
@@ -96,6 +99,12 @@ void Level::BuildScene() {
     scene_graph_.AttachChild(std::move(layer));
   }
 
+  // Add player sprite
+  std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
+  player_mario_ = player.get();
+  player_mario_->setPosition(mario_position_);
+  scene_layers_[Foreground]->AttachChild(std::move(player));
+
   // Read in the tile map
   tile_map_.InitialiseMap(zchaff_manager_);
   std::unique_ptr<MapNode> map_node(new MapNode());
@@ -103,13 +112,25 @@ void Level::BuildScene() {
   scene_layers_[Background]->AttachChild(std::move(map_node));
 
   // Add world Objects
+  AddWorldObjects();
+}
 
-
-  // Add player sprite
-  std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
-  player_mario_ = player.get();
-  player_mario_->setPosition(mario_position_);
-  scene_layers_[Foreground]->AttachChild(std::move(player));
+void Level::AddWorldObjects() {
+  // int cl = variable_manager_.GetNumClauses();
+  // int vars          = variable_manager_.GetNumVariables();
+  // for (int i = 0; i < cl; ++i) {
+  //   for (int j = 0; j < vars; ++j) {
+      koopa_texture_.loadFromFile("resources/gfx/enemies.png",
+                                   sf::IntRect(330, 34, 16, 16));
+      sf::Sprite koopa;
+      koopa.setTexture(koopa_texture_);
+      // sf::Vector2f koopa_position(224 + ((432 * (cl + 1)) + (TILE_SIZE * (cl + 1))),
+      //                            (208  * vars) + TILE_SIZE * 5);
+      // koopa_position.x += (9 * (j)) * TILE_SIZE;
+      // koopa.setPosition(koopa_position);
+      koopa_list_.push_back(koopa);
+ //   }
+ // }
 }
 
 // AdaptPlayerPosition checks the location origin of the command and current var
