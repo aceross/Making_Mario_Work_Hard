@@ -16,8 +16,8 @@ namespace Textures {
     Koopa,
     World,
     TitleScreen,
-    ButtonSelected,
-    ButtonPressed
+    SelectScreen,
+    InputScreen
   };
 }  // namespace Textures
 

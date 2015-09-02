@@ -13,16 +13,17 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
 , options_index_(0)
 , mapfile_handler_()
 {
-  // sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
-  sf::Font& font = context.fonts_->Get(Fonts::Main);
-  // background_sprite_.setTexture(texture);
+  sf::Texture& texture = context.textures_->Get(Textures::SelectScreen);
+  sf::Font& font = context.fonts_->Get(Fonts::Title);
+  background_sprite_.setTexture(texture);
 
   // Map options
   sf::Text single_variable_option;
   single_variable_option.setFont(font);
   single_variable_option.setString("Single Variable");
   CentreOrigin(single_variable_option);
-  single_variable_option.setPosition(context.window_->getView().getSize() / 2.f);
+  single_variable_option.setPosition(context.window_->getView().getSize().x / 1.73f, 210);
+  single_variable_option.setCharacterSize(15);
   options_.push_back(single_variable_option);
 
   sf::Text two_SAT_option;
@@ -30,7 +31,8 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
   two_SAT_option.setString("2SAT Instance");
   CentreOrigin(two_SAT_option);
   two_SAT_option.setPosition(single_variable_option.getPosition() +
-                             sf::Vector2f(0.f, 30.f));
+                             sf::Vector2f(0.f, 56.f));
+  two_SAT_option.setCharacterSize(15);
   options_.push_back(two_SAT_option);
 
   sf::Text three_SAT_option;
@@ -38,7 +40,8 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
   three_SAT_option.setString("3SAT Instance");
   CentreOrigin(three_SAT_option);
   three_SAT_option.setPosition(single_variable_option.getPosition() +
-                               sf::Vector2f(0.f, 60.f));
+                               sf::Vector2f(0.f, 114.f));
+  three_SAT_option.setCharacterSize(15);
   options_.push_back(three_SAT_option);
 
   sf::Text unsolveable_option;
@@ -46,7 +49,8 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
   unsolveable_option.setString("Unsatisfiable 3SAT Instance");
   CentreOrigin(unsolveable_option);
   unsolveable_option.setPosition(single_variable_option.getPosition() +
-                                 sf::Vector2f(0.f, 90.f));
+                                 sf::Vector2f(20.f, 180.f));
+  unsolveable_option.setCharacterSize(15);
   options_.push_back(unsolveable_option);
 
   sf::Text return_option;
@@ -54,7 +58,8 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
   return_option.setString("Return");
   CentreOrigin(return_option);
   return_option.setPosition(single_variable_option.getPosition() +
-                            sf::Vector2f(0.f, 120.f));
+                            sf::Vector2f(-32.f, 240.f));
+  return_option.setCharacterSize(20);
   options_.push_back(return_option);
 
   sf::Text exit_option;
@@ -62,9 +67,9 @@ InstanceSelection::InstanceSelection(StateStack& stack, Context context)
   exit_option.setString("Quit");
   CentreOrigin(exit_option);
   exit_option.setPosition(single_variable_option.getPosition() +
-                          sf::Vector2f(0.f, 150.f));
+                          sf::Vector2f(-36.f, 270.f));
+  exit_option.setCharacterSize(20);
   options_.push_back(exit_option);
-
   UpdateOptionText();
 }
 

@@ -16,7 +16,6 @@ MenuState::MenuState(StateStack& stack, Context context)
   background_sprite_.setTexture(texture);
   sf::Font& font = context.fonts_->Get(Fonts::Title);
 
-
   // A simple menu demonstration
   sf::Text select_instance_option;
   select_instance_option.setFont(font);
@@ -71,7 +70,6 @@ bool MenuState::HandleEvent(const sf::Event& event) {
     if (options_index_ == SelectInstance) {
       RequestStackPop();
       RequestStackPush(States::Select);
-      // RequestStackPush(States::Game);
     } else if (options_index_ == InputInstance) {
       RequestStackPop();
       RequestStackPush(States::Input);
