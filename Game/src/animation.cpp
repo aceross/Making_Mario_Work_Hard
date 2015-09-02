@@ -15,8 +15,8 @@ Animation::Animation()
 , repeat_(false)
 {}
 
-Animation::Animation(const sf::Texture& texture)
-: sprite_(texture)
+Animation::Animation(const sf::Texture& texture, sf::IntRect text_rect)
+: sprite_(texture, text_rect)
 , frame_size_()
 , num_frames_(0)
 , current_frame_(0)
@@ -25,8 +25,9 @@ Animation::Animation(const sf::Texture& texture)
 , repeat_(false)
 {}
 
-void Animation::SetTexture(const sf::Texture &texture) {
+void Animation::SetTexture(const sf::Texture &texture, sf::IntRect text_rect) {
   sprite_.setTexture(texture);
+  sprite_.setTextureRect(text_rect);
 }
 
 const sf::Texture* Animation::GetTexture() const {

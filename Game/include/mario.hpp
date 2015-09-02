@@ -45,16 +45,24 @@ class Mario : public Entity {
   void UpdateAnimation();
   void HandleCollision();
 
+  void SetWalkCycles();
+
  private:
   Type         type_;
   sf::Sprite   sprite_;
   sf::Vector2f location_;
   sf::Vector2f previous_location_;
   bool waiting_;
-
+  int move_count_;
   // int clauses_true_;
   // int clauses_false_;
   sf::IntRect left_face_mario_;
+
+  std::vector<sf::IntRect> walk_left_;
+  std::vector<sf::IntRect> walk_right_;
+
+  // Animation walking_left_;
+  // Animation walking_right_;
 
   bool moving_right_  = false;
   bool moving_left_   = false;

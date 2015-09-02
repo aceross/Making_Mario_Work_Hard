@@ -10,9 +10,9 @@
 class Animation : public sf::Drawable, public sf::Transformable {
  public:
   Animation();
-  explicit Animation(const sf::Texture& texture);
+  explicit Animation(const sf::Texture& texture, sf::IntRect text_rect);
 
-  void SetTexture(const sf::Texture& texture);
+  void SetTexture(const sf::Texture& texture, sf::IntRect text_rect);
   const sf::Texture* GetTexture() const;
 
   void SetFrameSize(sf::Vector2i frame_size_);
