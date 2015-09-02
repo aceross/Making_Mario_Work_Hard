@@ -55,6 +55,7 @@ class PlayerManager {
   void InitVariableQueue(CommandQueue& commands);
   void InitWarpQueue(CommandQueue& commands);
   void WarpAction(CommandQueue& commands);
+  void WarpExit(CommandQueue& commands);
   void InitClauseQueue(CommandQueue& commands, int target_clause);
   void InitCheckInQueue(CommandQueue& commands);
   void InitCheckoutQueue(CommandQueue& commands);

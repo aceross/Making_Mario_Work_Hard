@@ -298,6 +298,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
 
   current_clause_ = 0;
   // Warp exit
+  WarpExit(commands);
 }
 
 void PlayerManager::WarpAction(CommandQueue& commands) {
@@ -341,6 +342,36 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
   for (int j = 0; j < 10; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.Warp;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+}
+
+void PlayerManager::WarpExit(CommandQueue &commands) {
+  for (int j = 0; j < 5; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.WarpExit;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 16; ++i) {
+    Command c = action_binding_[MoveRight];
+    c.location_       = c.WarpExit;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 1; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.StartGadget;
+    c.var_assignment_ = current_variable_;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 25; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.WarpExit;
     c.var_assignment_ = current_variable_;
     commands.Push(c);
   }
