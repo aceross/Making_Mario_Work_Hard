@@ -12,17 +12,18 @@ MenuState::MenuState(StateStack& stack, Context context)
 , options_()
 , options_index_(0)
 {
-  // sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
-  sf::Font& font = context.fonts_->Get(Fonts::Main);
+  sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
+  background_sprite_.setTexture(texture);
+  sf::Font& font = context.fonts_->Get(Fonts::Title);
 
-  // background_sprite_.setTexture(texture);
 
   // A simple menu demonstration
   sf::Text select_instance_option;
   select_instance_option.setFont(font);
   select_instance_option.setString("Select Instance");
   CentreOrigin(select_instance_option);
-  select_instance_option.setPosition(context.window_->getView().getSize() / 2.f);
+  select_instance_option.setPosition(context.window_->getView().getSize().x / 1.86f, 400);
+  select_instance_option.setCharacterSize(25);
   options_.push_back(select_instance_option);
 
   sf::Text input_option;
@@ -31,6 +32,7 @@ MenuState::MenuState(StateStack& stack, Context context)
   CentreOrigin(input_option);
   input_option.setPosition(select_instance_option.getPosition() +
                            sf::Vector2f(0.f, 30.f));
+  input_option.setCharacterSize(25);
   options_.push_back(input_option);
 
   sf::Text exit_option;
@@ -38,7 +40,8 @@ MenuState::MenuState(StateStack& stack, Context context)
   exit_option.setString("Quit");
   CentreOrigin(exit_option);
   exit_option.setPosition(select_instance_option.getPosition() +
-                          sf::Vector2f(0.f, 60.f));
+                          sf::Vector2f(-10.f, 60.f));
+  exit_option.setCharacterSize(25);
   options_.push_back(exit_option);
 
   UpdateOptionText();

@@ -15,14 +15,14 @@ namespace Textures {
     Mario,
     Koopa,
     World,
-    ButtonNormal,
+    TitleScreen,
     ButtonSelected,
     ButtonPressed
   };
 }  // namespace Textures
 
 namespace Fonts {
-  enum ID { Main, };
+  enum ID { Main, Title };
 }
 
 // Forward declaration and a few type definitions

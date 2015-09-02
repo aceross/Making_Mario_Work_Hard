@@ -38,6 +38,8 @@ GameStateManager::GameStateManager()
   window_.setVerticalSyncEnabled(true);
 
   font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
+  font_.Load(Fonts::Title, "resources/font/FFF Zerofactor.ttf");
+  textures_.Load(Textures::TitleScreen, "resources/gfx/title_screen.png");
 
   stats_text_.setFont(font_.Get(Fonts::Main));
   stats_text_.setPosition(5.f, 5.f);
