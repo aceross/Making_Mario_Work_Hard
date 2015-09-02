@@ -15,7 +15,7 @@ std::vector<PlayerData> InitialisePlayerData() {
   data[Mario::SmallMario].hit_points_    = 1;
   data[Mario::SmallMario].texture        = Textures::Mario;
   data[Mario::SmallMario].texture_rect   = sf::IntRect(176, 32, 16, 16);
-  data[Mario::SmallMario].has_animation_ = false;
+  data[Mario::SmallMario].has_animation_ = true;
 
   data[Mario::SuperMario].speed          = 2.5f;
   data[Mario::SuperMario].hit_points_    = 1;

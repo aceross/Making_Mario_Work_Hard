@@ -26,7 +26,8 @@ Mario::Mario(Type type, const TextureHolder& textures, const FontHolder& fonts)
 , type_(type)
 , waiting_(false)
 {
-  // navigator_
+  sf::IntRect texture_rect = Table[type_].texture_rect;
+  left_face_mario_ = sf::IntRect(192, 32 , -texture_rect.width, texture_rect.height);;
 }
 
 float Mario::GetSpeed() const {
@@ -38,8 +39,9 @@ sf::Vector2f Mario::GetLocation() {
 }
 
 void Mario::UpdateLocation(sf::Vector2f location_update) {
-  move(location_update);
+  previous_location_ = location_;
   location_ += location_update;
+  move(location_update);
 }
 
 void Mario::UpdateLocation(int x, int y) {
@@ -59,6 +61,7 @@ void Mario::DrawCurrent(sf::RenderTarget &target,
 }
 
 void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
+  UpdateAnimation();
 }
 
 unsigned int Mario::GetCategory() const {
@@ -77,14 +80,23 @@ void Mario::MoveMario(sf::Vector2f location_update) {
 void Mario::UpdateAnimation() {
   if (Table[type_].has_animation_) {
     sf::IntRect texture_rect = Table[type_].texture_rect;
-
   // Roll left: Texture rect offset once
-  if (GetLocation().x < 0) {
-    texture_rect.left += texture_rect.width;
+  if (GetLocation().x < previous_location_.x) {
+    if (!moving_left_) {
+      moving_left_ = true;
+      moving_right_ = false;
+      texture_rect = left_face_mario_;
+    }
+    if (moving_left_) {
+      texture_rect = left_face_mario_;
+    }
   }
   // Roll right: Texture rect offset twice
-  else if (GetLocation().x > 0) {
-    texture_rect.left += 2 * texture_rect.width;
+  else if (GetLocation().x > previous_location_.x) {
+    texture_rect.left -= 3 * texture_rect.width;
+  }
+  else if (GetLocation() == previous_location_) {
+    texture_rect = Table[type_].texture_rect;
   }
 
   sprite_.setTextureRect(texture_rect);

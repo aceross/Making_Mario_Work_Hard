@@ -49,14 +49,16 @@ class Mario : public Entity {
   Type         type_;
   sf::Sprite   sprite_;
   sf::Vector2f location_;
+  sf::Vector2f previous_location_;
   bool waiting_;
 
   // int clauses_true_;
   // int clauses_false_;
+  sf::IntRect left_face_mario_;
 
-  // bool moving_right_  = false;
-  // bool moving_left_   = false;
-  // bool jumping_       = false;
+  bool moving_right_  = false;
+  bool moving_left_   = false;
+  bool jumping_       = false;
   // bool falling_       = false;
   // bool top_collision_ = false;
   // bool can_move_      = false;
