@@ -57,7 +57,7 @@ class Level : private sf::NonCopyable {
  private:
   void LoadTextures();
   void AdaptPlayerPosition(unsigned int location, int current_var,
-                           int current_clause);
+                           int current_clause, bool has_action);
   // void AdaptPlayerVelocity();
   void HandleCollisions();
 
@@ -65,7 +65,7 @@ class Level : private sf::NonCopyable {
 
   void AddWorldObjects();
 
-  void DestroyEntitiesOutsideView();
+  void KickShell(int current_clause, int current_var, bool has_action);
 
   sf::FloatRect GetViewBounds() const;
   sf::FloatRect GetPlayBounds() const;
@@ -97,7 +97,8 @@ class Level : private sf::NonCopyable {
   float           movement_speed_;
   Mario*          player_mario_;
   // std::vector<std::vector<Mario*> > koopa_list_;
-  std::vector< sf::Sprite> koopa_list_;
+  // std::vector<std::vector< sf::Sprite > > koopa_list_;
+  std::vector< sf::Sprite > koopa_list_;
   sf::Texture koopa_texture_;
   std::vector<sf::Sprite> brick_list_;
 

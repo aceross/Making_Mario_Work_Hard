@@ -202,6 +202,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
       Command c = action_binding_[MoveRight];
       c.location_       = c.StartGadget;
       c.var_assignment_ = current_variable_;
+      c.has_action_ = false;
       commands.Push(c);
     }
   } else {
@@ -209,6 +210,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
       Command c         = action_binding_[MoveLeft];
       c.location_       = c.StartGadget;
       c.var_assignment_ = current_variable_;
+      c.has_action_ = false;
       commands.Push(c);
     }
   }
@@ -218,6 +220,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
     Command c         = action_binding_[Down];
     c.location_       = c.StartGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -226,6 +229,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.StartGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -254,6 +258,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -262,6 +267,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -270,6 +276,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -278,6 +285,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     Command c = action_binding_[Down];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -286,6 +294,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -293,6 +302,7 @@ void PlayerManager::InitWarpQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -312,6 +322,7 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -319,6 +330,7 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -326,15 +338,15 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpEntry;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
   for (int i = 0; i < location_map_[abs(current_variable_) - 1].size(); ++i) {
-    // for (int j = 0; j < num_target_clauses; ++j) {
-      int target_clause = location_map_[abs(current_variable_) - 1][i];
-      if (target_clause == current_clause_) {
-        InitClauseQueue(commands, target_clause);
-        break;
+    int target_clause = location_map_[abs(current_variable_) - 1][i];
+    if (target_clause == current_clause_) {
+      InitClauseQueue(commands, target_clause);
+      break;
     }
   }
 
@@ -342,6 +354,7 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -349,6 +362,7 @@ void PlayerManager::WarpAction(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 }
@@ -358,6 +372,7 @@ void PlayerManager::WarpExit(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpExit;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -365,6 +380,7 @@ void PlayerManager::WarpExit(CommandQueue &commands) {
     Command c = action_binding_[MoveRight];
     c.location_       = c.WarpExit;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -372,6 +388,7 @@ void PlayerManager::WarpExit(CommandQueue &commands) {
     Command c         = action_binding_[Down];
     c.location_       = c.StartGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -379,6 +396,7 @@ void PlayerManager::WarpExit(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.WarpExit;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 }
@@ -392,6 +410,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -400,6 +419,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Down];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -408,6 +428,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -415,6 +436,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -422,6 +444,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Down];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
   // wait
@@ -429,6 +452,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -438,6 +462,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
       Command c = action_binding_[MoveRight];
       c.location_       = c.VariableGadget;
       c.var_assignment_ = current_variable_;
+      c.has_action_ = false;
       commands.Push(c);
     }
     // wait
@@ -445,6 +470,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
       Command c         = action_binding_[Wait];
       c.location_       = c.VariableGadget;
       c.var_assignment_ = current_variable_;
+      c.has_action_ = false;
       commands.Push(c);
     }
   } else {
@@ -452,6 +478,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
       Command c         = action_binding_[MoveLeft];
       c.location_       = c.VariableGadget;
       c.var_assignment_ = current_variable_;
+      c.has_action_ = false;
       commands.Push(c);
     }
     // wait
@@ -459,6 +486,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
       Command c         = action_binding_[Wait];
       c.location_       = c.VariableGadget;
       c.var_assignment_ = current_variable_;
+      c.has_action_ = false;
       commands.Push(c);
     }
   }
@@ -468,6 +496,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -476,6 +505,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Down];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -484,6 +514,7 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.VariableGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -501,6 +532,7 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.location_       = c.Clause;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -509,6 +541,7 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -518,15 +551,26 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
-  for (int i = 0; i < 20; ++i) {
+  for (int i = 0; i < 1; ++i) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.Clause;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    c.has_action_ = true;
+    commands.Push(c);
+  }
+
+  for (int i = 0; i < 10; ++i) {
     Command c = action_binding_[Wait];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -536,6 +580,7 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -545,6 +590,7 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.location_       = c.Clause;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -553,6 +599,7 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
     c.current_clause_ = target_clause;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -563,6 +610,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -570,18 +618,21 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Jump];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
   for (int j = 0; j < 5; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
   for (int j = 0; j < 1; ++ j) {
     Command c         = action_binding_[Down];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -589,18 +640,21 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Jump];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
   for (int j = 0; j < 2; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
   for (int j = 0; j < 8; ++ j) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -608,6 +662,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -615,6 +670,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -622,6 +678,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Down];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -629,6 +686,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -636,6 +694,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 }
@@ -645,6 +704,7 @@ void PlayerManager::InitCheckoutQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckOut;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -652,6 +712,7 @@ void PlayerManager::InitCheckoutQueue(CommandQueue &commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.CheckOut;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -659,6 +720,7 @@ void PlayerManager::InitCheckoutQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.CheckOut;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -669,6 +731,7 @@ void PlayerManager::InitFinishQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -676,6 +739,7 @@ void PlayerManager::InitFinishQueue(CommandQueue &commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -683,6 +747,7 @@ void PlayerManager::InitFinishQueue(CommandQueue &commands) {
     Command c         = action_binding_[Jump];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -690,6 +755,7 @@ void PlayerManager::InitFinishQueue(CommandQueue &commands) {
     Command c         = action_binding_[Wait];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 
@@ -697,12 +763,14 @@ void PlayerManager::InitFinishQueue(CommandQueue &commands) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
   for (int j = 0; j < 3; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
     commands.Push(c);
   }
 }

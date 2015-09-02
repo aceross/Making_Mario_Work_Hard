@@ -35,8 +35,7 @@ struct Command {
   unsigned int location_;
   int var_assignment_;
   int current_clause_;
-  bool complemented_;
-  bool gadget_finished_;
+  bool has_action_;
 };
 
 template <typename GameObject, typename Function>

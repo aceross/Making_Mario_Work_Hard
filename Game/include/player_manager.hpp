@@ -83,13 +83,13 @@ private:
   // location boolean values
   bool in_start_gadget_;
   bool in_variable_gadget_;
-  bool in_warp_gadget_;
-  bool finished_warps_;
-  bool no_warp_gadgets_;
-  bool in_check_in_;
-  bool in_clause_gadget_;
-  bool in_check_out_;
-  bool in_finish_;
+  // bool in_warp_gadget_;
+  // bool finished_warps_;
+  // bool no_warp_gadgets_;
+  // bool in_check_in_;
+  // bool in_clause_gadget_;
+  // bool in_check_out_;
+  // bool in_finish_;
 };
 
 #endif  // PLAYER_MANAGER_HPP

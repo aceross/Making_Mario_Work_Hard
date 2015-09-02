@@ -40,7 +40,7 @@ GameStateManager::GameStateManager()
   font_.Load(Fonts::Main, "resources/font/OpenSans-Regular.ttf");
   font_.Load(Fonts::Title, "resources/font/FFF Zerofactor.ttf");
 
-  textures_.Load(Textures::TitleScreen, "resources/gfx/title_screen.png");
+  textures_.Load(Textures::TitleScreen,  "resources/gfx/title_screen.png");
   textures_.Load(Textures::SelectScreen, "resources/gfx/select_screen.png");
 
   stats_text_.setFont(font_.Get(Fonts::Main));

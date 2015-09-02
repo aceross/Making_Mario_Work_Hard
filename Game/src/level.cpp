@@ -56,7 +56,11 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
 void Level::Update(sf::Time delta_time) {
   if (!command_queue_.IsEmpty()) {
     Command c = command_queue_.Front();
-    AdaptPlayerPosition(c.location_, c.var_assignment_, c.current_clause_);
+    AdaptPlayerPosition(c.location_, c.var_assignment_,
+                        c.current_clause_, c.has_action_);
+    if (c.has_action_) {
+      KickShell(c.var_assignment_, c.current_clause_, c.has_action_);
+    }
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
 
@@ -72,8 +76,19 @@ void Level::draw() {
   target_.setView(level_view_);
   target_.draw(scene_graph_);
 
-  for (const sf::Sprite& koopa : koopa_list_) {
-    target_.draw(koopa);
+  if (!koopa_list_.empty()) {
+    // vector< vector<sf::Sprite> >::iterator row;
+    // vector<sf::Sprite>::iterator col;
+    // for (row = koopa_list_.begin(); row != koopa_list_.end(); row++) {
+    //   for (col = row->begin(); col != row->end(); col++) {
+    //     // do stuff ...
+    //   }
+    // }
+    for (const sf::Sprite& koopa : koopa_list_) {
+      target_.draw(koopa);
+    }
+  } else {
+
   }
 
   // draw the mini map view
@@ -119,30 +134,47 @@ void Level::AddWorldObjects() {
   int cl = variable_manager_.GetNumClauses();
   int vars          = variable_manager_.GetNumVariables();
   for (int i = 0; i < vars; ++i) {
+    // std::vector< sf::Sprite > k_temp;
     for (int j = 0; j < cl; ++j) {
       koopa_texture_.loadFromFile("resources/gfx/enemies.png",
                                    sf::IntRect(160, 81, 16, 16));
       sf::Sprite koopa;
       koopa.setTexture(koopa_texture_);
       sf::Vector2f koopa_position(160, (208  * vars) + (TILE_SIZE * 4));
-      std::cout << "cl: " << cl << std::endl;
       koopa_position.x += ((432 * j) + (TILE_SIZE * j));
       koopa_position.x += (9 * i) * TILE_SIZE;
-      // koopa_position.y  = koopa_position.y + (TILE_SIZE * 4);
-      std::cout << "Koopa Position : " << koopa_position.x << std::endl;
-      std::cout << "Koopa Position : " << koopa_position.y << std::endl;
-      std::cout << std::endl;
       koopa.setPosition(koopa_position);
+      // k_temp.push_back(koopa);
       koopa_list_.push_back(koopa);
    }
- }
+  //  koopa_list_.push_back(k_temp);
+  }
+}
+
+void Level::KickShell(int current_clause, int current_var, bool has_action) {
+  if (has_action) {
+    std::cout << "Kick Sehll Clause: " << current_clause << std::endl;
+    std::cout << "Kick Sehll Var:    " << current_var << std::endl;
+    std::cout << "Position being Kicked: " << ((abs(current_clause) - 1) +
+              abs(current_var)) + ((abs(current_clause) - 1) + (abs(current_clause) - 1)) << std::endl;
+    int position = ((abs(current_clause) - 1) + abs(current_var)) +
+                   ((abs(current_clause) - 1) + (abs(current_clause) - 1));
+    // koopa_list_[current_clause].erase(koopa_list_[current_clause].begin() +
+    //                                   abs(current_var));
+    // koopa_list_.erase(koopa_list_.begin() + (current_clause + ((current_clause + abs(current_var)));
+    // koopa_list_.erase(koopa_list_.begin() + (abs(current_clause)) + (current_clause * current_var));
+    koopa_list_[position].setTextureRect(sf::IntRect(477, 19, 16, 16));
+    std::cout << "List size: " << koopa_list_.size() << std::endl;
+  } else {
+    return;
+  }
 }
 
 // AdaptPlayerPosition checks the location origin of the command and current var
 // The appropriate actions and boolean assignments are made to display
 // in the level.
 void Level::AdaptPlayerPosition(unsigned int location, int current_var,
-                                int current_clause) {
+                                int current_clause, bool has_action) {
   switch (location) {
     case StartGadget:
       break;
@@ -214,6 +246,9 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         clause_adjustment.x += (9 * (abs(current_var) - 1)) * TILE_SIZE;
         clause_adjustment.y  = clause_adjustment.y + (TILE_SIZE * 3);
         player_mario_->setPosition(clause_adjustment);
+      } else if (in_clause_gadget_ && has_action) {
+        // KickShell(current_clause, current_var);
+        std::cout << "Kick" << std::endl;
       } else {
         player_mario_->setPosition(return_position_);
         in_clause_gadget_ = false;
