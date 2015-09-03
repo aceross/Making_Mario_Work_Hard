@@ -188,7 +188,7 @@ void Level::AddWorldObjects() {
   sf::Sprite final_brick;
   final_brick.setTexture(brick_texture_);
   final_brick.setTextureRect(sf::IntRect(16, 0, 16, 16));
-  sf::Vector2f final_position((432 * cl) + 224, (208  * vars) + (TILE_SIZE * 15));
+  sf::Vector2f final_position((432 * cl) + 224 + (TILE_SIZE * cl), (208  * vars) + (TILE_SIZE * 15));
   final_brick.setPosition(final_position);
   check_in_bricks_.push_back(final_brick);
 }
