@@ -17,7 +17,6 @@ struct MarioMover {
   {}
 
   void operator() (Mario& mario, sf::Time) const {
-    // mario.move(location_update);
     mario.UpdateLocation(location_update);
   }
 
@@ -63,8 +62,8 @@ void PlayerManager::SetVariableAssignments() {
   // PrintLocation();
 }
 
+// test printing to visually check values in terminal
 void PlayerManager::PrintLocation() {
-  // Print it to test
   for (int i = 0; i < 3; i++) {
     std::cout << "var : " << i + 1 << " ";
     for (int j = 0; j < location_map_[i].size(); ++j) {
@@ -75,13 +74,8 @@ void PlayerManager::PrintLocation() {
 }
 
 int PlayerManager::GetNumClauseLocation(int current_var) {
-  // std::cout << std::endl;
   int num_clauses;
-
   num_clauses = location_map_[abs(current_var)-1].size();
-  // std::cout << "Current var = " << current_var << std::endl;
-  // std::cout << "Number of clauses = " << num_clauses << std::endl;
-  // std::cout << "Clauses: " << std::endl;
   for (int i = 0; i < num_clauses; ++i) {
     std::cout << location_map_[abs(current_var)-1][i] + 1 << std::endl;
   }
@@ -90,9 +84,7 @@ int PlayerManager::GetNumClauseLocation(int current_var) {
 }
 
 void PlayerManager::SetAssignmentLocation(int current_var) {
-  // std::cout << std::endl;
   std::vector<int> var_index;
-
   int num_clauses = var_manager_.GetNumClauses();
   int num_vars    = var_manager_.GetNumVariables();
 
@@ -225,7 +217,7 @@ void PlayerManager::InitStartQueue(CommandQueue& commands) {
   }
 
   // pause
-  for (int j = 0; j < 10; ++ j) {
+  for (int j = 0; j < 3; ++ j) {
     Command c         = action_binding_[Wait];
     c.location_       = c.StartGadget;
     c.var_assignment_ = current_variable_;
@@ -564,11 +556,10 @@ void PlayerManager::InitClauseQueue(CommandQueue &commands, int target_clause) {
     commands.Push(c);
   }
 
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 11; ++i) {
     Command c = action_binding_[Wait];
     c.location_       = c.Warp;
     c.var_assignment_ = current_variable_;
-    c.current_clause_ = target_clause;
     c.current_clause_ = target_clause;
     c.has_action_ = false;
     commands.Push(c);

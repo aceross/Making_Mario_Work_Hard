@@ -19,6 +19,7 @@ class PlayerManager {
     MoveLeft,
     MoveRight,
     Jump,
+    Fall,
     Down,
     Wait,
     ActionCount
@@ -41,8 +42,6 @@ class PlayerManager {
   void SetTileMap(TileMap tm);
   void SetSolutionQueue(CommandQueue& commands);
   void SetVariableManager(VariableManager var_manager);
- // public:
- //  virtual sf::FloatRect GetBoundingRect() const;
 
  private:
   void InitialiseActions();
@@ -75,21 +74,14 @@ class PlayerManager {
   std::queue<int>   assigned_variables_;
   int               current_variable_;
   int               current_clause_;
-  std::vector< std::vector<int> > location_map_;
 
+  std::vector< std::vector<int> > location_map_;
   std::string SAT_instance_file_;
 
 private:
   // location boolean values
   bool in_start_gadget_;
   bool in_variable_gadget_;
-  // bool in_warp_gadget_;
-  // bool finished_warps_;
-  // bool no_warp_gadgets_;
-  // bool in_check_in_;
-  // bool in_clause_gadget_;
-  // bool in_check_out_;
-  // bool in_finish_;
 };
 
 #endif  // PLAYER_MANAGER_HPP

@@ -153,7 +153,6 @@ void Level::AddWorldObjects() {
   }
 
   // Add Bricks
-  // for (int i = 0; i < clauses)
 }
 
 void Level::KickShell(int current_clause, int current_var, bool has_action) {
@@ -162,10 +161,6 @@ void Level::KickShell(int current_clause, int current_var, bool has_action) {
    int num_vars = variable_manager_.GetNumVariables();
    std::cout << "Current Var" << current_var << std::endl;
    std::cout << "Current CL" << current_clause << std::endl;
-  //  std::cout << "Kick Position : " << (abs(current_var) + ((abs(current_clause) - 1) * abs(current_clause))) <<  std::endl;
-  //  int position = (abs(current_var) + ((abs(current_clause) - 1) * abs(current_clause))) ;
-
-  // (current_clause - 1)(num_clauses) + current_Var
 
   int position = ((abs(current_clause) - 1) * (num_vars)) + current_var;
 
