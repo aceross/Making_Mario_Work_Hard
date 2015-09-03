@@ -96,8 +96,10 @@ class Level : private sf::NonCopyable {
   sf ::Vector2f   return_position_;
   float           movement_speed_;
   Mario*          player_mario_;
-  // std::vector<std::vector<Mario*> > koopa_list_;
-  // std::vector<std::vector< sf::Sprite > > koopa_list_;
+
+  sf::Sprite  flag_;
+  sf::Texture flag_texture_;
+
   std::vector< sf::Sprite > koopa_list_;
   sf::Texture koopa_texture_;
   std::vector<sf::Sprite> brick_list_;

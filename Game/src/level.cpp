@@ -75,20 +75,12 @@ void Level::draw() {
   level_view_.setCenter(player_mario_->getPosition());
   target_.setView(level_view_);
   target_.draw(scene_graph_);
+  target_.draw(flag_);
 
   if (!koopa_list_.empty()) {
-    // vector< vector<sf::Sprite> >::iterator row;
-    // vector<sf::Sprite>::iterator col;
-    // for (row = koopa_list_.begin(); row != koopa_list_.end(); row++) {
-    //   for (col = row->begin(); col != row->end(); col++) {
-    //     // do stuff ...
-    //   }
-    // }
     for (const sf::Sprite& koopa : koopa_list_) {
       target_.draw(koopa);
     }
-  } else {
-
   }
 
   // draw the mini map view
@@ -131,10 +123,22 @@ void Level::BuildScene() {
 }
 
 void Level::AddWorldObjects() {
-  int cl = variable_manager_.GetNumClauses();
-  int vars          = variable_manager_.GetNumVariables();
+  int cl   = variable_manager_.GetNumClauses();
+  int vars = variable_manager_.GetNumVariables();
+
+  // Add end flag
+  flag_texture_.loadFromFile("resources/gfx/item_objects.png",
+                              sf::IntRect(128, 32, 16, 16));
+  flag_.setTexture(flag_texture_);
+
+  // Clause gadgets(27 tiles) + CheckIn(8 tiles) + Position in finish(11 tiles)
+  //
+  int flag_x = (cl * (TILE_SIZE * 27)) + (TILE_SIZE * 8) + (TILE_SIZE * 11) + 6;
+  int flag_y = (vars * (TILE_SIZE * 13)) + (TILE_SIZE * 10) + 13;
+  flag_.setPosition(flag_x, flag_y);
+
+  // Add Koopa Shells
   for (int i = 0; i < vars; ++i) {
-    // std::vector< sf::Sprite > k_temp;
     for (int j = 0; j < cl; ++j) {
       koopa_texture_.loadFromFile("resources/gfx/enemies.png",
                                    sf::IntRect(160, 81, 16, 16));
@@ -144,29 +148,19 @@ void Level::AddWorldObjects() {
       koopa_position.x += ((432 * j) + (TILE_SIZE * j));
       koopa_position.x += (9 * i) * TILE_SIZE;
       koopa.setPosition(koopa_position);
-      // k_temp.push_back(koopa);
       koopa_list_.push_back(koopa);
-   }
-  //  koopa_list_.push_back(k_temp);
+    }
   }
+
+  // Add Bricks
+  // for (int i = 0; i < clauses)
 }
 
 void Level::KickShell(int current_clause, int current_var, bool has_action) {
   if (has_action) {
-    std::cout << "Kick Sehll Clause: " << current_clause << std::endl;
-    std::cout << "Kick Sehll Var:    " << current_var << std::endl;
-    std::cout << "Position being Kicked: " << ((abs(current_clause) - 1) +
-              abs(current_var)) + ((abs(current_clause) - 1) + (abs(current_clause) - 1)) << std::endl;
     int position = ((abs(current_clause) - 1) + abs(current_var)) +
                    ((abs(current_clause) - 1) + (abs(current_clause) - 1));
-    // koopa_list_[current_clause].erase(koopa_list_[current_clause].begin() +
-    //                                   abs(current_var));
-    // koopa_list_.erase(koopa_list_.begin() + (current_clause + ((current_clause + abs(current_var)));
-    // koopa_list_.erase(koopa_list_.begin() + (abs(current_clause)) + (current_clause * current_var));
     koopa_list_[position].setTextureRect(sf::IntRect(477, 19, 16, 16));
-    std::cout << "List size: " << koopa_list_.size() << std::endl;
-  } else {
-    return;
   }
 }
 
@@ -185,7 +179,6 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         mario_position_ = player_mario_->getPosition();
         if (current_var < 0) {
           mario_position_.x += (15 + (cl * 3)) * TILE_SIZE;
-          // mario_position_.y -= variable_adjustment * ((abs(current_var)) );
         } else {
           // 192 from 12 * 16
           mario_position_.x += 192;
