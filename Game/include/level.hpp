@@ -58,14 +58,11 @@ class Level : private sf::NonCopyable {
   void LoadTextures();
   void AdaptPlayerPosition(unsigned int location, int current_var,
                            int current_clause, bool has_action);
-  // void AdaptPlayerVelocity();
   void HandleCollisions();
-
   void BuildScene();
-
   void AddWorldObjects();
-
   void KickShell(int current_clause, int current_var, bool has_action);
+  void SolveCheckIn();
 
   sf::FloatRect GetViewBounds() const;
   sf::FloatRect GetPlayBounds() const;
@@ -102,7 +99,10 @@ class Level : private sf::NonCopyable {
 
   std::vector< sf::Sprite > koopa_list_;
   sf::Texture koopa_texture_;
+  sf::Texture brick_texture_;
   std::vector<sf::Sprite> brick_list_;
+  std::vector<sf::Sprite> check_in_bricks_;
+  sf::Sprite blank_brick_;
 
   ZChaffManager   zchaff_manager_;
   VariableManager variable_manager_;
@@ -117,7 +117,6 @@ class Level : private sf::NonCopyable {
   bool in_variable_gadget_;
   bool in_warp_gadget_;
   bool warping_;
-  bool finished_warps_;
   bool no_warp_gadgets_;
   bool in_check_in_;
   bool in_clause_gadget_;

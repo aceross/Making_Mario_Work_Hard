@@ -31,7 +31,6 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
 , in_variable_gadget_(false)
 , in_warp_gadget_(false)
 , warping_(false)
-, finished_warps_(false)
 , in_check_in_(false)
 , in_clause_gadget_(false)
 , in_check_out_(false)
@@ -49,7 +48,7 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
 
   // Prepare the main view and the mini-map
   level_view_.setCenter(player_mario_->getPosition());
-  // level_view_.zoom(0.57f);
+  // level_view_.zoom(0.7f);
   mini_map_.setViewport(sf::FloatRect(0.72f, 0, 0.23f, 0.23f));
 }
 
@@ -60,6 +59,7 @@ void Level::Update(sf::Time delta_time) {
                         c.current_clause_, c.has_action_);
     if (c.has_action_) {
       KickShell(c.var_assignment_, c.current_clause_, c.has_action_);
+      SolveCheckIn();
     }
     scene_graph_.OnCommand(command_queue_.Pop(), delta_time);
   }
@@ -82,6 +82,12 @@ void Level::draw() {
       target_.draw(koopa);
     }
   }
+  for (const sf::Sprite& brick : brick_list_) {
+    target_.draw(brick);
+  }
+  for (const sf::Sprite& brick : check_in_bricks_) {
+    target_.draw(brick);
+  }
 
   // draw the mini map view
   target_.setView(mini_map_);
@@ -95,6 +101,11 @@ CommandQueue& Level::GetCommandQueue() {
 
 void Level::LoadTextures() {
   textures_.Load(Textures::Mario, "resources/gfx/mario_bros.png");
+  koopa_texture_.loadFromFile("resources/gfx/enemies.png",
+                               sf::IntRect(160, 81, 16, 16));
+  brick_texture_.loadFromFile("resources/gfx/tile_set.png");
+  flag_texture_.loadFromFile("resources/gfx/item_objects.png",
+                              sf::IntRect(128, 32, 16, 16));
 }
 
 void Level::BuildScene() {
@@ -127,8 +138,6 @@ void Level::AddWorldObjects() {
   int vars = variable_manager_.GetNumVariables();
 
   // Add end flag
-  flag_texture_.loadFromFile("resources/gfx/item_objects.png",
-                              sf::IntRect(128, 32, 16, 16));
   flag_.setTexture(flag_texture_);
 
   // Clause gadgets(27 tiles) + CheckIn(8 tiles) + Position in finish(11 tiles)
@@ -140,8 +149,6 @@ void Level::AddWorldObjects() {
   // Add Koopa Shells
   for (int i = 0; i < vars; ++i) {
     for (int j = 0; j < cl; ++j) {
-      koopa_texture_.loadFromFile("resources/gfx/enemies.png",
-                                   sf::IntRect(160, 81, 16, 16));
       sf::Sprite koopa;
       koopa.setTexture(koopa_texture_);
       sf::Vector2f koopa_position(160, (208  * vars) + (TILE_SIZE * 4));
@@ -152,20 +159,58 @@ void Level::AddWorldObjects() {
     }
   }
 
-  // Add Bricks
+  /* Add Bricks
+  ----------------------------------------------------------------------------*/
+  // Set replacement blank brick
+  blank_brick_.setTexture(brick_texture_);
+  blank_brick_.setTextureRect(sf::IntRect(436, 136, 16, 16));
+
+  // brick blocking the small passage
+  for (int k = 0; k < cl; ++k) {
+    sf::Sprite brick;
+    brick.setTexture(brick_texture_);
+    brick.setTextureRect(sf::IntRect(16, 0, 16, 16));
+    sf::Vector2f clause_brick_position(208, (208  * vars) + (TILE_SIZE * 13));
+    clause_brick_position.x += ((432 * k) + (TILE_SIZE * k));
+    brick.setPosition(clause_brick_position);
+    brick_list_.push_back(brick);
+  }
+
+  // check in brick
+  sf::Sprite check_in_brick;
+  check_in_brick.setTexture(brick_texture_);
+  check_in_brick.setTextureRect(sf::IntRect(16, 0, 16, 16));
+  sf::Vector2f check_in_position(32, (208  * vars) + (TILE_SIZE * 13));
+  check_in_brick.setPosition(check_in_position);
+  check_in_bricks_.push_back(check_in_brick);
+
+  // final brick
+  sf::Sprite final_brick;
+  final_brick.setTexture(brick_texture_);
+  final_brick.setTextureRect(sf::IntRect(16, 0, 16, 16));
+  sf::Vector2f final_position((432 * cl) + 224, (208  * vars) + (TILE_SIZE * 15));
+  final_brick.setPosition(final_position);
+  check_in_bricks_.push_back(final_brick);
+}
+
+void Level::SolveCheckIn() {
+  if (in_check_in_) {
+    check_in_bricks_[0] = blank_brick_;
+  }
+  if (in_finish_) {
+    check_in_bricks_[1] = blank_brick_;
+  }
 }
 
 void Level::KickShell(int current_clause, int current_var, bool has_action) {
-  if (has_action) {
-  //  int num_clauses = variable_manager_.GetNumClauses();
-   int num_vars = variable_manager_.GetNumVariables();
-   std::cout << "Current Var" << current_var << std::endl;
-   std::cout << "Current CL" << current_clause << std::endl;
-
-  int position = ((abs(current_clause) - 1) * (num_vars)) + current_var;
-
+  if (in_clause_gadget_ && has_action) {
+    int num_vars = variable_manager_.GetNumVariables();
+    std::cout << "Current Var" << current_var << std::endl;
+    std::cout << "Current CL" << current_clause << std::endl;
+    int position = ((abs(current_clause) - 1) * (num_vars)) + current_var;
     std::cout << "Kick Position : " << position << std::endl;
-    koopa_list_[position].setTextureRect(sf::IntRect(477, 19, 16, 16));
+    koopa_list_[position]    = blank_brick_;
+    brick_list_[current_var] = blank_brick_;
   }
 }
 
@@ -245,7 +290,6 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
         clause_adjustment.y  = clause_adjustment.y + (TILE_SIZE * 3);
         player_mario_->setPosition(clause_adjustment);
       } else if (in_clause_gadget_ && has_action) {
-        // KickShell(current_clause, current_var);
         std::cout << "Kick" << std::endl;
       } else {
         player_mario_->setPosition(return_position_);
@@ -266,6 +310,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
     case CheckOut:
       break;
     case FinishGadget:
+      in_finish_ = true;
       break;
     default:
       std::cout << "Something has gone incredibly wrong" << std::endl;

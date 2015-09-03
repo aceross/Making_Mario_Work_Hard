@@ -415,15 +415,6 @@ void PlayerManager::InitVariableQueue(CommandQueue& commands) {
     commands.Push(c);
   }
 
-  // wait
-  for (int j = 0; j < 10; ++ j) {
-    Command c         = action_binding_[Wait];
-    c.location_       = c.VariableGadget;
-    c.var_assignment_ = current_variable_;
-    c.has_action_ = false;
-    commands.Push(c);
-  }
-
   for (int i = 0; i < 50; ++i) {
     Command c         = action_binding_[MoveRight];
     c.location_       = c.VariableGadget;
@@ -631,7 +622,7 @@ void PlayerManager::InitCheckInQueue(CommandQueue &commands) {
     Command c         = action_binding_[Jump];
     c.location_       = c.CheckIn;
     c.var_assignment_ = current_variable_;
-    c.has_action_ = false;
+    c.has_action_ = true;
     commands.Push(c);
   }
   for (int j = 0; j < 2; ++ j) {
@@ -734,11 +725,34 @@ void PlayerManager::InitFinishQueue(CommandQueue &commands) {
     commands.Push(c);
   }
 
-  for (int j = 0; j < 3; ++ j) {
+  for (int j = 0; j < 1; ++ j) {
     Command c         = action_binding_[Jump];
     c.location_       = c.FinishGadget;
     c.var_assignment_ = current_variable_;
     c.has_action_ = false;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 5; ++ j) {
+    Command c         = action_binding_[Wait];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
+    commands.Push(c);
+  }
+  for (int j = 0; j < 1; ++ j) {
+    Command c         = action_binding_[Down];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    c.has_action_ = false;
+    commands.Push(c);
+  }
+
+  for (int j = 0; j < 3; ++ j) {
+    Command c         = action_binding_[Jump];
+    c.location_       = c.FinishGadget;
+    c.var_assignment_ = current_variable_;
+    c.has_action_ = true;
     commands.Push(c);
   }
 

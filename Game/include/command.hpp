@@ -1,4 +1,5 @@
 // Copyright 2015, Aaron Ceross
+// Adapted from SFML Development Book 
 
 #ifndef COMMAND_HPP
 #define COMMAND_HPP
