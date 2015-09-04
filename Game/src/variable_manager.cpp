@@ -3,7 +3,13 @@
 #include <iostream>
 #include "../include/variable_manager.hpp"
 
-VariableManager::VariableManager() {}
+VariableManager::VariableManager()
+: variable_list_()
+, clauses_()
+, locations_()
+, num_vars_()
+, num_clauses_()
+{}
 
 void VariableManager::LoadVariables(SAT_Manager SAT_manager) {
   num_vars_ = SAT_NumVariables(SAT_manager);
@@ -15,18 +21,7 @@ void VariableManager::LoadVariables(SAT_Manager SAT_manager) {
   }
 }
 
-void VariableManager::SetLiteralLocations(int true_literal) {
-  // for (int i = 0; i < num_vars_; ++i) {
-  //   std::vector<int> lit;
-  //   for (int j = 0; j < num_clauses_; ++j) {
-  //     int l = clauses_[i][j];
-  //     std::cout << "Lit: " << l << std::endl;
-  //     if (IsUniqueLit(true_literal)) {
-  //       lit.push_back(l);
-  //     }
-  //   }
-  // }
-}
+void VariableManager::SetLiteralLocations(int true_literal) {}
 
 bool VariableManager::IsUniqueLit(int true_literal) {
   for (int i = 0; i < clauses_.size(); ++i) {

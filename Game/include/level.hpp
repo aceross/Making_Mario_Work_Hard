@@ -82,7 +82,9 @@ class Level : private sf::NonCopyable {
   MapfileHandler& mapfile_handler_;
 
   TileMap tile_map_;
-  sf ::Text test_;
+  sf::Text level_status_;
+
+  sf::RectangleShape mini_map_background_;
 
   SceneNode scene_graph_;
   std::array<SceneNode*, LayerCount> scene_layers_;

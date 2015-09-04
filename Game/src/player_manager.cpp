@@ -25,7 +25,11 @@ struct MarioMover {
 
 PlayerManager::PlayerManager()
 : current_level_status_(LevelRunning)
+, var_manager_()
+, assigned_variables_()
+, current_variable_()
 , current_clause_(0)
+, location_map_()
 , in_start_gadget_(true)
 , in_variable_gadget_(false)
 {

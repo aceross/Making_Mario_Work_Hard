@@ -18,13 +18,19 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
 , textures_()
 , fonts_(fonts)
 , mapfile_handler_(mapfile_handler)
+, mini_map_background_()
 , scene_graph_()
 , scene_layers_()
 , level_bounds_(0.f, 0.f, level_view_.getSize().x, level_view_.getSize().y)
 , mario_position_(0, 32)
 , movement_speed_(2.5f)
 , player_mario_(nullptr)
+, koopa_list_()
 , koopa_texture_()
+, brick_list_()
+, check_in_bricks_()
+, zchaff_manager_()
+, variable_manager_()
 , level_complete_(false)
 , display_solution(false)
 , in_start_gadget_(false)
@@ -50,6 +56,8 @@ Level::Level(sf::RenderTarget& output_target, FontHolder& fonts,
   level_view_.setCenter(player_mario_->getPosition());
   // level_view_.zoom(0.7f);
   mini_map_.setViewport(sf::FloatRect(0.72f, 0, 0.23f, 0.23f));
+  mini_map_background_.setFillColor(sf::Color(0, 0, 0, 150));
+  mini_map_background_.setSize(mini_map_.getSize());
 }
 
 void Level::Update(sf::Time delta_time) {
@@ -91,6 +99,7 @@ void Level::draw() {
 
   // draw the mini map view
   target_.setView(mini_map_);
+  target_.draw(mini_map_background_);
   target_.draw(scene_graph_);
   target_.draw(tile_map_);
 }

@@ -5,7 +5,15 @@
 
 #include "../include/zchaff_manager.hpp"
 
-ZChaffManager::ZChaffManager() {
+ZChaffManager::ZChaffManager()
+: SAT_manager_()
+, var_manager_()
+, num_variables_()
+, num_literals_()
+, num_clauses_()
+, satisfiability_result_()
+, assignment_()
+{
   SAT_manager_ = SAT_InitManager();
   std::cout << "ZChaffManager: SAT Manager Initialised." << std::endl;
 }
