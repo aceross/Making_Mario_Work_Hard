@@ -151,7 +151,7 @@ void Level::AddWorldObjects() {
 
   // Clause gadgets(27 tiles) + CheckIn(8 tiles) + Position in finish(11 tiles)
   //
-  int flag_x = (cl * (TILE_SIZE * 27)) + (TILE_SIZE * 8) + (TILE_SIZE * 11) + 6;
+  int flag_x = (cl * (TILE_SIZE * 27)) + (TILE_SIZE * 8) + (TILE_SIZE * 11) + 6 + (TILE_SIZE * (cl-1));
   int flag_y = (vars * (TILE_SIZE * 13)) + (TILE_SIZE * 10) + 13;
   flag_.setPosition(flag_x, flag_y);
 
