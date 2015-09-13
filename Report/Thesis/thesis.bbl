@@ -5,11 +5,6 @@ G.~Aloupis, E.~D. Demaine, and A.~Guo.
 \newblock Classic {N}intendo games are ({NP}-){H}ard.
 \newblock {\em CoRR}, abs/1203.1895, 2012.
 
-\bibitem{audemard2009glucose}
-G.~Audemard and L.~Simon.
-\newblock Glucose: a solver that predicts learnt clauses quality.
-\newblock {\em SAT Competition}, pages 7--8, 2009.
-
 \bibitem{balyo2010solving}
 T.~Balyo.
 \newblock {\em Solving Boolean satisfiability problems}.
@@ -36,11 +31,6 @@ R.~Brummayer, F.~Lonsing, and A.~Biere.
 K.~Burgun.
 \newblock {\em Game Design Theory: A New Philosophy for Understanding Games}.
 \newblock Taylor \& Francis, 2012.
-
-\bibitem{compton2006procedural}
-K.~Compton and M.~Mateas.
-\newblock Procedural level design for platform games.
-\newblock In {\em AIIDE}, pages 109--111, 2006.
 
 \bibitem{cook1971complexity}
 S.~A. Cook.
@@ -91,20 +81,10 @@ K.~Devlin.
   Mathematical Puzzles of Our Time}.
 \newblock Basic Books, 2002.
 
-\bibitem{DimacsSatFormat}
-{DIMACS} challenge. {S}atisfiability. {S}uggested format., 1993.
-
 \bibitem{dor1999sokoban}
 D.~Dor and U.~Zwick.
 \newblock Sokoban and other motion planning problems.
 \newblock {\em Computational Geometry}, 13(4):215--228, 1999.
-
-\bibitem{dormans2010adventures}
-J.~Dormans.
-\newblock Adventures in level design: generating missions and spaces for action
-  adventure games.
-\newblock In {\em Proceedings of the 2010 workshop on procedural content
-  generation in games}, page~1. ACM, 2010.
 
 \bibitem{dormans2011generating}
 J.~Dormans and S.~Bakkes.
@@ -132,17 +112,14 @@ M.~Fori{\v{s}}ek.
 \newblock In {\em Fun with Algorithms, 5th International Conference, {FUN}
   2010, Ischia, Italy, June 2-4, 2010. Proceedings}, pages 214--227, 2010.
 
+\bibitem{fu2004zchaff}
+Z.~Fu, Y.~Marhajan, and S.~Malik.
+\newblock z{c}haff {SAT} solver, 2004.
+
 \bibitem{Gasarch:2012:GCS:2261417.2261434}
 W.~I. Gasarch.
 \newblock Guest {C}olumn: The {S}econd {P} =?{NP} {P}oll.
 \newblock {\em SIGACT News}, 43(2):53--77, June 2012.
-
-\bibitem{Goldberg20071549}
-E.~Goldberg and Y.~Novikov.
-\newblock Berkmin: A fast and robust sat-solver.
-\newblock {\em Discrete Applied Mathematics}, 155(12):1549 -- 1561, 2007.
-\newblock \{SAT\} 2001, the Fourth International Symposium on the Theory and
-  Applications of Satisfiability Testing.
 
 \bibitem{Goldreich:2008}
 O.~Goldreich.
@@ -179,17 +156,16 @@ S.~Hahn.
 \newblock \url{https://github.com/nikki-and-the-robots}, 2012.
 \newblock Date Accessed: 2015-04-28.
 
+\bibitem{Haller:2013:SGD:2556030}
+J.~Haller, H.~V. Hansson, and A.~Moreira.
+\newblock {\em SFML Game Development}.
+\newblock Packt Publishing, 2013.
+
 \bibitem{Hendrikx:2013:PCG:2422956.2422957}
 M.~Hendrikx, S.~Meijer, J.~Van Der~Velden, and A.~Iosup.
 \newblock Procedural content generation for games: A survey.
 \newblock {\em ACM Trans. Multimedia Comput. Commun. Appl.}, 9(1):1:1--1:22,
   Feb. 2013.
-
-\bibitem{jennings2010polymorph}
-M.~Jennings-Teats, G.~Smith, and N.~Wardrip-Fruin.
-\newblock Polymorph: dynamic difficulty adjustment through level generation.
-\newblock In {\em Proceedings of the 2010 Workshop on Procedural Content
-  Generation in Games}, page~11. ACM, 2010.
 
 \bibitem{jeroslow1990solving}
 R.~G. Jeroslow and J.~Wang.
@@ -294,11 +270,6 @@ F.~Richter.
 \newblock \url{http://www.secretmaryo.org}, 2013.
 \newblock Date Access: 2015-04-27.
 
-\bibitem{shaker2010towards}
-N.~Shaker, G.~N. Yannakakis, and J.~Togelius.
-\newblock Towards automatic personalized content generation for platform games.
-\newblock In {\em AIIDE}, 2010.
-
 \bibitem{sipser2012introduction}
 M.~Sipser.
 \newblock {\em Introduction to the Theory of Computation}.
@@ -369,6 +340,13 @@ J.~Togelius, G.~Yannakakis, K.~Stanley, and C.~Browne.
 G.~S. Tseitin.
 \newblock On the complexity of derivation in propositional calculus.
 \newblock In {\em Automation of reasoning}, pages 466--483. Springer, 1983.
+
+\bibitem{unterkalmsteiner2012evaluation}
+M.~Unterkalmsteiner, T.~Gorschek, C.~K. Cheng, R.~B. Permadi, R.~Feldt, et~al.
+\newblock Evaluation and measurement of software process improvement—a
+  systematic literature review.
+\newblock {\em Software Engineering, IEEE Transactions on}, 38(2):398--424,
+  2012.
 
 \bibitem{viglietta2014gaming}
 G.~Viglietta.

@@ -414,6 +414,16 @@
   Volume                   = {98}
 }
 
+@Electronic{googlecpp,
+  Title                    = {Google C++ Style Guide},
+  Author                   = {Google},
+  Url                      = {https://google-styleguide.googlecode.com/svn/trunk/cppguide.html},
+  Year                     = {2015},
+
+  Owner                    = {awc},
+  Timestamp                = {2015.08.31}
+}
+
 @Book{Gregory:2009,
   Title                    = {Game Engine Architecture},
   Author                   = {Gregory, Jason},
@@ -447,6 +457,15 @@
   Timestamp                = {2015.05.05}
 }
 
+@Book{Haller:2013:SGD:2556030,
+  Title                    = {SFML Game Development},
+  Author                   = {Haller, Jan and Hansson, Henrik Vogelius and Moreira, Artur},
+  Publisher                = {Packt Publishing},
+  Year                     = {2013},
+
+  ISBN                     = {1849696845, 9781849696845}
+}
+
 @Article{Hendrikx:2013:PCG:2422956.2422957,
   Title                    = {Procedural Content Generation for Games: A Survey},
   Author                   = {Hendrikx, Mark and Meijer, Sebastiaan and Van Der Velden, Joeri and Iosup, Alexandru},
@@ -468,15 +487,6 @@
   Numpages                 = {22},
   Publisher                = {ACM},
   Url                      = {http://doi.acm.org/10.1145/2422956.2422957}
-}
-
-@Electronic{googlecpp,
-  Title                    = {Google C++ Style Guide},
-  Author                   = {Google Inc},
-  Url                      = {https://google-styleguide.googlecode.com/svn/trunk/cppguide.html},
-
-  Owner                    = {awc},
-  Timestamp                = {2015.08.31}
 }
 
 @InProceedings{jennings2010polymorph,

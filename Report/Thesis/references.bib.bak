@@ -18,6 +18,24 @@
   Url                      = {http://dx.doi.org/10.1007/978-3-642-13122-6_22}
 }
 
+@InProceedings{Aloul:2001:FSS:603095.603187,
+  Title                    = {Faster SAT and Smaller BDDs via Common Function Structure},
+  Author                   = {Aloul, Fadi A. and Markov, Igor L. and Sakallah, Karem A.},
+  Booktitle                = {Proceedings of the 2001 IEEE/ACM International Conference on Computer-aided Design},
+  Year                     = {2001},
+
+  Address                  = {Piscataway, NJ, USA},
+  Pages                    = {443--448},
+  Publisher                = {IEEE Press},
+  Series                   = {ICCAD '01},
+
+  Acmid                    = {603187},
+  ISBN                     = {0-7803-7249-2},
+  Location                 = {San Jose, California},
+  Numpages                 = {6},
+  Url                      = {http://dl.acm.org/citation.cfm?id=603095.603187}
+}
+
 @Article{Aloupis2012,
   Title                    = {Classic {N}intendo games are ({NP}-){H}ard},
   Author                   = {Greg Aloupis and Erik D. Demaine and Alan Guo},
@@ -455,6 +473,15 @@
 
   Owner                    = {awc},
   Timestamp                = {2015.05.05}
+}
+
+@Book{Haller:2013:SGD:2556030,
+  Title                    = {SFML Game Development},
+  Author                   = {Haller, Jan and Hansson, Henrik Vogelius and Moreira, Artur},
+  Publisher                = {Packt Publishing},
+  Year                     = {2013},
+
+  ISBN                     = {1849696845, 9781849696845}
 }
 
 @Article{Hendrikx:2013:PCG:2422956.2422957,
@@ -1222,18 +1249,5 @@
   Year                     = {2002},
   Organization             = {Springer},
   Pages                    = {17--36}
-}
-
-@Misc{DimacsSatFormat,
-  Title                    = {{DIMACS} challenge. {S}atisfiability. {S}uggested format.},
-  Year                     = {1993},
-
-  Citeulike-article-id     = {6488579},
-  Citeulike-linkout-0      = {http://www.cs.ubc.ca/\~{}hoos/SATLIB/Benchmarks/SAT/satformat.ps},
-  Institution              = {Rutgers},
-  Key                      = {DimacsSatFormat},
-  Keywords                 = {dimacs, format, sat},
-  Posted-at                = {2010-01-05 20:31:48},
-  Url                      = {http://www.cs.ubc.ca/\~{}hoos/SATLIB/Benchmarks/SAT/satformat.ps}
 }
 

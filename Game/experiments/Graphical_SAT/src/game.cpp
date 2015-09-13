@@ -14,7 +14,7 @@ Game::Game()
 , not_satisfiable_(false)
 {
   InitialiseWindow();
-  // LoadAssets();
+  LoadAssets();
   SAT_manager_ = SAT_InitManager();
 
   // Text writing test
@@ -58,7 +58,7 @@ void Game::AppendTextFile() {
   // file_writer << "Writing ANOTHER thing to file.\n";
   // file_writer.close();
 
-  std::cout << "Finished appending" << std::endl;
+  // std::cout << "Finished appending" << std::endl;
 }
 
 void Game::InitialiseTexts() {
@@ -475,12 +475,12 @@ void Game::DisplayResults(SAT_Manager SAT_manager_, int outcome) {
 }
 
 void Game::Run() {
-  // ReadFile();
-  // Solve();
+  ReadFile();
+  Solve();
 
   while (window_.isOpen()) {
     HandleEvents();
-    // Draw();
+    Draw();
   }
   std::cout << "...Game Over..." << std::endl;
 }
@@ -527,9 +527,9 @@ void Game::HandleEvents() {
 
       case sf::Event::KeyPressed:
         // Run Graphical Display of Results
-        // if (event_.key.code == sf::Keyboard::Return) {
-        //   GraphicSolution();
-        // }
+        if (event_.key.code == sf::Keyboard::Return) {
+          GraphicSolution();
+        }
         if (event_.key.code == sf::Keyboard::Escape) {
           window_.close();
         }

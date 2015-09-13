@@ -7,47 +7,48 @@ Warning--entry type for "googlecpp" isn't style-file defined
 --line 417 of file references.bib.bib
 A bad cross reference---entry "DBLP:conf/fun/Forisek10"
 refers to entry "DBLP:conf/fun/2010", which doesn't exist
+Warning--I didn't find a database entry for "DimacsSatFormat"
 Warning--I didn't find a database entry for "DBLP:conf/fun/2010"
 Warning--empty year in Papadimitriou:2003:CC:1074100.1074233
-You've used 70 entries,
+You've used 66 entries,
             2118 wiz_defined-function locations,
-            902 strings with 14764 characters,
-and the built_in function-call counts, 24170 in all, are:
-= -- 2498
-> -- 879
-< -- 31
-+ -- 361
-- -- 280
-* -- 1481
-:= -- 3798
-add.period$ -- 231
-call.type$ -- 70
-change.case$ -- 343
+            882 strings with 14198 characters,
+and the built_in function-call counts, 22882 in all, are:
+= -- 2361
+> -- 865
+< -- 27
++ -- 355
+- -- 278
+* -- 1425
+:= -- 3624
+add.period$ -- 217
+call.type$ -- 66
+change.case$ -- 327
 chr.to.int$ -- 0
-cite$ -- 71
-duplicate$ -- 1061
-empty$ -- 2050
-format.name$ -- 280
-if$ -- 5316
+cite$ -- 67
+duplicate$ -- 984
+empty$ -- 1911
+format.name$ -- 278
+if$ -- 4998
 int.to.chr$ -- 0
-int.to.str$ -- 70
-missing$ -- 70
-newline$ -- 354
-num.names$ -- 138
-pop$ -- 422
+int.to.str$ -- 66
+missing$ -- 67
+newline$ -- 334
+num.names$ -- 132
+pop$ -- 398
 preamble$ -- 1
-purify$ -- 280
+purify$ -- 269
 quote$ -- 0
-skip$ -- 778
+skip$ -- 722
 stack$ -- 0
-substring$ -- 1582
-swap$ -- 310
-text.length$ -- 31
+substring$ -- 1500
+swap$ -- 280
+text.length$ -- 27
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 266
+type$ -- 248
 warning$ -- 1
-while$ -- 256
-width$ -- 72
-write$ -- 789
+while$ -- 243
+width$ -- 68
+write$ -- 743
 (There was 1 error message)

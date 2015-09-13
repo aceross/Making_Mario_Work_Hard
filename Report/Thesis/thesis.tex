@@ -17,8 +17,72 @@
 \usepackage{epigraph}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{xcolor}
+% \usepackage{algorithm}
+% \usepackage[noend]{algpseudocode}
+
 \usepackage{url}
 \usepackage[nottoc]{tocbibind}
+ \usepackage{caption}
+
+\lstset { %
+    language=C++,
+    backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+}
+
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\lstset{
+    backgroundcolor=\color{lbcolor},
+    tabsize=4,    
+%   rulecolor=,
+    language=[GNU]C++,
+        basicstyle=\scriptsize,
+        % upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=false,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        numbers=left,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.026,0.112,0.095},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+        numberstyle=\color[rgb]{0.205, 0.142, 0.73},
+%        \lstdefinestyle{C++}{language=C++,style=numbers}’.
+}
+\lstset{
+    backgroundcolor=\color{lbcolor},
+    tabsize=4,
+  language=C++,
+  captionpos=b,
+  tabsize=3,
+  frame=lines,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  breaklines=true,
+  showstringspaces=false,
+  basicstyle=\footnotesize,
+%  identifierstyle=\color{magenta},
+  keywordstyle=\color[rgb]{0,0,1},
+  % commentstyle=\color{Darkgreen},
+  stringstyle=\color{red}
+  }
+
+\definecolor{Gray}{gray}{0.70}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+
+% \newcolumntype{a}{>{\columncolor{Gray}}c}
+% \newcolumntype{b}{>{\columncolor{white}}c}
+
 
 \linespread{1.1}
 
@@ -28,40 +92,40 @@
 % TITLE PAGE
 % ------------------------------------------------------------------------------
 
-\begin{titlepage}
-    \begin{center}
-        \vspace*{4cm}
+% \begin{titlepage}
+%     \begin{center}
+%         \vspace*{4cm}
 
-        \Huge\textbf{Making Mario Work Hard}
+%         \Huge\textbf{Making Mario Work Hard}
 
-        % \vspace{0.5cm}
-        % Thesis Subtitle
+%         % \vspace{0.5cm}
+%         % Thesis Subtitle
 
-        \vspace{2.5cm}
+%         \vspace{2.5cm}
 
-       \Large\textbf{Aaron Ceross}
-       \\Supervisor: Dr. Benjamin Sach
+%        \Large\textbf{Aaron Ceross}
+%        \\Supervisor: Dr. Benjamin Sach
 
-        % \vfill
-        \vspace{0.8cm}
+%         % \vfill
+%         \vspace{0.8cm}
 
-        MSc Thesis Project\\
-        COMSM3201 MSc Project, Computer Science
+%         MSc Thesis Project\\
+%         COMSM3201 MSc Project, Computer Science
 
-        Research Review\\
-        COMSM2202 Research Skills
+%         Research Review\\
+%         COMSM2202 Research Skills
 
-        \vspace{0.8cm}
+%         \vspace{0.8cm}
 
-        % \includegraphics[width=0.4\textwidth]{university}
+%         % \includegraphics[width=0.4\textwidth]{university}
 
-        % Department Name\\
-        % University Name\\
-        % Country\\
-        \today
+%         % Department Name\\
+%         % University Name\\
+%         % Country\\
+%         \today
 
-    \end{center}
-\end{titlepage}
+%     \end{center}
+% \end{titlepage}
 
 
 % ------------------------------------------------------------------------------
@@ -78,7 +142,17 @@ Blank at the moment
 
 \chapter*{Acknowledgements}
 
-Blank at the moment
+While this thesis was the culmination and result of many long solitary hours of
+research and development no effort is truly without support. I would like to
+extend immense thanks and gratitude to Dr Benjamin Sach for his guidance and
+support throughout the project. He has been an unrivalled source of information
+and helping me find a deeper appreciation of computer science and mathematics.
+
+I would also like especially thank my dear Tingting for being willing to
+subjected to innumerable proof reads and generally being incredibly patient and
+understanding throughout the project's development process. Without her
+feedback, support, and encouragement, this project would not have been anywhere
+near as successful as it has been.
 
 
 % ------------------------------------------------------------------------------
@@ -88,18 +162,16 @@ Blank at the moment
 \tableofcontents
 
 
-
 % ------------------------------------------------------------------------------
 % CHP 1 --- INTRODUCTION
 % ------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 \chapter{Aims and Objectives}
 
 \epigraph{``The obvious objective of video games is to entertain people by
 surprising them with new experiences.''}{Shigeru Miyamoto}
 
-\section{Background and motivation}
+\section{Background, context, and motivation}
 
 An NP-complete problem is one with a solution that can be \textit{verified}
 quickly in polynomial time, though an existing solution is not readily known or
@@ -111,20 +183,17 @@ problem in which the variables of the formula may be consistently replaced by
 the values TRUE or FALSE in a way that the formula evaluates to TRUE, or
 `satisfiable'.
 
-The primary motivation of this research is to investigate the feasibility of the
-video game medium as a teaching tool to visualise and demonstrate concepts in
-computational complexity. This could be achieved through the evaluation of
-different instances of SAT in a video game setting.\@
+The primary motivation of this research is to investigate the feasibility of
+utilising the video game medium as an effective visualisation of computational
+complexity. If successful, this type of visualisation could have a wide range of
+effects, including use as teaching tool to new learners  approaching the
+subject. 
 
-
-Computer science and mathematics can be quite daunting subjects for new students
-and quite often the concepts may not be clear. The utilisation of video games as
-a medium to introduce the topic and concepts could be
 
 There are several challanges that need to be addressed in order for this method
 to be feasible.
 
-\section{Research aims and objectives}
+\section{Research objectives}
 
 % This project concerns the complexity of Mario which is known to be NP-
 % Complete. To prove this it was shown that Mario could be forced to solve an
@@ -145,11 +214,7 @@ take an instance of SAT and generate a human-playable level that is
 computationally hard. This level would then be able to be solved by a SAT
 solver. The solution to the level would then be visualised on screen. In order
 to fulfil this aim, the research project will implement a game engine through
-<<<<<<< HEAD
 achieving the following objectives: \\
-=======
-achieving the following objectives: \\
->>>>>>> collision
 
 \begin{enumerate}
 
@@ -187,8 +252,8 @@ achieving the following objectives: \\
 
 
 % \end{enumerate}
-=======
-\section{Scope of the research review}
+
+% \section{Scope of the research review}
 
 As shown in the preceding section, the research being undertaken brings together
 a diversity of broad topic areas, which is challenging. Given the research aims
@@ -213,14 +278,12 @@ understand the current state of research and development in the following areas:
 
 
 \end{enumerate}
->>>>>>> collision
 
 As shown from the range of topics above, the areas being investigated are
 expansive and multi-faceted. Therefore, this research review surveys those
 elements most relevant for the implementation and development of the game engine
 software.
 
-<<<<<<< HEAD
 \section{Thesis Structure}
 
 This research project is divided between 66\% Type I (software development) and
@@ -242,33 +305,6 @@ addition to explaining the major features of SAT solvers, the chapter also
 identifies SAT solvers which had been considered during the project's
 development.
 
-\section{Structure of the research review}
-
-The research review is structured in a way that allows for in-depth look at the
-issues within the research scope, identifying important themes relevant to the
-research goals.
-
-Chapter 2 covers the fundamental concepts in computational complexity,
-identifying which characteristics render a task difficult. This will look
-particularly at the well-known P vs NP question as well as related complexity
-classes. This leads to Chapter 3, which discusses research with regards to
-Boolean satisfiability solvers, that have been used to demonstrate NP-
-completeness.
->>>>>>> collision
-
-Chapter 4 relates to how video games can be classified as `hard', through use of
-Boolean satisfiability solvers. An overview of relevant research explores the
-models and proofs that have been utilised in making such classification. The
-frameworks highlighted in this chapter will form the basis of a model for the
-implementation of the game engine. After which, Chapter 5 turns the focus of the
-research review to the generation of game content, particularly centred on game
-levels.  This chapter critically examines methodologies and techniques.
-
-In Chapter 6, the research review will consider the initial design
-specifications and features of the implementation of the game engine. Discussion
-will focus on utilising the outputs from this review in a viable game engine
-model. Finally, Chapter 7 will draw conclusions from this initial research
-review and discuss future areas of investigation.
 
 %---------------------------------------------------------------------------------------------------
 % CHP 2 --- COMPUTATIONAL COMPLEXITY AND VIDEO GAMES
@@ -316,6 +352,36 @@ solution from a set of solutions (possibly infinite or empty). Therefore, given
 an instance of a search problem, a solution must be found or return a
 determination that no solution exists in such instance.
 
+%  More on Search and Decision problems
+
+\subsubsection{The concept of reductions}
+
+Different complexity classes may be defined through the ability to transform an
+instance of one type of problem into another. This ic alled a reduction and is
+the basis for classifying the 
+
+The most common reduction is a polynomial time reduction which means - ////something ////
+
+
+
+///// COPY PASTE FROM WIKI /////////////////////////////////////////////////////
+Many complexity classes are defined using the concept of a reduction. A
+reduction is a transformation of one problem into another problem. It captures
+the informal notion of a problem being at least as difficult as another problem.
+For instance, if a problem X can be solved using an algorithm for Y, X is no
+more difficult than Y, and we say that X reduces to Y. There are many different
+types of reductions. 
+
+The most commonly used reduction is a polynomial-time reduction. This means that
+the reduction process takes polynomial time. For example, the problem of
+squaring an integer can be reduced to the problem of multiplying two integers.
+This means an algorithm for multiplying two integers can be used to square an
+integer. Indeed, this can be done by giving the same input to both inputs of the
+multiplication algorithm. Thus we see that squaring is not more difficult than
+multiplication, since squaring can be reduced to multiplication.
+
+////////////////////////////////////////////////////////////////////////////////
+
 \subsection{Survey of complexity classes}
 
 \subsubsection{P and NP}
@@ -330,6 +396,7 @@ polynomial), relates to those problems that do not have an efficient way of
 finding a solution but can have a solution verified in polynomial time
 \cite{Goldreich:2008, Papadimitriou:2003:CC:1074100.1074233}.
 
+%  More on P and NP
 % Therefore:
 % \\
 
@@ -402,7 +469,10 @@ some games have been proven to be in this class \cite{DBLP:conf/fun/Forisek10,
 demaine2002push}.\footnote{Please refer to Chapter 3 of this research review for
 further information.} PSPACE refers to decision problem which may be solved with
 an amount of space polynomial in the size to its input
-\cite{sipser2012introduction}.
+\cite{sipser2012introduction}. 
+
+\subsubsection{EXSPACE}
+
 
 \section{Chapter summary}
 
@@ -423,12 +493,13 @@ computational hard levels in a video game.
 \epigraph{``It is not of the essence of mathematics to be conversant with the
 ideas of number and quantity.''}{George Boole}
 
+Boolean satisfiability problesm (or SATs) serve as the basis for proving the
+hardness of video games and have implications for the game engine design as well
+as the design of the  game level (see chapters X and Y). 
 
-This chapter provides insight into the hardness of Boolean satisfiability
-problems (or SATs). SATs are the basis for proving the hardness of video games
-so understanding how they work is important. During the implementation, SAT
-solvers (programs that solve instances of SAT) will be used to run tests through
-the constructed game.
+% These game instanceswill then be completed by SAT solvers (specialised programs
+% that solve instances of SAT) will be used to run tests through the constructed
+% game.
 
 \section{Principle concepts and definitions}
 
@@ -439,17 +510,25 @@ disjunction ($\vee$), implication ($\leftarrow$), and equivalence
 ($\leftrightarrow$) \cite{balyo2010solving,gomes2008satisfiability}.
 
 Formulae are constructed through literals, which is a variable (e.g. \textit{x}
-or \textit{y})  or its negation (e.g. \textit{x} or $\neg$\textit{x}) joined
-together in clauses (e.g. \textit{x}). Of these constructions, the conjunctive
-normal form (CNF) is of particular importance, especially in relation to finding
-solutions to satisfiability problems, particularly those solving methods based
-on DPLL algorithm \cite{gomes2008satisfiability} (See Section X below for
-further discussion). To be in CNF, a formula must a conjunction of clauses,
-wherein those clauses are a disjunctive of literals. For example:
+or \textit{y}) or its complement (e.g. \textit{x} or $\neg$\textit{x}). Literals
+are joined together in groups called clauses. The literals and clauses may be
+joined either disjunctively (i.e. or conjunctively (i.e. the expressions must
+collectively evaluate to true)
+
+Of these constructions, the conjunctive normal form (CNF) is of particular
+importance, especially in relation to finding solutions to satisfiability
+problems, particularly those solving methods based on DPLL algorithm
+\cite{gomes2008satisfiability} (See Section X below for further discussion). To
+be in CNF, a formula must a conjunction of clauses, wherein those clauses are a
+disjunctive of literals. The example below illustrates conjunctive normal form
+with three clauses (joined together by $\wedge$ (AND)) containing three literals
+(x, y, z).
 
 \centerline{(x $\vee$ $\neg$y) $\wedge$ ($\neg$x $\vee$ z $\vee$ y) $\wedge$ ($\neg$z $\vee$ x)}
 
-\par  \noindent The example above is a conjunctive normal form with three clauses (joined together by $\wedge$ (AND)) containing three literals (x, y, z).
+\par  \noindent To satisfy this expression, each clause must evaluate to TRUE as
+they are conjunctively joined. If any clause were to be FALSE, the formula
+twould be unsatisfiable.
 
 \section{Boolean Satisfiability problem and NP-completeness}
 
@@ -482,25 +561,34 @@ the 3SAT, exactly 1-3-satisfiability or 1-in-3SAT above reduction wherein the
 each clause must contain \textit{exactly} one literal \cite{balyo2010solving,
 du2011theory}.
 
+\section{Solving SAT instances}
 
-\section{SAT solvers}
-
-SAT solvers are software that given a SAT instance can either find a solution,
-which would be a satisfying variable assignment or prove that no solution exists
+SAT instances can be solved through a specialised piece of software called a SAT
+solver.  Given a SAT instance, a SAT solver can either find a solution, which
+would be a satisfying variable assignment or prove that no solution exists
 \cite{zhang2002quest}. There are also stochastic methods based on local search
 may be able to find satisfiable instances in a fast manner but are unable to
 prove that an instance is in fact unsatisfiable \cite{gomes2008satisfiability}.
+Understanding SAT solvers is fundamental to the development of the project's
+game engine.
+
+\subsection{Overview of the mechanics of SAT Solvers}
+
+SAT solvers work recursively. SAT solvers features and functions.
 
 
-\subsection{The DPLL algorithm}
+\subsubsection{The DPLL algorithm}
 
 The Davis-Putnam-Logemann-Loveland (DPLL) algorithm \cite{davis1962machine} is a
-complete, systematic search algorithm which is based on backtracking. The DPLL
-algorithm (see Figure~\ref{DPLL}) is able to decide the satisfiability of a CNF
-SAT reduction as well as identify the satisfying assignment. It can also show
-that a given Boolean formula is unsatisfiable. The algorithm achieves these
-results through the use of branching and where clauses are found to be FALSE,
-removes these from its search space.
+complete, systematic search algorithm which is based on backtracking. 
+
+////BACKTRACKING IS WHAT???
+
+The DPLL algorithm (see Figure~\ref{DPLL}) is able to decide the satisfiability
+of a CNF SAT reduction as well as identify the satisfying assignment. It can
+also show that a given Boolean formula is unsatisfiable. The algorithm achieves
+these results through the use of branching and where clauses are found to be
+FALSE, removes these from its search space.
 
 \begin{figure}[h!]
 
@@ -514,19 +602,6 @@ The DPLL algorithm works with the CNF of a propositional logic expression (as
 described in Section 3.1 above). Given that any formula may be converted into
 CNF through the addition of new variables corresponding to the sub-formulae
 \cite{tseitin1983complexity,Goldreich:2008}, DPLL may used to in all cases.
-
-\section{Available SAT solvers}
-
-The following SAT solvers have been identified as being potentially viable for
-the research project: MiniSAT\footnote{http://minisat.se}
-\cite{sorensson2005minisat};
-zChaff\footnote{http://www.princeton.edu/~chaff/zchaff.html}
-\cite{marques1999impact}; jerusat \cite{nadel2002jerusat}; BerkMIN
-\cite{Goldberg20071549};
-Glucose\footnote{http://www.labri.fr/perso/lsimon/glucose/}
-\cite{audemard2009glucose}. These may be scope for the research to
-simultaneously compare the efficacy of different solvers in varying conditions
-in the research project (e.g. size of level).ow
 
 
 \subsubsection{Features of modern DPLL-based SAT solvers}
@@ -627,7 +702,6 @@ introduced by the \texttt{Sato} solver \cite{zhang1997sato}. This feature has
 furthered development of clause learning
 \cite{zhang2002quest,gomes2008satisfiability}.
 
-
   \item \textbf{Assignment stack shrinking} : In the \texttt{Jerusat} SAT solver
 \cite{nadel2002jerusat}, Nadel had introduced this feature which is based on
 conflict clauses. Assignment stack shrinking servers to make the search area
@@ -637,9 +711,8 @@ the lowest decision level that is less than the immediate higher level by at 2.
 The solver will then backtrack to this level and where possible, sets unassigned
 literals of the clause to FALSE \cite{Nadel:2010:ASS:2164073.2164111}.
 
-
-  \item \textbf{Randomized restarts} : This provides that the clause learning
-algorithm can restart   the branching process from decision level 0 while
+  \item \textbf{Randomised restarts} : This provides that the clause learning
+algorithm can restart the branching process from decision level 0 while
 retaining all the learned clauses \textit{et   al}. \cite{gomes1998boosting}.
 Pioneered \texttt{zChaff} \cite{moskewicz2001chaff} many modern   SAT solvers
 utilise highly aggressive restarts strategies, even below 20 backtracks, as it
@@ -647,10 +720,13 @@ demonstrably lowers the solution time \cite{gomes2008satisfiability}.
 
 \end{enumerate}
 
+
 \subsection{Converting a formula for SAT Solver Input}
 
 The SAT instance must be read by the SAT solver. The standard input into a SAT
-solver is a DIMACS CNF file\cite{DimacsSatFormat}. The file has a specified format which allows the a formula to be input into the solver. Consider the following example:
+solver is a DIMACS CNF file\cite{DimacsSatFormat}. The file has a specified
+format which allows the a formula to be input into the solver. Consider the
+following example:
 
 
 
@@ -675,10 +751,15 @@ about the instance such as the format, in this case CNF, and the variables.   {}
 and the clauses (). th. The reader ends a the `0' and begins reading the next
 line until the end of file.
 
-There are other formats available in a DIMACS satisfiability file, which includ
+There are other formats available in a DIMACS satisfiability file, which include
 the \texttt{sat} indicator instead of CNF\cite{DimacsSatFormat}. These other
 formats were not explored during this project as the CNF format fulfilled the
 project specification and was able to be rapidly deployed.
+
+The DIMACS file requires that the clause only contain one literal of a variable
+per clause \cite{DimacsSatFormat}. This means that x and not x are unable to
+appear in the same clause. Attempting to create and run a file with this
+structure will generate an error or an incorrect assessment of the SAT instance.
 
 
 \section{Chapter summary}
@@ -734,7 +815,7 @@ that a number of `match-three' games, grid-based games which are popular on
 mobile devices, such as \textit{Candy Crush Saga} and \textit{Bejewled} are NP-
 hard \cite{DBLP:journals/corr/GualaLN14}.
 
-The current trend in this field is to assess classic franchises such as
+The current trend in this field has been to assess classic franchises such as
 \textit{Prince of Persia}, and \textit{Donkey Kong Country}. These studies are
 more relevant to the research project as visualisation will utilise a 2D
 platfomer resembling a game like \textit{Super Mario Bros}.
@@ -752,7 +833,8 @@ limitation of jump height and distance \cite{Burgun:2012}.
 
 \subsubsection{Characteristics of 2D games}
 
-In an examination of 2D platform games, a list of common puzzle elements found within the genre
+In an examination of 2D platform games, Fori\v{s}ek provides an indicative list of
+common puzzle elements found within the genre
 \cite{Smith:2008:FAP:1401843.1401858,DBLP:conf/fun/Forisek10}. These include:
 
 \begin{itemize}
@@ -774,11 +856,10 @@ In an examination of 2D platform games, a list of common puzzle elements found w
 
 \end{itemize}
 
-
 \subsection{Characteristics of NP-hard games}
 
 These above elements can be modeled into Boolean satisfiability problems, which
-are known to NP- complete \cite{DBLP:conf/fun/Forisek10, cook1971complexity}.
+are known to NP-complete \cite{DBLP:conf/fun/Forisek10, cook1971complexity}.
 The proofs of video games rely on this analogy and if a proof then removes
 certain game elements, it is expected that the complexity of that game is
 reduced \cite{viglietta2014gaming}.
@@ -801,10 +882,8 @@ the research project:
   \item \textbf{Meta-theorem 2}: A 2D platform game where the collecting items feature is present
                                  and a time limit is present as part of the instance is NP-hard.
 
-
   \item \textbf{Meta-theorem 3}: Any 2D platform game that exhibits the features long fall and
                                  opening doors is NP-hard.
-
 
   \item \textbf{Meta-theorem 4}: Any 2D platform game that exhibits the features long fall, opening
                                  doors and closing doors is PSPACE-hard.
@@ -812,8 +891,9 @@ the research project:
 \end{itemize}
 
 
-Following the criteria above, it can be demonstrated that many platform games are not only able to be
-classified as NP-hard but even PSPACE-hard in some cases.
+Following the criteria above, it can be demonstrated that many platform games
+are not only able to be classified as NP-hard but even PSPACE-hard in some
+cases.
 
 Aloupis \textit{et al} \cite{Aloupis2012} surveyed the complexity of classic
 Nintendo franchises by considering that the games are essentially a decision
@@ -850,9 +930,11 @@ As can be seen in the framework above, there are several areas of potential
 crossover. To prevent such occurrence, \textit{crossover gadgets} prevent a
 player from switching paths.
 
-Once the player has passed through all the variable gadgets, the player can proceed to the
-\texttt{FINISH} through a clause check path. This can only be successfully traversed only if every
-clause gadget has been unlocked.
+Once the player has passed through all the variable gadgets, the player can
+proceed to the \texttt{FINISH} through a clause check path. This can only be
+successfully traversed only if every clause gadget has been unlocked.
+
+
 
 
 % \subsection{Proving a platformer is PSPACE-hard}
@@ -879,199 +961,373 @@ PSPACE- hard), the focus of the literature review shifts to the details of how
 these levels/problem instances will be generated, explored in the next chapter.
 
 
-%%%%%%%%
+% ------------------------------------------------------------------------------
+% Game Engine Design
+% ------------------------------------------------------------------------------
 
-% - for introduction to NP and concepts and classes – [10]
+\chapter{Game Engine Design}
 
-% - NP complete games feature levels whose solution demands some degree of ingenuity but such levels
-% - are usually solved within a polynomial number of 'manipulations', and the challenge is to find
-% - them. In contrast the additional complexity of a PSPACE-complete game seems to reside in the
-% - presence of levels whose solution requires an exponential number of manipulations, and this may be
-% - perceived as a nuisance by the player, as it makes for tediously long playing sessions.
+\epigraph{``QUOTE.''}{Someone}
 
-% - several open problems remain for further research: whenever on the hardness of a game is proved
-% with respect to some complexity class, the implied question is whether the game is also complete for
-% that class. Indeed, the computational complexity of a game is expected to dramatically drop if some
-% 'critical' elements are removed from its levels. It is interesting to study the 'complexity
-% spectrum' of a game, as a function of the game parameters that we set. This has been done for the
-% Lemmings game.
+This chapter describes the relevant game design considerations which drove the
+game engine's development as well as provide a general overview of the modules
+and functionality. The chapter serves as a reference and basis for the later
+chapters on level generation and player AI.
 
-% - a problem instance will be a 'level' of the game
+\section{Design considerations}
 
-% -  the description of a level includes the position of every relevant game element, such as wall,
-% -  items, character starting location. The question is always whether or not a given level can be
-% -  'solved' under certain conditions, such as losing no lives. The exact definition of 'solvability'
-% -  is highly game-dependent, and can range from reaching an exit location, to collecting some items,
-% -  to defeating certain enemies.
+This section describes the design considerations which shaped the development of
+the game engine. The purpose is to provide the rationale and justification for
+design decisions. 
 
-% - all the metatheorems that follow yield hardness results under the assumption that certain game
-% - elements are present in a given game.
+The game engine was developed on Ubuntu Linux 15.04 on a HP laptop with an AMD
+A8 processor and GRAPHICS CARD. It was compiled using LLVM/Clang (clang++).
+There is no appreciable difference when using the GNU Compiler Collection
+(gcc).\footnote{It is trivial to utilise another compiler, such as g++.
+Instructions to switch the makefile to gcc rather than clang++ are contained in
+the wiki as well as the comments within the project's makefile.}
 
 
+\subsection{Development language}
+
+The game was developed in C++ using the C++11 standard. The C++ language was
+selected because the DPLL-based SAT solvers considered for the project in
+Section FIXTHIS are all written in C or C++ for efficiency reasons
+\cite{zhang2002quest}.It is therefore a reasonable decision to utilise the same
+programming language as that used in the source code for SAT solvers. This
+ensures that the  SAT solver's code base can be more easily be adapted into the
+game engine without the need to develop an application program interface (API)
+or wrapper, which would have detracted from the allotted time developing the
+game engine.
+
+Furthermore, an overwhelming number of video games have been and are written in
+the C/C++ languages for not only historical reasons but also due to performance
+optimisation and the abundance of APIs \cite{Gregory:2009}.
+
+\subsubsection{Code style}
+
+One of the project outcomes to provide an extensible game engine for educational
+outreach. Therefore, the development of the project included the adoption of a
+coding style with the intention to provide contributors a stylistic standard,
+which would increase code readability and uniformity. To this end, the coding
+style used for the development was the Google C++ style guide \cite{googlecpp}.
+This particular style guide was chosen because it is widely available and
+provides in-depth documentation.
+
+\subsection{Multimedia library}
+
+The project requires a multimedia library in order to provide graphical output
+and player input. For this purpose, there are a number of suitable multimedia
+libraries which can provide graphics/sound management and user input. The
+primary criteria in selection was based on (i) ease of use, (ii) in-depth
+documentation, and (iii) rapid integration with the rest of the game engine.
+
+The candidate libraries identified for the project were:
+\begin{itemize}
+\item Simple and Fast Media Library (SFML);
+\item Simple DirectMedia Layer (SDL); and 
+\item Allegro.
+\end{itemize}
+These libraries were identified during the project as being among the most
+common choices for C++ video game development.
+
+The decision to use SFML was based on the use of C++. SFML distinguishes itself
+from the other two libraires in that it is primarily written for C++ and thereby
+uses its multimedia library in manner consistent with object-orientated
+programming. Another strong choice was SDL. However, SDL lacks the support for
+object-orientation that SFML provides. 
+
+\subsubsection{Use of existing games}
+
+Given that there exists an extraordinary amount of 2D platformer game source
+code openly available, one possible approach considered for this project was to
+utilise an existing code base as a foundation and develop modules for the level-
+generation and player movement solution. Conceptually, this would reduce
+development time spent on more basic elements of a game engine, allowing the
+focus to remain on integration of SAT instance solving and level generation.
+
+Potential candidate source code had been identified, which included the
+\textit{Secret Maryo Chronicles} \cite{supermaryo}, an open-source clone of
+\textit{Super Mario Bros} and \textit{Nikki and the Robots} is an open-source 2D
+platform game, with content generation written in Haskell \cite{nikki}. Each
+candidate was given a survey of the source-code and assessed for feasibility.
+
+Ultimately, the decision had been made to develop a bespoke game engine as the
+project goals are quite specific and require far less code that provided by the
+candidate code bases. Furthermore, the time saved developing the code is re-
+allocated to learning the existing code base. As previously mentioned, one of
+the project's outcomes is to provide a specific learning tool that can be
+extended for the purposes of understanding computational complexity.
+
+\subsection{Mapping the game engine to \textit{Super Mario Bros}}
+
+The game engine models the level on the framework provided by Aloupis, using the
+\textit{Super Mario Bros} (1985) game elements.\footnote{ The \textit{Super Mario
+Bros} name and franchise is a registered trademark of Nintendo Corporation
+Ltd. The graphics and names are reproduced in this paper under the `fair
+dealing' as it pertains to the private research and study.} In the game, the
+player is Mario, a plumber who traverses the game world in order to save the
+Princess. The player completes levels by overcoming obstacles through jumping
+onto different platforms whilst avoiding damage from enemies and hazards.
+
+Within a level, Mario can receive power-ups which can provide the player with
+the ability to increase in size and smash certain types of blocks (Super
+Mushroom), shoot a projectile (Super Flower), or be rendered invincible for a
+short period of time (Super Star).
+
+% \subsubsection{Motivation to model the game engine on \textit{Super Mario Bros}}
+
+For this project the \textit{Super Mario Bros} game was selected because of the
+game's popularity, making the medium relatable to a wider audience. Even if the
+game is not known by the viewer, the concepts are simple and easy to understand.
+Furthermore, the previous literature on the computational complexity of video
+games included \textit{Super Mario Bros} which gives the theoretical
+underpinnings and validity to the game engine as well as opportunity to test an
+implemetation of the proof.
+
+\subsection{SAT solver integration}
+
+The game engine relies on the successful integration of a SAT solver.\footnote{
+See Chapter 3 for a fuller discussion on SAT solvers and general functionality.}
+The SAT solver's role is to read in the formula, determine its satisfiability,
+and, where satisfiable, provide the solution. This aspect of the game engine is
+essential to the success of the research goals.
+
+\subsubsection{Selection criteria}
+
+The selection criteria for the SAT solver centred on (i) ease of integration
+(ii) ability to manipulate the existing code in order to retrieve the relevant
+information for the level generation and the player AI. In order to meet these
+criteria, a small review of existing SAT solvers was carried out. This task
+included identification of sufficient literature and documentation and
+examination of SAT solver source code. The review of solvers identified three
+potential SAT solvers:
+
+\begin{itemize}
+\item zChaff \cite{fu2004zchaff, moskewicz2001chaff};
+\item Minisat \cite{sorensson2005minisat};
+\item SATO \cite{zhang1997sato};
+\end{itemize}
+
+Each one of the above listed has been successfully integrated into other
+projects and had sufficient literature and documentation provided. The processes
+ended with zChaff being selected as it had well-managed documentation as well as
+a pre-defined library of functions in order to export to an existing project.
+This was not true for the other two solvers, which would have required futher
+development time to spent on creating a wrapper to access the solvers' function.
+
+\subsubsection{The \texttt{ZChaffManager} class}
+
+The \texttt{ZChaffManager} class is the interface between the game engine and
+the zChaff library. The class is comprised of a suite of member functions which
+read in the DIMACS file, extract the variables and clauses, as well as provide a
+satisfying assignment, if one exists. 
+
+Where other classes require this information, the \texttt{ZChaffManager} is able
+to export a more condensed \texttt{VariableManager} class which is a flexible,
+light- weight means by which to access and manipulate the above information. The
+\texttt{VariableManager} class plays a significant role in level generation
+(Chapter X) and player AI (Chapter Y) and each class has different requirements.
 
 
+\section{Overview of modules}
 
-% Meta theorem 3: Any 2D platform game that exhibits the features long fall and opening doors is NP-
-% hard.  We will show how to reduce 3-CNF-SAT to such a game. The main idea of the proof is that the
-% door opening mechanism can be used for a non-local transfer of information. Given an instance of 2
-% -CNF-SAT, we can construct an instance of the game as follows: The instance will be divided into two
-% parts: the key part, where the character starts, and the door part it reaches after exiting the key
-% part. The door part will be a vertical concatenation of door gadgets (fig 1 left), each
-% corresponding to a single clause in the 3-CNF-SAT instance. FORMULA pg. 3
+The game engine design integrates several modules with specific functionality in
+order to transform the arbitrary SAT instance into a playable, solveable video
+game level. This section provides an outline of the game engine and its
+functionality. Understanding these components will provide the context to
+investigate the level generation and player AI modules.
 
+There are several fundamental components to the game engine. These include the
+SAT solver, the Level Generator, and the Player AI. These are supplemented by
+other components responsible for lower level functions such as graphics
+management, sprite definitions, and game states which are incorporated in the
+general `Game Engine'. The interconnectivity between these higher level and
+lower level components is shown in Figure~\ref{modules}.
 
+\begin{figure}[ht!]
 
+  \centering
+    \includegraphics[scale=0.40]{modules2}
+  \caption{Diagram demonstrating how the game engine modules integrate with one another to generate the level instance and provide the mechanism to provide a graphical solution.}
+  \label{modules}
+\end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The modules are designed to be as de-coupled and independent as possible, so as
+to allow for greater independent development and more effective debugging.
 
-
-
-
-%%%%%%%
-% The player starts in the “start” gadget, which allows one to set up initial state requirements. For
-% instance, in Super Mario Brothers, the start provides you with a mushroom, and you cannot get to the
-% finish without being able to break blocks by jumping under them, which requires the mushroom power-
-% up. Each “variable” gadget requires the player to make a variable assignment in such a way that the
-% player can never return to that gadget to make a different decision. Then each “clause” gadget can
-% be “unlocked” in some way, and each clause gadget can only be visited by the player once the player
-% has chosen a satisfying variable assignment for that clause. Once the player has visited all
-% variable gadgets, he goes to the “check in” area, and can travel back through all of the clauses to
-% the finish if and only if he unlocked every clause. The crossover of the paths in the picture above
-% requires another gadget to ensure that the player cannot switch paths (the details of this are in
-% the paper).
-
-% Note that if the player can only enter through one of the three columns at the top, then the only
-% thing he can do is kick a red koopa shell down so that it breaks the blocks, unlocking the way for
-% Mario to pass underneath at the end. Note that Mario cannot win if he falls from the top ledge
-% (since must always remain large, he can’t fit through a one-tile-high entryway). Further details
-% include the hole at the bottom, in which any stray koopa shell will necessarily fall, but which
-% Mario can easily jump over. We recommend reading the entire paper, because it goes into all of the
-% necessary details of the construction of the gadgets for all of the games.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The Game State Manager class has a private
+% member called \texttt{SAT\textunderscore Manager\textunderscore} which
+% integrates the zchaff SAT solver into the game engine.
 
 
+% \subsection{Reading in the CNF file}
+
+% \subsection{Accessing variables and clauses}
+
+% \section{Project wiki and references}
+
+% A project wiki has acted as a journal and reference guide for the game engine's
+% development. The rationale behind keeping this documentation was to allow for
+% future development work to be carried out on the game engine.
+
+% \section{Unit testing}
+
+% The game engine source code also includes a testing framework for the various
+% modules. In this project, googletest, Google's C++ Testing Framework was used.
 
 
+\section{Game engine mechanics}
 
 
-%%%%%
+\subsection{Game loop and updating the game}
 
-% General framework for proving the NP-hardness of platform games. The framework reduces from the
-% classic NP-complete problem 3-SAT\@: decide whether a 3-CNF Boolean formula can be made TRUE by
-% setting the variables appropriately. The player's character starts at the position labelled Start,
-% then proceeds to the Variable gadgets. Each Variable gadget forces the player to make an exclusive
-% choice of TRUE (\textit{x}) or FALSE (\( \neg \)\textit{x}) value for a variable in the formula.
+A \textit{game loop} provides the basic structure to implement a graphical game
+as it provides the ability to update the sub-systems of the game and render
+those changes to the screen \cite{Gregory:2009, Haller:2013:SGD:2556030}. The
+loop is updated with a change of time since the last event (signified as the
+variable \texttt{delta\textunderscore time}). As the game engine will
+incorporate player AI, which will force the player sprite to solve the level, it
+is necessary that the movement and rate of change is uniform.
 
+This uniformity of change is achieved by creating a fixed
+\texttt{delta\textunderscore time} value through creating fixed time steps.
+Variable time steps would be more appropriate in game loops that have a wider
+diversity of game object's updating \cite{Gregory:2009}.
 
-% Either choice enables the player to follow paths leading to Clause gadgets, corresponding to the
-% clauses containing that literal (\textit{x} or \( \neg \)\textit{x}). These paths may cross each
-% other, but Crossover gadgets prevent the player from switching between crossing paths.
-
-
-% By visiting a Clause gadget, the player can 'unlock' the clause (a permanent state change), but
-% cannot reach any of the other paths connecting to the Clause gadget. Finally, after traversing
-% through all the Variable gadgets, the player must traverse a long 'check' path, which passes through
-% each Clause gadget, to reach the Finish position. The player can get through the check path if and
-% only if each clause has been unlocked by some literal. Therefore, it suffices to implement Start,
-% Variable, Clause, Finish and Crossover gadgets to prove NP-Hardness of each platform game
-
-% he specific properties our gadgets must satisfy are the following: Start and Finish: The Start and
-% Finish gadgets contain the starting point and goal for the character, respectively. In most of our
-% reductions, these gadgets are trivial, but in some cases we need the player to be in a certain state
-% throughout the construction, which we can force by making the Finish accessible only if the player
-% is in the desired state and the desired state may be entered at the Start. In SMB, we need Mario to
-% be big throughout the stage so we put a Mushroom at the start and a brick at the Finish which can
-% broken through only if Mario is big Variable Each variable gadget must force the player to choose
-% one of two paths, corresponding to the variable x-i or its negation not x-i being chosen as the
-% satisfied literal, such that once a path is taken, the other path can never be traversed. Each
-% Variable gadget must be accessible from and only from the previous Variable gadget, independent of
-% the choice made in the previous gadget, in such a way that entering from one literal does not allow
-% traversal back into the negation of the literal.  Clause and Check Each Clause gadget must be
-% accessible from (and initially, only from) the literal paths corresponding to the literals appearing
-% in the clause in the original Boolean formula. In addition, when the player visits a Clause gadget
-% in this way, they may perform some action that 'unlocks' this gadget. The Check path traverses every
-% Clause gadget in sequence, and the player may pass through each Clause gadget via the Check path if
-% and only if the Clause gadget is unlocked. Thus, the Check path can be fully traversed only if all
-% the Variable gadgets have been visited from the literal paths. If the player traverses the entire
-% Check path, they may access the Finish gadget.  Crossover  The Crossover gadget must allow traversal
-% via two passages that cross each other, in such a way that there is no leakage between the two.
-% Crossover gadget only need to be unidirectional, in the sense that each of the two crossing paths
-% needs to be traversed in only one direction. This is sufficient because, for each path visiting a
-% clause from a literal, instead of backtracking to the literal after visiting the clause, we can
-% reroute directly to visit the next clause , so that the player is never required to traverse a
-% literal path in both directions.  It is safe to further assume in a Crossover gadget that each of
-% the two crossing paths is traversed at most once, and that one path is never traversed before the
-% other path (i.e. if both paths are traversed, the order of traversal is fixed). This is sufficient
-% because two literal paths either are the two sides of the same Variable (and hence only one gets
-% traversed), or they come from different Variables, in which case the one from the earlier Variable
-% in the sequence is guaranteed to be traversed before the other (if it gets traversed at all). Thus
-% it is safe to have a Crossover gadget, featuring two crossing paths A and B, which after traversing
-% path B allows leakage from A to B. (However, leakage from B to A must still be prevented.)
-
-% Theorem 3.1 – It is NP-hard to decide whether the goal is reachable from the start of a stage in
-% generalised SMB
-
-% Proof -    When generalising the original SMB, we assume that the screen size covers the entire
-% level, because the game forbids Mario from going left of the screen. This generalisation is not
-% needed in later games, because those games allow Mario to go left.
-
-% We use the general framework provided in Sec 2 – so only have to implement gadgets. The start and
-% finish gadgets are straightforward. The start gadget, Fig 8, includes an item block containing a
-% super mushroom which makes Mario into super Mario. The super mushroom serves two purposes: (1) Super
-% M is two tiles tall, which prevents him from fitting into narrow horizontal corridors, a property
-% essential to our other gadgets. Second, Super M is able to destroy bricks where normal M cannot. In
-% order to force the player to take the Mushroom in the beginning, we block M's path with bricks in
-% the Finish gadget.
-
-% Next we implement the Variable gadget, illustrated in 10. There are two entrances, one from each
-% literal of the previous variable (if the variable is x-i, the two entrances come from xi – 1 and
-% not xi – 1). Once Mario falls down, he cannot jump back onto the ledges at the top, so Mario cannot
-% go back to a previous variable. In particular Mario cannot go back to the negation of the literal he
-% chose. To choose which value to assign to the variable, Mario may fall down either the left passage
-% or the right.
-
-% Clause gadget – fig 11
-
-% The three entrances at the bottom correspond to the three literals that are in the clause. When the
-% Clause is visited, Mario hits the item block, which releases a Star into the area above. The Star
-% will bounce around that area until Mario comes through the Check path to pick it up, allowing him to
-% traverse through the Firebars safely. Without a Star, Mario cannot get through the Firebars without
-% getting hurt. Note that, despite the fact that a Star's invulnerability effects on Mario just last a
-% few seconds, the Star itself never vanishes until collected.
+The sprite and map classes are designed as tree structures that can be extended
+to have child nodes pertaining to their particular class. This design, adapted
+from \cite{Haller:2013:SGD:2556030}, allows for the game to be extended to
+incorporate more features. The SceneNode class is extended into game entities
+and objects. The inheritance allows for specialising certain class types while
+retaining the core functionality and integrity of fixed time step in the game
+engine design. These nodes are initialised and added upon the level
+generation. This is explained in further detail in Chapter LEVEL GENERATION.
 
 
+\subsection{Game states}
+
+The game engine operates on game states. These states are kept by the
+\texttt{game\textunderscore state\textunderscore manager} class in a private
+\texttt{state\textunderscore stack\textunderscore}. Upon intialisation of the
+game engine, the GSM registers and populates the stack. The game engine has distinct states:
+
+\begin{itemize}
+\item menu staet
+\item instance selection
+\item game state
+\item pause state
+\end{itemize}
+
+In order to change the state, the current state requests to be `popped' (i.e.
+removed) from the stack and `push' (i.e. add) the next desired state.
+
+\subsubsection{Changing states}
+
+The game engine states with the menu state. The menu state contains a select
+instance option, a input option and an exit option. The first option takes the
+user to a screen that has four arbitrary instances to demonstrate the game
+engine's capabilities. The first is a single variable, the second is two
+variables in two clauses. The third is a 3SAT instance and the 4th instance is
+ten variables in ten clauses.
+
+The pause state can be activated during the game \textunderscore state as well
+as resume the game state.
+
+\subsection{Managing input}
+
+The input to the game is managed by the \texttt{player\textunderscore manager}
+class. The input relies on assigning directional movement to the \texttt{mario}
+sprite class. The \texttt{player\textunderscore manager} has a private
+associative map, \texttt{action\textunderscore binding} which has
+predefined movement values. This is made extensible for human input by being
+able to be assigned to the keyboard via the \texttt{key\textunderscore
+binding} member of the class.
+
+The \texttt{player\textunderscore manager} pushes these action bindings into the
+\texttt{comamand\textunderscore queue} object which is then 
+
+This percise mechanism of selecting the appropriate path is detailed in Chapter
+X, TITLE.
+
+\subsection{Displaying to screen}
+
+The \texttt{level} class contains the mario node, the mapnode and could be
+extended to have a world object node.  Scene nodes are tree structures that draw
+and interact.
+
+The node receives a delta\textunderscore time variable which is the change in
+time from the last update.
+
+This is given to the scene node and any objects that have updated will. 
+
+SFML provides for vertical synchronisation, which sets the call rate to the
+display function in the library to be that of the monitors refresh rate. In this
+way, the display of artefacts such as `screen-tearing', wherein the display
+shows the information of two frames at the same time
+\cite{Haller:2013:SGD:2556030}.
+
+\subsection{Miscellaneous functionality}
+
+\subsubsection{Mini-map}
+
+The game engine display also includes a miniature map that contains the whole
+level. This allows the viewer to see the scale of the level without
+
+\subsubsection{Zoom}
+
+\subsubsection{User input}
+
+This is further detailed in the Evaluation chapter.
+
+% \subsection{Player movement}
+
+% \section{Drawing the tile}
+
+% The levels are drawn using a tile-based method. There are a number of methods
+% that could be used
+
+\section{Chapter summary}
+
+The game engine's design considerations and specifications have been grounded in
+the concepts of re-usability and extensibility of the produced code in mind. The
+core of the engine provides the necessary mechanisms for being able to generate
+levels and display the solution, which will be covered in the next chapters..
 
 
-
-%---------------------------------------------------------------------------------------------------
-% CHP 4 --- LEVEL GENERATION
-%---------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+% LEVEL GENERATION
+%-------------------------------------------------------------------------------
 
 \chapter{Level generation}
->>>>>>> collision
-
 
 \epigraph{``Human beings are never more ingenious than in the invention of
 games.''}{Gottfried Wilhelm Leibniz}
 
+\section{Overview and specification}
+
+One of the core featues of the game engine and stated research project goals is
+to be able to generate game levels based on an arbitrary SAT instance. As
+mentioned in the previous chapter, within the research project's game engine, a
+`level' is a problem instance for the SAT solver to assess if there is a
+satisfying assignment \cite{Aloupis2012} .
 
 \section{The fundamentals of content generation}
 
-One of the stated research project goals is to be able to generate large problem
-instances within the game engine. As mentioned in the previous chapter, within
-the research project's game engine, a `level' is a problem instance for the SAT
-solver to assess if there is a satisfying assignment \cite{Aloupis2012} .
+In order to be able to generate game elements, the project utilises
+\textit{procedural content generation} (PCG), which refers to automating the
+creation of content for a game through the use of an algorithm
+\cite{Hendrikx:2013:PCG:2422956.2422957, 5756645}. In this context, \textit{game
+content} refers to all game elements, including the translated SAT gadgets,
+excluding the player's own actions and the game engine \cite{Burgun:2012}. In
+the game engine, this means
 
-Procedural content generation (PCG), refers to automating the creation of
-content for a game through the use of an algorithm
-\cite{Hendrikx:2013:PCG:2422956.2422957, 5756645}. \textit{Game content} refers
-to all game elements excluding the player's own actions and the game engine
-\cite{Burgun:2012}. This can, and often does, include the layout of a level. As
-will be discussed in the sections below, there sizeable research interest in
-this field with many wide ranging impacts.
+\begin{itemize}
+\item level layout
+\item generation of interactable objects
+\end{itemize}
 
-\subsection{Overview}
+\subsection{Fundamentals of procedural content generation}
 
 Content generation in video games combines a broad range of dynamic subject
 areas including graphics, image processing, mathematics, artificial
@@ -1089,34 +1345,19 @@ consumption. The content. This has been used to tremendous effect in \textit{.kk
 first-person shooter game, whose executable was a mere 95 KiB
 \cite{Hendrikx:2013:PCG:2422956.2422957}.
 
-% The commerically successful \textit{Minecraft} makes
-% use of PCG to generate optional content and world maps. In \textit{No Man's Sky} (2015) players are
-% able to explore many galaxies.
+For the purposes of the project, PCG allows for the ability to modify the level
+instance, complete with the requisite gadgets, based on an arbitrary instance of
+a SAT problem. This would remove the need to explicitly specify the game content
+and could rely on algorithmic generation based on defined rules and limitations.
 
-% Another reason for using PCG is the. Ex. Use
-% of SpeedTree to produce vegetation.
+\section{Taxonomy of game elements and SAT instance gadgets}
 
-% Third reason for PCG is that it might allow for the emergence of new types of games which game
-% mechanics  built around content generation. It might be possible to create truly endless games or
-% games with infinite replay value (if the game can be created based on player playing style).
-
-
-% Content generation has long been a feature of video games. Developers have often been hampered by
-% memory capacity and this in turn has limited the amount of content that may be provided. Early games
-% such as
-
-
-% level maps to be hard-coded and designed by hand. With the advent of larger, more expansive worlds
-% and video game experiences, there
-
-\section{Taxonomy of game elements}
-
-The literature in this area has its own particular definitions, which will be
-identified below and briefly discussed below.
+This section provides an overview of broad definitions which will be used to
+characterise the game engine's level generation mechanism.
 
 \subsubsection{Online vs offline generation}
 
-There is a distinction between. \textit{Online content generation} occurs during
+There is a distinction between \textit{Online content generation} occurs during
 a video game's runtime. This is in contrast to \textit{offline content
 generation} which is performed during the development of the game. The
 requirements for effective online content generation are (i) that generation is
@@ -1134,18 +1375,24 @@ manner. For example, a level must not be unsolvable nor should the game have an
 undefeatable enemy, if such things prevent essential gameplay or render the game
 impossible to complete.
 
+\subsection{Requirements for Game Engine Level generation}
+
+The project's game engine requires online content generation of necessary game
+content. The elements need to be generated and are necessary for the successful
+run of the game.
+
 \subsection{Challenges in PCG}
 
 Content generators can automatically create a large amount of differing levels
-in a short amount of time but this is not indicative of the \textit{quality} of
-the generated content \cite{Smith:2009:RLG:1536513.1536548}. Much of the
-literature surveyed has identified a lack of reliability and consistency in
-quality as a main challenge area and barrier to wider adoption of PCG in
-commercial game offerings. Zafar and Mujtaba \cite{6424299} assert that the
-majority of PCG techniques are characterised by \textit{catastrophic failures}
+in a short amount of time but this is not a guarantee of the \textit{quality} of
+the generated content \cite{Smith:2009:RLG:1536513.1536548}. Existing literature
+regarding PCG identifies a lack of reliability and consistency in quality as a
+main challenge area and barrier to wider adoption of PCG in commercial game
+offerings. Zafar and Mujtaba \cite{6424299} assert that the majority of PCG
+techniques are characterised by what they term \textit{catastrophic failures},
 which make them unsuitable for wider commercial deployment. These failures
 affect the reliability and accuracy of the game. The work identifies the
-following as failures in 2D platformers:
+following as specific failures in 2D platform games:
 
 \begin{itemize}
 
@@ -1157,6 +1404,13 @@ following as failures in 2D platformers:
 
 \end{itemize}
 
+\noindent The presence of these failures in the game engine would result in a
+lack of communicability and visualisation of computational complexity. It is
+therefore imperative that these failures be specifically guarded against and
+tested for.
+
+\subsubsection{Protecting against failure}
+
 The generation algorithms may be tested through the use of \textit{fitness
 functions}, which are objectively evaluates how closely a proposed solution
 achieves a particular design aim. There is a question about which fitness
@@ -1165,28 +1419,27 @@ level. For example, Togelius \textit{et al}. \cite{togelius2007towards}
 developed personalised fitness functions that would automatically generate
 different racetracks based on the player's actions and skill.
 
-
 \section{Content generation methodologies}
 
-There are several approaches available for content generation which will be
-considered for the design implementation of the research project. Three
+A number of approaches exist for content generation, of which X of the more
+relevant were considered for level generation module of the game engine. Three
 differing approaches will be surveyed and compared and evaluated for suitability
 for use in the research project (see Figure~\ref{level}).
 
-The first approach is a constructive approach wherein an algorithm generates
-content based around a series operations that ensure that content is produced
-according to the definitions of rules. In this way, the content generated is
-`correct' insofar as adherence to the specified rules
+The simplest methodology is the constructive approach, wherein an algorithm
+generates content based around a series operations that ensure that content is
+produced according to the definitions of rules. In this way, the content
+generated is `correct' insofar as adherence to the specified rules
 \cite{browne2008automatic}. The algorithm does not test that the content has in
 fact adhered to the rules however. While this method is restrictive, it has been
-used to generate in-game content such as terrain
+used to generate less vital game content such as terrain
 \cite{Miller:1986:DRT:15886.15890}.
 
-Another approach is `generate-and-test'. As suggested by the name, there are two
-parts to this algorithm: After the content is generated, it is then tested
-against constraints and assessed for compliance \cite{5756645}. Content that
-does not pass assertion against these criteria is discarded and is regenerated
-until it passes \cite{5756645}.
+The other approach considered is `generate-and-test' approach. As suggested by
+the name, there are two parts to this algorithm: After the content is generated,
+it is then tested against constraints and assessed for compliance
+\cite{5756645}. Content that does not pass assertion against these criteria is
+discarded and is regenerated until it passes \cite{5756645}.
 
 Search based generation is a specialised type of generate-and-test procedure.
 Rather than merely accept or reject the generated content, the candidate content
@@ -1231,32 +1484,33 @@ models in order to dynamically adjust difficulty, resulting in more adaptive
 levels.
 
 
-To ensure efficient level generation, both Compton and Mateas
-\cite{compton2006procedural} and Smith \textit{et al}.
-\cite{Smith:2009:RLG:1536513.1536548} generate levels for 2D platform games by
-first splitting the levels into smaller sections. From a platform tileset, those
-smaller sections could be generated. This is the concept of `rhythm'-based
-generation: the pattern is derived from how the game is to be played. This
-allows for a range of the types of generated levels as well as maintaining the
-pacing of the game \cite{Smith:2009:RLG:1536513.1536548}. The
-Figure~\ref{level2} below illustrates the process.
+% To ensure efficient level generation, both Compton and Mateas
+% \cite{compton2006procedural} and Smith \textit{et al}.
+% \cite{Smith:2009:RLG:1536513.1536548} generate levels for 2D platform games by
+% first splitting the levels into smaller sections. From a platform tileset, those
+% smaller sections could be generated. This is the concept of `rhythm'-based
+% generation: the pattern is derived from how the game is to be played. This
+% allows for a range of the types of generated levels as well as maintaining the
+% pacing of the game \cite{Smith:2009:RLG:1536513.1536548}. The
+% Figure~\ref{level2} below illustrates the process.
 
-\begin{figure}[h!]
+% \begin{figure}[h!]
 
-  \centering     \includegraphics[scale=0.35]{lvlgen}      \caption{Level generation algorithm from
-\cite{Smith:2009:RLG:1536513.1536548}. The authors describe the green items as the generated content
-and blue boxes as constraints in order to ensure quality generation that adheres to specified
-criteria.}  \label{level2} \end{figure}
+%   \centering     \includegraphics[scale=0.35]{lvlgen}      \caption{Level
+% generation algorithm from \cite{Smith:2009:RLG:1536513.1536548}. The authors
+% describe the green items as the generated content and blue boxes as constraints
+% in order to ensure quality generation that adheres to specified criteria.}
+% \label{level2} \end{figure}
 
-In a somewhat different fashion, the research from Jennings-Teats \textit{et
-al}. \cite{jennings2010polymorph} and Shaker \textit{et al}.
-\cite{shaker2010towards} demonstrate that a player's actions can be used for
-online generation of platform levels. This would entail that the game would
-model itself on the user's own style of playing. This is a more focused
-application of the approach used in Dormans' implementation
-\cite{dormans2010adventures}, which uses a pre-defined grammar to generate the
-mission structure. This is then implemented into the 2D-level using another
-grammar to translate this structure.
+% In a somewhat different fashion, the research from Jennings-Teats \textit{et
+% al}. \cite{jennings2010polymorph} and Shaker \textit{et al}.
+% \cite{shaker2010towards} demonstrate that a player's actions can be used for
+% online generation of platform levels. This would entail that the game would
+% model itself on the user's own style of playing. This is a more focused
+% application of the approach used in Dormans' implementation
+% \cite{dormans2010adventures}, which uses a pre-defined grammar to generate the
+% mission structure. This is then implemented into the 2D-level using another
+% grammar to translate this structure.
 
 In a survey on the the evolution of game designs, Togelius and Schmidhuber
 \cite{5035629} posit that `fun' in a game is derived from learning how to play
@@ -1265,307 +1519,52 @@ and ultimately mastering the mechanics. While this may be true to an extent
 an algorithm for generation is limited insofar as the design matches human
 experience \cite{sorenson2011generic}.
 
-% Sorenson \textit{et al.} \@\cite{sorenson2011generic} proposed that content generation should  levels
-% that is founded on an explicit model of the relationship between challenge and fun. The author
-% wanted to increase the fun level of player and the challenges should not bore the human. Therefore
-% he modelled a fitness function and levels were designed for \textit{Super Mario Bros} with high
-% accuracy. The technique insures that human will generate certain portion by hand and then the model
-% used will evaluate the content generated – this evaluation is similar to the evaluation of automatic
-% content. The levels will be a mixture of straightforward and difficult portion like the rhythm-group
-% structure of high and low nodes, giving games more interesting levels.
 
-Mourato \textit{et al.} \cite{mourato2011automatic} proposed using a genetic
-algorithm in order to generate game content for human-players. A genetic
-algorithm is a search heuristic that generates approximations through selection
-and mutation \cite{srinivas1994genetic}. The authors achieved modest but
-positive results including increased level variety and ability to add necessary
-and optional content correctly. This method is not entirely suitable for the
-current research project as the authors' goals has been to
 
-Smith \textit{et al.} \@\cite{smith2011tanagra} presented a design tool
-(TANAGRA) that merged the input from the game designer and the PCG algorithm to
-produce levels for a 2D platform game. The technique allowed the designer to
-establishes rules and constraints to specify specific content, but allows the
-algorithm to decide that which is unspecified. The authors content that this
-provides for more diversity in level design as well as enhanced entertainment
-value.
-
-A rhythm-based technique is common approach to automatic level generation.
-Mawhorter and Mateas \cite{mawhorter2010procedural} devised the `occupancy
-regulated extension' algorithm which stitches together samples (referred to
-`chunks') authored by human developers into a playable level. This method
-described here could be combined with. This is further elaborated upon in the
-next chapter on design considerations.
-
-\section{Chapter summary}
-
-Level generation is a dynamic, growing area of video games research. There exist
-a number of different methodologies and approaches appropriate for the stated
-goals of the research project. For the purposes of the research project, many of
-these approaches are not necessarily applicable in initial design and
-implementation. Many studies, such as \cite{sorenson2011generic},
-\cite{5035629}, and \cite{smith2011tanagra} focus on creating varied content
-that is focused on player experience. This may not be an immediate priority in
-the research project as the focus is to be able to generate large levels that
-correctly represent SAT expressions.
-
-To this end, the rhythm-based approach
-\cite{compton2006procedural,Smith:2009:RLG:1536513.1536548} and `chunk approach'
-\cite{mawhorter2010procedural} are most pertinent as it would allow various
-gadget clauses to be pre-created and joined together to make larger scale levels
-to be solved. The creation of an efficient algorithm (even a genetic one
-\cite{mourato2011automatic}) represents an area of future research. This will be
-further explored in the next chapter on design considerations.
-
-
-% ------------------------------------------------------------------------------
-% CHP 5 --- DESIGN CONSIDERATIONS
-% ------------------------------------------------------------------------------
-
-% \chapter{Design Considerations}
-
-% \epigraph{``Design is so simple, that's why it is so complicated.''}{Paul Rand}
-
-% \section{Overview}
-
-% The purpose of this penultimate chapter is to highlight the preliminary design
-% considerations and features of the project. The research project being
-% undertaken is 66\% Type I (software/hardware development) and therefore it is
-% important to address how the discussion in the previous sections affects the
-% implementation component. These considerations will form the basis of the
-% initial work plan of the project.
-
-% This chapter will first explain the research project's design goals. The
-% discussion will then explore the features that have been selected from the
-% current research review, highlighting any justifications for design choices.
-% Finally, the chapter will identify the next steps.
-
-% \section{Initial software design}
-
-% \subsection{Design goals}
-
-% Recalling the project aims in Chapter 1, the software being developed will
-% convert a Boolean formula into a playable 2D platform level. As previously
-% mentioned, certain propositional logic formulae are known to be NP-complete.
-% This level can then be solved by a SAT solver. The decisions of the SAT solver
-% will be converted into moves within the game (i.e. the player character will
-% move and address the obstacles). The outcome of this is to allow the
-% visualisation of computational complexity, which may have a teaching impact. For
-% this to work, the generated levels must look and play as familiar levels for
-% students and users of video games.
-
-% The Figure~\ref{project_design} below illustrates the components of the software and how these integrate to achieve the
-% research aims.
-
-
-% \begin{figure}[h!]
-
-%   \centering
-%     \includegraphics[scale=0.3]{diagram(2)}
-%   \caption{Illustrative model for project design. This demonstrates how the modules are grouped and work with the SAT solver to produce the visualisation through a video game medium. Game image adapted from \cite{Aloupis2012}.}
-%   \label{project_design}
-% \end{figure}
-
-% The `game engine' is comprised of several modules, most significant of which are
-% the level generator, the SAT solver interface, and the cluster of models
-% managing the graphics and inputs. Furthermore, the game engine should also allow
-% for a human player to attempt the level.
-
-% \subsection{Level generation}
-
-% Level generation is a vital component of the research project; the software
-% should take an input and convert the SAT instance into which is NP-complete
-% (e.g. 3SAT). As the `game' being created is generic, there may be opportunity to
-% incorporate elements which classify the level as PSPACE . Using the framework
-% provided by Aloupis \textit{et al}. \cite{Aloupis2012}, the computationally hard
-% level may be created through deterministic procedural content generation,
-% utilising either the `chunk-based' approach proposed by Mawhorter and Mateas
-% \cite{mawhorter2010procedural} or the `rhythm'-based approach of Compton and
-% Mateas \cite{compton2006procedural} and Smith \textit{et al}.
-% \cite{Smith:2009:RLG:1536513.1536548}. This allows for the gadgets to be pre-
-% defined and ensures level-generation of a consistent quality. The constraints
-% and rules should be quality controlled through the generate- and- test
-% methodology.
-
-% \subsubsection{Generating large levels}
-
-% The aim of the research project is to also have large levels that scale to the
-% size of the input formula. There are efficiency and quality trade-offs with
-% heuristics, such as the genetic algorithm \cite{mourato2011automatic}. This will
-% be examined during the implementation of the project and tested for performance
-% and efficiency.
-
-% \subsection{Graphical representation}
-
-% One aim of the research project is to generate large scale levels. These levels
-% would be many magnitude larger than what an average platformer would contain.
-% Therefore, a view adjustment module (or `zooming' module) would be necessary to
-% address this in order to help with the visualisation process.
-
-
-% \subsection{Interfacing with the SAT solver}
-
-% The game engine will have to interface with the chosen SAT solver in order to
-% interpret its decisions as player character movements. The concept is to be able
-% to visualise how decision- branching operates. The decision trail would be
-% colour coded so that a user could see how the solver operated and the steps that
-% had been taken.There is scope to allow for multiple SAT solvers to attempt the
-% same SAT instance (as depicted in the Figure~\ref{model_project} below). The
-% feasibility will be assessed during the development of the software.
-
-% \begin{figure}[h!]
-
-%   \centering
-%     \includegraphics[scale=0.3]{running}
-%   \caption{A mock-up of two sat-solvers (represented by the two player characters
-% ) simultaneously solving the same level. Image adapted from \cite{Aloupis2012}.}
-%   \label{model_project}
-% \end{figure}
-
-
-% \subsection{Human playability}
-
-% There is scope for the software to incorporate an option for playability by
-% human users. This would allow for future research in whether the game engine
-% produced from this research project could be useful as a teaching tool. This
-% question and its implications would be the subject of future work beyond the
-% scope of the project. The goal however is to create a tool for such
-% investigation and therefore this feature will be included in the initial model
-% of the project.
-
-
-% \section{Use of existing projects}
-
-% There are existing open-source 2D platform games available. While the design
-% concept is to create a bespoke software engine that would be able to meet the
-% research aims, these games can be utilised as references and models for
-% implementing features for the game engine during the development of the research
-% project. The two most relevant are listed and considered below.
-
-% \subsection{\textit{Secret Maryo Chronicles}}
-
-% The \textit{Secret Maryo Chronicles} project is an open-source game that models
-% itself very closely on the Super Mario Bros franchise \cite{supermaryo}. While,
-% there is no longer any active development, the game may act as a reference for
-% generating a game engine.
-
-% \subsection{\textit{Nikki and the Robots}}
-
-% \textit{Nikki and the Robots} is an open-source 2D platform game written in
-% Haskell \cite{nikki}. The game utilises a level generation function that would
-% be of performance interest to the research project. However, as the code is in
-% Haskell, this represents a steep learning curve if one is not familiar with the
-% language. This is addressed in more detail in the below section.
-
-
-% \section{Programming language considerations}
-
-% As the research involves a sizeable portion of implementation, it is important
-% to include.
-
-% A very significant portion of video games have been and are written in the C/C++
-% languages for not only historical reasons but also due to performance
-% optimisation and a rich number of application program interfaces (APIs)
-% \cite{Gregory:2009}. For the purposes of the research project, the language most
-% likely to be used is C++ for the reasons already expressed. Furthermore, as all
-% of the listed DPLL-based SAT solvers in Section are written in C or C++ for
-% efficiency reasons \cite{zhang2002quest}. Therefore, using C++ should allow for
-% easier integration and interoperability.
-
-% \section{Design summary}
-
-% The design incorporates the entirety of the research review's scope, from
-% identifying complexity classes to solving Boolean satisfiability instances and
-% generating visual game levels based on those instances. Once implemented, the
-% game engine will be able to take a SAT instance as an input and generate a level
-% in a deterministic, rhythm or chunk based approach. This may naturally change
-% during the course of the project as development challenges arise.
-
-% ------------------------------------------------------------------------------
-% CHP 6 --- SUMMARY AND CONCLUSIONS
-% ------------------------------------------------------------------------------
-
-% \chapter{Conclusions and future work}
-
-% \epigraph{``What we call the beginning is often the end. And to make an end is
-% to make a beginning. The end is where we start from.''}{TS Eliot}
-
-% \section{Overview}
-
-% The research review has established a broad theoretical basis from which to
-% begin the modelling developing a viable design of the game engine, as
-% illustrated in the previous chapter. As a consequence, the implementation and
-% development of the game engine design will now be able begin its preliminary
-% stages. To this end, the outcome of the research review has been successful and
-% its scope complete.
-
-% This however does not mean that the review of literature has been completed for
-% the entirety of the research project. The current review will continue to be
-% augmented and developed in parallel with the development of the game engine
-% software implementation. Already this review has identified new areas of
-% investigation in order to complete the research aims of the project. This is
-% contained in the future work section below.
-
-% \subsection{Future work}
-
-% \subsubsection{Selection of appropriate SAT features}
-
-% During the implementation, further review and investigation will be conducted
-% into the heuristic selection features of SAT solvers. This will be done in order
-% to select appropriate solvers which can efficiently interface with the software
-% in order to provide for successful visualisation of complexity problems.
-
-% \subsubsection{Ability to run multiple SAT solvers simultaneously}
-
-% An idea that had surfaced was the concept of being able to run two different SAT
-% solvers (e.g. zChaff and MiniSAT) simultaneously during a problem instance. The
-% literature was not clear on the subject and as such requires further
-% investigation and experiment to evaluate whether this could constitute a feature
-% of the game engine.
-
-% \subsubsection{Experiments with level generation}
-
-% A greater investigation will be needed once the content generation techniques
-% are developed and utilised. At this the current stage, it is not possible to
-% know what sort of challenges may arise during implementation, as research has
-% been solely based on heuristic models.
-
-% \subsubsection{Identification of further complexity classes}
-
-% After the successful integration of software features, the literature review
-% will benefit from identifying other possible classes of complexity that could be
-% tested within the developed software.
-
-
-
-% ------------------------------------------------------------------------------
-% Level Design and Generation
-% ------------------------------------------------------------------------------
-
-\chapter{Level Design and Generation}
-
-In the previous chapters, the basis for making a 2D platform game NP-hard was
-established. In this chapter, the focus will be on designing a playable level
-that incorporates those elements.
-
-In previous literature, the level design has focused on the gadgets that
-correspond to 3SAT reductions in order to prove that the game is in fact NP-
-hard. In these models, the actual gameplay is generalised and left-otherwise
-unaddressed.
-
-This provides a challenge when
-
-\section{Designing NP-hard levels}
+% \section{Chapter summary}
+
+% Level generation is a dynamic, growing area of video games research. There exist
+% a number of different methodologies and approaches appropriate for the stated
+% goals of the research project. For the purposes of the research project, many of
+% these approaches are not necessarily applicable in initial design and
+% implementation. Many studies, such as \cite{sorenson2011generic},
+% \cite{5035629}, and \cite{smith2011tanagra} focus on creating varied content
+% that is focused on player experience. This may not be an immediate priority in
+% the research project as the focus is to be able to generate large levels that
+% correctly represent SAT expressions.
+
+% To this end, the rhythm-based approach
+% \cite{compton2006procedural,Smith:2009:RLG:1536513.1536548} and `chunk approach'
+% \cite{mawhorter2010procedural} are most pertinent as it would allow various
+% gadget clauses to be pre-created and joined together to make larger scale levels
+% to be solved. The creation of an efficient algorithm (even a genetic one
+% \cite{mourato2011automatic}) represents an area of future research. This will be
+% further explored in the next chapter on design considerations.
+
+% In the previous chapters, the basis for making a 2D platform game NP-hard was
+% established. In this chapter, the focus will be on designing a playable level
+% that incorporates those elements.
+
+% In previous literature, the level design has focused on the gadgets that
+% correspond to 3SAT reductions in order to prove that the game is in fact NP-
+% hard. In these models, the actual gameplay is generalised and left-otherwise
+% unaddressed.
+
+% This provides a challenge when
+
+\section{Designing NP-complete levels}
 
 % Review Aloupis and Forisek and others
 
+\subsubsection{Implementing the frameworks established in literature}
 
-For the purposes of this project, the size of the levels are $n\times n$ , which
-means that the size is essentially unlimited.
+The level design implemented in the project uses the model in Aloupis \textit{et
+al}. For the purposes of this project, the size of the levels are $n\times n$ ,
+which means that the size is essentially unlimited.
 
 
 
-% \section{Modifying the model in Aloupis \textit{et al}}
+% \section{Modifying the model in 
 
 % The Aloupis et al model
 
@@ -1591,39 +1590,42 @@ means that the size is essentially unlimited.
 
 % \subsection{Modification 3: Preventing cross-over}
 
-Figure ~\ref{full-level}demonstrates how the gadgets may be phsyically linked
+Figure~\ref{full-level} demonstrates how the gadgets may be phsyically linked
 together in a three variable, three clause 3SAT reducation.
 
 \begin{figure}[ht!]
 
   \centering
-    \includegraphics[scale=0.25]{fulllevel-text}
+    \includegraphics[scale=0.26]{basic_level}
   \caption{Representation of physical linking of gadgets.}
   \label{full-level}
 \end{figure}
 
 This will be briefly described below.
 
-The player starts as in Aloupis et al \cite{Aloupis2012} with a start gadget
-that turns `small' Mario (composed of a single 16x16 tile) into Super Mario.
-Super Mario can jump under bricks and break certain types of blocks. Once
-sufficiently progressed to the right, the screen view will bring the first
-variable gadget into focus.
+The player starts as in the framework described by Aloupis \textit{et
+al}\cite{Aloupis2012} with a start gadget. In the current game engine, there is
+no necessity to have an animation that turns `small' Mario (composed of a single 16x16 tile) into Super
+Mario. Super Mario can jump under bricks and break certain types of blocks. 
+
+% Cross over gadgets
 
 The variable gadget relies on the meta-theorem provided by Fori\v{s}ek
 \cite{DBLP:conf/fun/Forisek10} (long fall). In Aloupis et al \cite{Aloupis2012},
 the authors created a cross-over gadget that prevented the player from by-
 passing or accessing areas of the level which impact the reducation to a 3SAT
-instance. The authors are not entirely clear exactly how the gadgets are
-physically linked together. This presentes a number of challenges when scaling a
-level. In Aloupis, the 3SAT instance has three clauses. However, when dealing
-the amount of cross over increases.
+instance. The authors are not clear exactly how the gadgets are physically
+linked together in order to create a complete functioning level. In particular,
+the  This presentes a number of challenges when scaling a level. In Aloupis, the
+3SAT instance has three clauses. However, when dealing the amount of cross-over
+instances increases.
 
-There are a number of issues which arise when scaling a level.
+In order to efficiently
 
 In \textit{Super Mario Bros.}, the player may discover that certain pipes are
 able to be utilised in order to travel to different hidden areas or even other
-levels. This game mechanic provides a useful solution to scalability.
+levels. This game mechanic provides an immediate solution to scalability for the
+purposes of the project's development.
 
 In the project's implementation, after the player picks a variable by falling
 and using the pipe, the player is taken to a clause choosing gadget. Here there
@@ -1681,87 +1683,476 @@ then proceeds to the finish gadget, shown in Figure~\ref{finish}.
   \label{finish}
 \end{figure}
 
+\section{Chapter Summary}
+
+There exist innumerable means of achieving online generation for necessary game
+elements. In this project the approach has been to utilise a generate-and-test
+methodology for the game elements. 7
+
+%-------------------------------------------------------------------------------
+% PLAYER SOLVING
+%-------------------------------------------------------------------------------
+
+\chapter{Player AI}
+
+\epigraph{``It's not hard to make decisions when you know what your values
+are.''}{Roy Disney}
+
+\section{Overview}
+
+Having established the procedural generation of the game level based on the SAT
+instance in the previous chapter, this chapter focuses on the game engine's
+player AI. The player AI directs and controls the player sprite's movement and
+path selection, which corresponds to the solution to a SAT instance.
+
+\section{Identifying the appropriate path}
+
+As descibed in the above section (SOME SECTION) in Chapter (Game Design), the
+movement of the player sprite is controlled and regulated by the player-manager
+class. To briefly summarise, the player-manager class sends a queue of commands
+(via the command-queue object) to the level class, where the movements are
+rendered to the screen. 
+
+\subsection{Receiving SAT instance values}
+
+After the initialisation of the game-state, the level class loads the zchaff
+manager nad the variable manager, solving the arbitrary SAT instance.
+
+If the ENTER button is pressed, these objects are set as values within the
+player-manager, in order for the
+
+The player-class has a var-manager member. 
+
+\subsection{Generating commands}
+
+The player AI relies on \texttt{command} objects which, when executed, move the
+player sprite to the appropriate location and identify to both the level
+instance and the player manager which gadget is being solved and where the
+location is provided. This section provides an indepth look into the mechanics
+of commands and how these are generated within the player-manager.
+
+\subsubsection{Overview of command structures}
+
+A command is a data structure comprised of a \texttt{Location}, an enumeration
+of game gadgets, and an \texttt{Action}. The \texttt{Action} is a type alias for
+a class template for a polymorphic function wrapper for a lambda expression.
+This is provided in the C++11 standard. \texttt{Action} takes a
+\texttt{SceneNode} and \texttt{delta\textunderscore time} as arguments. These
+are downcast in some manner that needs explaining.
+
+SFML BOOK NEEDED
+
+\subsubsection{The available actions}
+
+The actions that are available to the player-manager to move the sprite in the
+appropriate direction are: 
+\begin{itemize} 
+  \item MoveRight 
+  \item MoveLeft 
+  \item Down 
+  \item Jump 
+  \item Wait
+\end{itemize}
+
+As mentioned in the previous chapter, the level instance is generated on a
+$16\times 16$ tile world. The MoveRight and MoveLeft movements move 2.f or 1/8th
+of a tile space per movement. The Down movement represents a fall and consists
+of 16.f (e.g. a whole tile). Similarly, the Jump action displaces the player-
+sprite a whole tile as well. This means that the sprite's jump is exactly twice
+its height. This is in keeping with the meta-theorem of characteristics of 2D
+platform video games that are NP-complete.
+
+\subsubsection{Identifying the correct clause location}
+
+The display of the solution requires that the assigned variable satisfy the
+appropriate clause when it evaluates to true in that clause. The player sprite
+should not warp to those clause gadgets where the variable assignment does not
+render the clause true. In order to achieve this, the player-manager sets the
+appropriate location of each assigned variable prior to providing the requisite
+commands.
+
+Once the solution display has been initiated, the level instance passes a
+pointer to its command-queue member to the player-manager through its public
+\texttt{SetSolutionQueue} member function. Within this function, the player-
+manager initialises its assigned-variables- member, which sets the assignment
+solution and passes this to the 
+\par \noindent \texttt{SetAssignmentLocation} member function.
+Here the player-manager iterates through the clauses and where the current
+variable being assigned matches one in the clause, this is pushed onto the
+location-map.
+
+The location-map is a 2D vector structure. Each row corresponds to the variable.
+Each column in that row contains a value which corresponds to the clause which
+contains that assigned variable.
+
+\subsubsection{Providing the requiste information to each command}
+
+The player-manager class has a number of member functions that have pre-defined
+movement elements to traverse each type of game gadget. The pre-defined elements
+concern length of walk, jumps, falls and waits. These are then added in a 
+for-loop with the necessary information about location, current variable, current
+clause, and whether there is an animated action sequence involved.
+\begin{lstlisting}
+  // Move the sprite right
+  for (int i = 0; i < 8; ++i) {
+    Command c         = action_binding_[MoveRight];
+    c.location_       = c.Clause;
+    c.var_assignment_ = current_variable_;
+    c.current_clause_ = target_clause;
+    c.has_action_     = false;
+    commands.Push(c);
+  }
+\end{lstlisting}
+
+After the location-map has been generated, the command-queue is passed to
+\texttt{InitStartQueue}, which provides the start sequence. This then passes the
+command-queue to the Warp Gadget, then to the Clause gadget. If there are no
+clauses left, the player-sprite proceeds to the warp exit and to the next
+variable. The process starts again.
+
+Where there are no more variables to solve, the warp exit will take the player-
+sprite to the checkin gadget, where the checkout process commences. After
+clearing the checkout, the player proceeds to the finish gadget and the instance
+is solved.
+
+\subsubsection{Making an assignment decision}
+
+The gadgets in the game require a decision to be made regarding the assignment
+of variables. This means that the player-sprite may choose left for a TRUE
+assignment or right for a FALSE assignment. This is achieved by assessing the
+current-variable member and initiated the correct sequence which has been
+predefined.
+
+
+\subsection{Positioning the sprite in the level}
+
+Having established the correct commands for the appropriate game gadgets, the
+player-manager class returns the command-queue to the level instance.The level
+instance will take current command and, depending on the Location enumeration,
+positions the sprite in the appropriate position as well as trigger and world
+object events.
+
+The positioning of the player sprite is achieved through its update
+
+\subsubsection{Travelling between the warp and the clause gadgets}
+
+The player-sprite has a location member variable that is updated upon every
+move. Where the command requires that the player warp to the clause gadget, the
+level instance keeps the location prior to the warp. The player-sprite is then
+warped to the clause gadget and the actions are performed there. Once that
+action is performed the player return through the pipe and is re-assigned the
+prior jump position, ensuring that the player-sprite is returned appropriately
+and the game actions adhere to the game mechanics and logic.
+
+\section{Chapter summary}
+
+The player AI utilise the SAT instance's specifics as well as the definitions of
+the variable gadgets in order to determine the appropriate course of action.
+This is achieved through the command structure which passes the necessary
+information between the level instance and the player-manager class.
 
 % ------------------------------------------------------------------------------
-% Game Engine Design
+% ANALYSIS
 % ------------------------------------------------------------------------------
 
-\chapter{Game Engine Design}
+\chapter{Implementation and evaluation}
 
-\section{Design considerations}
+\epigraph{`` One of the great mistakes is to judge policies and programs by
+their intentions rather than their results''}{Milton Friedman}
 
-\subsection{Development language and libraries}
+To this point, the discussion has focused on the theoretical background of
+computational complexity of video game, followed by the design considerations
+and model of the game engine.  This chapter therefore provides analysis of the
+analysis of the functionality of the developed game engine and
+evaluates the results against the project's success criteria.
 
-The game was developed in C++ using the C++11 standard. The C++ language was
-selected because this is the same language used in the source code for SAT
-solvers. This ensures that the code base can easily be adapted into the game
-engine without the need to develop an API or wrapper, which would have detracted
-from time developing the game engine.
+\section{Establishing assessment criteria}
 
-The game engine uses the Simple and Fast Media Library (SFML) for handling
-graphics and player input. There are a number of libraries which can provide this
-functionality. The primary criteria in selecting a suitable multimedia library
-was based on ease of use and ease of integration.
+Within a project that is strongly focused on implementation, the assessment of
+whether the development has been successful lay within the domain of software
+evaluation methodology. To this end, there exist a number of evaluation
+methodologies for software development \cite{unterkalmsteiner2012evaluation}.
+These range from a series of tests to examine the qualitative merit of
+functionality and ability to meet specification.
 
-The candidate libraries were SFML, SDL, and Allegro, as these were the most
-popular choices for C++ game development. The decision to use SFML was based on
-the use of C++. SFML distinguishes itself from the other two libraires in that
-it is written for C++ and thereby provinding a way to use the multimedia library
-in an object-orientated fashion. Another strong choice was SDL. However, SDL
-lacks the support for object-orientation that SFML provides. At any rate, the
-multimedia library is not of any significant impact or consequence.
+The assessment methodology employed in this project has been to determine
+whether the software produced met its original goals. These goals have been
+consistently reiterated since the inception of the project and formalised as the
+design specification.
 
-The game was developed on Ubuntu Linux 15.04 with SPECS. It was compiled using
-LLVM/Clang (clang++). There is no appreciable difference when using the GNU
-Compiler Collection (gcc). Instructions to switch the makefile to gcc rather
-than clang++ are contained in the wiki as well as the comments within the
-project's makefile.
+\subsection{Evaluation criteria for this project}
 
-The coding style used for the development was the Google C++ style guide
-\cite{googlecpp}. The intention is that this research will continue to be
-developed after this project's completion and  that future work may be continued
-on the same code base. This particular style guide was chosen because it is
-widely available and provides good references.
+At the start of the project's development cycle, an evaluation criteria was
+developed in order to track as objectively as possible whether the project had
+met its goals. This had been established prior to any code being written as it
+objectively signalled when progress had or had not been made.
 
-\section{Basic game engine mechanics}
+The success of the project is comprised of the following elements:
 
-\subsection{Game loop}
+\begin{itemize}
+\item the game engine should be able to take an arbitrary SAT instance and 
+transform it into a video game level modelled on a framework establishing the 
+NP-completeness of a 2D platform video game;
+\item the game engine should incorporate a SAT solver in order to solve the SAT instance;
+\item if a satisfying assignment to the instance exists, then the player AI should
+identify the correct path to solve the level. 
+\item the game engine should not experience catastrophic failures in its content generation
+\item the game engine should be extensible and adaptable to other SAT instances and complexity classes.
+\end{itemize}
 
-\subsection{Player movement}
 
-\subsection{Collision management}
+\section{Generating a graphical solution display}
 
-\section{Level generation}
+After the initial game loop and drawing mechanisms were achieved, the project's
+attention turned to SAT solver integration and graphical display. To examine
+differing approaches, prototypes were devised and tested. In the Graphical SAT
+experiment, a simplified game loop was developed. 
 
-The levels are drawn using a tile-based method. There are a number of methods
-that could be used
+The zChaff library was then linked to the game loop and variable objects were
+created. The variable object class contained a shape and an assignment value.
+The zchaff manager class would have a sequence container (i.e.
+\texttt{std::vector}) which would load the variable objects in the manner in
+which they appeared in the formula. 
 
-\section{SAT solver integration}
+The game engine would then step through each assignment and change the colours
+of the gray circles to green (for TRUE) or red (for FALSE). When a clause was
+satisfied, the grey circle near the clause would light up green. Once all
+clauses evaluated to true, the game engine would declare the formula satisfiable
+on screen, as illustrated in Figure~\ref{graphicalSAT} below.
 
-The Game State Manager class has a private member called
-\texttt{SAT\textunderscore Manager\textunderscore} which integrates the zchaff
-SAT solver into the game engine.
+\begin{figure}[ht!]
 
-\subsection{Reading in the CNF file}
+  \centering     \includegraphics[scale=0.4]{graphicalSAT}   \caption{An
+experiment in displaying the satisfiabilty solution to a SAT instance. The top
+screenshot illustrates the unassigned variables within the formula towards the
+top and the clause representations on the bottom. The bottom screenshot shows
+the correct assignment in the terminal and the corresponding graphical
+representation.}   \label{graphicalSAT} \end{figure}
 
-\subsection{Accessing variables and clauses}
+\subsection{Graphical SAT experimental outcomes}
 
-\section{Project wiki and references}
+This experiment had implications for both the level generation and the player
+AI. The level generation module benefitted from understanding how the zchaff
+manager could be extended to read in the correct values and store these in what
+would become the variable-manager. Work from this point went on to the MapChunk
+and MapChunkManager classes (described in the next section).
 
-A project wiki has acted as a journal and reference guide for the game engine's
-development. The rationale behind keeping this documentation was to allow for
-future development work to be carried out on the game engine.
+\subsubsection{Non-scalability of drawing methodology}
 
-\section{Unit testing}
+The display is drawn to the screen in a sequential manner through a simple do-
+while loop. This drawing implementation was appropriate for this rudimentary,
+experimental prototype, but was identified as not being scalable to the game
+engine. This is because the do-while loop requires constant calls to the draw()
+function which intereferes with the game loop design and fixed time steps (see
+Chapter X).
 
-The game engine source code also includes a testing framework for the various
-modules. In this project, googletest, Google's C++ Testing Framework was used.
+\section{Level generation verification and testing}
+
+Having successfully been able to sequence the satisfying assignment and display
+to screen, the next development focus was the MapChunk and the MapChunkManager.
+The specifics of these classes and their functionality are detailed in Chpater
+LEVEL GENERATION.
+
+To test and assert that the specific map chunks were (a) being correcty loaded
+and (b) correctly called, were tested in the MapChunkTest.cpp file. The test
+loads mapchunk strings into a 2D vector. These are then tested against those
+read into game engine. 
+
+The test checks if there is an equality of values in the test vectors and those
+of the game engine. If the so, the value should return true. If such equivalence
+is not present or there is an error, the returned value should be false.
+
+This form of testing allowed for the verification that the MapChunkManager was
+correctly perfoming its role and allowed for further implmentation in level
+generation and player AI development.
+
+//////SOME KIND OF GRAPHIC /////
+
+\section{Graphical element positioning and offsets}
+
+A consistent challenge in the implementation of the game engine software was
+managing the positioning off sets in an extendable and flexible level
+generation. Where a world object (e.g. koopa shell, brick, or flag) needed to be drawn
+
+The tests for this occurance where assertions within the code (i.e. expecting
+certain elements to be drawn in certain places) and visual inspection. As
+mentioned in previous sections, positions of objects are provided in as float
+values in SFML so as to provide precision. However, the pixels are drawn in
+integer values. The rounding of the values is done internally within SFML, so if
+certain offsets are desired, these have to be provided before being drawn to
+screen.
+
+\section{Verification of formula satisfiability}
+
+One of the most crucial features of the. To achieve this, the satifying
+assignement of the formula is provided by zchaff, this value is then checked
+that it is consistent throughout the game engine and the output is able to be
+visually inspected in the terminal.
+
+\section{Animations}
+
+Animations for the sprite and events had also been addressed during the
+implementation and assessment of the game engine. The game engine includes
+modest and simple animations in order to display in a more relatable manner to
+audiences. This aspect of the game engine was considered a lower priority, as
+animations and their implementation were not explicit research goals, being
+incidental to the creation of a game engine. To this end, animations were
+addressed insofar as being a means to faciliate visualisation.
+
+The player sprite has a basic walk cycle that is composed of three frames. The
+play in sequence when the moving left or moving right Boolean flags are set in
+the Mario class. When there is no movement, the cycle resets to the standing
+frame.
+
+To move in the opposite direction, the frames are mirrored so that the sprite
+now faces the opposite direction. This is beneficial in that 
+
+During the development an Animation class was added, based on tutorial material
+available \cite{Haller:2013:SGD:2556030}. This could allow for further
+extensibility by adding more animated Koopas or other eneimies. 
+
+
+\section{Implementation analysis summary}
+
+As with any software implementation, the game engine development was beset by
+challenges which spanned trivial to fundamental in nature. This chapter serves
+as a highlight of the most significant milestones and issues that characterised
+the development of the implemetnation. The nature and evaluation of the
+obstacles and problems challenging the success of the project are further
+elaborated upon in the following chapter.
 
 % ------------------------------------------------------------------------------
 % EVALUATION
 % ------------------------------------------------------------------------------
 
-\chapter{Evaluation}
+% \chapter{Evaluation}
+
+% \epigraph{``QUOTE.''}{Someone}
+
+% \section{Overview}
+
+% This chapter examines and evaluates the implementation of the game engine
+% software as well as explore alternative methodologies and approaches to the
+% challenges that had been identified.
+
+% \section{Evaluating implmentation and the challenges to implementation}
+
+% There exist a number of evaluation methodologies for software development
+% \cite{unterkalmsteiner2012evaluation}. These range from a series of tests to
+% examine the qualitative merit of functionality and ability to meet
+% specification. 
+
+% \subsection{Evaluation criteria}
+% The success of the project is comprised of the following elements:
+
+% \begin{itemize}
+% \item the game engine should be able to take an arbitrary SAT instance and 
+% transform it into a video game level modelled on a framework establishing the 
+% NP-completeness of a 2D platform video game;
+% \item the game engine should incorporate a SAT solver in order to solve the SAT instance;
+% \item if a satisfying assignment to the instance exists, then the player AI should
+% identify the correct path to solve the level. 
+% \item the game engine should not experience catastrophic failures in its content generation
+% \item the game engine should be extensible and adaptable to other SAT instances and complexity classes.
+% \end{itemize}
+
+% The following section will assess the extent the project has met its objectives.
+
+\subsection{Assessment against evaluation criteria}
+
+
+
+
+\begin{center}
+\begin{tabular}{ |p{5.5cm}|p{3cm}|p{5.5cm}|  }
+ \hline
+ \multicolumn{3}{|c|}{Game Engine Evaluation} \\
+ \hline
+ Assessment Goal & Completed & Notes \\
+ \hline
+ Integrate suitable SAT solver  & Yes &   \\ \hline
+ Create Game Loop with fixed time steps &   Yes  &    \\ \hline
+ Successfully read in DIMACS CNF file format & Yes &  \\ \hline
+ Generate NP-complete level based on SAT instance  & Yes & \\ \hline
+ Solve NP-complete level with adaptable player AI &   Yes &   \\ \hline
+ Identify the location of literals within clauses for AI & Yes  &    \\ \hline
+ Capture user input for arbitrary SAT instnace & AO  & AGO \\ \hline
+\end{tabular}
+\end{center}
+
+
+\subsection{Identifying solutions}
+
+\section{Alternative approaches to content generation and player AI}
+
+As with any software development cycle, a number of alternatives to the selected
+methodology are available and may have been better.
+
+\subsection{Using Binary Decision Diagrams}
+
+The project's implementation has relied on a SAT solver in order to provide a
+solution to the SAT instance. However, this is not the only means by which to
+solve the instance. Binary decision diagrams are data structures that represent
+Boolean functions.
+
+/////wiki ///
+
+s a data structure that is used to represent a Boolean function. On a more abstract level, BDDs can be considered as a compressed representation of sets or relations. 
+
+///
+
+This could be an alternative means upon which to base the player AI. Howver, there do exist certain issues. The use of BDDs is somewhat limited as the size of at run-time may increase a lot. 
+
+///// Unfortunately, their use is
+rather limited due to the size explosion problem. It has been
+observed that so long as the BDD size can be contained, solutions
+can be found quickly, often with predictable run-times
+[6] [7] [23].
+////
+
+
+In literature, a SAT solver may be used or a BDD but not both. However, there
+are efforts to combine the two.
+
+\subsection{Alternative procedural content generation approaches}
+
+The approach taken in this
+
+Establishing a scripting language would provide even further granularity. 
+
+Sorenson \textit{et al.} \@\cite{sorenson2011generic} proposed that content
+generation should  levels that is founded on an explicit model of the
+relationship between challenge and fun. The author wanted to increase the fun
+level of player and the challenges should not bore the human. Therefore he
+modelled a fitness function and levels were designed for \textit{Super Mario
+Bros} with high accuracy. The technique insures that human will generate certain
+portion by hand and then the model used will evaluate the content generated –
+this evaluation is similar to the evaluation of automatic content. The levels
+will be a mixture of straightforward and difficult portion like the rhythm-group
+structure of high and low nodes, giving games more interesting levels.
+
+Mourato \textit{et al.} \cite{mourato2011automatic} proposed using a genetic
+algorithm in order to generate game content for human-players. A genetic
+algorithm is a search heuristic that generates approximations through selection
+and mutation \cite{srinivas1994genetic}. The authors achieved modest but
+positive results including increased level variety and ability to add necessary
+and optional content correctly. This method is not entirely suitable for the
+current research project as the authors' goals has been to
+
+Smith \textit{et al.} \@\cite{smith2011tanagra} presented a design tool
+(TANAGRA) that merged the input from the game designer and the PCG algorithm to
+produce levels for a 2D platform game. The technique allowed the designer to
+establishes rules and constraints to specify specific content, but allows the
+algorithm to decide that which is unspecified. The authors content that this
+provides for more diversity in level design as well as enhanced entertainment
+value.
+
+A rhythm-based technique is common approach to automatic level generation.
+Mawhorter and Mateas \cite{mawhorter2010procedural} devised the `occupancy
+regulated extension' algorithm which stitches together samples (referred to
+`chunks') authored by human developers into a playable level. This method
+described here could be combined with. This is further elaborated upon in the
+next chapter on design considerations.
 
 % \section{Use of C++}
 
@@ -1777,178 +2168,21 @@ modules. In this project, googletest, Google's C++ Testing Framework was used.
 % FUTURE WORK
 % ------------------------------------------------------------------------------
 
-\chapter{Future Work}
+% \chapter{Future Work}
 
-\section{Constrained level size}
+% \section{Constrained level size}
 
-% A level that is 14 x 14 tiles as the original SMB was.
+% As mentioned in Chapter X, the  level that is 14 x 14 tiles as the original SMB was.
 
-\section{Additional complexity classes}
+% \section{Additional complexity classes}
 
-\subsection{PSPACE}
+% \subsubsection{PSPACE}
 
-\subsection{EXSPACE}
+% \subsubsection{EXSPACE}
 
-\section{Web Deployment}
-=======
-\chapter{Design Considerations}
-
-\epigraph{``Design is so simple, that's why it is so complicated.''}{Paul Rand}
-
-\section{Overview}
-
-The purpose of this penultimate chapter is to highlight the preliminary design
-considerations and features of the project. The research project being
-undertaken is 66\% Type I (software/hardware development) and therefore it is
-important to address how the discussion in the previous sections affects the
-implementation component. These considerations will form the basis of the
-initial work plan of the project.
-
-This chapter will first explain the research project's design goals. The
-discussion will then explore the features that have been selected from the
-current research review, highlighting any justifications for design choices.
-Finally, the chapter will identify the next steps.
-
-\section{Initial software design}
-
-\subsection{Design goals}
-
-Recalling the project aims in Chapter 1, the software being developed will
-convert a Boolean formula into a playable 2D platform level. As previously
-mentioned, certain propositional logic formulae are known to be NP-complete.
-This level can then be solved by a SAT solver. The decisions of the SAT solver
-will be converted into moves within the game (i.e. the player character will
-move and address the obstacles). The outcome of this is to allow the
-visualisation of computational complexity, which may have a teaching impact. For
-this to work, the generated levels must look and play as familiar levels for
-students and users of video games.
-
-The Figure~\ref{project_design} below illustrates the components of the software and how these integrate to achieve the
-research aims.
+% \section{Web Deployment}
 
 
-\begin{figure}[h!]
-
-  \centering
-    \includegraphics[scale=0.3]{diagram(2)}
-  \caption{Illustrative model for project design. This demonstrates how the modules are grouped and work with the SAT solver to produce the visualisation through a video game medium. Game image adapted from \cite{Aloupis2012}.}
-  \label{project_design}
-\end{figure}
-
-The `game engine' is comprised of several modules, most significant of which are
-the level generator, the SAT solver interface, and the cluster of models
-managing the graphics and inputs. Furthermore, the game engine should also allow
-for a human player to attempt the level.
-
-\subsection{Level generation}
-
-Level generation is a vital component of the research project; the software
-should take an input and convert the SAT instance into which is NP-complete
-(e.g. 3SAT). As the `game' being created is generic, there may be opportunity to
-incorporate elements which classify the level as PSPACE . Using the framework
-provided by Aloupis \textit{et al}. \cite{Aloupis2012}, the computationally hard
-level may be created through deterministic procedural content generation,
-utilising either the `chunk-based' approach proposed by Mawhorter and Mateas
-\cite{mawhorter2010procedural} or the `rhythm'-based approach of Compton and
-Mateas \cite{compton2006procedural} and Smith \textit{et al}.
-\cite{Smith:2009:RLG:1536513.1536548}. This allows for the gadgets to be pre-
-defined and ensures level-generation of a consistent quality. The constraints
-and rules should be quality controlled through the generate- and- test
-methodology.
-
-\subsubsection{Generating large levels}
-
-The aim of the research project is to also have large levels that scale to the
-size of the input formula. There are efficiency and quality trade-offs with
-heuristics, such as the genetic algorithm \cite{mourato2011automatic}. This will
-be examined during the implementation of the project and tested for performance
-and efficiency.
-
-\subsection{Graphical representation}
-
-One aim of the research project is to generate large scale levels. These levels
-would be many magnitude larger than what an average platformer would contain.
-Therefore, a view adjustment module (or `zooming' module) would be necessary to
-address this in order to help with the visualisation process.
-
-
-\subsection{Interfacing with the SAT solver}
-
-The game engine will have to interface with the chosen SAT solver in order to
-interpret its decisions as player character movements. The concept is to be able
-to visualise how decision- branching operates. The decision trail would be
-colour coded so that a user could see how the solver operated and the steps that
-had been taken.There is scope to allow for multiple SAT solvers to attempt the
-same SAT instance (as depicted in the Figure~\ref{model_project} below). The
-feasibility will be assessed during the development of the software.
-
-\begin{figure}[h!]
-
-  \centering
-    \includegraphics[scale=0.3]{running}
-  \caption{A mock-up of two sat-solvers (represented by the two player characters
-) simultaneously solving the same level. Image adapted from \cite{Aloupis2012}.}
-  \label{model_project}
-\end{figure}
-
-
-\subsection{Human playability}
-
-There is scope for the software to incorporate an option for playability by
-human users. This would allow for future research in whether the game engine
-produced from this research project could be useful as a teaching tool. This
-question and its implications would be the subject of future work beyond the
-scope of the project. The goal however is to create a tool for such
-investigation and therefore this feature will be included in the initial model
-of the project.
-
-
-\section{Use of existing projects}
-
-There are existing open-source 2D platform games available. While the design
-concept is to create a bespoke software engine that would be able to meet the
-research aims, these games can be utilised as references and models for
-implementing features for the game engine during the development of the research
-project. The two most relevant are listed and considered below.
-
-\subsection{\textit{Secret Maryo Chronicles}}
-
-The \textit{Secret Maryo Chronicles} project is an open-source game that models
-itself very closely on the Super Mario Bros franchise \cite{supermaryo}. While,
-there is no longer any active development, the game may act as a reference for
-generating a game engine.
-
-\subsection{\textit{Nikki and the Robots}}
-
-\textit{Nikki and the Robots} is an open-source 2D platform game written in
-Haskell \cite{nikki}. The game utilises a level generation function that would
-be of performance interest to the research project. However, as the code is in
-Haskell, this represents a steep learning curve if one is not familiar with the
-language. This is addressed in more detail in the below section.
-
-
-\section{Programming language considerations}
-
-As the research involves a sizeable portion of implementation, it is important
-to include.
-
-A very significant portion of video games have been and are written in the C/C++
-languages for not only historical reasons but also due to performance
-optimisation and a rich number of application program interfaces (APIs)
-\cite{Gregory:2009}. For the purposes of the research project, the language most
-likely to be used is C++ for the reasons already expressed. Furthermore, as all
-of the listed DPLL-based SAT solvers in Section are written in C or C++ for
-efficiency reasons \cite{zhang2002quest}. Therefore, using C++ should allow for
-easier integration and interoperability.
-
-\section{Design summary}
-
-The design incorporates the entirety of the research review's scope, from
-identifying complexity classes to solving Boolean satisfiability instances and
-generating visual game levels based on those instances. Once implemented, the
-game engine will be able to take a SAT instance as an input and generate a level
-in a deterministic, rhythm or chunk based approach. This may naturally change
-during the course of the project as development challenges arise.
 
 % ------------------------------------------------------------------------------
 % CHP 6 --- SUMMARY AND CONCLUSIONS
@@ -1956,54 +2190,53 @@ during the course of the project as development challenges arise.
 
 \chapter{Conclusions and future work}
 
-\epigraph{``What we call the beginning is often the end. And to make an end is
-to make a beginning. The end is where we start from.''}{TS Eliot}
+\epigraph{``QUOTE.''}{Someone}
 
 \section{Overview}
 
-The research review has established a broad theoretical basis from which to
-begin the modelling developing a viable design of the game engine, as
-illustrated in the previous chapter. As a consequence, the implementation and
-development of the game engine design will now be able begin its preliminary
-stages. To this end, the outcome of the research review has been successful and
-its scope complete.
+% The research review has established a broad theoretical basis from which to
+% begin the modelling developing a viable design of the game engine, as
+% illustrated in the previous chapter. As a consequence, the implementation and
+% development of the game engine design will now be able begin its preliminary
+% stages. To this end, the outcome of the research review has been successful and
+% its scope complete.
 
-This however does not mean that the review of literature has been completed for
-the entirety of the research project. The current review will continue to be
-augmented and developed in parallel with the development of the game engine
-software implementation. Already this review has identified new areas of
-investigation in order to complete the research aims of the project. This is
-contained in the future work section below.
+% This however does not mean that the review of literature has been completed for
+% the entirety of the research project. The current review will continue to be
+% augmented and developed in parallel with the development of the game engine
+% software implementation. Already this review has identified new areas of
+% investigation in order to complete the research aims of the project. This is
+% contained in the future work section below.
 
-\subsection{Future work}
+\section{Future work}
 
-\subsubsection{Selection of appropriate SAT features}
+% \subsubsection{Selection of appropriate SAT features}
 
-During the implementation, further review and investigation will be conducted
-into the heuristic selection features of SAT solvers. This will be done in order
-to select appropriate solvers which can efficiently interface with the software
-in order to provide for successful visualisation of complexity problems.
+% During the implementation, further review and investigation will be conducted
+% into the heuristic selection features of SAT solvers. This will be done in order
+% to select appropriate solvers which can efficiently interface with the software
+% in order to provide for successful visualisation of complexity problems.
 
-\subsubsection{Ability to run multiple SAT solvers simultaneously}
+% \subsubsection{Ability to run multiple SAT solvers simultaneously}
 
-An idea that had surfaced was the concept of being able to run two different SAT
-solvers (e.g. zChaff and MiniSAT) simultaneously during a problem instance. The
-literature was not clear on the subject and as such requires further
-investigation and experiment to evaluate whether this could constitute a feature
-of the game engine.
+% An idea that had surfaced was the concept of being able to run two different SAT
+% solvers (e.g. zChaff and MiniSAT) simultaneously during a problem instance. The
+% literature was not clear on the subject and as such requires further
+% investigation and experiment to evaluate whether this could constitute a feature
+% of the game engine.
 
-\subsubsection{Experiments with level generation}
+% \subsubsection{Experiments with level generation}
 
-A greater investigation will be needed once the content generation techniques
-are developed and utilised. At this the current stage, it is not possible to
-know what sort of challenges may arise during implementation, as research has
-been solely based on heuristic models.
+% A greater investigation will be needed once the content generation techniques
+% are developed and utilised. At this the current stage, it is not possible to
+% know what sort of challenges may arise during implementation, as research has
+% been solely based on heuristic models.
 
-\subsubsection{Identification of further complexity classes}
+% \subsubsection{Identification of further complexity classes}
 
-After the successful integration of software features, the literature review
-will benefit from identifying other possible classes of complexity that could be
-tested within the developed software.
+% After the successful integration of software features, the literature review
+% will benefit from identifying other possible classes of complexity that could be
+% tested within the developed software.
 
 
 % ------------------------------------------------------------------------------

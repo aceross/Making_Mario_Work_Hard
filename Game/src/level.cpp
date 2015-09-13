@@ -151,7 +151,8 @@ void Level::AddWorldObjects() {
 
   // Clause gadgets(27 tiles) + CheckIn(8 tiles) + Position in finish(11 tiles)
   //
-  int flag_x = (cl * (TILE_SIZE * 27)) + (TILE_SIZE * 8) + (TILE_SIZE * 11) + 6 + (TILE_SIZE * (cl-1));
+  int flag_x = (cl * (TILE_SIZE * 27)) + (TILE_SIZE * 8) + (TILE_SIZE * 11) +
+                6 + (TILE_SIZE * (cl-1));
   int flag_y = (vars * (TILE_SIZE * 13)) + (TILE_SIZE * 10) + 13;
   flag_.setPosition(flag_x, flag_y);
 
@@ -197,7 +198,8 @@ void Level::AddWorldObjects() {
   sf::Sprite final_brick;
   final_brick.setTexture(brick_texture_);
   final_brick.setTextureRect(sf::IntRect(16, 0, 16, 16));
-  sf::Vector2f final_position((432 * cl) + 224 + (TILE_SIZE * cl), (208  * vars) + (TILE_SIZE * 15));
+  sf::Vector2f final_position((432 * cl) + 224 + (TILE_SIZE * cl),
+                              (208  * vars) + (TILE_SIZE * 15));
   final_brick.setPosition(final_position);
   check_in_bricks_.push_back(final_brick);
 }
@@ -263,7 +265,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       if (!in_variable_gadget_) {
         in_warp_gadget_   = false;
         in_clause_gadget_ = false;
-        mario_position_ = player_mario_->getPosition();
+        mario_position_   = player_mario_->getPosition();
         sf::Vector2f variable_adjustment(110, 223);
         mario_position_.x  = 110;
         if (abs(current_var) > 1 ) {
@@ -271,7 +273,7 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
           // as one variable.
           variable_adjustment.y = (floor(variable_adjustment.y *
                                    (abs(current_var) - 1))) -
-                                   (16 * ((abs(current_var)-2)));
+                                   (TILE_SIZE * ((abs(current_var)-2)));
         }
         mario_position_.y  = variable_adjustment.y;
         player_mario_->setPosition(mario_position_);
@@ -307,9 +309,9 @@ void Level::AdaptPlayerPosition(unsigned int location, int current_var,
       break;
     case CheckIn:
       if (!in_check_in_) {
-        int vars = variable_manager_.GetNumVariables();
+        int vars            = variable_manager_.GetNumVariables();
         in_variable_gadget_ = false;
-        mario_position_ = player_mario_->getPosition();
+        mario_position_     = player_mario_->getPosition();
         sf::Vector2f check_in_adjustment(TILE_SIZE * 2,
                                         (208  * vars) + 15 * TILE_SIZE);
         player_mario_->setPosition(check_in_adjustment);
