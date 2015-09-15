@@ -96,21 +96,12 @@ void PlayerManager::SetAssignmentLocation(int current_var) {
     for (int j = 0; j < num_vars; ++j) {
       int literal = var_manager_.clauses_[i][j];
       if (current_var == literal) {
-        // std::cout << "Current Literal : "  << literal << std::endl;
-        // std::cout << "Current Clause  : "  << i+ 1 << std::endl;
         var_index.push_back(i);
-        // std::cout << "...Pushing Clause" << std::endl;
       }
     }
   }
 
   location_map_.push_back(var_index);
-  // std::cout << "Push to Map" << std::endl;
-  // std::cout << std::endl;
-}
-
-void PlayerManager::SetTileMap(TileMap tm) {
-  tile_map_ = tm;
 }
 
 void PlayerManager::HandleEvent(const sf::Event& event,

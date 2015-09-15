@@ -39,9 +39,8 @@ bool GameState::HandleEvent(const sf::Event &event) {
   // Enter/Return pressed, solve level instance
   if (event.type == sf::Event::KeyPressed &&
                     event.key.code == sf::Keyboard::Return) {
-    player_manager_.SetTileMap(level_.GetTileMap());
     player_manager_.SetVariableManager(level_.GetVarManager());
-    std::cout << "TileMap and VarManager set in player_manager" << std::endl;
+    std::cout << "VarManager set in player_manager" << std::endl;
 
     // Set Solition queue
     CommandQueue& commands = level_.GetCommandQueue();

@@ -4,7 +4,7 @@
 
 #include "../../include/tile_map.hpp"
 
-bool compareChunkMaps(std::vector< std::vector<std::string> > Chunk1,
+bool CompareChunkMaps(std::vector< std::vector<std::string> > Chunk1,
                       std::vector< std::vector<std::string> > Chunk2);
 
 void Print(std::vector< std::vector<std::string> >, std::vector< std::vector<std::string> >);
@@ -111,7 +111,7 @@ int main() {
   outerb.push_back(innerendb);
 
   t.CreateChunkMap(2,4);
-  if (compareChunkMaps(t.test_map_, outerb)) {
+  if (CompareChunkMaps(t.test_map_, outerb)) {
     std::cout << "Test 2 Passed" << std::endl;
   } else {
     std::cout << "Test 2 (2 vars and 4 clauses) failed" << std::endl;
@@ -124,7 +124,7 @@ int main() {
   }
 }
 
-bool compareChunkMaps(std::vector< std::vector<std::string> > Chunk1,
+bool CompareChunkMaps(std::vector< std::vector<std::string> > Chunk1,
                       std::vector< std::vector<std::string> > Chunk2) {
   return Chunk1 == Chunk2;
 }

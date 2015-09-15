@@ -7,8 +7,6 @@
 #include <map>
 #include <queue>
 #include "command.hpp"
-#include "tile_map.hpp"
-#include "navigation_manager.hpp"
 #include "variable_manager.hpp"
 
 class CommandQueue;
@@ -39,7 +37,6 @@ class PlayerManager {
   void SetLevelStatus(LevelStatus status);
   LevelStatus GetLevelStatus() const;
 
-  void SetTileMap(TileMap tm);
   void SetSolutionQueue(CommandQueue& commands);
   void SetVariableManager(VariableManager var_manager);
 
@@ -68,9 +65,7 @@ class PlayerManager {
   std::map<Action, Command>           action_binding_;
   LevelStatus                         current_level_status_;
 
-  TileMap           tile_map_;
   VariableManager   var_manager_;
-  NavigationManager navigation_manager_;
   std::queue<int>   assigned_variables_;
   int               current_variable_;
   int               current_clause_;

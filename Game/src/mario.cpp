@@ -5,8 +5,6 @@
 
 #include <cmath>
 #include <vector>
-// #include <thread>
-// #include <chrono>
 
 #include "../include/mario.hpp"
 #include "../include/resource_manager.hpp"
@@ -25,27 +23,7 @@ Mario::Mario(Type type, const TextureHolder& textures, const FontHolder& fonts)
 , sprite_(textures.Get(Table[type].texture), Table[type].texture_rect)
 , waiting_(false)
 , move_count_(6)
-// , walking_left_(textures.Get(Textures::Mario))
-// , walking_right_(textures.Get(Textures::Mario))
-{
-  // sf::IntRect texture_rect = Table[type_].texture_rect;
-  // left_face_mario_ = sf::IntRect(192, 32, -texture_rect.width, texture_rect.height);
-  //
-  // SetWalkCycles();
-
-  // walking_left_.SetTexture(textures.Get(Textures::Mario), left_face_mario_);
-  // walking_right_.SetTexture(textures.Get(Textures::Mario), texture_rect);
-  //
-  // walking_left_.SetFrameSize(sf::Vector2i(16, 16));
-  // walking_right_.SetFrameSize(sf::Vector2i(16, 16));
-  //
-  // walking_left_.SetNumFrames(3);
-  // walking_right_.SetNumFrames(3);
-  //
-  // walking_left_.SetDuration(sf::seconds(1));
-  // walking_right_.SetDuration(sf::seconds(1));
-
-}
+{}
 
 void Mario::SetWalkCycles() {
   sf::IntRect texture_rect = Table[type_].texture_rect;
@@ -90,9 +68,7 @@ void Mario::DrawCurrent(sf::RenderTarget &target,
 }
 
 void Mario::UpdateCurrent(sf::Time delta_time, CommandQueue& commands) {
-  // if (moving_left_ || moving_right_) {
   UpdateAnimation();
-  // }
 }
 
 unsigned int Mario::GetCategory() const {
@@ -119,8 +95,6 @@ void Mario::UpdateAnimation() {
       texture_rect  = sf::IntRect(192, 32 , -texture_rect.width, texture_rect.height);
     }
     if (moving_left_) {
-      // left_face_mario_.left -= move_count_ * left_face_mario_.width;
-      // --move_count_;
       texture_rect  = sf::IntRect(192, 32 , -texture_rect.width, texture_rect.height);
       texture_rect.left += move_count_ * texture_rect.width;
       --move_count_;
@@ -145,9 +119,4 @@ void Mario::UpdateAnimation() {
 
   sprite_.setTextureRect(texture_rect);
   }
-}
-
-void Mario::InitialiseLevelNavigator(TileMap tm) {
-  navigator_.GetTileMap(tm);
-  std::cout << "TileMap Attained" << std::endl;
 }

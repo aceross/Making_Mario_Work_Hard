@@ -4,6 +4,9 @@
 #include <iostream>
 #include "../include/entity.hpp"
 
+// The base class for game entities
+// Able to be extended into actual game play with damage and removal functions.
+// Not all features are currently implemented.
 Entity::Entity()
 : movement_()
 , hit_points_()

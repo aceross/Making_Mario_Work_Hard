@@ -4,10 +4,13 @@
 
 #include "../include/data_table.hpp"
 #include "../include/mario.hpp"
-#include "../include/world_object.hpp"
 
 using namespace std::placeholders;
 
+// Initialises the data for the level state.
+// In a state of re-factoring - the goal is to manage all the textures and
+// character initialisations in a single table rather than iterate and clutter
+// the level state
 std::vector<PlayerData> InitialisePlayerData() {
   std::vector<PlayerData> data(Mario::TypeCount);
 

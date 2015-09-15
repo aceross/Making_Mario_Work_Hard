@@ -18,23 +18,12 @@ InputState::InputState(StateStack& stack, Context context)
   // sf::Texture& texture = context.textures_->Get(Textures::TitleScreen);
   sf::Font& font = context.fonts_->Get(Fonts::Main);
 
-  // background_sprite_.setTexture(texture);
-
-  // A simple menu demonstration
   sf::Text set_option;
   set_option.setFont(font);
   set_option.setString("Create a SAT instance");
   CentreOrigin(set_option);
   set_option.setPosition(context.window_->getView().getSize() / 2.f);
   options_.push_back(set_option);
-
-  // Select number of clauses
-  // sf::Text select_clauses_option;
-  // select_clauses_option.setFont(font);
-  // select_clauses_option.setString("Quit");
-  // CentreOrigin(select_clauses_option);
-  // select_clauses_option.setPosition(select_variables_option.getPosition() + sf::Vector2f(0.f, 30.f));
-  // options_.push_back(select_clauses_option);
 
   sf::Text restart_option;
   restart_option.setFont(font);

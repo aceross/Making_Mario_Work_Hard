@@ -4,6 +4,9 @@
 
 MapChunkManager::MapChunkManager() {}
 
+// Adds the map chunk values to the manager.
+// These values must be changed if a new sort of map is required.
+// Ensure that map values match those found in the relative files.
 void MapChunkManager::InitialiseMapChunks() {
   InitStartGadget();
   InitWarpStart();

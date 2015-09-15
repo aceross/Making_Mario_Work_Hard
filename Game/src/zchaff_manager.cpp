@@ -36,7 +36,6 @@ void ZChaffManager::ReadSATFile(std::string mapfile) {
 
   // File to be read
   std::string filename = mapfile;
-  // std::string filename = "resources/SAT_instances/3SAT_Mario_Ben.cnf";
 
   std::ifstream inp(filename, std::ios::in);
   if (!inp) {
@@ -179,6 +178,7 @@ void ZChaffManager::GetClauses() {
       } else {
         true_literal = true_literal / 2;
       }
+
       std::cout << "True literal =  " << true_literal << std::endl;
       var_manager_.clauses_[i][j] = true_literal;
       var_manager_.SetLiteralLocations(true_literal);

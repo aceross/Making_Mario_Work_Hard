@@ -12,7 +12,7 @@ StateStack::StateStack(State::Context context)
 {}
 
 void StateStack::Update(sf::Time delta_time) {
-  // Iterate from top to bottom, stop as soon as update() returns false
+  // Iterate from top to bottom, stop as soon as Update() returns false
   for (auto itr = stack_.rbegin(); itr != stack_.rend(); ++itr) {
     if (!(*itr)->Update(delta_time)) { break; }
   }
@@ -28,7 +28,7 @@ void StateStack::Draw() {
 }
 
 void StateStack::HandleEvent(const sf::Event& event) {
-  // Iterate from top to bottom, stop as soon as handleEvent() returns false
+  // Iterate from top to bottom, stop as soon as HandleEvent() returns false
   for (auto itr = stack_.rbegin(); itr != stack_.rend(); ++itr) {
     if (!(*itr)->HandleEvent(event)) { break; }
   }

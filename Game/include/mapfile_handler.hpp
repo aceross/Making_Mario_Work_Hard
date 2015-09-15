@@ -10,6 +10,7 @@ class MapfileHandler {
   MapfileHandler();
   void SetMapfile(std::string mapfile);
   std::string GetMapfile();
+
  private:
   std::string mapfile_;
 };

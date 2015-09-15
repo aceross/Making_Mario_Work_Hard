@@ -84,6 +84,7 @@ void GameStateManager::Render() {
   window_.display();
 }
 
+// Information for checking that the frame rate is optimal
 void GameStateManager::UpdateStatistics(sf::Time delta_time) {
   stats_update_time_ += delta_time;
   stats_num_frames_  += 1;

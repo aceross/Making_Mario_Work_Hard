@@ -85,14 +85,19 @@ void Level::draw() {
   target_.draw(scene_graph_);
   target_.draw(flag_);
 
+  // draw the koopa shells
   if (!koopa_list_.empty()) {
     for (const sf::Sprite& koopa : koopa_list_) {
       target_.draw(koopa);
     }
   }
+
+  // draw the bricks in the clause gadget
   for (const sf::Sprite& brick : brick_list_) {
     target_.draw(brick);
   }
+
+  // draw the bricks in the checkin and finish gadget
   for (const sf::Sprite& brick : check_in_bricks_) {
     target_.draw(brick);
   }
@@ -126,19 +131,22 @@ void Level::BuildScene() {
     scene_graph_.AttachChild(std::move(layer));
   }
 
-  // Add player sprite
+  // Initialise and add the player sprite
+  // Attach to the active scene node
   std::unique_ptr<Mario> player(new Mario(Mario::SmallMario, textures_, fonts_));
   player_mario_ = player.get();
   player_mario_->setPosition(mario_position_);
   scene_layers_[Foreground]->AttachChild(std::move(player));
 
-  // Read in the tile map
+  // Set the level generation and create the tilemap
+  // Add the tilemap to the map node
+  // Attach the mapnode to the background scene node
   tile_map_.InitialiseMap(zchaff_manager_);
   std::unique_ptr<MapNode> map_node(new MapNode());
   map_node->tile_map_.InitialiseMap(zchaff_manager_);
   scene_layers_[Background]->AttachChild(std::move(map_node));
 
-  // Add world Objects
+  // Include the necessary koopa and brick objects
   AddWorldObjects();
 }
 
@@ -150,7 +158,6 @@ void Level::AddWorldObjects() {
   flag_.setTexture(flag_texture_);
 
   // Clause gadgets(27 tiles) + CheckIn(8 tiles) + Position in finish(11 tiles)
-  //
   int flag_x = (cl * (TILE_SIZE * 27)) + (TILE_SIZE * 8) + (TILE_SIZE * 11) +
                 6 + (TILE_SIZE * (cl-1));
   int flag_y = (vars * (TILE_SIZE * 13)) + (TILE_SIZE * 10) + 13;
