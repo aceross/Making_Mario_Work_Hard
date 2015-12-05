@@ -27,9 +27,6 @@ BUILD_CMD     = LOG=$$($(CMD) 2>&1) ; if [ $$? -eq 1 ]; \
                 then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; \
 								then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
-# This makefile uses LLVM/Clang but can be changed easily to g++ :
-# * to change to g++, change CC to g++
-# * remove -lstdc++ as this is clang specific
 CC       := g++
 SRCDIR   := src
 BUILDDIR := build
